@@ -1,0 +1,33 @@
+{% block two_columns %}
+
+    {% if ( data ) %}
+        <section id="p4bks_two_columns_container" class="shortcode-two-columns">
+            <p>
+                {% if ( data['title_1'] ) %}
+                    <h2>{{ data['title_1']|e('html') }}</h2>
+                {% endif %}
+                {% if ( data['description_1'] ) %}
+                    {{ data['description_1'] }}
+                {% endif %}
+                <br />
+                {% if ( data['button_text_1'] and data['button_text_1'] ) %}
+                    <a class="btn" href="{{ data['button_link_1']|e('html_attr') }}">{{ data['button_text_1']|e('html') }}</a>
+                {% endif %}
+            </p>
+            <p>
+                {% if ( data['title_2'] ) %}
+                    <h1>{{ data['title_2']|e('html') }}</h1>
+                {% endif %}
+                {% if ( data['description_2'] ) %}
+                    {{ data['description_2'] }}
+                {% endif %}
+                <br />
+                {% if ( data['button_text_2'] and data['button_text_2'] ) %}
+                    <a class="btn" href="{{ data['button_link_2']|e('html_attr') }}">{{ data['button_text_2']|e('html') }}</a>
+                {% endif %}
+            </p>
+        </section>
+    {% endif %}
+    <div class="clear"></div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% block settings_content %}
+
+    <div id="settings_div" class="wrap">
+        <h2>{{ __( 'Settings', domain ) }}</h2>
+    </div>
+
+    {{ fn( 'settings_errors' ) }}
+
+    <form id="p4bks_main_settings_form" name="p4bks_main_settings_form" method="post" action="options.php"> {# ../../../../wp-admin/options.php #}
+
+        {{ fn( 'settings_fields', 'p4bks_main_settings_group' ) }}
+        {{ fn( 'do_settings_sections', 'p4bks_main_settings_group' ) }}
+
+        <br /><br />
+        <h3>{{ __( 'Enable/disable blocks', domain ) }}</h3>
+        <table class="form-table">
+            <tr valign="top">
+                <th>{{ __( 'Language', domain ) }}:</th>
+                <td>
+                    <select id="p4bks_lang" name="p4bks_main_settings[p4bks_lang]">
+                        <option selected disabled>- {{ __( 'Select Language', domain ) }} -</option>
+                        {% for key, language in available_languages %}
+                            {% if key == settings.p4bks_lang %}
+                                <option value="{{ key|e('html_attr') }}" selected>{{ language|e('html') }}</option>
+                            {% else %}
+                                <option value="{{ key|e('html_attr') }}">{{ language|e('html') }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th>{{ __( 'Header', domain ) }}</th>
+                <td>
+                    {% if ( settings.p4bks_block_header|e('html_attr') ) %}
+                        {% set checked = 'checked' %}
+                    {% else %}
+                        {% set checked = '' %}
+                    {% endif %}
+                    <input id="p4bks_block_header" type="checkbox" name="p4bks_main_settings[p4bks_block_header]" value="1" {{ checked }} />
+                </td>
+            </tr>
+            <tr valign="top">
+                <th>{{ __( 'Two Columns', domain ) }}</th>
+                <td>
+                    {% if ( settings.p4bks_block_two_column|e('html_attr') ) %}
+                        {% set checked = 'checked' %}
+                    {% else %}
+                        {% set checked = '' %}
+                    {% endif %}
+                    <input id="p4bks_block_two_column" type="checkbox" name="p4bks_main_settings[p4bks_block_two_column]" value="1" {{ checked }} />
+                </td>
+            </tr>
+        </table>
+        {{ fn( 'submit_button', __( 'Save Changes', domain ), 'primary', 'p4bks_main_settings_save_button' ) }}
+    </form>
+    <div class="clear"></div>
+
+{% endblock %}

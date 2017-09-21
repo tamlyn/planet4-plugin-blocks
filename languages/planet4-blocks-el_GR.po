@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Greenpeace International
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-08 05:57+0300\n"
+"PO-Revision-Date: 2017-08-08 06:07+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Eazy Po 0.9.5.3\n"
+
+msgid "Plugin Requirements Error!"
+msgstr "Σφάλμα απαιτήσεων!"
+
+msgid " requires a newer version of the following plugin."
+msgstr "απαιτεί μια νεότερη έκδοση του παρακάτω plugin."
+
+msgid "Minimum required version of "
+msgstr "Η ελάχιστη απαιτούμενη έκδοση του"
+
+msgid "Installed version of "
+msgstr "Η εγκατεστημένη έκδοση του"
+
+msgid " requires a newer version of PHP."
+msgstr "απαιτεί νεότερη έκδοση της PHP."
+
+msgid "Minimum required version of PHP: "
+msgstr "Η ελάχιστη έκδοση της PHP που απαιτείται είναι: "
+
+msgid "Running version of PHP: "
+msgstr "Η τρέχουσα έκδοση της PHP είναι:"
+
+msgid "Plugin Conflict Error!"
+msgstr "Σφάλμα!"
+
+msgid "Class P4BKS_Loader already exists."
+msgstr "Η κλάση P4BKS_Loader υπάρχει ήδη."
+
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Δεν έχετε επαρκή δικαιώματα για να δείτε αυτή τη σελίδα."
+
+msgid "Language"
+msgstr "Γλώσσα"
+
+msgid "Select Language"
+msgstr "Επίλεξε Γλώσσα"
+
+msgid "Public"
+msgstr "Κοινόχρηστο"
+
+msgid "Private"
+msgstr "Κρυφό"
+
+msgid "Save Changes"
+msgstr "Αποθήκευση"
+
+msgid "Plugin Settings are not configured well!"
+msgstr "Οι ρυθμίσεις δεν έχουν γίνει σωστά!"
+
+msgid "Changes saved!"
+msgstr "Οι αλλαγές αποθηκεύτηκαν!"
+
+msgid "Changes are not saved!"
+msgstr "Οι αλλαγές δεν αποθηκεύτηκαν!"
+
+msgid "Nonce verification failed!"
+msgstr "Ο έλεγχος για την επιβεβαίωση του Nonce απέτυχε!"
