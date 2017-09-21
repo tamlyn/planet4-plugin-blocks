@@ -163,35 +163,36 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 		 * Callback for the shortcake_twocolumn shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array $attr
+		 * @param array $fields
 		 * @param string $content
 		 * @param string $shortcode_tag
 		 *
 		 * @return string
 		 */
-		public function prepare_two_columns( $attr, $content, $shortcode_tag ) {
+		public function prepare_two_columns( $fields, $content, $shortcode_tag ) {
 
-			$attr = shortcode_atts( array(
-				'title_1'       => esc_html( $attr['title_1'] ),
-				'description_1' => wpautop( esc_html( $attr['description_1'] ) ),
-				'button_text_1' => esc_html( $attr['button_text_1'] ),
-				'button_link_1' => esc_html( $attr['button_link_1'] ),
+			$fields = shortcode_atts( array(
+				'title_1'       => esc_html( $fields['title_1'] ),
+				'description_1' => wpautop( esc_html( $fields['description_1'] ) ),
+				'button_text_1' => esc_html( $fields['button_text_1'] ),
+				'button_link_1' => esc_html( $fields['button_link_1'] ),
 
-				'title_2'       => esc_html( $attr['title_2'] ),
-				'description_2' => wpautop( esc_html( $attr['description_2'] ) ),
-				'button_text_2' => esc_html( $attr['button_text_2'] ),
-				'button_link_2' => esc_html( $attr['button_link_2'] ),
-			), $attr, $shortcode_tag );
+				'title_2'       => esc_html( $fields['title_2'] ),
+				'description_2' => wpautop( esc_html( $fields['description_2'] ) ),
+				'button_text_2' => esc_html( $fields['button_text_2'] ),
+				'button_link_2' => esc_html( $fields['button_link_2'] ),
+			), $fields, $shortcode_tag );
 
-			$data = $attr;
+			$data = [
+				'fields' => $fields,
+				'available_languages' => P4BKS_LANGUAGES,
+				'domain' => 'planet4-blocks',
+			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->two_columns( [
-				'data' => $data,
-				'available_languages' => P4BKS_LANGUAGES,
-				'domain' => 'planet4-blocks',
-			] );
+			$this->view->view_template( 'two_columns', $data );
+
 			return ob_get_clean();
 		}
 	}

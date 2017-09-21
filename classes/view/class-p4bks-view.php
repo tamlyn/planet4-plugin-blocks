@@ -29,7 +29,7 @@ if ( ! class_exists( 'P4BKS_View' ) ) {
 		 *
 		 * @return bool|string The returned output
 		 */
-		private function get_template( $template_name, $data, $sub_dir = '' ) {
+		public function get_template( $template_name, $data, $sub_dir = 'blocks/' ) {
 			Timber::$locations = $this->template_dir;
 			return Timber::compile( [ $sub_dir . $template_name . '.twig' ], $data );
 		}
@@ -39,20 +39,17 @@ if ( ! class_exists( 'P4BKS_View' ) ) {
 		 *
 		 * @param array|string $template_name The file name of the template to render.
 		 * @param array        $data The data to pass to the template.
+		 * @param string       $template_ext The extension of the template (php, twig, ...)
 		 * @param string       $sub_dir The path to a subdirectory where the template is located (relative to $template_dir).
 		 */
-		private function view_template( $template_name, $data, $sub_dir = '' ) {
-			Timber::$locations = $this->template_dir;
-			Timber::render( [ $sub_dir . $template_name . '.twig' ], $data );
-		}
+		public function view_template( $template_name, $data, $template_ext = 'php', $sub_dir = 'blocks/' ) {
 
-		/**
-		 * Render the settings page of the plugin.
-		 *
-		 * @param array $data All the data needed to render the template.
-		 */
-		public function two_columns( $data ) {
-			$this->view_template( __FUNCTION__, $data, 'blocks/' );
+			if ( 'twig' === $template_ext ) {
+				Timber::$locations = $this->template_dir;
+				Timber::render( [ $sub_dir . $template_name . '.' . $template_ext ], $data );
+			} else {
+				include_once $this->template_dir . $sub_dir . $template_name . '.' . $template_ext;
+			}
 		}
 
 		/**
