@@ -7,23 +7,12 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 	class P4BKS_Blocks_Tasks_Controller extends P4BKS_Blocks_Controller {
 
 		/**
-		 *
+		 * Override this method in order to give your block its own name.
 		 */
 		public function load() {
+			// --- Set here the name of your block ---
+			$this->block_name = 'tasks';
 			parent::load();
-		}
-
-		/**
-		 * Register shortcodes
-		 *
-		 * This registration is done independently of any UI that might be associated with them, so it always happens, even if
-		 * Shortcake is not active.
-		 *
-		 * @since 1.0.0
-		 */
-		public function shortcode_ui_register_shortcodes() {
-			// Define the callback for the advanced shortcode.
-			add_shortcode( 'shortcake_tasks', array( $this, 'prepare_tasks' ) );
 		}
 
 		/**
@@ -35,7 +24,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 		 *
 		 * @since 1.0.0
 		 */
-		public function shortcode_ui_block_fields() {
+		public function prepare_fields() {
 
 			// This block will have 4 different columns with same fields
 			$fields = [];
@@ -119,7 +108,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 				'attrs'         => $fields,
 			);
 
-			shortcode_ui_register_for_shortcode( 'shortcake_tasks', $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
 		}
 
 		/**
@@ -132,7 +121,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 		 *
 		 * @return string
 		 */
-		public function prepare_tasks( $attr, $content, $shortcode_tag ) {
+		public function prepare_template( $attr, $content, $shortcode_tag ) : string {
 
 			$attrs_temp = [];
 			for ( $i = 1; $i < 5; $i ++ ) {
@@ -162,7 +151,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->view_template( 'tasks', $data );
+			$this->view->block( $this->block_name, $data );
 
 			return ob_get_clean();
 		}

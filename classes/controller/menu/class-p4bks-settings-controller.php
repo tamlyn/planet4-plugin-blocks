@@ -31,7 +31,7 @@ if ( ! class_exists( 'P4BKS_Settings_Controller' ) ) {
 					'manage_options',
 					P4BKS_PLUGIN_SLUG_NAME,
 					array( $this, 'prepare_settings' ),
-					P4EN_ADMIN_DIR . 'images/logo_menu_page_16x16.jpg'
+					'dashicons-layout'
 				);
 			}
 			add_action( 'admin_init', array( $this, 'register_settings' ) );
