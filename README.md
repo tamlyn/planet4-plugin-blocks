@@ -13,4 +13,6 @@ you need to override method load() and set the inherited property inside like th
 
 4. Add your new class name to the array that the P4BKS_Loader function takes as an argument in the plugin's main file.
 
-5. Finally, before committing do **composer dump-autoload --optimize** in order to add your new class to composer's autoload.
+5. Finally, before committing do **composer update --no-dev** and **composer dump-autoload --optimize** in order to add your new class to composer's autoload.
+
+_(Steps 4, 5 will not be necessary later on, since we will use our own autoloading instead of Composer's autoloader)_
