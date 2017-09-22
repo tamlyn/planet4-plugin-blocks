@@ -11,7 +11,7 @@
 
         <br />
 	    <?php if ( $data['fields']['button_text_1'] && $data['fields']['button_text_1'] ) : ?>
-        <a href="<?php echo $data['fields']['button_link_1'] ?>"><?php echo $data['fields']['button_text_1'] ?></a>
+        <a class="btn" href="<?php echo $data['fields']['button_link_1'] ?>"><?php echo $data['fields']['button_text_1'] ?></a>
 	    <?php endif; ?>
     </p>
     <p>
@@ -25,7 +25,7 @@
 
         <br />
 	    <?php if ( $data['fields']['button_text_2'] && $data['fields']['button_text_2'] ) : ?>
-        <a href="<?php echo $data['fields']['button_link_2'] ?>"><?php echo $data['fields']['button_text_2'] ?></a>
+        <a class="btn" href="<?php echo $data['fields']['button_link_2'] ?>"><?php echo $data['fields']['button_text_2'] ?></a>
 	    <?php endif; ?>
     </p>
 </section>

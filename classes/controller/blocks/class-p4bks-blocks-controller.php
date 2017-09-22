@@ -11,15 +11,18 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 	 */
 	abstract class P4BKS_Blocks_Controller {
 
+		protected $block_name = 'default';
+
 		/** @var P4BKS_View $view */
 		protected $view;
-
 
 		/**
 		 * Creates the plugin's controller object.
 		 * Avoid putting hooks inside the constructor, to make testing easier.
 		 *
 		 * @param P4BKS_View $view The view object.
+         *
+         * @since 0.1.0
 		 */
 		public function __construct( P4BKS_View $view ) {
 			$this->view = $view;
@@ -27,14 +30,15 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 
 		/**
 		 *
+         * @since 0.1.0
 		 */
-		protected function load() {
+		public function load() {
 			// Check to see if Shortcake is running, with an admin notice if not.
 			add_action( 'init', array( $this, 'shortcode_ui_detection' ) );
 			// Register the shortcodes.
 			add_action( 'init', array( $this, 'shortcode_ui_register_shortcodes' ) );
 			// Add Two Column element in UI
-			add_action( 'register_shortcode_ui', array( $this, 'shortcode_ui_block_fields' ) );
+			add_action( 'register_shortcode_ui', array( $this, 'prepare_fields' ) );
 		}
 
 		/**
@@ -47,7 +51,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 *
 		 * Why not just self-deactivate this plugin? Because then the shortcodes would not be registered either.
 		 *
-		 * @since 1.0.0
+		 * @since 0.1.0
 		 */
 		public function shortcode_ui_detection() {
 			if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
@@ -60,13 +64,13 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 *
 		 * If the user can't activate plugins, then it's poor UX to show a notice they can't do anything to fix.
 		 *
-		 * @since 1.0.0
+		 * @since 0.1.0
 		 */
 		public function shortcode_ui_notices() {
 			if ( current_user_can( 'activate_plugins' ) ) {
 				?>
 				<div class="error message">
-					<p><?php esc_html_e( 'Shortcode UI plugin must be active for Planet4 - Blocks plugin to function.', 'planet4-blocks' ); ?></p>
+					<p><?php esc_html_e( 'Shortcode UI plugin must be active for Planet4 - Blocks plugin to work.', 'planet4-blocks' ); ?></p>
 				</div>
 				<?php
 			}
@@ -78,9 +82,12 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * This registration is done independently of any UI that might be associated with them, so it always happens, even if
 		 * Shortcake is not active.
 		 *
-		 * @since 1.0.0
+		 * @since 0.1.0
 		 */
-		abstract public function shortcode_ui_register_shortcodes();
+		public function shortcode_ui_register_shortcodes() {
+			// Define the callback for the advanced shortcode.
+			add_shortcode( 'shortcake_' . $this->block_name, array( $this, 'prepare_template' ) );
+		}
 
 		/**
 		 * Shortcode UI setup for the twocolumn shortcode.
@@ -89,8 +96,22 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 *
 		 * This example shortcode has many editable attributes, and more complex UI.
 		 *
-		 * @since 1.0.0
+		 * @since 0.1.0
 		 */
-		abstract public function shortcode_ui_block_fields();
+		abstract public function prepare_fields();
+
+		/**
+		 * Callback for the shortcode.
+		 * It renders the shortcode based on supplied attributes.
+		 *
+		 * @param array  $fields
+		 * @param string $content
+		 * @param string $shortcode_tag
+		 *
+		 * @since 0.1.0
+		 *
+		 * @return string
+		 */
+		abstract public function prepare_template( $fields, $content, $shortcode_tag ) : string;
 	}
 }

@@ -148,7 +148,8 @@ if ( ! class_exists( 'P4BKS_Loader' ) ) {
 			if ( strpos( $hook, P4BKS_PLUGIN_SLUG_NAME ) === false ) {
 				return;
 			}
-			wp_enqueue_script( 'p4bks_jquery', '//code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
+
+			wp_enqueue_script( 'p4bks_admin_jquery', '//code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 			wp_enqueue_style( 'p4bks_admin_style', P4BKS_ADMIN_DIR . 'css/admin.css', array(), '0.1' );
 			wp_enqueue_script( 'p4bks_admin_script', P4BKS_ADMIN_DIR . 'js/admin.js', array(), '0.1', true );
 		}
