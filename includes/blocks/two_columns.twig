@@ -11,7 +11,7 @@
                 {% endif %}
                 <br />
                 {% if ( fields['button_text_1'] and fields['button_text_1'] ) %}
-                    <a href="{{ fields['button_link_1']|e('html_attr') }}">{{ fields['button_text_1']|e('html') }}</a>
+                    <a class="btn" href="{{ fields['button_link_1']|e('html_attr') }}">{{ fields['button_text_1']|e('html') }}</a>
                 {% endif %}
             </p>
             <p>
@@ -23,7 +23,7 @@
                 {% endif %}
                 <br />
                 {% if ( fields['button_text_2'] and fields['button_text_2'] ) %}
-                    <a href="{{ fields['button_link_2']|e('html_attr') }}">{{ fields['button_text_2']|e('html') }}</a>
+                    <a class="btn" href="{{ fields['button_link_2']|e('html_attr') }}">{{ fields['button_text_2']|e('html') }}</a>
                 {% endif %}
             </p>
         </section>
