@@ -41,6 +41,17 @@
                 </td>
             </tr>
             <tr valign="top">
+                <th>{{ __( 'Tasks', domain ) }}</th>
+                <td>
+                    {% if ( settings.p4bks_block_tasks|e('html_attr') ) %}
+                        {% set checked = 'checked' %}
+                    {% else %}
+                        {% set checked = '' %}
+                    {% endif %}
+                    <input id="p4bks_block_tasks" type="checkbox" name="p4bks_main_settings[p4bks_block_tasks]" value="1" {{ checked }} />
+                </td>
+            </tr>
+            <tr valign="top">
                 <th>{{ __( 'Two Columns', domain ) }}</th>
                 <td>
                     {% if ( settings.p4bks_block_two_column|e('html_attr') ) %}
