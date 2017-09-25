@@ -1,0 +1,16 @@
+{% block carousel %}
+
+    {% if ( images ) %}
+        <section id="p4bks_carousel_container" class="shortcode-two-columns">
+            <p>
+		{% for single_image in images %}
+			{% if ( single_image[0] ) %}
+			<img src="{{ single_image[0] }}" >
+			{% endif %}
+		{% endfor %}
+            </p>
+        </section>
+    {% endif %}
+    <div class="clear"></div>
+
+{% endblock %}

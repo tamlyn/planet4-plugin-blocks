@@ -11,6 +11,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		 * Override this method in order to give your block its own name.
 		 */
 		public function load() {
+			// --- Set here the name of your block ---
 			$this->block_name = 'carousel';
 			parent::load();
 		}
@@ -45,14 +46,13 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 			$fields = array(
 				// Multiple Image Field
 				array(
-					'label' => esc_html__( 'Select Multiple Images', 'planet4-blocks' ),
+					'label' => esc_html__( 'Select Carousel Images', 'planet4-blocks' ),
 					'attr'  => 'multiple_image',
 					'type'  => 'attachment',
-					'multiple'  => true,
-					'meta'  => array(
-						'placeholder' => esc_html__( 'Please select the images', 'planet4-blocks' ),
-						'data-plugin' => 'planet4-blocks',
-					),
+					'libraryType' => array( 'image' ),
+					'multiple'    => true,
+					'addButton'   => 'Select Carousel Images',
+					'frameTitle'  => 'Select Carousel Images',
 				),
 			);
 
@@ -95,8 +95,13 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
+			$explodeMultipleImageArray = explode(',',$fields['multiple_image']);
+			foreach ( $explodeMultipleImageArray as $imageID ) { 
+				$images[] = wp_get_attachment_image_src( $imageID, 'cta' );
+			}
+
 			$data = [
-				'fields' => array_map( 'wp_kses_post', $fields),
+				'images' => array_map( 'wp_kses_post', $images),
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
