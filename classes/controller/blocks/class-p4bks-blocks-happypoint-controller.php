@@ -10,22 +10,16 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 		 *
 		 */
 		public function load() {
+			// --- Set here the name of your block ---
+			$this->block_name = 'happy_point';
 			parent::load();
-		}
-
-		/**
-		 * Register shortcodes
-		 */
-		public function shortcode_ui_register_shortcodes() {
-			// Define the callback for the advanced shortcode.
-			add_shortcode( 'shortcake_happypoint', array( $this, 'prepare_happy_point' ) );
 		}
 
 		/**
 		 * Shortcode UI setup for the happypoint shortcode.
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
 		 */
-		public function shortcode_ui_block_fields() {
+		public function prepare_fields() {
 			$fields = array(
 				array(
 					'label'       => esc_html__( 'Background', 'planet4-blocks' ),
@@ -74,7 +68,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 				'attrs' => $fields,
 			);
 
-			shortcode_ui_register_for_shortcode( 'shortcake_happypoint', $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
 		}
 
 		/**
@@ -87,7 +81,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 		 *
 		 * @return string
 		 */
-		public function prepare_happy_point( $fields, $content, $shortcode_tag ) {
+		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
 			$fields = shortcode_atts( array(
 				'background'     	=> '',
@@ -98,20 +92,27 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 				'boxout_link_url'  	=> '',
 			), $fields, $shortcode_tag );
 
-			$data = $fields;
+			if (!is_numeric($fields['opacity'])) {
+				$fields['opacity'] = 70;
+			}
+			$opacity_reverse = number_format(((100-$fields['opacity'])/100), 1);
 
-			$data['background'] 		= wp_get_attachment_image( $fields['background'] );
-			$data['opacity'] 			= wp_kses_post( $fields['opacity']);
-			$data['boxout_title'] 		= wp_kses_post( $fields['boxout_title']);
-			$data['boxout_descr'] 		= wp_kses_post( $fields['boxout_descr']);
-			$data['boxout_link_text'] 	= wp_kses_post( $fields['boxout_link_text']);
-			$data['boxout_link_url'] 	= esc_html( $fields['boxout_link_url']);
+			$fields['background_html'] 		= wp_get_attachment_image( $fields['background'] );
+			$fields['background_src'] 		= wp_get_attachment_image_src( $fields['background'] );
+			$fields['opacity'] 				= $opacity_reverse;
+			$fields['boxout_title'] 		= wp_kses_post( $fields['boxout_title']);
+			$fields['boxout_descr'] 		= wp_kses_post( $fields['boxout_descr']);
+			$fields['boxout_link_text'] 	= wp_kses_post( $fields['boxout_link_text']);
+			$fields['boxout_link_url'] 		= esc_html( $fields['boxout_link_url']);
+
+
+			$data = ['fields' => $fields];
+
 
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->view_template( 'happy_point', $data );
-
+			$this->view->block( $this->block_name, $data );
 			return ob_get_clean();
 		}
 	}
