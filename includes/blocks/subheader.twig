@@ -6,7 +6,7 @@
 					<div class="subheader-for-more">
 						<h2>{{ fields.title|e('html')}}</h2>
 						{% if ( fields.descr ) %}
-							<h5>{{ fields.descr |e('html')}}</h5>
+							<h5>{{ fields.descr |raw}}</h5>
 						{% endif %}
 					</div>
 				{% endif %}
