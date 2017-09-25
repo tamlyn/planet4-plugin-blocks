@@ -3,33 +3,41 @@
 	<style>
 		@media (min-width: 992px) {
 			.eager-wrap {
-				background: url("{{ fields['background_src'][0] }}") center center no-repeat;
+				background: url("{{ fields.background_src.0 |e('html')}}") center center no-repeat;
 			}
 			.eager-wrap:before
 			{
-				opacity: {{ fields['opacity']}};
+				opacity: {{ fields.opacity|e('html')}};
+			}
+			.eager-wrap .eager-for-more:before
+			{
+				opacity: {{ fields.opacity |e('html')}};
 			}
 		}
 		@media (min-width: 1200px) {
 			.eager-wrap {
-				background: url("{{ fields['background_src'][0] }}") center center no-repeat;
+				background: url("{{ fields.background_src.0 |e('html')}}") center center no-repeat;
 			}
 			.eager-wrap:before
 			{
-				opacity: {{ fields['opacity']}};
+				opacity: {{ fields.opacity|e('html')}};
+			}
+			.eager-wrap .eager-for-more:before
+			{
+				opacity: {{ fields.opacity|e('html')}};
 			}
 		}
 	</style>
 		<div class="eager-wrap">
 			<div class="container">
-				{% if ( fields['boxout_title'] ) %}
+				{% if ( fields.boxout_title ) %}
 					<div class="eager-for-more hidden-md-down">
-						<h2>{{ fields['boxout_title']}}</h2>
-						{% if ( fields['boxout_descr'] ) %}
-							<h5>{{ fields['boxout_descr'] }}</h5>
+						<h2>{{ fields.boxout_title|e('html')}}</h2>
+						{% if ( fields.boxout_descr ) %}
+							<h5>{{ fields.boxout_descr |e('html')}}</h5>
 						{% endif %}
-						{% if (( fields['boxout_link_url'] ) and (fields['boxout_link_text'])) %}
-							<a href="{{ fields['boxout_link_url']}}" class="btn btn-primary">{{ fields['boxout_link_text']}}</a>
+						{% if (( fields.boxout_link_url ) and (fields.boxout_link_text)) %}
+							<a href="{{ fields.boxout_link_url|e('html_attr')}}" class="btn btn-primary">{{ fields.boxout_link_text|e('html')}}</a>
 						{% endif %}
 					</div>
 				{% endif %}
@@ -37,17 +45,17 @@
 
 			<div class="eager-wrap-mobile hidden-lg-up">
 				<div class="container">
-					{% if ( fields['background'] ) %}
-						{{ fields['background_html']|raw }}
+					{% if ( fields.background ) %}
+						{{ fields.background_html|raw}}
 					{% endif %}
-					{% if ( fields['boxout_title'] ) %}
-						<h3>{{ fields['boxout_title']}}</h3>
+					{% if ( fields.boxout_title ) %}
+						<h3>{{ fields.boxout_title|e('html')}}</h3>
 					{% endif %}
-					{% if ( fields['boxout_descr'] ) %}
-						<h4>{{ fields['boxout_descr']}}</h4>
+					{% if ( fields.boxout_descr ) %}
+						<h4>{{ fields.boxout_descr|e('html')}}</h4>
 					{% endif %}
-					{% if (( fields['boxout_link_url'] ) and (fields['boxout_link_text'])) %}
-						<a href="{{ fields['boxout_link_url']}}" class="btn btn-primary">{{ fields['boxout_link_text']}}</a>
+					{% if (( fields.boxout_link_url ) and (fields.boxout_link_text)) %}
+						<a href="{{ fields.boxout_link_url|e('html_attr')}}" class="btn btn-primary">{{ fields.boxout_link_text|e('html')}}</a>
 					{% endif %}
 				</div>
 			</div>
