@@ -46,12 +46,13 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) )           define( 'WP_UNINSTALL_PLUGIN
 require_once __DIR__ . '/vendor/autoload.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
+
 /* ==========================
       L O A D  P L U G I N
    ========================== */
 P4BKS\P4BKS_Loader::get_instance( [
 	// --- Add here your own Block Controller ---
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_TwoColumn_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CarouselSplitController',
+	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CarouselSplit_Controller',
 	'P4BKS\Controllers\Menu\P4BKS_Settings_Controller',
 ], 'P4BKS\Views\P4BKS_View' );

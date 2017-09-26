@@ -1,32 +1,25 @@
+{% autoescape 'html' %}
+
 {% block carousel_split %}
 
-    {% if ( data ) %}
+    {% if ( fields ) %}
 
         <div id="p4bks_carousel_split_container" class="hidden-md-down row can-do-steps shortcode-carousel-split">
 
             {% for i in 1..4 %}
 
-                <div class="col-md-3 col-lg-3 col-xl-3 {{ i==1 ? 'active' : '' }}">
+                <div class="col-md-3 col-lg-3 col-xl-3">
                     <div class="step-info-wrap clearfix">
-                        <span class="step-number">{{ i }}</span>
                         <div class="step-info">
                             <div class="steps-information">
-                                {% if ( data['title_'~i] ) %}
-                                    <h5>{{ data['title_'~i]|e('html') }}</h5>
+                                {% if ( fields['title_'~i] ) %}
+                                    <h5>{{ fields['title_'~i]|e('html') }}</h5>
                                 {% endif %}
-                                {% if ( data['description_'~i] ) %}
-                                    <p>{{ data['description_'~i]|e('html') }}</p>
+                                {% if ( fields['caption_'~i] ) %}
+                                    <p>{{ fields['caption_'~i]|e('html') }}</p>
                                 {% endif %}
-                                {% if ( data['attachment_'~i] ) %}
-                                    <div class="steps-action">
-                                        <img src="{{ data['attachment_'~i]|e('html_attr') }}" alt=""/>
-                                    </div>
-                                {% endif %}
-
-                                {% if ( data['button_text_'~i] and data['button_text_'~i] ) %}
-                                    <a class="btn"
-                                       href="{{ data['button_link_'~i]|e('html_attr') }}">{{ data['button_text_'~i]|e('html') }}
-                                    </a>
+                                {% if ( fields['attachment_'~i] ) %}
+                                        <img src="{{ fields['attachment_'~i]|e('html_attr') }}" alt=""/>
                                 {% endif %}
                             </div>
                         </div>
@@ -39,3 +32,5 @@
     <div class="clear"></div>
 
 {% endblock %}
+
+{% endautoescape %}
