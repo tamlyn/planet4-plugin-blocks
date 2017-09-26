@@ -1,16 +1,18 @@
-{% block subheader %}
-    {% if ( fields ) %}
-		<div class="subheader-wrap">
-			<div class="container">
-				{% if ( fields.title ) %}
-					<div class="subheader-for-more">
-						<h2>{{ fields.title|e('html')}}</h2>
-						{% if ( fields.descr ) %}
-							<h5>{{ fields.descr |raw}}</h5>
-						{% endif %}
-					</div>
-				{% endif %}
+{% autoescape 'html' %}
+	{% block subheader %}
+		{% if ( fields ) %}
+			<div class="subheader-wrap">
+				<div class="container">
+					{% if ( fields.title ) %}
+						<div class="subheader-for-more">
+							<h2>{{ fields.title|e('html')}}</h2>
+							{% if ( fields.descr ) %}
+								<h5>{{ fields.descr |raw}}</h5>
+							{% endif %}
+						</div>
+					{% endif %}
+				</div>
 			</div>
-		</div>
-	{% endif %}
-{% endblock %}
+		{% endif %}
+	{% endblock %}
+{% endautoescape %}
