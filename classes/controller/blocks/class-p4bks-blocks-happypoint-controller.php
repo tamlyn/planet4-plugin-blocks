@@ -30,11 +30,11 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 					'frameTitle'  => esc_html__( 'Select Background Image', 'planet4-blocks' ),
 				),
 				array(
-					'label'  => esc_html__( 'Opacity % . Number between 1 and 100. If you leave it empty 70 will be used', 'planet4-blocks' ),
+					'label'  => esc_html__( 'Opacity % . Number between 1 and 100. If you leave it empty 30 will be used', 'planet4-blocks' ),
 					'attr'   => 'opacity',
 					'type'   => 'text',
 					'meta'   => array(
-						'data-test'   => 70,
+						'data-test'   => 30,
 					),
 				),
 				array(
@@ -85,7 +85,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 
 			$fields = shortcode_atts( array(
 				'background'     	=> '',
-				'opacity' 		 	=> '70',
+				'opacity' 		 	=> '30',
 				'boxout_title'    	=> '',
 				'boxout_descr'     	=> '',
 				'boxout_link_text' 	=> '',
@@ -95,7 +95,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 			if (!is_numeric($fields['opacity'])) {
 				$fields['opacity'] = 70;
 			}
-			$opacity_reverse = number_format(((100-$fields['opacity'])/100), 1);
+			$opacity_reverse = number_format(($fields['opacity']/100), 1);
 
 			$fields['background_html'] 		= wp_get_attachment_image( $fields['background'] );
 			$fields['background_src'] 		= wp_get_attachment_image_src( $fields['background'] );
