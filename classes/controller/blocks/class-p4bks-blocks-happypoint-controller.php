@@ -73,11 +73,11 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 		 * Callback for the shortcake_twocolumn shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array $fields
-		 * @param string $content
-		 * @param string $shortcode_tag
+		 * @param array $fields Array of fields that are to be used in the template.
+		 * @param string $content The content of the post.
+		 * @param string $shortcode_tag The shortcode tag (shortcake_blockname).
 		 *
-		 * @return string
+		 * @return string The complete html of the block
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ): string {
 
