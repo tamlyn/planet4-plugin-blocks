@@ -32,7 +32,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 				array(
 					'label' => __( 'Opacity % . Number between 1 and 100. If you leave it empty 30 will be used', 'planet4-blocks' ),
 					'attr'  => 'opacity',
-					'type'  => 'text',
+					'type'  => 'number',
 					'meta'  => array(
 						'data-test' => 30,
 					),
