@@ -30,6 +30,17 @@
                 </td>
             </tr>
             <tr valign="top">
+                <th>{{ __( 'Four Columns', domain ) }}</th>
+                <td>
+                    {% if ( settings.p4bks_block_two_column|e('html_attr') ) %}
+                        {% set checked = 'checked' %}
+                    {% else %}
+                        {% set checked = '' %}
+                    {% endif %}
+                    <input id="p4bks_block_four_column" type="checkbox" name="p4bks_main_settings[p4bks_block_four_column]" value="1" {{ checked }} />
+                </td>
+            </tr>
+            <tr valign="top">
                 <th>{{ __( 'Two Columns', domain ) }}</th>
                 <td>
                     {% if ( settings.p4bks_block_two_column|e('html_attr') ) %}
