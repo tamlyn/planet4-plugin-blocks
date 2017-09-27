@@ -84,21 +84,20 @@ if ( ! class_exists( 'P4BKS_Loader' ) ) {
 					} elseif ( $plugins['not_found'] || $plugins['not_updated'] ) {
 
 						deactivate_plugins( P4BKS_PLUGIN_BASENAME );
+						$count = 0;
 						$message = '<div class="error fade">' .
 						               '<u>' . esc_html( P4BKS_PLUGIN_NAME ) . ' > ' . esc_html__( 'Requirements Error(s)', 'planet4-blocks' ) . '</u><br /><br />';
 
-						foreach ( $plugins['not_found'] as $index => $plugin ) {
-							$message .=     '<br/><strong>' . ($index+1) . '. ' . esc_html( $plugin['Name'] ) . '</strong> ' . esc_html__( 'plugin needs to be installed and activated.', 'planet4-blocks' ) . '<br />' .
-							            '</div>' .
-										'<br />';
+						foreach ( $plugins['not_found'] as $plugin ) {
+							$message .=     '<br/><strong>' . (++$count) . '. ' . esc_html( $plugin['Name'] ) . '</strong> ' . esc_html__( 'plugin needs to be installed and activated.', 'planet4-blocks' ) . '<br />';
 						}
-						foreach ( $plugins['not_updated'] as $index => $plugin ) {
-							$message .=     '<br/><strong>' . ($index+1) . '. ' . esc_html( $plugin['Name'] ) . '</strong><br />' .
-							                esc_html__( 'Minimum version ', 'planet4-blocks' ) . '<strong>' . esc_html( $plugin['min_version'] ) . '</strong>' .
-							                '<br/>' . esc_html__( 'Current version ', 'planet4-blocks' ) . '<strong>' . esc_html( $plugin['Version'] ) . '</strong>' .
-							                '</div>' .
-							                '<br />';
+						foreach ( $plugins['not_updated'] as $plugin ) {
+							$message .= '<br/><strong>' . (++$count) . '. ' . esc_html( $plugin['Name'] ) . '</strong><br />' .
+							            esc_html__( 'Minimum version ', 'planet4-blocks' ) . '<strong>' . esc_html( $plugin['min_version'] ) . '</strong>' .
+							            '<br/>' . esc_html__( 'Current version ', 'planet4-blocks' ) . '<strong>' . esc_html( $plugin['Version'] ) . '</strong><br />';
 						}
+
+						$message .= '</div><br />';
 						wp_die(
 							$message, 'Plugin Requirements Error', array(
 								'response' => \WP_Http::OK,
@@ -135,6 +134,7 @@ if ( ! class_exists( 'P4BKS_Loader' ) ) {
 		 * Check if the version of a plugin is less than the required version.
 		 *
 		 * @param array $plugins Will contain information for those plugins whose requirements are not met.
+		 *
 		 * @return bool true if version check passed or false otherwise.
 		 */
 		private function check_required_plugins( &$plugins ) : bool {
