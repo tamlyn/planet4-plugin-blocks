@@ -7,7 +7,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Subheader_Controller' ) ) {
 	class P4BKS_Blocks_Subheader_Controller extends P4BKS_Blocks_Controller {
 
 		/**
-		 * function to load the block and define its name
+		 * Function to load the block and define its name.
 		 */
 		public function load() {
 			$this->block_name = 'subheader';
