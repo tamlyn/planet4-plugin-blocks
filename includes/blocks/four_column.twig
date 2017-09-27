@@ -1,37 +1,41 @@
-{% block four_column %}
+{% autoescape 'html' %}
 
-    {% if ( fields ) %}
+    {% block four_column %}
 
-        <div id="p4bks_four_column_container" class="can-do-steps shortcode-four-column">
+        {% if ( fields ) %}
+
+            <div id="p4bks_four_column_container" class="can-do-steps shortcode-four-column">
                 <div class="hidden-md-down">
-            {% for i in 1..4 %}
+                    {% for i in 1..4 %}
 
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                        <div class="step-info-wrap clearfix">
-                        {% if ( fields['attachment_'~i] ) %}
-                            <div class="steps-action">
-                                <a href="{{ fields['image_link_'~i]|e('html_attr') }}">
-                                <img src="{{ fields['attachment_'~i]|e('html_attr') }}" alt=""/>
-                                </a>
-                            </div>
-                        {% endif %}
-                            <div class="step-info">
-                                <div class="steps-information">
-                                    {% if ( fields['title_'~i] ) %}
-                                        <h5>{{ fields['title_'~i]|e('html') }}</h5>
-                                    {% endif %}
-                                    {% if ( fields['description_'~i] ) %}
-                                        <p>{{ fields['description_'~i]|e('html') }}</p>
-                                    {% endif %}
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                            <div class="step-info-wrap clearfix">
+                                {% if ( fields['attachment_'~i] ) %}
+                                    <div class="steps-action">
+                                        <a href="{{ fields['image_link_'~i]|e('html_attr') }}">
+                                            <img src="{{ fields['attachment_'~i]|e('html_attr') }}" alt=""/>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                <div class="step-info">
+                                    <div class="steps-information">
+                                        {% if ( fields['title_'~i] ) %}
+                                            <h5>{{ fields['title_'~i] }}</h5>
+                                        {% endif %}
+                                        {% if ( fields['description_'~i] ) %}
+                                            <p>{{ fields['description_'~i] }}</p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-            {% endfor %}
+                    {% endfor %}
                 </div>
-        </div>
+            </div>
 
-    {% endif %}
+        {% endif %}
 
-{% endblock %}
+    {% endblock %}
+
+{% endautoescape %}
