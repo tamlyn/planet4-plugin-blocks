@@ -7,7 +7,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 	class P4BKS_Blocks_HappyPoint_Controller extends P4BKS_Blocks_Controller {
 
 		/**
-		 * function to load the block and define its name
+		 * Function to load the block and define its name.
 		 */
 		public function load() {
 			// --- Set here the name of your block ---
@@ -38,22 +38,22 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 					),
 				),
 				array(
-					'label' => esc_html__( 'Boxout Title', 'planet4-blocks' ),
+					'label' => __( 'Boxout Title', 'planet4-blocks' ),
 					'attr'  => 'boxout_title',
 					'type'  => 'text',
 				),
 				array(
-					'label' => esc_html__( 'Boxout Description', 'planet4-blocks' ),
+					'label' => __( 'Boxout Description', 'planet4-blocks' ),
 					'attr'  => 'boxout_descr',
 					'type'  => 'text',
 				),
 				array(
-					'label' => esc_html__( 'Boxout Link Text', 'planet4-blocks' ),
+					'label' => __( 'Boxout Link Text', 'planet4-blocks' ),
 					'attr'  => 'boxout_link_text',
 					'type'  => 'text',
 				),
 				array(
-					'label' => esc_html__( 'Boxout Link Url', 'planet4-blocks' ),
+					'label' => __( 'Boxout Link Url', 'planet4-blocks' ),
 					'attr'  => 'boxout_link_url',
 					'type'  => 'text',
 				),
@@ -61,7 +61,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = array(
-				'label'         => esc_html__( 'Happy Point', 'planet4-blocks' ),
+				'label'         => __( 'Happy Point', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/icons/happy_point.png' ) . '" />',
 				'attrs'         => $fields,
 			);
@@ -83,7 +83,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 
 			$fields = shortcode_atts( array(
 				'background'       => '',
-				'opacity'          => '30',
+				'opacity'          => 30,
 				'boxout_title'     => '',
 				'boxout_descr'     => '',
 				'boxout_link_text' => '',
@@ -91,7 +91,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 			), $fields, $shortcode_tag );
 
 			if ( ! is_numeric( $fields['opacity'] ) ) {
-				$fields['opacity'] = 70;
+				$fields['opacity'] = 30;
 			}
 
 			$opacity = number_format( ( $fields['opacity'] / 100 ), 1 );
