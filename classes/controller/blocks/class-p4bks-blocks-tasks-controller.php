@@ -87,11 +87,11 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 			/*
 			 * Define the Shortcode UI arguments.
 			 */
-			$shortcode_ui_args = array(
+			$shortcode_ui_args = [
 				'label'         => esc_html__( 'Tasks', 'planet4-blocks' ),
 				'listItemImage' => 'dashicons-screenoptions',
 				'attrs'         => $fields,
-			);
+			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
 		}
@@ -101,7 +101,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 		 * It renders the shortcode based on supplied attributes.
 		 *
 		 * @param array  $attributes  Defined attributes array for this shortcode.
-		 * @param string $content
+		 * @param string $content Content.
 		 * @param string $shortcode_tag Shortcode tag name.
 		 *
 		 * @return string
@@ -111,11 +111,11 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 			$attributes_temp = [];
 			for ( $i = 1; $i < 5; $i ++ ) {
 				$temp_array       = [
-					"title_$i"       => $attributes[ "title_$i" ],
+					"title_$i"       => __( $attributes[ "title_$i" ] ),
 					"description_$i" => wpautop( $attributes[ "description_$i" ] ),
-					"attachment_$i"  => $attributes[ "attachment_$i" ],
-					"button_text_$i" => $attributes[ "button_text_$i" ],
-					"button_link_$i" => $attributes[ "button_link_$i" ],
+					"attachment_$i"  => __( $attributes[ "attachment_$i" ] ),
+					"button_text_$i" => __( $attributes[ "button_text_$i" ] ),
+					"button_link_$i" => __( $attributes[ "button_link_$i" ] ),
 				];
 				$attributes_temp = array_merge( $attributes_temp, $temp_array );
 			}
