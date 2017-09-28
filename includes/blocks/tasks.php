@@ -2,7 +2,7 @@
 
     <div id="p4bks_tasks_container" class="hidden-md-down row can-do-steps shortcode-tasks">
 
-		<?php for ( $i = 1; $i < 5; $i ++ ) { ?>
+		<?php for ( $i = 1; $i < 5; $i++ ) { ?>
 
             <div class="col-md-3 col-lg-3 col-xl-3 <?php echo $i == 1 ? 'active' : ''; ?>">
                 <div class="step-info-wrap clearfix">
