@@ -31,42 +31,62 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 		public function prepare_fields() {
 
 			// This block will have 4 different columns with same fields.
-			$fields = [];
+			$fields = [
+				[
+					'label' => __( 'Global Title', 'planet4-blocks' ),
+					'attr'  => 'global_title',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => __( "Enter the global title", 'planet4-blocks' ),
+						'data-plugin' => 'planet4-blocks',
+					],
+				],
+			];
+
 			for ( $i = 1; $i < 5; $i ++ ) {
 				$ordinal = $i . date( 'S', mktime( 0, 0, 0, 0, $i, 0 ) );
 				$field   = [
 					[
-						'label'       => esc_html__( "Select Image for $ordinal column", 'planet4-blocks' ),
+						'label'       => __( "Select Image for $ordinal column", 'planet4-blocks' ),
 						'attr'        => 'attachment_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
-						'addButton'   => esc_html__( 'Select Image', 'shortcode-ui' ),
-						'frameTitle'  => esc_html__( 'Select Image', 'shortcode-ui' ),
+						'addButton'   => __( 'Select Image', 'shortcode-ui' ),
+						'frameTitle'  => __( 'Select Image', 'shortcode-ui' ),
 					],
 					[
-						'label' => __( 'Image link', 'planet4-blocks' ),
-						'attr'  => 'image_link_' . $i,
-						'type'  => 'url',
-						'meta'  => [
-							'placeholder' => esc_html__( "Enter $ordinal image link", 'planet4-blocks' ),
-							'data-plugin' => 'planet4-blocks',
-						],
-					],
-					[
-						'label' => esc_html__( 'Title', 'planet4-blocks' ),
+						'label' => __( 'Title', 'planet4-blocks' ),
 						'attr'  => 'title_' . $i,
 						'type'  => 'text',
 						'meta'  => [
-							'placeholder' => esc_html__( "Enter title of $ordinal column", 'planet4-blocks' ),
+							'placeholder' => __( "Enter title of $ordinal column", 'planet4-blocks' ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
-						'label' => esc_html__( 'Description', 'planet4-blocks' ),
+						'label' => __( 'Description', 'planet4-blocks' ),
 						'attr'  => 'description_' . $i,
 						'type'  => 'textarea',
 						'meta'  => [
-							'placeholder' => esc_html__( "Enter description of $ordinal column", 'planet4-blocks' ),
+							'placeholder' => __( "Enter description of $ordinal column", 'planet4-blocks' ),
+							'data-plugin' => 'planet4-blocks',
+						],
+					],
+					[
+						'label' => __( 'Text for link', 'planet4-blocks' ),
+						'attr'  => 'link_text_' . $i,
+						'type'  => 'url',
+						'meta'  => [
+							'placeholder' => __( "Enter $ordinal link text", 'planet4-blocks' ),
+							'data-plugin' => 'planet4-blocks',
+						],
+					],
+					[
+						'label' => __( 'Url for link', 'planet4-blocks' ),
+						'attr'  => 'link_url_' . $i,
+						'type'  => 'url',
+						'meta'  => [
+							'placeholder' => __( "Enter $ordinal link url", 'planet4-blocks' ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -76,7 +96,7 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
-				'label'         => esc_html__( 'Content Four Column', 'planet4-blocks' ),
+				'label'         => __( 'Content Four Column', 'planet4-blocks' ),
 				'listItemImage' => 'dashicons-grid-view',
 				'attrs'         => $fields,
 			];
@@ -96,13 +116,16 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
-			$attributes_temp = [];
+			$attributes_temp = [
+				'global_title' => __( $attributes[ "global_title" ] )
+			];
 			for ( $i = 1; $i < 5; $i ++ ) {
 				$temp = [
 					"title_$i"       => __( $attributes[ "title_$i" ] ),
 					"description_$i" => wpautop( __( $attributes[ "description_$i" ] ) ),
 					"attachment_$i"  => __( $attributes[ "attachment_$i" ] ),
-					"image_link_$i"  => $attributes[ "image_link_$i" ],
+					"link_text_$i"  => $attributes[ "link_text_$i" ],
+					"link_url_$i"  => $attributes[ "link_url_$i" ],
 				];
 				$attributes_temp = array_merge( $attributes_temp, $temp );
 			}
