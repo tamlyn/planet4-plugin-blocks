@@ -12,19 +12,19 @@
                             <div class="step-info">
                                 <div class="steps-information">
                                     {% if ( fields['title_'~i] ) %}
-                                        <h5>{{ fields['title_'~i]|e('html') }}</h5>
+                                        <h5>{{ fields['title_'~i] }}</h5>
                                     {% endif %}
                                     {% if ( fields['description_'~i] ) %}
-                                        <p>{{ fields['description_'~i]|e('html') }}</p>
+                                        <p>{{ fields['description_'~i] }}</p>
                                     {% endif %}
                                     {% if ( fields['attachment_'~i] ) %}
                                         <div class="steps-action" style="display: none;">
-                                            <img src="{{ fields['attachment_'~i]|e('html_attr') }}" alt=""/>
+                                            <img src="{{ fields['attachment_'~i] }}" alt=""/>
                                         </div>
                                     {% endif %}
                                     {% if ( fields['button_text_'~i] and fields['button_text_'~i] ) %}
                                         <a class="btn blue-button"
-                                           href="{{ fields['button_link_'~i]|e('html_attr') }}">{{ fields['button_text_'~i]|e('html') }}
+                                           href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
                                         </a>
                                     {% endif %}
                                 </div>
@@ -46,7 +46,7 @@
                                        aria-expanded="true" aria-controls="collapseOne">
                                         <span class="step-number">{{ i }}</span>
                                         {% if ( fields['title_'~i] ) %}
-                                            {{ fields['title_'~i]|e('html') }}
+                                            {{ fields['title_'~i] }}
                                         {% endif %}
                                     </a>
                                 </h5>
@@ -56,18 +56,18 @@
                                 <div class="card-block info-with-image-wrap clearfix">
                                     <div class="accordion-image-wrap">
                                         {% if ( fields['attachment_'~i] ) %}
-                                            <img src="{{ fields['attachment_'~i]|e('html_attr') }}" alt=""/>
+                                            <img src="{{ fields['attachment_'~i] }}" alt=""/>
                                         {% endif %}
                                     </div>
                                     <div class="mobile-accordion-info">
                                         {% if ( fields['description_'~i] ) %}
-                                            <p>{{ fields['description_'~i]|e('html') }}</p>
+                                            <p>{{ fields['description_'~i] }}</p>
                                         {% endif %}
                                     </div>
 
                                     {% if ( fields['button_text_'~i] and fields['button_text_'~i] ) %}
                                         <a class="btn blue-button"
-                                           href="{{ fields['button_link_'~i]|e('html_attr') }}">{{ fields['button_text_'~i]|e('html') }}
+                                           href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
                                         </a>
                                     {% endif %}
 
@@ -77,10 +77,6 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="hidden-lg-up friends-take-action-button">
-                <a href="javascript:void(0)" class="btn btn-primary">Ask your friends to take action</a>
-            </div>
-
         </div>
 
     {% endif %}

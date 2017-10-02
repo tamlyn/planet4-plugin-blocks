@@ -33,14 +33,14 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 			// This block will have 4 different columns with same fields.
 			$fields = [];
 			for ( $i = 1; $i < 5; $i++ ) {
-				$ordinal = $i . date( 'S', mktime( 0, 0, 0, 0, $i, 0 ) );
 				$field = [
 					[
 						'label' => __( 'Title', 'planet4-blocks' ),
 						'attr'  => 'title_' . $i,
 						'type'  => 'text',
 						'meta'  => [
-							'placeholder' => __( "Enter title of $ordinal column", 'planet4-blocks' ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter title of #%s column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -49,12 +49,14 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 						'attr'  => 'description_' . $i,
 						'type'  => 'textarea',
 						'meta'  => [
-							'placeholder' => __( "Enter description of $ordinal column", 'planet4-blocks' ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter description of #%s column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
-						'label'       => __( 'Attachment', 'shortcode-ui' ),
+						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+						'label'       => sprintf( __( 'Select Image for #%s column', 'planet4-blocks' ),  $i ),
 						'attr'        => 'attachment_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
@@ -66,7 +68,8 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 						'attr'  => 'button_text_' . $i,
 						'type'  => 'text',
 						'meta'  => [
-							'placeholder' => __( "Enter button text of $ordinal column", 'planet4-blocks' ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter button text of #%s column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -75,18 +78,20 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 						'attr'  => 'button_link_1' . $i,
 						'type'  => 'url',
 						'meta'  => [
-							'placeholder' => __( "Enter button link of $ordinal column", 'planet4-blocks' ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter button link of #%s column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 				];
-				$fields  = array_merge( $fields, $field );
+				$fields = array_merge( $fields, $field );
 			}
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
-				'label'         => __( 'Tasks', 'planet4-blocks' ),
-				'listItemImage' => 'dashicons-screenoptions',
+				// translators: A block that contains different columns each one with title and description and an image.
+				'label'         => __( 'Take action tasks', 'planet4-blocks' ),
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/icons/take_action_tasks.png' ) . '" />',
 				'attrs'         => $fields,
 			];
 
@@ -97,13 +102,13 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 		 * Callback for the tasks shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array  $attributes  Defined attributes array for this shortcode.
-		 * @param string $content Content.
+		 * @param array  $attributes    Defined attributes array for this shortcode.
+		 * @param string $content       Content.
 		 * @param string $shortcode_tag Shortcode tag name.
 		 *
 		 * @return string Returns the compiled template.
 		 */
-		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
+		public function prepare_template( $attributes, $content, $shortcode_tag ): string {
 
 			$attributes_temp = [];
 			for ( $i = 1; $i < 5; $i++ ) {
