@@ -109,9 +109,11 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 
       foreach( $all_posts as $recent ){
          if ( has_post_thumbnail( $recent["ID"]) ) {
-            $thumbnail_image = get_the_post_thumbnail($recent["ID"],'thumbnail');
+            $thumbnail_image = get_the_post_thumbnail_url($recent["ID"],'single-post-thumbnail');
             $recent['thumbnail'] = $thumbnail_image;
          }
+				 $recent['tags'] = wp_get_post_tags( $recent["ID"] );
+				 $recent['category'] = get_the_category( $recent["ID"] );
          $recent_posts[] = $recent;
       }
 
