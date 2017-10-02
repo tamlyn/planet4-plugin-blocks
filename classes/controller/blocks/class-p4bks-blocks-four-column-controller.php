@@ -31,23 +31,14 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 		public function prepare_fields() {
 
 			// This block will have 4 different columns with same fields.
-			$fields = [
-				[
-					'label' => __( 'Global Title', 'planet4-blocks' ),
-					'attr'  => 'global_title',
-					'type'  => 'text',
-					'meta'  => [
-						'placeholder' => __( "Enter the global title", 'planet4-blocks' ),
-						'data-plugin' => 'planet4-blocks',
-					],
-				],
-			];
+			$fields = [];
 
 			for ( $i = 1; $i < 5; $i ++ ) {
 				$ordinal = $i . date( 'S', mktime( 0, 0, 0, 0, $i, 0 ) );
 				$field   = [
 					[
-						'label'       => __( "Select Image for $ordinal column", 'planet4-blocks' ),
+						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+						'label'       => sprintf( __( 'Select Image for %s column', 'planet4-blocks' ),  $ordinal ),
 						'attr'        => 'attachment_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
@@ -59,7 +50,8 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 						'attr'  => 'title_' . $i,
 						'type'  => 'text',
 						'meta'  => [
-							'placeholder' => __( "Enter title of $ordinal column", 'planet4-blocks' ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter title of %s column', 'planet4-blocks' ), $ordinal ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -68,7 +60,8 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 						'attr'  => 'description_' . $i,
 						'type'  => 'textarea',
 						'meta'  => [
-							'placeholder' => __( "Enter description of $ordinal column", 'planet4-blocks' ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter description of %s column', 'planet4-blocks' ), $ordinal ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -77,7 +70,8 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 						'attr'  => 'link_text_' . $i,
 						'type'  => 'url',
 						'meta'  => [
-							'placeholder' => __( "Enter $ordinal link text", 'planet4-blocks' ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter %s link text', 'planet4-blocks' ), $ordinal ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -86,7 +80,8 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 						'attr'  => 'link_url_' . $i,
 						'type'  => 'url',
 						'meta'  => [
-							'placeholder' => __( "Enter $ordinal link url", 'planet4-blocks' ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter %s link url', 'planet4-blocks' ), $ordinal ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -96,6 +91,7 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
+				// translators: A block that contains 4 different columns each one with title and description.
 				'label'         => __( 'Content Four Column', 'planet4-blocks' ),
 				'listItemImage' => 'dashicons-grid-view',
 				'attrs'         => $fields,
@@ -108,33 +104,31 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 		 * Callback for the four column shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array $attributes
-		 * @param string $content
-		 * @param string $shortcode_tag
+		 * @param array  $attributes  Defined attributes array for this shortcode.
+		 * @param string $content Content.
+		 * @param string $shortcode_tag Shortcode tag name.
 		 *
-		 * @return string
+		 * @return string Returns the compiled template.
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
-			$attributes_temp = [
-				'global_title' => __( $attributes[ "global_title" ] )
-			];
+			$attributes_temp = [];
 			for ( $i = 1; $i < 5; $i ++ ) {
-				$temp = [
-					"title_$i"       => __( $attributes[ "title_$i" ] ),
-					"description_$i" => wpautop( __( $attributes[ "description_$i" ] ) ),
-					"attachment_$i"  => __( $attributes[ "attachment_$i" ] ),
-					"link_text_$i"  => $attributes[ "link_text_$i" ],
-					"link_url_$i"  => $attributes[ "link_url_$i" ],
+				$temp_array = [
+					"title_$i"       => $attributes[ "title_$i" ],
+					"description_$i" => wpautop( $attributes[ "description_$i" ] ),
+					"attachment_$i"  => $attributes[ "attachment_$i" ],
+					"link_text_$i"   => $attributes[ "link_text_$i" ],
+					"link_url_$i"    => $attributes[ "link_url_$i" ],
 				];
-				$attributes_temp = array_merge( $attributes_temp, $temp );
+				$attributes_temp = array_merge( $attributes_temp, $temp_array );
 			}
 			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
 
 			for ( $i = 1; $i < 5; $i ++ ) {
-				$temp = wp_get_attachment_image_src( $attributes[ "attachment_$i" ] );
-				if ( false !== $temp && ! empty( $temp ) ) {
-					$attributes[ "attachment_$i" ] = $temp[0];
+				$temp_array = wp_get_attachment_image_src( $attributes[ "attachment_$i" ] );
+				if ( false !== $temp_array && ! empty( $temp_array ) ) {
+					$attributes[ "attachment_$i" ] = $temp_array[0];
 				}
 			}
 
