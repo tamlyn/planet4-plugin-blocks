@@ -44,16 +44,6 @@ if ( ! defined( 'P4BKS_LANGUAGES' ) )            define( 'P4BKS_LANGUAGES',     
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) )           define( 'WP_UNINSTALL_PLUGIN',          P4BKS_PLUGIN_BASENAME );
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/classes/class-p4bks-loader.php';
-require_once __DIR__ . '/classes/view/class-p4bks-view.php';
-
-require_once __DIR__ . '/classes/controller/blocks/class-p4bks-blocks-controller.php';
-require_once __DIR__ . '/classes/controller/blocks/class-p4bks-blocks-twocolumn-controller.php';
-//require_once __DIR__ . '/classes/controller/blocks/class-p4bks-blocks-media-controller.php';
-//require_once __DIR__ . '/classes/controller/blocks/class-p4bks-blocks-tasks-controller.php';
-require_once __DIR__ . '/classes/controller/blocks/class-p4bks-blocks-four-column-controller.php';
-require_once __DIR__ . '/classes/controller/menu/class-p4bks-controller.php';
-require_once __DIR__ . '/classes/controller/menu/class-p4bks-settings-controller.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 /* ==========================
