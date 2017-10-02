@@ -6,27 +6,16 @@
 
         <div id="p4bks_carousel_split_container" class="hidden-md-down row can-do-steps shortcode-carousel-split">
 
-            {% for i in 1..4 %}
 
-                <div class="col-md-3 col-lg-3 col-xl-3">
-                    <div class="step-info-wrap clearfix">
-                        <div class="step-info">
-                            <div class="steps-information">
-                                {% if ( fields['title_'~i] ) %}
-                                    <h5>{{ fields['title_'~i]|e('html') }}</h5>
-                                {% endif %}
-                                {% if ( fields['caption_'~i] ) %}
-                                    <p>{{ fields['caption_'~i]|e('html') }}</p>
-                                {% endif %}
-                                {% if ( fields['attachment_'~i] ) %}
-                                        <img src="{{ fields['attachment_'~i]|e('html_attr') }}" alt=""/>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
+            {% for image in fields %}
+                {% if ( image[0] ) %}
+                    <h5>{{ image[1] }}</h5>
+                    <p>{{ image[2] }}</p>
+                    <img src="{{ image[0] }}" >
+                {% endif %}
             {% endfor %}
+
         </div>
     {% endif %}
     <div class="clear"></div>
