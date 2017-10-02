@@ -93,7 +93,7 @@ if ( ! class_exists( 'P4BKS_Blocks_FourColumn_Controller' ) ) {
 			$shortcode_ui_args = [
 				// translators: A block that contains 4 different columns each one with title and description.
 				'label'         => __( 'Content Four Column', 'planet4-blocks' ),
-				'listItemImage' => 'dashicons-grid-view',
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/icons/four_column.png' ) . '" />',
 				'attrs'         => $fields,
 			];
 
