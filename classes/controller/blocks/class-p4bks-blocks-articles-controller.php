@@ -43,26 +43,26 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 			 *
 			 * Depending on 'type', additional arguments may be available.
 			 */
-			$fields = array(
+				$fields = array(
 
-                  array(
-                    'label' => esc_html__( 'Article Heading', 'planet4-blocks' ),
-                    'attr'  => 'article_heading',
-                    'type'  => 'text',
-                    'meta'  => array(
-                      'placeholder' => esc_html__( 'Enter article heading', 'planet4-blocks' ),
-                    ),
-                  ),
+					array(
+						'label' => esc_html__( 'Article Heading', 'planet4-blocks' ),
+						'attr'  => 'article_heading',
+						'type'  => 'text',
+						'meta'  => array(
+							'placeholder' => esc_html__( 'Enter article heading', 'planet4-blocks' ),
+						),
+					),
 
-                  array(
-                    'label' => esc_html__( 'Article Count', 'planet4-blocks' ),
-                    'attr'  => 'article_count',
-                    'type'  => 'text',
-                    'meta'  => array(
-                      'placeholder' => esc_html__( 'Enter articles count', 'planet4-blocks' ),
-                    ),
-                  ),
-              );
+					array(
+						'label' => esc_html__( 'Article Count', 'planet4-blocks' ),
+						'attr'  => 'article_count',
+						'type'  => 'text',
+						'meta'  => array(
+							'placeholder' => esc_html__( 'Enter articles count', 'planet4-blocks' ),
+						),
+					),
+				);
 
 			/*
 			 * Define the Shortcode UI arguments.
@@ -103,23 +103,27 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-      // Get all posts with arguments.
-      $args = array( 'numberposts' => $fields['article_count'], 'order'=> 'ASC', 'orderby' => 'title' );
-      $all_posts = wp_get_recent_posts($args);
+			// Get all posts with arguments.
+			$args = array(
+				'numberposts' => $fields['article_count'],
+				'order' => 'ASC',
+				'orderby' => 'title',
+			);
+			$all_posts = wp_get_recent_posts( $args );
 
-      foreach( $all_posts as $recent ){
-         if ( has_post_thumbnail( $recent["ID"]) ) {
-            $thumbnail_image = get_the_post_thumbnail_url($recent["ID"],'single-post-thumbnail');
-            $recent['thumbnail'] = $thumbnail_image;
-         }
-				 $recent['tags'] = wp_get_post_tags( $recent["ID"] );
-				 $recent['category'] = get_the_category( $recent["ID"] );
-         $recent_posts[] = $recent;
-      }
+			foreach ( $all_posts as $recent ) {
+				if ( has_post_thumbnail( $recent['ID'] ) ) {
+						$thumbnail_image = get_the_post_thumbnail_url( $recent['ID'],'single-post-thumbnail' );
+						$recent['thumbnail'] = $thumbnail_image;
+				}
+				$recent['tags'] = wp_get_post_tags( $recent['ID'] );
+				$recent['category'] = get_the_category( $recent['ID'] );
+				$recent_posts[] = $recent;
+			}
 
-      $data = [
-				'fields' => array_map( 'wp_kses_post', $fields),
-        'recent_posts'  => $recent_posts
+			$data = [
+				'fields' => array_map( 'wp_kses_post', $fields ),
+				'recent_posts'  => $recent_posts,
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
