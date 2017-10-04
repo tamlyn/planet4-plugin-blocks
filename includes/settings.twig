@@ -21,45 +21,23 @@
                         <option selected disabled>- {{ __( 'Select Language', domain ) }} -</option>
                         {% for key, language in available_languages %}
                             {% if key == settings.p4bks_lang %}
-                                <option value="{{ key }}" selected>{{ language }}</option>
+                                <option value="{{ key|e('html_attr') }}" selected>{{ language|e('html') }}</option>
                             {% else %}
-                                <option value="{{ key }}">{{ language }}</option>
+                                <option value="{{ key|e('html_attr') }}">{{ language|e('html') }}</option>
                             {% endif %}
                         {% endfor %}
                     </select>
                 </td>
             </tr>
             <tr valign="top">
-                <th>{{ __( 'Header', domain ) }}</th>
-                <td>
-                    {% if ( settings.p4bks_block_header ) %}
-                        {% set checked = 'checked' %}
-                    {% else %}
-                        {% set checked = '' %}
-                    {% endif %}
-                    <input id="p4bks_block_header" type="checkbox" name="p4bks_main_settings[p4bks_block_header]" value="1" {{ checked|e('html_attr') }} />
-                </td>
-            </tr>
-            <tr valign="top">
-                <th>{{ __( 'Take action tasks', domain ) }}</th>
-                <td>
-                    {% if ( settings.p4bks_block_tasks ) %}
-                        {% set checked = 'checked' %}
-                    {% else %}
-                        {% set checked = '' %}
-                    {% endif %}
-                    <input id="p4bks_block_tasks" type="checkbox" name="p4bks_main_settings[p4bks_block_tasks]" value="1" {{ checked|e('html_attr') }} />
-                </td>
-            </tr>
-            <tr valign="top">
                 <th>{{ __( 'Two Columns', domain ) }}</th>
                 <td>
-                    {% if ( settings.p4bks_block_two_column ) %}
+                    {% if ( settings.p4bks_block_two_column|e('html_attr') ) %}
                         {% set checked = 'checked' %}
                     {% else %}
                         {% set checked = '' %}
                     {% endif %}
-                    <input id="p4bks_block_two_column" type="checkbox" name="p4bks_main_settings[p4bks_block_two_column]" value="1" {{ checked|e('html_attr') }} />
+                    <input id="p4bks_block_two_column" type="checkbox" name="p4bks_main_settings[p4bks_block_two_column]" value="1" {{ checked }} />
                 </td>
             </tr>
         </table>
