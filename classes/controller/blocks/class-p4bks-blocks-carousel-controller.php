@@ -20,9 +20,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		/**
 		 * Add custom media metadata fields
 		 *
-		 * Be sure to sanitize your data before saving it
-		 * http://codex.wordpress.org/Data_Validation
-		 *
 		 * @param $form_fields An array of fields included in the attachment form
 		 * @param $post The attachment record in the database
 		 * @return $form_fields The final array of form fields to use
@@ -42,9 +39,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 
 		/**
 		 * Save custom media metadata fields
-		 *
-		 * Be sure to validate your data before saving it
-		 * http://codex.wordpress.org/Data_Validation
 		 *
 		 * @param $post The $post data for the attachment
 		 * @param $attachment The $attachment part of the form $_POST ($_POST[attachments][postID])
@@ -69,9 +63,9 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 			$fields = array(
 				// Multiple Image Field.
 				array(
-					'label' => __( 'Select Carousel Images', 'planet4-blocks' ),
-					'attr'  => 'multiple_image',
-					'type'  => 'attachment',
+					'label'       => __( 'Select Carousel Images', 'planet4-blocks' ),
+					'attr'        => 'multiple_image',
+					'type'        => 'attachment',
 					'libraryType' => array( 'image' ),
 					'multiple'    => true,
 					'addButton'   => 'Select Carousel Images',
@@ -81,9 +75,9 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = array(
-				'label' => __( 'Carousel', 'planet4-blocks' ),
+				'label'         => __( 'Carousel', 'planet4-blocks' ),
 				'listItemImage' => 'dashicons-editor-table',
-				'attrs' => $fields,
+				'attrs'         => $fields,
 			);
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
@@ -93,13 +87,13 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		 * Callback for the shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array  $fields
-		 * @param string $content
-		 * @param string $shortcode_tag
+		 * @param array  $fields This contains array of multiple image field.
+		 * @param string $content This is the post content.
+		 * @param string $shortcode_tag The shortcode block of carousel.
 		 *
 		 * @since 0.1.0
 		 *
-		 * @return string
+		 * @return string All the data used for the html.
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
@@ -108,15 +102,15 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 
 			foreach ( $explodeMultipleImageArray as $imageID ) {
 
-				$image_data_array = wp_get_attachment_image_src( $imageID, 'cta' );
+				$image_data_array         = wp_get_attachment_image_src( $imageID, 'cta' );
 
 				$images_data['image_src'] = $image_data_array[0];
-				$image_metadata = get_post( $imageID );
-				$attachment_fields = get_post_custom( $imageID );
+				$image_metadata           = get_post( $imageID );
+				$attachment_fields        = get_post_custom( $imageID );
 
-				$images_data['credits'] = ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) ? esc_attr( $attachment_fields['_credit_text'][0] ) : '';
+				$images_data['credits']   = ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) ? esc_attr( $attachment_fields['_credit_text'][0] ) : '';
 
-				$images_data['caption'] = $image_metadata->post_excerpt;
+				$images_data['caption']   = $image_metadata->post_excerpt;
 
 				$images[] = $images_data;
 			}
