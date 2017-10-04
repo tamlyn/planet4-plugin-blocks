@@ -91,7 +91,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 			$shortcode_ui_args = [
 				// translators: A block that contains different columns each one with title and description and an image.
 				'label'         => __( 'Take action tasks', 'planet4-blocks' ),
-				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/icons/take_action_tasks.png' ) . '" />',
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/take_action_tasks.png' ) . '" />',
 				'attrs'         => $fields,
 			];
 
