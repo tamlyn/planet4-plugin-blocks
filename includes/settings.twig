@@ -21,9 +21,9 @@
                         <option selected disabled>- {{ __( 'Select Language', domain ) }} -</option>
                         {% for key, language in available_languages %}
                             {% if key == settings.p4bks_lang %}
-                                <option value="{{ key }}" selected>{{ language }}</option>
+                                <option value="{{ key|e('html_attr') }}" selected>{{ language|e('html') }}</option>
                             {% else %}
-                                <option value="{{ key }}">{{ language }}</option>
+                                <option value="{{ key|e('html_attr') }}">{{ language|e('html') }}</option>
                             {% endif %}
                         {% endfor %}
                     </select>
@@ -32,7 +32,7 @@
             <tr valign="top">
                 <th>{{ __( 'Two Columns', domain ) }}</th>
                 <td>
-                    {% if ( settings.p4bks_block_two_column ) %}
+                    {% if ( settings.p4bks_block_two_column|e('html_attr') ) %}
                         {% set checked = 'checked' %}
                     {% else %}
                         {% set checked = '' %}
