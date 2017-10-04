@@ -11,7 +11,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		 * Override this method in order to give your block its own name.
 		 */
 		public function load() {
-			// --- Set here the name of your block ---
 			add_filter( 'attachment_fields_to_edit', array( $this, 'add_image_attachment_fields_to_edit' ), null, 2 );
 			add_filter( 'attachment_fields_to_save', array( $this, 'add_image_attachment_fields_to_save' ), null , 2 );
 			$this->block_name = 'carousel';
@@ -60,36 +59,17 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		}
 
 		/**
-		 * Shortcode UI setup for the twocolumn shortcode.
+		 * Shortcode UI setup for the carousel shortcode.
 		 *
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
 		 *
 		 * @since 0.1.0
 		 */
 		public function prepare_fields() {
-			/*
-			 * Define the UI for attributes of the shortcode. Optional.
-			 *
-			 * If no UI is registered for an attribute, then the attribute will
-			 * not be editable through Shortcake's UI. However, the value of any
-			 * unregistered attributes will be preserved when editing.
-			 *
-			 * Each array must include 'attr', 'type', and 'label'.
-			 * * 'attr' should be the name of the attribute.
-			 * * 'type' options include: text, checkbox, textarea, radio, select, email,
-			 *     url, number, and date, post_select, attachment, color.
-			 * * 'label' is the label text associated with that input field.
-			 *
-			 * Use 'meta' to add arbitrary attributes to the HTML of the field.
-			 *
-			 * Use 'encode' to encode attribute data. Requires customization in shortcode callback to decode.
-			 *
-			 * Depending on 'type', additional arguments may be available.
-			 */
 			$fields = array(
-				// Multiple Image Field
+				// Multiple Image Field.
 				array(
-					'label' => esc_html__( 'Select Carousel Images', 'planet4-blocks' ),
+					'label' => __( 'Select Carousel Images', 'planet4-blocks' ),
 					'attr'  => 'multiple_image',
 					'type'  => 'attachment',
 					'libraryType' => array( 'image' ),
@@ -99,25 +79,10 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 				),
 			);
 
-			/*
-			 * Define the Shortcode UI arguments.
-			 */
+			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = array(
-				/*
-				 * How the shortcode should be labeled in the UI. Required argument.
-				 */
-				'label' => esc_html__( 'Carousel', 'planet4-blocks' ),
-
-				/*
-				 * Include an icon with your shortcode. Optional.
-				 * Use a dashicon, or full HTML (e.g. <img src="/path/to/your/icon" />).
-				 */
+				'label' => __( 'Carousel', 'planet4-blocks' ),
 				'listItemImage' => 'dashicons-editor-table',
-
-				/*
-				 * Define the UI for attributes of the shortcode. Optional.
-				 * See above, to where the the assignment to the $fields variable was made.
-				 */
 				'attrs' => $fields,
 			);
 
@@ -159,6 +124,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 			$data = [
 				'images' => array_map( 'wp_kses_post', $images ),
 			];
+
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
 			$this->view->block( $this->block_name, $data );
