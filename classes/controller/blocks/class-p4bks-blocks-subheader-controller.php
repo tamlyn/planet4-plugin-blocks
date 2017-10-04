@@ -27,7 +27,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Subheader_Controller' ) ) {
 				),
 				array(
 					'label' => __( 'Description', 'planet4-blocks' ),
-					'attr'  => 'descr',
+					'attr'  => 'description',
 					'type'  => 'textarea',
 				),
 			);
@@ -55,9 +55,12 @@ if ( ! class_exists( 'P4BKS_Blocks_Subheader_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ): string {
 
 			$fields = shortcode_atts( array(
-				'title' => '',
-				'descr' => '',
+				'title'       => '',
+				'description' => '',
 			), $fields, $shortcode_tag );
+
+			//Field "description" needs to be escaped, because we show it raw in the twig template
+			$fields['description'] = wp_kses( $fields['description'] );
 
 			$data = [
 				'fields' => $fields
