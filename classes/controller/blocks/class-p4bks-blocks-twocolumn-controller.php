@@ -43,90 +43,90 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 			 *
 			 * Depending on 'type', additional arguments may be available.
 			 */
-			$fields = array(
+			$fields = [
 				// First column fields.
-				array(
-					'label' => esc_html__( 'Title', 'planet4-blocks' ),
+				[
+					'label' => __( 'Title', 'planet4-blocks' ),
 					'attr'  => 'title_1',
 					'type'  => 'text',
-					'meta'  => array(
-						'placeholder' => esc_html__( 'Enter title of first column', 'planet4-blocks' ),
+					'meta'  => [
+						'placeholder' => __( 'Enter title of first column', 'planet4-blocks' ),
 						'data-plugin' => 'planet4-blocks',
-					),
-				),
-				array(
-					'label' => esc_html__( 'Description', 'planet4-blocks' ),
+					],
+				],
+				[
+					'label' => __( 'Description', 'planet4-blocks' ),
 					'attr'  => 'description_1',
 					'type'  => 'textarea',
-					'meta'  => array(
-						'placeholder' => esc_html__( 'Enter description of first column', 'planet4-blocks' ),
+					'meta'  => [
+						'placeholder' => __( 'Enter description of first column', 'planet4-blocks' ),
 						'data-plugin' => 'planet4-blocks',
-					),
-				),
-				array(
+					],
+				],
+				[
 					'label' => __( 'Button text', 'planet4-blocks' ),
 					'attr'  => 'button_text_1',
 					'type'  => 'text',
-					'value' => __( 'Find a way to make change', 'planet4-blocks'),
-					'meta'  => array(
+					'value' => __( 'Find a way to make change', 'planet4-blocks' ),
+					'meta'  => [
 						'data-plugin' => 'planet4-blocks',
-					),
-				),
-				array(
+					],
+				],
+				[
 					'label' => __( 'Button link', 'planet4-blocks' ),
 					'attr'  => 'button_link_1',
 					'type'  => 'url',
-					'meta'  => array(
+					'meta'  => [
 						'placeholder' => esc_html__( 'Enter button link of first column', 'planet4-blocks' ),
 						'data-plugin' => 'planet4-blocks',
-					),
-				),
+					],
+				],
 
 				// Second column fields.
-				array(
-					'label' => esc_html__( 'Title', 'planet4-blocks' ),
+				[
+					'label' => __( 'Title', 'planet4-blocks' ),
 					'attr'  => 'title_2',
 					'type'  => 'text',
-					'meta'  => array(
-						'placeholder' => esc_html__( 'Enter title of second column', 'planet4-blocks' ),
-					),
-				),
-				array(
-					'label' => esc_html__( 'Description', 'planet4-blocks' ),
+					'meta'  => [
+						'placeholder' => __( 'Enter title of second column', 'planet4-blocks' ),
+					],
+				],
+				[
+					'label' => __( 'Description', 'planet4-blocks' ),
 					'attr'  => 'description_2',
 					'type'  => 'textarea',
-					'meta'  => array(
-						'placeholder' => esc_html__( 'Enter description of second column', 'planet4-blocks' ),
-					),
-				),
-				array(
+					'meta'  => [
+						'placeholder' => __( 'Enter description of second column', 'planet4-blocks' ),
+					],
+				],
+				[
 					'label' => __( 'Button text', 'planet4-blocks' ),
 					'attr'  => 'button_text_2',
 					'type'  => 'text',
-					'value' => __( 'Explore the issues', 'planet4-blocks'),
-					'meta'  => array(
+					'value' => __( 'Explore the issues', 'planet4-blocks' ),
+					'meta'  => [
 						'data-plugin' => 'planet4-blocks',
-					),
-				),
-				array(
+					],
+				],
+				[
 					'label' => __( 'Button link', 'planet4-blocks' ),
 					'attr'  => 'button_link_2',
 					'type'  => 'url',
-					'meta'  => array(
-						'placeholder' => esc_html__( 'Enter button link of second column', 'planet4-blocks' ),
+					'meta'  => [
+						'placeholder' => __( 'Enter button link of second column', 'planet4-blocks' ),
 						'data-plugin' => 'planet4-blocks',
-					),
-				),
-			);
+					],
+				],
+			];
 
 			/*
 			 * Define the Shortcode UI arguments.
 			 */
-			$shortcode_ui_args = array(
+			$shortcode_ui_args = [
 				/*
 				 * How the shortcode should be labeled in the UI. Required argument.
 				 */
-				'label' => esc_html__( 'Two Columns', 'planet4-blocks' ),
+				'label' => __( 'Two Columns', 'planet4-blocks' ),
 
 				/*
 				 * Include an icon with your shortcode. Optional.
@@ -139,7 +139,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 				 * See above, to where the the assignment to the $fields variable was made.
 				 */
 				'attrs' => $fields,
-			);
+			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
 		}
@@ -159,7 +159,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
 			$data = [
-				'fields' => array_map( 'wp_kses_post', $fields),
+				'fields' => array_map( 'wp_kses_post', $fields ),
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
