@@ -54,6 +54,7 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
       L O A D  P L U G I N
    ========================== */
 P4BKS\P4BKS_Loader::get_instance( [
+	'P4BKS\Controllers\Blocks\P4BKS_Blocks_ContentFourColumn_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_TwoColumn_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_HappyPoint_Controller',
 	'P4BKS\Controllers\Menu\P4BKS_Settings_Controller',
