@@ -3,9 +3,9 @@
     {% if ( fields ) %}
 
         <div id="p4bks_tasks_container" class="can-do-steps shortcode-tasks">
-            {% for i in 1..4 %}
+            <div class="hidden-md-down row">
+                {% for i in 1..4 %}
 
-                <div class="hidden-md-down row">
                     <div class="col-md-3 col-lg-3 col-xl-3 {{ i==1 ? 'active' : '' }}">
                         <div class="step-info-wrap clearfix">
                             <span class="step-number">{{ i }}</span>
@@ -17,33 +17,43 @@
                                     {% if ( fields['description_'~i] ) %}
                                         <p>{{ fields['description_'~i] }}</p>
                                     {% endif %}
-                                    {% if ( fields['attachment_'~i] ) %}
-                                        <div class="steps-action" style="display: none;">
+                                    <div class="steps-action" style="display: none;">
+                                        {% if ( fields['attachment_'~i] ) %}
                                             <img src="{{ fields['attachment_'~i] }}" alt=""/>
-                                        </div>
-                                    {% endif %}
-                                    {% if ( fields['button_text_'~i] and fields['button_text_'~i] ) %}
-                                        <a class="btn blue-button"
-                                           href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
-                                        </a>
-                                    {% endif %}
+                                        {% endif %}
+                                        {% if ( fields['button_text_'~i] and fields['button_text_'~i] ) %}
+                                            <a class="btn btn-small btn-medium secondary-button"
+                                               href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
+                                            </a>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            {% endfor %}
-
+                {% endfor %}
+            </div>
 
             <div class="can-do-steps-mobile hidden-lg-up">
                 <div id="accordion" role="tablist" aria-multiselectable="true">
                     {% for i in 1..4 %}
+
+                        {% if i == 1 %}
+                            {% set number_to_word = 'one' %}
+                        {% elseif i == 2 %}
+                            {% set number_to_word = 'two' %}
+                        {% elseif i == 3 %}
+                            {% set number_to_word = 'three' %}
+                        {% elseif i == 4 %}
+                            {% set number_to_word = 'four' %}
+                        {% endif %}
                         <div class="card">
-                            <div class="card-header" role="tab" id="headingOne">
+                            <div class="card-header" role="tab" id="heading-{{ number_to_word }}">
                                 <h5 class="mb-0">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse-one"
-                                       aria-expanded="true" aria-controls="collapseOne">
+                                    <a {{ i>1 ? 'class="collapsed"' : '' }}
+                                            data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ number_to_word }}"
+                                            aria-expanded="true" aria-controls="collapse-{{ number_to_word }}">
                                         <span class="step-number">{{ i }}</span>
                                         {% if ( fields['title_'~i] ) %}
                                             {{ fields['title_'~i] }}
@@ -52,7 +62,7 @@
                                 </h5>
                             </div>
 
-                            <div id="collapse-one" class="collapse show" role="tabpanel" aria-labelledby="heading-one">
+                            <div id="collapse-{{ number_to_word }}" class="collapse show" role="tabpanel" aria-labelledby="heading-{{ number_to_word }}">
                                 <div class="card-block info-with-image-wrap clearfix">
                                     <div class="accordion-image-wrap">
                                         {% if ( fields['attachment_'~i] ) %}
@@ -66,7 +76,7 @@
                                     </div>
 
                                     {% if ( fields['button_text_'~i] and fields['button_text_'~i] ) %}
-                                        <a class="btn blue-button"
+                                        <a class="btn btn-small btn-medium secondary-button"
                                            href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
                                         </a>
                                     {% endif %}
