@@ -12,7 +12,6 @@
         {{ fn( 'do_settings_sections', 'p4bks_main_settings_group' ) }}
 
         <br /><br />
-        <h4>{{ __( 'Choose which blocks will be available', domain ) }}</h4>
         <table class="form-table">
             <tr valign="top">
                 <th>{{ __( 'Language', domain ) }}:</th>
@@ -21,23 +20,12 @@
                         <option selected disabled>- {{ __( 'Select Language', domain ) }} -</option>
                         {% for key, language in available_languages %}
                             {% if key == settings.p4bks_lang %}
-                                <option value="{{ key|e('html_attr') }}" selected>{{ language|e('html') }}</option>
+                                <option value="{{ key }}" selected>{{ language }}</option>
                             {% else %}
-                                <option value="{{ key|e('html_attr') }}">{{ language|e('html') }}</option>
+                                <option value="{{ key }}">{{ language }}</option>
                             {% endif %}
                         {% endfor %}
                     </select>
-                </td>
-            </tr>
-            <tr valign="top">
-                <th>{{ __( 'Two Columns', domain ) }}</th>
-                <td>
-                    {% if ( settings.p4bks_block_two_column|e('html_attr') ) %}
-                        {% set checked = 'checked' %}
-                    {% else %}
-                        {% set checked = '' %}
-                    {% endif %}
-                    <input id="p4bks_block_two_column" type="checkbox" name="p4bks_main_settings[p4bks_block_two_column]" value="1" {{ checked }} />
                 </td>
             </tr>
         </table>
