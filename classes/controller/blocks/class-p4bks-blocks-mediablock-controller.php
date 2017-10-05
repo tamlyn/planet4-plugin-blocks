@@ -45,7 +45,7 @@ if ( ! class_exists( 'P4BKS_Blocks_MediaBlock_Controller' ) ) {
 			$shortcode_ui_args = [
 				// translators: A block that displays an image that supports transparency and blends with the background.
 				'label'         => __( 'Media block', 'planet4-blocks' ),
-				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/icons/media_block.png' ) . '" />',
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/media_block.png' ) . '" />',
 				'attrs'         => $fields,
 			];
 			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
@@ -55,8 +55,8 @@ if ( ! class_exists( 'P4BKS_Blocks_MediaBlock_Controller' ) ) {
 		 * Callback for the tasks shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array  $attributes    Defined attributes array for this shortcode.
-		 * @param string $content       Content.
+		 * @param array $attributes Defined attributes array for this shortcode.
+		 * @param string $content Content.
 		 * @param string $shortcode_tag Shortcode tag name.
 		 *
 		 * @return string Returns the compiled template.
