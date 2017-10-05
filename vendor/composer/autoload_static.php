@@ -37,8 +37,8 @@ class ComposerStaticInit356100170ff2882375cd04c4c76f9df3
 
     public static $classMap = array (
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-controller.php',
-        'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_FourColumn_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-four-column-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_HappyPoint_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-happypoint-controller.php',
+        'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_StaticFourColumn_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-static-four-column-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Tasks_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-tasks-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_TwoColumn_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-twocolumn-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Subheader_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-subheader-controller.php',
