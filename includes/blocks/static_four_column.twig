@@ -5,12 +5,11 @@
         <div class="four-coloum">
             <div class="container">
                 <div class="row">
-
                     {% for i in 1..4 %}
                         <div class="col-md-3 col-lg-3 col-xl-3">
                             <div class="four-coloum-wrap clearfix">
                                 <div class="four-coloum-symbol">
-                                    <img src="{{ fields['attachment_'~i] }}"></div>
+                                    <img src="{{ attribute( fields, 'attachment_'~i ) }}"></div>
                                 <div class="four-coloum-info">
                                     <div class="four-coloum-information">
                                         {% if ( attribute( fields, 'title_'~i ) ) %}
