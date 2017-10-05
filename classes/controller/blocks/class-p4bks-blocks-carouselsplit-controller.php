@@ -46,7 +46,7 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselSplit_Controller' ) ) {
 			$shortcode_ui_args = [
 				// translators: A block that contains a carousel with split images.
 				'label'         => __( 'Carousel Split', 'planet4-blocks' ),
-				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/icons/carousel_split.png' ) . '" />',
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/carousel_split.png' ) . '" />',
 				'attrs'         => $fields,
 			];
 
@@ -57,27 +57,27 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselSplit_Controller' ) ) {
 		 * Callback for the carousel split shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array  $attributes    Defined attributes array for this shortcode.
+		 * @param array  $attributes    Defined  attributes array for this shortcode.
 		 * @param string $content       Content.
 		 * @param string $shortcode_tag Shortcode tag name.
 		 *
 		 * @return string Returns the compiled template.
 		 */
-		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
+		public function prepare_template( $attributes, $content, $shortcode_tag ): string {
 
-			$images = [];
-			$images_ids = explode( ',',$attributes['multiple_images'] );
+			$images     = [];
+			$images_ids = explode( ',', $attributes['multiple_images'] );
 			foreach ( $images_ids as $image_id ) {
 
 				$temp_array = wp_get_attachment_image_src( $image_id );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
 
-					$temp_image = wp_prepare_attachment_for_js( $image_id );
-					$image = [];
-					$image[0] = $temp_image['url'];
-					$image[1] = $temp_image['title'];
-					$image[2] = $temp_image['caption'];
-					$images[] = $image;
+					$temp_image       = wp_prepare_attachment_for_js( $image_id );
+					$image            = [];
+					$image['url']     = $temp_image['url'];
+					$image['title']   = $temp_image['title'];
+					$image['caption'] = $temp_image['caption'];
+					$images[]         = $image;
 				}
 			}
 
