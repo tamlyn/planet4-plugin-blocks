@@ -66,7 +66,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-			$fields['article_count']   = ( isset( $fields['article_count'] ) && ! empty( $fields['article_count'] ) ) ? esc_attr( $fields['article_count'] ) : 3;
+			$fields['article_count']   = ( isset( $fields['article_count'] ) && ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
 			// Get all posts with arguments.
 			$args = array(
 				'numberposts' => $fields['article_count'],
