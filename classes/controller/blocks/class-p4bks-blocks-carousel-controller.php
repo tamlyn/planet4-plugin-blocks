@@ -30,7 +30,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 			$form_fields['credit_text'] = array(
 				'label' => __( 'Credit' ),
 				'input' => 'text', // this is default if "input" is omitted
-				'value' => esc_attr( get_post_meta( $post->ID, '_credit_text', true ) ),
+				'value' => get_post_meta( $post->ID, '_credit_text', true ),
 				'helps' => __( 'The owner of the image.' ),
 			);
 
@@ -46,7 +46,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		 */
 		function add_image_attachment_fields_to_save( $post, $attachment ) {
 			if ( isset( $attachment['credit_text'] ) ) {
-				update_post_meta( $post['ID'], '_credit_text', esc_attr( $attachment['credit_text'] ) );
+				update_post_meta( $post['ID'], '_credit_text', $attachment['credit_text'] );
 			}
 
 			return $post;
@@ -76,7 +76,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = array(
 				'label'         => __( 'Carousel', 'planet4-blocks' ),
-				'listItemImage' => 'dashicons-editor-table',
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/take_action_carousel.png' ) . '" />',
 				'attrs'         => $fields,
 			);
 
@@ -108,7 +108,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 				$image_metadata           = get_post( $imageID );
 				$attachment_fields        = get_post_custom( $imageID );
 
-				$images_data['credits']   = ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) ? esc_attr( $attachment_fields['_credit_text'][0] ) : '';
+				$images_data['credits']   = ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) ? $attachment_fields['_credit_text'][0] : '';
 
 				$images_data['caption']   = $image_metadata->post_excerpt;
 
@@ -116,7 +116,8 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 			}
 
 			$data = [
-				'images' => array_map( 'wp_kses_post', $images ),
+				'images' => $images,
+				'domain' => 'planet4-blocks',
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
