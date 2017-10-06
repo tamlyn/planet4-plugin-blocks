@@ -1,0 +1,28 @@
+{% block covers %}
+
+{% if ( fields ) %}
+    <div id="p4bks_covers_container" class="shortcode-covers">
+        <div class="row">
+            {% if ( fields.title ) %}
+                <h2>{{ fields.title }}</h2>
+            {% endif %}
+            {% for cover in fields.covers %}
+                <div>
+                    {% if ( cover.tags ) %}
+                        {% for tag in tags %}
+                            <span>#{{ tag }}</span>
+                        {% endfor %}
+                    {% endif %}
+                    <div>{{ cover.title }}</div>
+                    <a class="btn" href="{{ cover.button_link }}">{{ cover.button_text }}</a>
+                </div>
+            {% endfor %}
+            {% if ( fields.button_text and fields.button_link ) %}
+                <a class="btn" href="{{ fields.button_link }}">{{ fields.button_text }}</a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+<div class="clear"></div>
+
+{% endblock %}
