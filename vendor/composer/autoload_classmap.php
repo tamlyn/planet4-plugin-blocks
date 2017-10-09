@@ -20,6 +20,7 @@ return array(
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_HappyPoint_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-happypoint-controller.php',
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_MediaBlock_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-mediablock-controller.php',
 >>>>>>> 1268-block-media
@@ -34,6 +35,10 @@ return array(
 >>>>>>> 1267-block-carousel
 =======
 >>>>>>> 1300-block-articles
+=======
+    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Subheader_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-subheader-controller.php',
+    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_StaticFourColumn_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-staticfourcolumn-controller.php',
+>>>>>>> 1323-block-covers
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Tasks_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-tasks-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_TwoColumn_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-twocolumn-controller.php',
     'P4BKS\\Controllers\\Menu\\P4BKS_Controller' => $baseDir . '/classes/controller/menu/class-p4bks-controller.php',

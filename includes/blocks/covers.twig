@@ -1,24 +1,37 @@
 {% block covers %}
 
-{% if ( fields ) %}
-    <div id="p4bks_covers_container" class="shortcode-covers">
-        <div class="row">
+{% if ( fields and fields.covers ) %}
+    <div class="subheader">
+        <div class="container">
             {% if ( fields.title ) %}
                 <h2>{{ fields.title }}</h2>
             {% endif %}
-            {% for cover in fields.covers %}
-                <div>
-                    {% if ( cover.tags ) %}
-                        {% for tag in tags %}
-                            <span>#{{ tag }}</span>
-                        {% endfor %}
-                    {% endif %}
-                    <div>{{ cover.title }}</div>
-                    <a class="btn" href="{{ cover.button_link }}">{{ cover.button_text }}</a>
-                </div>
-            {% endfor %}
+            {% if ( fields.description ) %}
+                <p>{{ fields.description|raw }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="covers-block">
+        <div class="container">
+            <div class="row">
+                {% for cover in fields.covers %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="cover-card card-one">
+                        {% if ( cover.tags ) %}
+                            {% for tag in cover.tags %}
+                                <span class="cover-card-tag">
+                                    <a href="{{ tag.href }}"><i>#{{ tag.name }}</i></a>
+                                </span>
+                            {% endfor %}
+                        {% endif %}
+                        <h2 class="cover-card-heading">{{ cover.title }}</h2>
+                        <a class="btn" href="{{ cover.button_link }}">{{ cover.button_text }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
             {% if ( fields.button_text and fields.button_link ) %}
-                <a class="btn" href="{{ fields.button_link }}">{{ fields.button_text }}</a>
+                <a class="btn btn-primary btn-transparent btn-block cover-card-btn" href="{{ fields.button_link }}">{{ fields.button_text }}</a>
             {% endif %}
         </div>
     </div>
