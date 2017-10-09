@@ -29,7 +29,6 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselSplit_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 
-			// This block will have 4 different columns with same fields.
 			$fields = [
 				[
 					'label'       => __( 'Images', 'shortcode-ui' ),
