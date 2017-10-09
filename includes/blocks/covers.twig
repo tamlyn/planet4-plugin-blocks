@@ -1,15 +1,20 @@
 {% block covers %}
 
-{% if ( fields ) %}
+{% if ( fields and fields.covers ) %}
     <div id="p4bks_covers_container" class="shortcode-covers">
-        <div class="row">
+        <div class="">
             {% if ( fields.title ) %}
                 <h2>{{ fields.title }}</h2>
+                <br />
+            {% endif %}
+            {% if ( fields.description ) %}
+                <p>{{ fields.description|raw }}</p>
+                <br />
             {% endif %}
             {% for cover in fields.covers %}
                 <div>
                     {% if ( cover.tags ) %}
-                        {% for tag in tags %}
+                        {% for tag in cover.tags %}
                             <span>#{{ tag }}</span>
                         {% endfor %}
                     {% endif %}

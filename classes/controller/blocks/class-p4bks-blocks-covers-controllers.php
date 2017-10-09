@@ -49,7 +49,16 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 					'attr'  => 'title',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => __( 'Enter title of Take action covers', 'planet4-blocks' ),
+						'placeholder' => __( 'Enter title', 'planet4-blocks' ),
+						'data-plugin' => 'planet4-blocks',
+					],
+				],
+				[
+					'label' => __( 'Description', 'planet4-blocks' ),
+					'attr'  => 'description',
+					'type'  => 'textarea',
+					'meta'  => [
+						'placeholder' => __( 'Enter description', 'planet4-blocks' ),
 						'data-plugin' => 'planet4-blocks',
 					],
 				],
@@ -61,7 +70,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 			$shortcode_ui_args = [
 				/*
 				 * How the shortcode should be labeled in the UI. Required argument.
-				 */
+				2 */
 				'label' => __( 'Take action covers', 'planet4-blocks' ),
 
 				/*
@@ -91,18 +100,36 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		 * @return string
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
+			$actions = wp_get_recent_posts( [
+				'post_type'     => 'actions',
+				'order_by'      => 'date',
+				'order'         => 'DESC',
+				'numberposts'   => P4BKS_COVERS_NUM,
+			], 'OBJECT' );
 
-			$fields['covers'] = [
-				'tags'        => [
-					'tag1',
-					'tag2',
-				],
-				'title'       => '',
-				'button_text' => __( 'Take Action', 'planet4-blocks' ),
-				'button_link' => '',
-			];
-			$fields['button_text'] = '';
-			$fields['button_link'] = '';
+			if ( $actions ) {
+				$fields['covers'] = [];
+				$cover_button_text = __( 'Take Action', 'planet4-blocks' );
+
+				foreach ( $actions as $action ) {
+					$tags     = [];
+					$wp_terms = wp_get_post_tags( $action->ID );
+
+					if ( $wp_terms ) {
+						foreach ( $wp_terms as $wp_term ) {
+							array_push( $tags, $wp_term->name );
+						}
+					}
+					array_push( $fields['covers'], [
+						'tags'        => $tags,
+						'title'       => $action->post_title,
+						'button_text' => $cover_button_text,
+						'button_link' => get_post_permalink( $action->ID ),
+					] );
+				}
+				$fields['button_text'] = __( 'Load More', 'planet4-blocks' );
+				$fields['button_link'] = '.';
+			}
 
 			$data = [
 				'fields' => $fields,
