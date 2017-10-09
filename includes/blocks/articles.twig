@@ -1,0 +1,83 @@
+{% block articles %}
+{% if ( recent_posts ) %}
+	<div class="news-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-lg-9">
+					{% if ( fields.article_heading ) %}
+						<h3>{{ fields.article_heading }}</h3>
+					{% endif %}
+				</div>
+				<div class="col-md-4 col-lg-3 ml-auto hidden-sm-down">
+					<a class="btn btn-medium btn-blue btn-block" href="#">{{ __( 'READ ALL THE NEWS', domain ) }}</a>
+				</div>
+				<div class="topicwise-news-section clearfix col-md-12">
+					<ul class="topicwise-news-list list-unstyled hidden-sm-down">
+						{% for key,value in recent_posts %}
+						<li class="media topicwise-news-list-itme {% if key == 1 %}my-5{% endif %}">
+							<img class="d-flex mr-3 topicwise-news-image" src="{{ value.thumbnail|raw }}" alt="{{ value.alt_text }}">
+							<div class="media-body topicwise-news-body">
+							<div class="topicwise-news-tags">
+								{% if ( value.category ) %}
+									<span class="news-topic-title">{% for category_data in value.category %} {{ category_data.name }} {% endfor %}</span>
+									<span class="news-topic-title-seprater"></span>
+								{% endif %}
+								{% if ( value.tags ) %}
+									{% for tags_data in value.tags %}
+										<span class="news-topic-tag">#{{ tags_data.name }}</span>
+									{% endfor %}
+								{% endif %}
+							</div>
+							{% if ( value.post_title ) %}
+								<h4 class="mt-0 mb-1 news-headline">{{ value.post_title }}</h4>
+							{% endif %}
+							<div class="news-write-info">
+								<span class="news-author-name">by Author</span>
+								<span class="seprater-symbol">/</span>
+								{% if ( value.post_modified ) %}
+									<span class="news-date">{{ value.post_modified|date("d M, Y") }}</span>
+								{% endif %}
+							</div>
+							{% if ( value.post_excerpt ) %}
+								<p class="news-content">{{ value.post_excerpt }}</p>
+							{% endif %}
+							</div>
+						</li>
+						{% endfor %}
+					</ul>
+					<ul class="topicwise-news-list list-unstyled hidden-sm-up">
+						{% for value in recent_posts %}
+						<li class="topicwise-news-list-itme news-mobile-view {% if key == 1 %}my-5{% endif %}">
+							<div class="topicwise-news-body">
+							<div class="topicwise-news-tags">
+								{% if ( value.category ) %}
+									<span class="news-topic-title">{% for category_data in value.category %} {{ category_data.name }} {% endfor %}</span>
+									<span class="news-topic-title-seprater"></span>
+								{% endif %}
+								{% if ( value.tags ) %}
+									{% for tags_data in value.tags %}
+										<span class="news-topic-tag">#{{ tags_data.name }}</span>
+									{% endfor %}
+								{% endif %}
+							</div>
+							{% if ( value.post_title ) %}
+								<h4 class="mt-0 mb-1 news-headline">{{ value.post_title }}</h4>
+							{% endif %}
+							<div class="news-write-info">
+								<span class="news-author-name">by Author</span>
+								<span class="seprater-symbol">/</span>
+								{% if ( value.post_modified ) %}
+									<span class="news-date">{{ value.post_modified|date("d M, Y") }}</span>
+								{% endif %}
+							</div>
+							</div>
+							<img class="topicwise-news-image" src="{{ value.thumbnail|raw }}" alt="{{ value.alt_text }}">
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+{% endblock %}
