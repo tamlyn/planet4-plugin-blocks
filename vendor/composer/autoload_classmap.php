@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CarouselSplit_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-carouselsplit-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Covers_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-covers-controllers.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_HappyPoint_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-happypoint-controller.php',
@@ -20,3 +19,6 @@ return array(
     'P4BKS\\P4BKS_Loader' => $baseDir . '/classes/class-p4bks-loader.php',
     'P4BKS\\Views\\P4BKS_View' => $baseDir . '/classes/view/class-p4bks-view.php',
 );
+
+    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CarouselSplit_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-carouselsplit-controller.php',
+    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CarouselHeader_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-carousel-header-controller.php',

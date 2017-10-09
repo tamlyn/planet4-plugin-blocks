@@ -1,0 +1,42 @@
+{% block carousel_header %}
+
+    {% if ( fields ) %}
+
+        <div class="four-coloum">
+            <div class="container">
+                <div class="row">
+                    {% for i in 1..4 %}
+                        <div class="col-md-3 col-lg-3 col-xl-3">
+                            <div class="four-coloum-wrap clearfix">
+                                <div class="four-coloum-symbol">
+                                    <img src="{{ attribute( fields, 'image_'~i ) }}"></div>
+                                <div class="four-coloum-info">
+                                    <div class="four-coloum-information">
+                                        {% if ( attribute( fields, 'header_'~i ) ) %}
+                                            <h5>{{ attribute( fields, 'header_'~i ) }}</h5>
+                                        {% endif %}
+                                        {% if ( attribute( fields, 'subheader_'~i ) ) %}
+                                            <h6>{{ attribute( fields, 'subheader_'~i ) }}</h6>
+                                        {% endif %}
+                                        {% if ( attribute( fields, 'description_'~i )  ) %}
+                                            <p>{{ attribute( fields, 'description_'~i ) }}</p>
+                                        {% endif %}
+                                        <div class="four-coloum-action">
+                                            {% if ( attribute( fields, 'link_text_'~i ) ) %}
+                                                <a href="{{ attribute( fields, 'link_url_'~i) }}">
+                                                    {{ attribute( fields, 'link_text_'~i ) }}
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}
