@@ -117,7 +117,10 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 
 					if ( $wp_terms ) {
 						foreach ( $wp_terms as $wp_term ) {
-							array_push( $tags, $wp_term->name );
+							array_push( $tags, [
+								'name' => $wp_term->name,
+								'href'  => "/tag/$wp_term->name",
+							]);
 						}
 					}
 					array_push( $fields['covers'], [

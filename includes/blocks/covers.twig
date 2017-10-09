@@ -15,7 +15,7 @@
                 <div>
                     {% if ( cover.tags ) %}
                         {% for tag in cover.tags %}
-                            <span>#{{ tag }}</span>
+                            <a href="{{ tag.href }}"><i>#{{ tag.name }}</i></a>
                         {% endfor %}
                     {% endif %}
                     <div>{{ cover.title }}</div>
