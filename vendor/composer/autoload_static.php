@@ -46,7 +46,6 @@ class ComposerStaticInit356100170ff2882375cd04c4c76f9df3
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_HappyPoint_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-happypoint-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_MediaBlock_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-mediablock-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_StaticFourColumn_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-static-four-column-controller.php',
->>>>>>> Temporary merge branch 2
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Tasks_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-tasks-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_TwoColumn_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-twocolumn-controller.php',
         'P4BKS\\Controllers\\Menu\\P4BKS_Controller' => __DIR__ . '/../..' . '/classes/controller/menu/class-p4bks-controller.php',
@@ -113,8 +112,6 @@ class ComposerStaticInit356100170ff2882375cd04c4c76f9df3
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Covers_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-covers-controllers.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_HappyPoint_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-happypoint-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_MediaBlock_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-mediablock-controller.php',
-        'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_StaticFourColumn_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-static-four-column-controller.php',
->>>>>>> Temporary merge branch 2
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_StaticFourColumn_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-staticfourcolumn-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Tasks_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-tasks-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_TwoColumn_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-twocolumn-controller.php',
