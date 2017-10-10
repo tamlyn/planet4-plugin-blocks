@@ -30,33 +30,55 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 
+			$fields = [
+				[
+					'label' => __( 'Tasks Title', 'planet4-blocks' ),
+					'attr'  => 'tasks_title',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => __( 'Enter tasks title', 'planet4-blocks' ),
+						'data-plugin' => 'planet4-blocks',
+					],
+				],
+				[
+					'label' => __( 'Tasks Description', 'planet4-blocks' ),
+					'attr'  => 'tasks_description',
+					'type'  => 'textarea',
+					'meta'  => [
+						'placeholder' => __( 'Enter tasks description', 'planet4-blocks' ),
+						'data-plugin' => 'planet4-blocks',
+					],
+				],
+			];
+
 			// This block will have 4 different columns with same fields.
-			$fields = [];
 			for ( $i = 1; $i < 5; $i++ ) {
 				$field = [
 					[
-						'label' => __( 'Title', 'planet4-blocks' ),
+						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+						'label' => sprintf( __( 'Task #%s Title', 'planet4-blocks' ), $i ),
 						'attr'  => 'title_' . $i,
 						'type'  => 'text',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter title of #%s column', 'planet4-blocks' ), $i ),
+							// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter title of #%s task/column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
-						'label' => __( 'Description', 'planet4-blocks' ),
+						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+						'label' => sprintf( __( 'Task #%s Description', 'planet4-blocks' ), $i ),
 						'attr'  => 'description_' . $i,
 						'type'  => 'textarea',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter description of #%s column', 'planet4-blocks' ), $i ),
+							// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter description of #%s task/column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
-						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-						'label'       => sprintf( __( 'Select Image for #%s column', 'planet4-blocks' ),  $i ),
+						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+						'label'       => sprintf( __( 'Select Image for #%s task/column', 'planet4-blocks' ),  $i ),
 						'attr'        => 'attachment_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
@@ -64,22 +86,24 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 						'frameTitle'  => __( 'Select Image', 'shortcode-ui' ),
 					],
 					[
-						'label' => __( 'Button text', 'planet4-blocks' ),
+						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+						'label' => sprintf( __( 'Task #%s Button Text', 'planet4-blocks' ), $i ),
 						'attr'  => 'button_text_' . $i,
 						'type'  => 'text',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter button text of #%s column', 'planet4-blocks' ), $i ),
+							// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter button text of #%s task/column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
-						'label' => __( 'Button link', 'planet4-blocks' ),
+						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+						'label' => sprintf( __( 'Task #%s Button Link', 'planet4-blocks' ), $i ),
 						'attr'  => 'button_link_1' . $i,
 						'type'  => 'url',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter button link of #%s column', 'planet4-blocks' ), $i ),
+							// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter button link of #%s task/column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -110,11 +134,14 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ): string {
 
-			$attributes_temp = [];
+			$attributes_temp = [
+				'tasks_title'        => $attributes['tasks_title'],
+				'tasks_description'  => $attributes['tasks_description'],
+			];
 			for ( $i = 1; $i < 5; $i++ ) {
 				$temp_array = [
 					"title_$i"       => $attributes[ "title_$i" ],
-					"description_$i" => wpautop( $attributes[ "description_$i" ] ),
+					"description_$i" => $attributes[ "description_$i" ],
 					"attachment_$i"  => $attributes[ "attachment_$i" ],
 					"button_text_$i" => $attributes[ "button_text_$i" ],
 					"button_link_$i" => $attributes[ "button_link_$i" ],
