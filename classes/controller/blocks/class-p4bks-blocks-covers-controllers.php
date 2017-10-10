@@ -17,33 +17,10 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 
 		/**
 		 * Shortcode UI setup for the shortcode.
-		 *
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
-		 *
-		 * @since 0.1.0
 		 */
 		public function prepare_fields() {
-			/*
-			 * Define the UI for attributes of the shortcode. Optional.
-			 *
-			 * If no UI is registered for an attribute, then the attribute will
-			 * not be editable through Shortcake's UI. However, the value of any
-			 * unregistered attributes will be preserved when editing.
-			 *
-			 * Each array must include 'attr', 'type', and 'label'.
-			 * * 'attr' should be the name of the attribute.
-			 * * 'type' options include: text, checkbox, textarea, radio, select, email,
-			 *     url, number, and date, post_select, attachment, color.
-			 * * 'label' is the label text associated with that input field.
-			 *
-			 * Use 'meta' to add arbitrary attributes to the HTML of the field.
-			 *
-			 * Use 'encode' to encode attribute data. Requires customization in shortcode callback to decode.
-			 *
-			 * Depending on 'type', additional arguments may be available.
-			 */
 			$fields = [
-				// First column fields.
 				[
 					'label' => __( 'Title', 'planet4-blocks' ),
 					'attr'  => 'title',
@@ -70,7 +47,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 			$shortcode_ui_args = [
 				/*
 				 * How the shortcode should be labeled in the UI. Required argument.
-				2 */
+				 */
 				'label' => __( 'Take action covers', 'planet4-blocks' ),
 
 				/*
@@ -113,19 +90,20 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 
 				foreach ( $actions as $action ) {
 					$tags     = [];
-					$wp_terms = wp_get_post_tags( $action->ID );
+					$wp_tags = wp_get_post_tags( $action->ID );
 
-					if ( $wp_terms ) {
-						foreach ( $wp_terms as $wp_term ) {
+					if ( is_array( $wp_tags ) ) {
+						foreach ( $wp_tags as $wp_tag ) {
 							array_push( $tags, [
-								'name' => $wp_term->name,
-								'href' => "/tag/$wp_term->name",
+								'name' => $wp_tag->name,
+								'href' => "/tag/$wp_tag->name",
 							]);
 						}
 					}
 					array_push( $fields['covers'], [
 						'tags'        => $tags,
 						'title'       => $action->post_title,
+						'image'       => get_the_post_thumbnail_url( $action->ID ),
 						'button_text' => $cover_button_text,
 						'button_link' => get_post_permalink( $action->ID ),
 					] );
