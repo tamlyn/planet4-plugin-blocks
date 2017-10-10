@@ -58,6 +58,10 @@ if ( ! class_exists( 'P4BKS_Blocks_Tagcloud_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
+			$categories = get_the_category();
+
+			$category   = ( isset( $categories[0]->cat_name ) && ! empty( $categories[0]->cat_name ) ) ? $categories[0]->cat_name : '';
+
 			$data = [
 				'fields' => $fields,
 				'domain' => 'planet4-blocks',
