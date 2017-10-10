@@ -1,0 +1,14 @@
+{% block split_two_columns %}
+
+{% if ( fields ) %}
+    <section id="p4bks_split_two_columns_container" class="shortcode-split-two-columns">
+        <div class="row">
+            {% if ( fields.title ) %}
+                <h2>{{ fields.title }}</h2>
+            {% endif %}
+        </div>
+    </section>
+{% endif %}
+<div class="clear"></div>
+
+{% endblock %}
