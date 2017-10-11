@@ -6,13 +6,12 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 
 	class P4BKS_Blocks_Carousel_Controller extends P4BKS_Blocks_Controller {
 
-
 		/**
 		 * Override this method in order to give your block its own name.
 		 */
 		public function load() {
 			add_filter( 'attachment_fields_to_edit', array( $this, 'add_image_attachment_fields_to_edit' ), null, 2 );
-			add_filter( 'attachment_fields_to_save', array( $this, 'add_image_attachment_fields_to_save' ), null , 2 );
+			add_filter( 'attachment_fields_to_save', array( $this, 'add_image_attachment_fields_to_save' ), null, 2 );
 			$this->block_name = 'carousel';
 			parent::load();
 		}
@@ -102,16 +101,15 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 
 			foreach ( $explodeMultipleImageArray as $imageID ) {
 
-				$image_data_array         = wp_get_attachment_image_src( $imageID, 'cta' );
+				$image_data_array             = wp_get_attachment_image_src( $imageID, 'cta' );
 
-				$images_data['image_src'] = $image_data_array[0];
-				$images_data['alt_text']  = get_post_meta( $imageID, '_wp_attachment_image_alt', true  );
-				$image_metadata           = get_post( $imageID );
-				$attachment_fields        = get_post_custom( $imageID );
-
-				$images_data['credits']   = ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) ? $attachment_fields['_credit_text'][0] : '';
-
-				$images_data['caption']   = $image_metadata->post_excerpt;
+				$images_data['image_src']     = $image_data_array[0];
+				$images_data['alt_text']      = get_post_meta( $imageID, '_wp_attachment_image_alt', true  );
+				$image_metadata               = get_post( $imageID );
+				$attachment_fields            = get_post_custom( $imageID );
+				$images_data['credits']       = ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) ? $attachment_fields['_credit_text'][0] : '';
+				$images_data['title']         = $image_metadata->post_title;
+				$images_data['description']   = $image_metadata->post_content;
 
 				$images[] = $images_data;
 			}
