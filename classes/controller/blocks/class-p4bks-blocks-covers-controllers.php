@@ -86,7 +86,8 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 			], 'OBJECT' );
 
 			if ( $actions ) {
-				$fields['covers'] = [];
+				$site_url          = get_bloginfo( 'url' );
+				$fields['covers']  = [];
 				$cover_button_text = __( 'Take Action', 'planet4-blocks' );
 
 				foreach ( $actions as $action ) {
@@ -97,7 +98,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 						foreach ( $wp_tags as $wp_tag ) {
 							array_push( $tags, [
 								'name' => $wp_tag->name,
-								'href' => "/tag/$wp_tag->name",
+								'href' => "$site_url/tag/$wp_tag->name",
 							]);
 						}
 					}
