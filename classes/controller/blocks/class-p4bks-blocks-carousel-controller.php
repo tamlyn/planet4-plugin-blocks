@@ -6,13 +6,12 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 
 	class P4BKS_Blocks_Carousel_Controller extends P4BKS_Blocks_Controller {
 
-
 		/**
 		 * Override this method in order to give your block its own name.
 		 */
 		public function load() {
 			add_filter( 'attachment_fields_to_edit', array( $this, 'add_image_attachment_fields_to_edit' ), null, 2 );
-			add_filter( 'attachment_fields_to_save', array( $this, 'add_image_attachment_fields_to_save' ), null , 2 );
+			add_filter( 'attachment_fields_to_save', array( $this, 'add_image_attachment_fields_to_save' ), null, 2 );
 			$this->block_name = 'carousel';
 			parent::load();
 		}
