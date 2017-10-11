@@ -48,7 +48,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 				/*
 				 * How the shortcode should be labeled in the UI. Required argument.
 				 */
-				'label' => __( 'Take action covers', 'planet4-blocks' ),
+				'label' => __( 'Take Action Covers', 'planet4-blocks' ),
 
 				/*
 				 * Include an icon with your shortcode. Optional.
@@ -79,6 +79,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 			$actions = wp_get_recent_posts( [
 				'post_type'     => 'actions',
+				'post_status'   => 'publish',
 				'order_by'      => 'date',
 				'order'         => 'DESC',
 				'numberposts'   => P4BKS_COVERS_NUM,
@@ -102,13 +103,14 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 					}
 					array_push( $fields['covers'], [
 						'tags'        => $tags,
-						'title'       => $action->post_title,
+						'title'       => get_the_title( $action->ID ),
+						'excerpt'     => get_the_excerpt( $action->ID ),
 						'image'       => get_the_post_thumbnail_url( $action->ID ),
 						'button_text' => $cover_button_text,
 						'button_link' => get_post_permalink( $action->ID ),
 					] );
 				}
-				$fields['button_text'] = __( 'Load More', 'planet4-blocks' );
+				$fields['button_text'] = __( 'Load More ...', 'planet4-blocks' );
 				$fields['button_link'] = '.';
 			}
 
