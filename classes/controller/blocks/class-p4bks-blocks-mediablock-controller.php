@@ -55,8 +55,8 @@ if ( ! class_exists( 'P4BKS_Blocks_MediaBlock_Controller' ) ) {
 		 * Callback for the tasks shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array $attributes Defined attributes array for this shortcode.
-		 * @param string $content Content.
+		 * @param array  $attributes    Defined attributes array for this shortcode.
+		 * @param string $content       Content.
 		 * @param string $shortcode_tag Shortcode tag name.
 		 *
 		 * @return string Returns the compiled template.
@@ -65,13 +65,15 @@ if ( ! class_exists( 'P4BKS_Blocks_MediaBlock_Controller' ) ) {
 
 			$temp_array = wp_get_attachment_image_src( $attributes['attachment'] );
 			if ( false !== $temp_array && ! empty( $temp_array ) ) {
-				$attributes['attachment'] = $temp_array[0];
+				$custom_css = "
+					.block-media {
+					  @include background('" . $temp_array[0] . "');
+					}";
+				wp_add_inline_style( 'custom-style', $custom_css );
 			}
 
 			$block_data = [
-				'fields'              => $attributes,
-				'available_languages' => P4BKS_LANGUAGES,
-				'domain'              => 'planet4-blocks',
+				'fields' => $attributes,
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
