@@ -11,6 +11,7 @@
         {% endif %}
 		{% if ( fields.opacity ) %}
 			<style>
+				@media (min-width: 992px) {
 					.eager-wrap {
 						opacity: {{ fields.opacity }};
 					}
