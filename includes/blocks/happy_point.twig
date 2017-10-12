@@ -1,21 +1,28 @@
 {% block happy_point %}
 	{% if ( fields ) %}
-		<style>
-			@media (min-width: 992px) {
-				.eager-wrap {
-					background: url("{{ fields.background_src.0 }}") center center no-repeat;
+		{% if ( fields.background_src.0 ) %}
+			<style>
+				@media (min-width: 992px) {
+					.eager-wrap {
+						background: url("{{ fields.background_src.0 }}") center center no-repeat;
+					}
 				}
-				.eager-wrap {
-					opacity: {{ fields.opacity }};
+			</style>
+        {% endif %}
+		{% if ( fields.opacity ) %}
+			<style>
+					.eager-wrap {
+						opacity: {{ fields.opacity }};
+					}
+					.eager-wrap:before {
+						opacity: {{ fields.opacity }};
+					}
+					.eager-for-more:before {
+						opacity: {{ fields.opacity }};
+					}
 				}
-				.eager-wrap:before {
-					opacity: {{ fields.opacity }};
-				}
-				.eager-for-more:before {
-					opacity: {{ fields.opacity }};
-				}
-			}
-		</style>
+			</style>
+        {% endif %}
 		<div class="eager-wrap">
 			<div class="container">
 				{% if ( fields.boxout_title ) %}
