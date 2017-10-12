@@ -5,16 +5,12 @@
 				@media (min-width: 992px) {
 					.eager-wrap {
 						background: url("{{ fields.background_src.0 }}") center center no-repeat;
+						background-size: cover;
 					}
-				}
 			</style>
 		{% endif %}
 		{% if ( fields.opacity ) %}
 			<style>
-				@media (min-width: 992px) {
-					.eager-wrap {
-						opacity: {{ fields.opacity }};
-					}
 					.eager-wrap:before {
 						opacity: {{ fields.opacity }};
 					}
@@ -23,7 +19,7 @@
 					}
 				}
 			</style>
-        {% endif %}
+		{% endif %}
 		<div class="eager-wrap">
 			<div class="container">
 				{% if ( fields.boxout_title ) %}
