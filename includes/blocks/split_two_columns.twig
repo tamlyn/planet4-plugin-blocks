@@ -1,13 +1,24 @@
 {% block split_two_columns %}
 
-{% if ( fields ) %}
-    <section id="p4bks_split_two_columns_container" class="shortcode-split-two-columns">
-        <div class="row">
-            {% if ( fields.title ) %}
-                <h2>{{ fields.title }}</h2>
-            {% endif %}
+{% if ( issue ) %}
+    <div id="split_two_columns_block" class="split-two-columns-block">
+        <div class="container">
+            <div class="stc-left-side">
+                {% if ( issue.title ) %}
+                    <h2>{{ issue.title }}</h2>
+                {% endif %}
+                {% if ( issue.description ) %}
+                    <p>{{ issue.description }}</p>
+                {% endif %}
+                <br />
+                {% if ( issue.link_text and issue.link_url ) %}
+                    <a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+                {% endif %}
+            </div>
+            <div class="stc-right-side">
+            </div>
         </div>
-    </section>
+    </div>
 {% endif %}
 <div class="clear"></div>
 

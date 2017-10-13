@@ -2,9 +2,9 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_Split_Two_Columns_Controller' ) ) {
+if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 
-	class P4BKS_Blocks_Split_Two_Columns_Controller extends P4BKS_Blocks_Controller {
+	class P4BKS_Blocks_SplitTwoColumns_Controller extends P4BKS_Blocks_Controller {
 
 
 		/**
@@ -20,15 +20,29 @@ if ( ! class_exists( 'P4BKS_Blocks_Split_Two_Columns_Controller' ) ) {
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
 		 */
 		public function prepare_fields() {
+
+			$issues = get_posts( [
+				'post_type'     => 'page',
+				'category_name' => 'issues',
+			] );
+
+			$options = [];
+			if ( $issues ) {
+				foreach ( $issues as $issue ) {
+					array_push( $options, [
+						'value' => (string) $issue->ID,
+						'label' => get_the_title( $issue->ID ),
+					] );
+				}
+			}
+
 			$fields = [
 				[
-					'label' => __( 'Title', 'planet4-blocks' ),
-					'attr'  => 'title',
-					'type'  => 'text',
-					'meta'  => [
-						'placeholder' => __( 'Enter title', 'planet4-blocks' ),
-						'data-plugin' => 'planet4-blocks',
-					],
+					'attr'        => 'select_issue',
+					'label'       => __( 'Select an Issue', 'planet4-blocks' ),
+					'description' => 'Associate this block to the Issue that it will talk about',
+					'type'        => 'select',
+					'options'     => $options,
 				],
 			];
 
@@ -39,7 +53,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Split_Two_Columns_Controller' ) ) {
 				/*
 				 * How the shortcode should be labeled in the UI. Required argument.
 				 */
-				'label' => __( 'Split two columns', 'planet4-blocks' ),
+				'label' => __( 'Split Two Columns', 'planet4-blocks' ),
 
 				/*
 				 * Include an icon with your shortcode. Optional.
@@ -68,8 +82,16 @@ if ( ! class_exists( 'P4BKS_Blocks_Split_Two_Columns_Controller' ) ) {
 		 * @return string
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
+			$issue_id = absint( $fields['select_issue'] );
+			$page_meta_data = get_post_meta( $issue_id );
+
 			$data = [
-				'fields' => $fields,
+				'issue' => [
+					'title'       => null === $page_meta_data['p4_title'][0] ? get_the_title( $issue_id ) : $page_meta_data['p4_title'][0],
+					'description' => $page_meta_data['p4_description'][0],
+					'link_text'   => __( 'Learn more about this issue', 'planet4-blocks' ),
+					'link_url'    => get_post_permalink( $issue_id ),
+				],
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
