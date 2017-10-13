@@ -30,7 +30,6 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 
-			// This block will have 4 different columns with same fields.
 			$fields = [
 				[
 					'label' => __( 'Global Title', 'planet4-blocks' ),
@@ -64,6 +63,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 				],
 			];
 
+			// This block will have additional 4 different columns with same fields.
 			for ( $i = 1; $i < 5; $i++ ) {
 				$field   = [
 					[
@@ -151,7 +151,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 			for ( $i = 1; $i < 5; $i++ ) {
 				$temp_array = [
 					"title_$i"       => $attributes[ "title_$i" ],
-					"description_$i" => wpautop( $attributes[ "description_$i" ] ),
+					"description_$i" => $attributes[ "description_$i" ],
 					"attachment_$i"  => $attributes[ "attachment_$i" ],
 					"link_text_$i"   => $attributes[ "link_text_$i" ],
 					"link_url_$i"    => $attributes[ "link_url_$i" ],
