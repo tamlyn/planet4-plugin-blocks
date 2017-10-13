@@ -24,22 +24,22 @@ if ( ! class_exists( 'P4BKS_Blocks_Mediavideo_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 			$fields = array(
-					array(
-						'label' => __( 'Video Title', 'planet4-blocks' ),
-						'attr'  => 'video_title',
-						'type'  => 'text',
-						'meta'  => array(
-							'placeholder' => __( 'Enter video title', 'planet4-blocks' ),
-						),
+				array(
+					'label' => __( 'Video Title', 'planet4-blocks' ),
+					'attr'  => 'video_title',
+					'type'  => 'text',
+					'meta'  => array(
+						'placeholder' => __( 'Enter video title', 'planet4-blocks' ),
 					),
-					array(
-						'label' => __( 'Youtube ID', 'planet4-blocks' ),
-						'attr'  => 'youtube_id',
-						'type'  => 'text',
-						'meta'  => array(
-							'placeholder' => __( 'Enter youtube video id', 'planet4-blocks' ),
-						),
-					)
+				),
+				array(
+					'label' => __( 'Youtube ID', 'planet4-blocks' ),
+					'attr'  => 'youtube_id',
+					'type'  => 'text',
+					'meta'  => array(
+						'placeholder' => __( 'Enter youtube video id', 'planet4-blocks' ),
+					),
+				)
 			);
 
 			// Define the Shortcode UI arguments.
