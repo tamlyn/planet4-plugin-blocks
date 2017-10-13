@@ -2,9 +2,9 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_Split_Two_Columns_Controller' ) ) {
+if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 
-	class P4BKS_Blocks_Split_Two_Columns_Controller extends P4BKS_Blocks_Controller {
+	class P4BKS_Blocks_SplitTwoColumns_Controller extends P4BKS_Blocks_Controller {
 
 
 		/**
