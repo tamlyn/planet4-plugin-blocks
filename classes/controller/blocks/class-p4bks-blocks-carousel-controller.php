@@ -60,7 +60,14 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 			$fields = array(
-				// Multiple Image Field.
+				array(
+					'label' => __( 'Title', 'planet4-blocks' ),
+					'attr'  => 'carousel_block_title',
+					'type'  => 'text',
+					'meta'  => array(
+						'placeholder' => __( 'Enter title', 'planet4-blocks' ),
+					),
+				),
 				array(
 					'label'       => __( 'Select Carousel Images', 'planet4-blocks' ),
 					'attr'        => 'multiple_image',
@@ -69,7 +76,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 					'multiple'    => true,
 					'addButton'   => 'Select Carousel Images',
 					'frameTitle'  => 'Select Carousel Images',
-				),
+				)
 			);
 
 			// Define the Shortcode UI arguments.
@@ -115,6 +122,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 			}
 
 			$data = [
+				'title'  => ( isset( $fields['carousel_block_title'] ) && ! empty( $fields['carousel_block_title'] ) ) ? $fields['carousel_block_title'] : '',
 				'images' => $images,
 				'domain' => 'planet4-blocks',
 			];
