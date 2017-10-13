@@ -24,7 +24,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Mediavideo_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 			$fields = array(
-				// Multiple Image Field.
 					array(
 						'label' => __( 'Video Title', 'planet4-blocks' ),
 						'attr'  => 'video_title',
