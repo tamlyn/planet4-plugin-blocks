@@ -3,7 +3,9 @@
 <div class="container">
 	<div class="carousel-wrap">
 		<div id="carousel-wrapper" class="carousel slide" data-ride="carousel">
-			<h1>Our ships in action</h1>
+			{% if ( title ) %}
+				<h1>{{ title }}</h1>
+			{% endif %}
 			<ol class="carousel-indicators">
 				{% for key,single_image in images %}
 					<li data-target="#carousel-wrapper" data-slide-to="{{ key }}" {% if key == 0 %} class="active" {% endif %}></li>
