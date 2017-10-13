@@ -78,7 +78,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 			$actions = wp_get_recent_posts( [
-				'post_type'     => 'actions',
+				'post_type'     => 'page',
 				'post_status'   => 'publish',
 				'order_by'      => 'date',
 				'order'         => 'DESC',
@@ -86,12 +86,12 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 			], 'OBJECT' );
 
 			if ( $actions ) {
-				$site_url          = get_bloginfo( 'url' );
+				$site_url          = get_site_url();
 				$fields['covers']  = [];
 				$cover_button_text = __( 'Take Action', 'planet4-blocks' );
 
 				foreach ( $actions as $action ) {
-					$tags     = [];
+					$tags    = [];
 					$wp_tags = wp_get_post_tags( $action->ID );
 
 					if ( is_array( $wp_tags ) ) {
