@@ -132,7 +132,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 				 * Include an icon with your shortcode. Optional.
 				 * Use a dashicon, or full HTML (e.g. <img src="/path/to/your/icon" />).
 				 */
-				'listItemImage' => 'dashicons-editor-table',
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . "/planet4-plugin-blocks/admin/images/$this->block_name.png" ) . '" />',
 
 				/*
 				 * Define the UI for attributes of the shortcode. Optional.
