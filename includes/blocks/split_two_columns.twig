@@ -1,45 +1,65 @@
 {% block split_two_columns %}
 
 {% if ( issue ) %}
-    <div id="split_two_column" class="split-two-column">
+    <div id="split_two_column" class="split-two-column hidden-sm-down">
         <div class="container">
             <div class="split-two-column-skewed-left">
                 <div class="part-left">
-                {% if ( issue.title ) %}
-                    <h2>{{ issue.title }}</h2>
-                {% endif %}
-                {% if ( issue.description ) %}
-                    <h5>{{ issue.description }}</h5>
-                {% endif %}
-                {% if ( issue.link_text and issue.link_url ) %}
-                    <a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
-                {% endif %}
+                    {% if ( issue.title ) %}
+                        <h2>{{ issue.title }}</h2>
+                    {% endif %}
+                    {% if ( issue.description ) %}
+                        <h5>{{ issue.description }}</h5>
+                    {% endif %}
+                    {% if ( issue.link_text and issue.link_url ) %}
+                        <a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+                    {% endif %}
                 </div>
                 <div class="unskewed--left" style="background-image: url({{ issue.image }});">
                 </div>
             </div>
             <div class="split-two-column-skewed-right">
                 <div class="part-right">
-                {% set right_image = '' %}
-                {% for campaign in issue.campaigns %}
-                    {% if ( campaign.tag ) %}
-                        <a href="{{ campaign.tag.href }}">#{{ campaign.tag.name }}</a>
-                    {% endif %}
-                    {% if ( campaign.description ) %}
-                        <h5>{{ campaign.description }}</h5>
-                    {% endif %}
-                    {% if ( campaign.link_text and campaign.link_url ) %}
-                        <a class="btn btn-small btn-medium btn-primary btn-block" href="{{ campaign.link_url }}">{{ campaign.link_text }}</a>
-                    {% endif %}
-                    {% set right_image = campaign.image %}
-                {% endfor %}
+                    {% set campaign_image = '' %}
+                    {% for campaign in issue.campaigns %}
+                        {% if ( campaign.tag ) %}
+                            <a href="{{ campaign.tag.href }}">#{{ campaign.tag.name }}</a>
+                        {% endif %}
+                        {% if ( campaign.description ) %}
+                            <h5 class="hidden-lg-down">{{ campaign.description }}</h5>
+                        {% endif %}
+                        {% if ( campaign.link_text and campaign.link_url ) %}
+                            <a class="btn btn-small btn-medium btn-primary btn-block" href="{{ campaign.link_url }}">{{ campaign.link_text }}</a>
+                        {% endif %}
+                        {% set campaign_image = campaign.image %}
+                    {% endfor %}
                 </div>
-                <div class="unskewed--right" style="background-image: url({{ right_image }});">
+                <div class="unskewed--right" style="background-image: url({{ campaign_image }});">
                 </div>
             </div>
         </div>
+    </div>
+    <div id="split_two_column_mobile_view" class="split-two-column-mobile-view hidden-sm-up">
+        <ul class="list-unstyled">
+            <li class="list-one-item">
+                {% if ( issue.link_text and issue.link_url ) %}
+                    <a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+                {% endif %}
+            </li>
+            <li class="list-one-item">
+                {% if ( issue.link_text and issue.link_url ) %}
+                    <a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+                {% endif %}
+            </li>
+            <li class="list-one-item">
+                {% if ( issue.link_text and issue.link_url ) %}
+                    <a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+                {% endif %}
+            </li>
+        </ul>
     </div>
 {% endif %}
 <div class="clear"></div>
 
 {% endblock %}
+
