@@ -75,8 +75,10 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 			);
 			$all_posts = wp_get_recent_posts( $args );
 
+			$site_url  = get_site_url();
+
 			foreach ( $all_posts as $recent ) {
-				$recent['alt_text'] = '';
+				$recent['alt_text']  = '';
 				$recent['thumbnail'] = '';
 
 				if ( has_post_thumbnail( $recent['ID'] ) ) {
@@ -84,9 +86,36 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 					$img_id              = get_post_thumbnail_id( $recent['ID'] );
 					$recent['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true  );
 				}
-				$recent['tags']     = wp_get_post_tags( $recent['ID'] );
-				$recent['category'] = get_the_category( $recent['ID'] );
-				$recent_posts[]     = $recent;
+
+				$wp_tags = wp_get_post_tags( $recent['ID'] );
+
+				$tags = array();
+
+				if ( is_array( $wp_tags ) ) {
+					foreach ( $wp_tags as $wp_tag ) {
+						$tags_data['name'] = $wp_tag->name;
+						$tags_data['slug'] = $wp_tag->slug;
+						$tags_data['href'] = "$site_url/tag/$wp_tag->slug";
+						$tags[]            = $tags_data;
+					}
+				}
+
+				$recent['tags'] = $tags;
+				$wp_categories  = get_the_category( $recent['ID'] );
+
+				$categories = array();
+				if ( is_array( $wp_categories ) ) {
+					foreach ( $wp_categories as $wp_category ) {
+						$category_data['name'] = $wp_category->name;
+						$category_data['slug'] = $wp_category->slug;
+						$category_data['href'] = get_category_link($wp_category->cat_ID);
+						$categories[]          = $category_data;
+					}
+				}
+
+				$recent['category']  = $categories;
+				$recent['permalink'] = get_permalink( $recent['ID'] );
+				$recent_posts[]      = $recent;
 			}
 
 			$data = [
