@@ -4,6 +4,11 @@ namespace P4BKS\Controllers\Blocks;
 
 if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 
+	/**
+	 * Class P4BKS_Blocks_SplitTwoColumns_Controller
+	 *
+	 * @package P4BKS\Controllers\Blocks
+	 */
 	class P4BKS_Blocks_SplitTwoColumns_Controller extends P4BKS_Blocks_Controller {
 
 
@@ -50,6 +55,7 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 			 * Define the Shortcode UI arguments.
 			 */
 			$shortcode_ui_args = [
+
 				/*
 				 * How the shortcode should be labeled in the UI. Required argument.
 				 */
@@ -87,7 +93,7 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 
 			$campaigns = get_posts( [
 				'post_type'     => 'page',
-				'category_name' => 'campaigns',         //TODO
+				'category_name' => 'campaigns',
 			] );
 
 			$campaigns_splits = [];
