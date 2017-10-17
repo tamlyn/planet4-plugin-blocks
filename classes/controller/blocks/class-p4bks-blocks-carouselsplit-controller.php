@@ -83,8 +83,6 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselSplit_Controller' ) ) {
 
 			$block_data = [
 				'fields'              => $images,
-				'available_languages' => P4BKS_LANGUAGES,
-				'domain'              => 'planet4-blocks',
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
