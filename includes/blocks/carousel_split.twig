@@ -7,8 +7,10 @@
                 <div id="carousel-wrapper" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         {% for image in fields %}
-                            <li data-target="#carousel-wrapper" data-slide-to="{{ loop.index0 }}"
-                                class="{{ loop.index0 == 0 ? 'active': '' }}"></li>
+                            <li data-target="#carousel-wrapper"
+                                data-slide-to="{{ loop.index0 }}"
+                                class="{{ loop.first ? 'active': '' }}">
+                            </li>
                         {% endfor %}
                     </ol>
                     <div class="carousel-inner" role="listbox">
@@ -16,7 +18,7 @@
                         {% for image in fields %}
                             {% if ( image.url ) %}
 
-                                <div class="{{ loop.index == 1 ? ' carousel-item active': 'carousel-item' }}">
+                                <div class="{{ loop.first ? ' carousel-item active': 'carousel-item' }}">
                                     <img src="{{ image.url }}" alt="{{ image.alt }}">
                                     <div class="carousel-caption">
                                         <h3>{{ image.title }}</h3>
