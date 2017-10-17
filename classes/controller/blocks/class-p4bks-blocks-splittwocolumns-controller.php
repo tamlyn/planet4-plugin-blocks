@@ -83,14 +83,44 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 			$issue_id = absint( $fields['select_issue'] );
-			$page_meta_data = get_post_meta( $issue_id );
+			$issue_meta_data = get_post_meta( $issue_id );
+
+			$campaigns = get_posts( [
+				'post_type'     => 'page',
+				'category_name' => 'campaigns',         //TODO
+			] );
+
+			$campaigns_splits = [];
+			if ( $campaigns ) {
+				$site_url = get_site_url();
+
+				foreach ( $campaigns as $campaign ) {
+					$campaign_meta_data = get_post_meta( $issue_id );
+					$wp_tags = wp_get_post_tags( $campaign->ID );
+
+					if ( is_array( $wp_tags ) ) {
+						array_push( $campaigns_splits, [
+							'tag'         => [
+								'name' => $wp_tags[0]->name,
+								'href' => "$site_url/tag/" . $wp_tags[0]->name,
+							],
+							'description' => $campaign_meta_data['p4_description'][0],
+							'image'       => get_the_post_thumbnail_url( $campaign->ID ),
+							'link_text'   => __( 'SUPPORT THIS CAMPAIGN', 'planet4-blocks' ),
+							'link_url'    => get_post_permalink( $campaign->ID ),
+						] );
+					}
+				}
+			}
 
 			$data = [
 				'issue' => [
-					'title'       => null === $page_meta_data['p4_title'][0] ? get_the_title( $issue_id ) : $page_meta_data['p4_title'][0],
-					'description' => $page_meta_data['p4_description'][0],
+					'title'       => null === $issue_meta_data['p4_title'][0] ? get_the_title( $issue_id ) : $issue_meta_data['p4_title'][0],
+					'description' => $issue_meta_data['p4_description'][0],
+					'image'       => get_the_post_thumbnail_url( $issue_id ),
 					'link_text'   => __( 'Learn more about this issue', 'planet4-blocks' ),
 					'link_url'    => get_post_permalink( $issue_id ),
+					'campaigns'   => $campaigns_splits,
 				],
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
