@@ -76,6 +76,7 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselSplit_Controller' ) ) {
 					$image['url']     = $temp_image['url'];
 					$image['title']   = $temp_image['title'];
 					$image['caption'] = $temp_image['caption'];
+					$image['alt']     = $temp_image['alt'];
 					$images[]         = $image;
 				}
 			}
