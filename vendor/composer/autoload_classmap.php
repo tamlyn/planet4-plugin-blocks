@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Articles_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-articles-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CarouselSplit_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-carouselsplit-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Carousel_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-carousel-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-controller.php',
