@@ -1,0 +1,16 @@
+{% block carousel_split %}
+
+    {% if ( fields ) %}
+        <div id="p4bks_carousel_split_container" class="hidden-md-down row can-do-steps shortcode-carousel-split">
+            {% for image in fields %}
+                {% if ( image.url ) %}
+                    <h5>{{ image.title }}</h5>
+                    <p>{{ image.caption }}</p>
+                    <img src="{{ image.url }}" >
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="clear"></div>
+
+{% endblock %}
