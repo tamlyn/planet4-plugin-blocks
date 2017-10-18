@@ -6,34 +6,33 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit356100170ff2882375cd04c4c76f9df3
 {
-    public static $prefixLengthsPsr4 = array (
-        'P' =>
-        array (
-            'P4BKS\\Controllers\\Menu\\' => 23,
-            'P4BKS\\Controllers\\Blocks\\' => 25,
-            'P4BKS\\Controllers\\' => 18,
-            'P4BKS\\' => 6,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'P4BKS\\Controllers\\Menu\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/classes/controller/menu',
-        ),
-        'P4BKS\\Controllers\\Blocks\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/classes/controller/blocks',
-        ),
-        'P4BKS\\Controllers\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/classes/controller',
-        ),
-        'P4BKS\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/classes',
-        ),
-    );
+	public static $prefixLengthsPsr4 = array (
+		'P' =>
+			array (
+				'P4BKS\\Controllers\\Menu\\' => 23,
+				'P4BKS\\Controllers\\Blocks\\' => 25,
+				'P4BKS\\Controllers\\' => 18,
+				'P4BKS\\' => 6,
+			),
+	);
+	public static $prefixDirsPsr4 = array (
+		'P4BKS\\Controllers\\Menu\\' =>
+			array (
+				0 => __DIR__ . '/../..' . '/classes/controller/menu',
+			),
+		'P4BKS\\Controllers\\Blocks\\' =>
+			array (
+				0 => __DIR__ . '/../..' . '/classes/controller/blocks',
+			),
+		'P4BKS\\Controllers\\' =>
+			array (
+				0 => __DIR__ . '/../..' . '/classes/controller',
+			),
+		'P4BKS\\' =>
+			array (
+				0 => __DIR__ . '/../..' . '/classes',
+			),
+	);
 
     public static $classMap = array (
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Articles_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-articles-controller.php',
