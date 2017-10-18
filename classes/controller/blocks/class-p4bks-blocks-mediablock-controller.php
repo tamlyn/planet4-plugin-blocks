@@ -63,17 +63,16 @@ if ( ! class_exists( 'P4BKS_Blocks_MediaBlock_Controller' ) ) {
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ): string {
 
-			$temp_array = wp_get_attachment_image_src( $attributes['attachment'] );
-			if ( false !== $temp_array && ! empty( $temp_array ) ) {
-				$custom_css = "
-					.block-media {
-					  @include background('" . $temp_array[0] . "');
-					}";
-				wp_add_inline_style( 'custom-style', $custom_css );
+			$image_url       = wp_get_attachment_url( $attributes['attachment'] );
+			$fields          = [];
+			$fields['image'] = '';
+
+			if ( false !== $image_url && ! empty( $image_url ) ) {
+				$fields['image'] = $image_url;
 			}
 
 			$block_data = [
-				'fields' => $attributes,
+				'fields' => $fields,
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
