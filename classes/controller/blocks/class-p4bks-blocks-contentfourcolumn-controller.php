@@ -64,8 +64,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 			for ( $i = 1; $i < 5; $i++ ) {
 				$field   = [
 					[
-						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-						'label'       => sprintf( __( 'Column %s: Select Image', 'planet4-blocks' ),  $i ),
+						'label'       => __( 'Column', 'planet4-blocks' ) . ' ' . $i . ': ' . __( 'Select Image', 'planet4-blocks' ),
 						'attr'        => 'attachment_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
@@ -77,8 +76,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 						'attr'  => 'title_' . $i,
 						'type'  => 'text',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Column %s: Enter title', 'planet4-blocks' ), $i ),
+							'placeholder' => __( 'Column', 'planet4-blocks' ) . ' ' . $i . ': ' . __( 'Enter Title', 'planet4-blocks' ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -87,8 +85,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 						'attr'  => 'description_' . $i,
 						'type'  => 'textarea',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Column %s: Enter description', 'planet4-blocks' ), $i ),
+							'placeholder' => __( 'Column', 'planet4-blocks' ) . ' ' . $i . ': ' . __( 'Enter Description', 'planet4-blocks' ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -97,8 +94,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 						'attr'  => 'link_text_' . $i,
 						'type'  => 'url',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Column %s: Enter link text', 'planet4-blocks' ), $i ),
+							'placeholder' => __( 'Column', 'planet4-blocks' ) . ' ' . $i . ': ' . __( 'Enter Link Text', 'planet4-blocks' ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -107,8 +103,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 						'attr'  => 'link_url_' . $i,
 						'type'  => 'url',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Column %s: Enter link url', 'planet4-blocks' ), $i ),
+							'placeholder' => __( 'Column', 'planet4-blocks' ) . ' ' . $i . ': ' . __( 'Enter Link Url', 'planet4-blocks' ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
