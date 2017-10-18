@@ -45,6 +45,7 @@ if ( ! defined( 'P4BKS_LANGUAGES' ) )           define( 'P4BKS_LANGUAGES',      
 	'en_US' => 'English',
 	'el_GR' => 'Ελληνικά',
 ] );
+if ( ! defined( 'P4BKS_COVERS_NUM' ) )          define( 'P4BKS_COVERS_NUM',         6 );
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) )       define( 'WP_UNINSTALL_PLUGIN',      P4BKS_PLUGIN_BASENAME );
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -64,6 +65,7 @@ P4BKS\P4BKS_Loader::get_instance( [
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_HappyPoint_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_MediaBlock_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Subheader_Controller',
+	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Covers_Controller',
 	'P4BKS\Controllers\Menu\P4BKS_Settings_Controller',
  	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Articles_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Carousel_Controller',

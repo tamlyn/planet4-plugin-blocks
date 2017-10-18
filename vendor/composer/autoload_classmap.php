@@ -11,6 +11,7 @@ return array(
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Carousel_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-carousel-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_ContentFourColumn_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-contentfourcolumn-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-controller.php',
+    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Covers_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-covers-controllers.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_HappyPoint_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-happypoint-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_MediaBlock_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-mediablock-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_StaticFourColumn_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-staticfourcolumn-controller.php',
