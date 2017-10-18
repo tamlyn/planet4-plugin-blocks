@@ -20,6 +20,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
 		 */
 		public function prepare_fields() {
+
 			$fields = [
 				[
 					'label' => __( 'Title', 'planet4-blocks' ),
@@ -38,6 +39,13 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 						'placeholder' => __( 'Enter description', 'planet4-blocks' ),
 						'data-plugin' => 'planet4-blocks',
 					],
+				],
+				[
+					'attr'        => 'select_tag',
+					'label'       => __( 'Select a Tag', 'planet4-blocks' ),
+					'description' => 'Associate this block to Actions that have a specific Tag',
+					'type'        => 'term_select',
+					'taxonomy'    => 'post_tag',
 				],
 			];
 
@@ -77,13 +85,22 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		 * @return string
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
-			$actions = wp_get_recent_posts( [
+			$tag_id = absint( $fields['select_tag'] );
+
+			$args = [
 				'post_type'     => 'page',
 				'post_status'   => 'publish',
 				'order_by'      => 'date',
 				'order'         => 'DESC',
 				'numberposts'   => P4BKS_COVERS_NUM,
-			], 'OBJECT' );
+			];
+
+			// If we associated a tag with the covers to be displayed.
+			if( $tag_id ) {
+				$args['tag_id'] = $tag_id;
+			}
+
+			$actions = wp_get_recent_posts( $args, 'OBJECT' );
 
 			if ( $actions ) {
 				$site_url          = get_site_url();
