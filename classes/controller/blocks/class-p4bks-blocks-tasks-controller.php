@@ -99,7 +99,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 					[
 						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 						'label' => sprintf( __( 'Task #%s Button Link', 'planet4-blocks' ), $i ),
-						'attr'  => 'button_link_1' . $i,
+						'attr'  => 'button_link_' . $i,
 						'type'  => 'url',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
