@@ -1,0 +1,42 @@
+{% block covers %}
+
+	{% if ( fields and fields.covers ) %}
+		<div class="subheader">
+			<div class="container">
+				{% if ( fields.title ) %}
+					<h2>{{ fields.title }}</h2>
+				{% endif %}
+				{% if ( fields.description ) %}
+					<p>{{ fields.description|raw }}</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class="covers-block">
+			<div class="container">
+				<div class="row">
+					{% for cover in fields.covers %}
+						<div class="col-lg-4 col-md-6">
+							<div class="cover-card" style="background-image: url({{ cover.image }});">
+								{% if ( cover.tags ) %}
+									{% for tag in cover.tags %}
+										<a class="cover-card-tag" href="{{ tag.href }}">#{{ tag.slug }}</a>
+									{% endfor %}
+								{% endif %}
+								<h2 class="cover-card-heading">{{ cover.title|raw }}</h2>
+								<p>{{ cover.excerpt|truncate(25)|e('wp_kses_post')|raw }}</p>
+								<a class="btn btn-primary btn-transparent btn-block cover-card-btn" href="{{ cover.button_link }}">{{ cover.button_text }}</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				{% if ( fields.button_text and fields.button_link ) %}
+					<div class="col-lg-4 col-md-6 mb-5">
+						<a class="btn btn-block btn-medium btn-small btn-transparent" href="{{ fields.button_link }}">{{ fields.button_text }}</a>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+	<div class="clear"></div>
+
+{% endblock %}

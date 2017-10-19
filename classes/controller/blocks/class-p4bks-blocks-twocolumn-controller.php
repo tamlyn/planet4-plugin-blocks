@@ -4,8 +4,12 @@ namespace P4BKS\Controllers\Blocks;
 
 if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 
+	/**
+	 * Class P4BKS_Blocks_TwoColumn_Controller
+	 *
+	 * @package P4BKS\Controllers\Blocks
+	 */
 	class P4BKS_Blocks_TwoColumn_Controller extends P4BKS_Blocks_Controller {
-
 
 		/**
 		 * Override this method in order to give your block its own name.
@@ -123,6 +127,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 			 * Define the Shortcode UI arguments.
 			 */
 			$shortcode_ui_args = [
+
 				/*
 				 * How the shortcode should be labeled in the UI. Required argument.
 				 */
@@ -159,7 +164,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
 			$data = [
-				'fields' => array_map( 'wp_kses_post', $fields ),
+				'fields' => $fields,
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
