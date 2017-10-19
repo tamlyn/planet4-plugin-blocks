@@ -111,7 +111,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 					$tags    = [];
 					$wp_tags = wp_get_post_tags( $action->ID );
 
-					if ( is_array( $wp_tags ) ) {
+					if ( is_array( $wp_tags ) && $wp_tags ) {
 						foreach ( $wp_tags as $wp_tag ) {
 							array_push( $tags, [
 								'slug' => $wp_tag->slug,
@@ -119,14 +119,14 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 							]);
 						}
 					}
-					array_push( $covers, [
+					$covers[] = [
 						'tags'        => $tags,
 						'title'       => get_the_title( $action->ID ),
 						'excerpt'     => get_the_excerpt( $action->ID ),	// Note: WordPress removes shortcodes from auto-generated excerpts.
 						'image'       => get_the_post_thumbnail_url( $action->ID ),
 						'button_text' => $cover_button_text,
 						'button_link' => get_post_permalink( $action->ID ),
-					] );
+					];
 				}
 				$fields['button_text'] = __( 'Load More ...', 'planet4-blocks' );
 				$fields['button_link'] = '#';
