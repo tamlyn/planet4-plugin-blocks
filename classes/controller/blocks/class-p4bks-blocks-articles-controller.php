@@ -95,7 +95,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 					foreach ( $wp_tags as $wp_tag ) {
 						$tags_data['name'] = $wp_tag->name;
 						$tags_data['slug'] = $wp_tag->slug;
-						$tags_data['href'] = get_tag_link( $wp_tag->term_id );
+						$tags_data['href'] = get_tag_link( $wp_tag );
 						$tags[]            = $tags_data;
 					}
 				}
