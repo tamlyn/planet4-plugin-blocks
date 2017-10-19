@@ -14,21 +14,17 @@
 						{% endfor %}
 					</ol>
 					<div class="carousel-inner" role="listbox">
-
 						{% for image in fields %}
 							{% if ( image.url ) %}
-
-								<div class="{{ loop.first ? ' carousel-item active': 'carousel-item' }}">
+								<div class="{{ loop.first ? 'carousel-item active': 'carousel-item' }}">
 									<img src="{{ image.url }}" alt="{{ image.alt }}">
 									<div class="carousel-caption">
 										<h3>{{ image.title }}</h3>
 										<p>{{ image.caption }}</p>
 									</div>
 								</div>
-
 							{% endif %}
 						{% endfor %}
-
 					</div>
 					<a class="carousel-control-prev" href="#carousel-wrapper" role="button" data-slide="prev">
 						<span class="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
