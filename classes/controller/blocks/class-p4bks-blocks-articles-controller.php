@@ -91,7 +91,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 
 				$tags = array();
 
-				if ( is_array( $wp_tags ) ) {
+				if ( is_array( $wp_tags ) && $wp_tags ) {
 					foreach ( $wp_tags as $wp_tag ) {
 						$tags_data['name'] = $wp_tag->name;
 						$tags_data['slug'] = $wp_tag->slug;
