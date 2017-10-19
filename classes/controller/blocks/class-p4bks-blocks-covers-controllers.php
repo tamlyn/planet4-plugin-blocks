@@ -115,15 +115,15 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 						foreach ( $wp_tags as $wp_tag ) {
 							array_push( $tags, [
 								'slug' => $wp_tag->slug,
-								'href' => get_tag_link( $wp_tag->term_id ),
+								'href' => get_tag_link( $wp_tag ),
 							]);
 						}
 					}
 					$covers[] = [
 						'tags'        => $tags,
-						'title'       => get_the_title( $action->ID ),
-						'excerpt'     => get_the_excerpt( $action->ID ),	// Note: WordPress removes shortcodes from auto-generated excerpts.
-						'image'       => get_the_post_thumbnail_url( $action->ID ),
+						'title'       => get_the_title( $action ),
+						'excerpt'     => get_the_excerpt( $action ),	// Note: WordPress removes shortcodes from auto-generated excerpts.
+						'image'       => get_the_post_thumbnail_url( $action ),
 						'button_text' => $cover_button_text,
 						'button_link' => get_post_permalink( $action->ID ),
 					];
