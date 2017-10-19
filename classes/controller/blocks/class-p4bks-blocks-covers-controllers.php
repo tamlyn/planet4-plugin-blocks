@@ -20,6 +20,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
 		 */
 		public function prepare_fields() {
+
 			$fields = [
 				[
 					'label' => __( 'Title', 'planet4-blocks' ),
@@ -38,6 +39,13 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 						'placeholder' => __( 'Enter description', 'planet4-blocks' ),
 						'data-plugin' => 'planet4-blocks',
 					],
+				],
+				[
+					'attr'        => 'select_tag',
+					'label'       => __( 'Select a Tag', 'planet4-blocks' ),
+					'description' => __( 'Associate this block with Actions that have a specific Tag', 'planet4-blocks' ),
+					'type'        => 'term_select',
+					'taxonomy'    => 'post_tag',
 				],
 			];
 
@@ -77,46 +85,56 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		 * @return string
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
-			$actions = wp_get_recent_posts( [
+			$tag_id = absint( $fields['select_tag'] );
+
+			$args = [
 				'post_type'     => 'page',
 				'post_status'   => 'publish',
 				'order_by'      => 'date',
 				'order'         => 'DESC',
 				'numberposts'   => P4BKS_COVERS_NUM,
-			], 'OBJECT' );
+			];
+
+			// If we associated a tag with the covers to be displayed.
+			if( $tag_id ) {
+				$args['tag_id'] = $tag_id;
+			}
+
+			$actions = wp_get_recent_posts( $args, 'OBJECT' );
+			$covers  = [];
 
 			if ( $actions ) {
 				$site_url          = get_site_url();
-				$fields['covers']  = [];
 				$cover_button_text = __( 'Take Action', 'planet4-blocks' );
 
 				foreach ( $actions as $action ) {
 					$tags    = [];
 					$wp_tags = wp_get_post_tags( $action->ID );
 
-					if ( is_array( $wp_tags ) ) {
+					if ( is_array( $wp_tags ) && $wp_tags ) {
 						foreach ( $wp_tags as $wp_tag ) {
 							array_push( $tags, [
 								'slug' => $wp_tag->slug,
-								'href' => "$site_url/tag/$wp_tag->slug",
+								'href' => get_tag_link( $wp_tag->term_id ),
 							]);
 						}
 					}
-					array_push( $fields['covers'], [
+					$covers[] = [
 						'tags'        => $tags,
 						'title'       => get_the_title( $action->ID ),
 						'excerpt'     => get_the_excerpt( $action->ID ),	// Note: WordPress removes shortcodes from auto-generated excerpts.
 						'image'       => get_the_post_thumbnail_url( $action->ID ),
 						'button_text' => $cover_button_text,
 						'button_link' => get_post_permalink( $action->ID ),
-					] );
+					];
 				}
 				$fields['button_text'] = __( 'Load More ...', 'planet4-blocks' );
-				$fields['button_link'] = '.';
+				$fields['button_link'] = '#';
 			}
 
 			$data = [
 				'fields' => $fields,
+				'covers' => $covers,
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
