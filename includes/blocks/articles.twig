@@ -19,7 +19,9 @@
 								<div class="media-body topicwise-article-body">
 								<div class="topicwise-article-tags">
 									{% if ( value.category ) %}
-										{% for category_data in value.category %} <a href="{{ category_data.href }}" class="article-topic-title"> {{ category_data.name }}</a>{% endfor %}
+										{% for category_data in value.category %}
+											<a href="{{ category_data.href }}" class="article-topic-title"> {{ category_data.name }}</a>
+										{% endfor %}
 										<span class="article-topic-title-seprater"></span>
 									{% endif %}
 									{% if ( value.tags ) %}

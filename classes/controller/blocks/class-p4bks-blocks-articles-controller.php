@@ -104,7 +104,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 				$wp_categories  = get_the_category( $recent['ID'] );
 
 				$categories = array();
-				if ( is_array( $wp_categories ) ) {
+				if ( $wp_categories ) {
 					foreach ( $wp_categories as $wp_category ) {
 						$category_data['name'] = $wp_category->name;
 						$category_data['slug'] = $wp_category->slug;
