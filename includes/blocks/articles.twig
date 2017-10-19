@@ -19,17 +19,19 @@
 								<div class="media-body topicwise-article-body">
 								<div class="topicwise-article-tags">
 									{% if ( value.category ) %}
-										<a href="#" class="article-topic-title">{% for category_data in value.category %} {{ category_data.name }} {% endfor %}</a>
+										{% for category_data in value.category %}
+											<a href="{{ category_data.href }}" class="article-topic-title"> {{ category_data.name }}</a>
+										{% endfor %}
 										<span class="article-topic-title-seprater"></span>
 									{% endif %}
 									{% if ( value.tags ) %}
 										{% for tags_data in value.tags %}
-											<a href="#" class="article-topic-tag">#{{ tags_data.name }}</a>
+											<a href={{ tags_data.href }} class="article-topic-tag">#{{ tags_data.name }}</a>
 										{% endfor %}
 									{% endif %}
 								</div>
 								{% if ( value.post_title ) %}
-									<a href="#" class="mt-0 mb-1 article-headline">{{ value.post_title }}</a>
+									<a href="{{ value.permalink }}" class="mt-0 mb-1 article-headline">{{ value.post_title }}</a>
 								{% endif %}
 								<div class="article-write-info">
 									<span class="article-author-name">{{ __( 'by Author', domain ) }}</span>
