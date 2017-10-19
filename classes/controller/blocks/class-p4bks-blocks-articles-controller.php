@@ -66,7 +66,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-			$fields['article_count']   = ( isset( $fields['article_count'] ) && ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
+			$fields['article_count'] = ( isset( $fields['article_count'] ) && ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
 			// Get all posts with arguments.
 			$args = array(
 				'numberposts' => $fields['article_count'],
@@ -75,47 +75,47 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 			);
 			$all_posts = wp_get_recent_posts( $args );
 
-			$site_url  = get_site_url();
+			if ( $all_posts ) {
+				foreach ( $all_posts as $recent ) {
+					$recent['alt_text']  = '';
+					$recent['thumbnail'] = '';
 
-			foreach ( $all_posts as $recent ) {
-				$recent['alt_text']  = '';
-				$recent['thumbnail'] = '';
-
-				if ( has_post_thumbnail( $recent['ID'] ) ) {
-					$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'],'single-post-thumbnail' );
-					$img_id              = get_post_thumbnail_id( $recent['ID'] );
-					$recent['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true  );
-				}
-
-				$wp_tags = wp_get_post_tags( $recent['ID'] );
-
-				$tags = array();
-
-				if ( is_array( $wp_tags ) && $wp_tags ) {
-					foreach ( $wp_tags as $wp_tag ) {
-						$tags_data['name'] = $wp_tag->name;
-						$tags_data['slug'] = $wp_tag->slug;
-						$tags_data['href'] = get_tag_link( $wp_tag );
-						$tags[]            = $tags_data;
+					if ( has_post_thumbnail( $recent ) ) {
+						$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'], 'single-post-thumbnail' );
+						$img_id              = get_post_thumbnail_id( $recent['ID'] );
+						$recent['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 					}
-				}
 
-				$recent['tags'] = $tags;
-				$wp_categories  = get_the_category( $recent['ID'] );
+					$wp_tags = wp_get_post_tags( $recent['ID'] );
 
-				$categories = array();
-				if ( $wp_categories ) {
-					foreach ( $wp_categories as $wp_category ) {
-						$category_data['name'] = $wp_category->name;
-						$category_data['slug'] = $wp_category->slug;
-						$category_data['href'] = get_category_link( $wp_category );
-						$categories[]          = $category_data;
+					$tags = array();
+
+					if ( is_array( $wp_tags ) && $wp_tags ) {
+						foreach ( $wp_tags as $wp_tag ) {
+							$tags_data['name'] = $wp_tag->name;
+							$tags_data['slug'] = $wp_tag->slug;
+							$tags_data['href'] = get_tag_link( $wp_tag );
+							$tags[]            = $tags_data;
+						}
 					}
-				}
 
-				$recent['category']  = $categories;
-				$recent['permalink'] = get_permalink( $recent['ID'] );
-				$recent_posts[]      = $recent;
+					$recent['tags'] = $tags;
+					$wp_categories  = get_the_category( $recent['ID'] );
+
+					$categories = array();
+					if ( $wp_categories ) {
+						foreach ( $wp_categories as $wp_category ) {
+							$category_data['name'] = $wp_category->name;
+							$category_data['slug'] = $wp_category->slug;
+							$category_data['href'] = get_category_link( $wp_category );
+							$categories[]          = $category_data;
+						}
+					}
+
+					$recent['category']  = $categories;
+					$recent['permalink'] = get_permalink( $recent['ID'] );
+					$recent_posts[]      = $recent;
+				}
 			}
 
 			$data = [
