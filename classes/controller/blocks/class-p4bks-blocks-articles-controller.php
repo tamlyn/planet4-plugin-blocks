@@ -108,7 +108,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 					foreach ( $wp_categories as $wp_category ) {
 						$category_data['name'] = $wp_category->name;
 						$category_data['slug'] = $wp_category->slug;
-						$category_data['href'] = get_category_link($wp_category->cat_ID);
+						$category_data['href'] = get_category_link( $wp_category );
 						$categories[]          = $category_data;
 					}
 				}
