@@ -98,23 +98,21 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 
 			$campaigns_splits = [];
 			if ( $campaigns ) {
-				$site_url = get_site_url();
-
 				foreach ( $campaigns as $campaign ) {
 					$campaign_meta_data = get_post_meta( $issue_id );
 					$wp_tags = wp_get_post_tags( $campaign->ID );
 
-					if ( is_array( $wp_tags ) ) {
-						array_push( $campaigns_splits, [
+					if ( is_array( $wp_tags ) && $wp_tags ) {
+						$campaigns_splits[] = [
 							'tag'         => [
 								'name' => $wp_tags[0]->name,
-								'href' => "$site_url/tag/" . $wp_tags[0]->name,
+								'href' => get_tag_link( $wp_tags[0]->term_id ),
 							],
 							'description' => $campaign_meta_data['p4_description'][0],
 							'image'       => get_the_post_thumbnail_url( $campaign->ID ),
 							'link_text'   => __( 'SUPPORT THIS CAMPAIGN', 'planet4-blocks' ),
 							'link_url'    => get_post_permalink( $campaign->ID ),
-						] );
+						];
 					}
 				}
 			}
