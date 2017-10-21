@@ -36,7 +36,6 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 					'attr'  => 'global_title',
 					'type'  => 'text',
 					'meta'  => [
-						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 						'placeholder' => __( 'Enter global title', 'planet4-blocks' ),
 						'data-plugin' => 'planet4-blocks',
 					],
@@ -46,7 +45,6 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 					'attr'  => 'action_button_text',
 					'type'  => 'url',
 					'meta'  => [
-						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 						'placeholder' => __( 'Enter link text for action button', 'planet4-blocks' ),
 						'data-plugin' => 'planet4-blocks',
 					],
@@ -56,8 +54,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 					'attr'  => 'action_button_url',
 					'type'  => 'url',
 					'meta'  => [
-						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-						'placeholder' => __( 'Enter %s link url for action button', 'planet4-blocks' ),
+						'placeholder' => __( 'Enter link url for action button', 'planet4-blocks' ),
 						'data-plugin' => 'planet4-blocks',
 					],
 				],
@@ -65,58 +62,69 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 
 			// This block will have additional 4 different columns with same fields.
 			for ( $i = 1; $i < 5; $i++ ) {
-				$field   = [
+
+				$fields[] =
 					[
 						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-						'label'       => sprintf( __( 'Select Image for %s column', 'planet4-blocks' ),  $i ),
+						'label'       => sprintf( __( 'Column %s: Select Image', 'planet4-blocks' ), $i ),
 						'attr'        => 'attachment_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
 						'addButton'   => __( 'Select Image', 'shortcode-ui' ),
 						'frameTitle'  => __( 'Select Image', 'shortcode-ui' ),
-					],
+					];
+
+				$fields[] =
 					[
-						'label' => __( 'Title', 'planet4-blocks' ),
+						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+						'label' => sprintf( __( 'Column %s: Title', 'planet4-blocks' ), $i ),
 						'attr'  => 'title_' . $i,
 						'type'  => 'text',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter title of %s column', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Column %s: Enter title', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
-					],
+					];
+
+				$fields[] =
 					[
-						'label' => __( 'Description', 'planet4-blocks' ),
+						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+						'label' => sprintf( __( 'Column %s: Description', 'planet4-blocks' ), $i ),
 						'attr'  => 'description_' . $i,
 						'type'  => 'textarea',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter description of %s column', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Column %s: Enter description', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
-					],
+					];
+
+				$fields[] =
 					[
-						'label' => __( 'Text for link', 'planet4-blocks' ),
+						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+						'label' => sprintf( __( 'Column %s: Text for Link', 'planet4-blocks' ), $i ),
 						'attr'  => 'link_text_' . $i,
 						'type'  => 'url',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter %s link text', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Column %s: Enter link text', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
-					],
+					];
+
+				$fields[] =
 					[
-						'label' => __( 'Url for link', 'planet4-blocks' ),
+						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+						'label' => sprintf( __( 'Column %s: Url for Link', 'planet4-blocks' ), $i ),
 						'attr'  => 'link_url_' . $i,
 						'type'  => 'url',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter %s link url', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Column %s: Enter link url', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
-					],
-				];
-				$fields  = array_merge( $fields, $field );
+					];
 			}
 
 			// Define the Shortcode UI arguments.
@@ -169,8 +177,6 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 
 			$block_data = [
 				'fields'              => $attributes,
-				'available_languages' => P4BKS_LANGUAGES,
-				'domain'              => 'planet4-blocks',
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
