@@ -7,17 +7,19 @@
 				<div id="carousel-wrapper" class="carousel slide" data-ride="carousel">
 					<ol class="carousel-indicators">
 						{% for i in 1..4 %}
-							<li data-target="#carousel-wrapper"
-							    data-slide-to="{{ loop.index0 }}"
-							    class="{{ loop.first ? 'active': '' }}">
-							</li>
+							{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
+								<li data-target="#carousel-wrapper"
+								    data-slide-to="{{ loop.index0 }}"
+								    class="{{ loop.first ? 'active': '' }}">
+								</li>
+							{% endif %}
 						{% endfor %}
 					</ol>
 					<div class="carousel-inner" role="listbox">
 
 						{% for i in 1..4 %}
 
-							{% if ( attribute( fields, 'header_'~i ) ) %}
+							{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
 								<div class="{{ loop.first ? 'carousel-item active': 'carousel-item' }}">
 									{% if ( attribute( fields, 'image_'~i ) ) %}
 										<img src="{{ attribute( fields, 'image_'~i ) }}" alt="First slide">
