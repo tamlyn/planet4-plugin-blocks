@@ -20,9 +20,7 @@
 									{% if ( image.credit ) %}
 										<h5 class="carousel-item-credit">{{ image.credit }}</h5>
 									{% endif %}
-									{% if ( image.url ) %}
-										<img src="{{ image.url }}" alt="{{ image.alt }}">
-									{% endif %}
+									<img src="{{ image.url }}" alt="{{ image.alt }}">
 									<div class="carousel-caption">
 										{% if ( image.title ) %}
 											<h3>{{ image.title }}</h3>
