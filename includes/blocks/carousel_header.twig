@@ -1,42 +1,72 @@
 {% block carousel_header %}
 
-    {% if ( fields ) %}
+	{% if ( fields ) %}
 
-        <div class="four-coloum">
-            <div class="container">
-                <div class="row">
-                    {% for i in 1..4 %}
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                            <div class="four-coloum-wrap clearfix">
-                                <div class="four-coloum-symbol">
-                                    <img src="{{ attribute( fields, 'image_'~i ) }}"></div>
-                                <div class="four-coloum-info">
-                                    <div class="four-coloum-information">
-                                        {% if ( attribute( fields, 'header_'~i ) ) %}
-                                            <h5>{{ attribute( fields, 'header_'~i ) }}</h5>
-                                        {% endif %}
-                                        {% if ( attribute( fields, 'subheader_'~i ) ) %}
-                                            <h6>{{ attribute( fields, 'subheader_'~i ) }}</h6>
-                                        {% endif %}
-                                        {% if ( attribute( fields, 'description_'~i )  ) %}
-                                            <p>{{ attribute( fields, 'description_'~i ) }}</p>
-                                        {% endif %}
-                                        <div class="four-coloum-action">
-                                            {% if ( attribute( fields, 'link_text_'~i ) ) %}
-                                                <a href="{{ attribute( fields, 'link_url_'~i) }}">
-                                                    {{ attribute( fields, 'link_text_'~i ) }}
-                                                </a>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+		<div class="">
+			<div class="split-carousel-wrap carousel-header">
+				<div id="carousel-wrapper" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						{% for i in 1..4 %}
+							<li data-target="#carousel-wrapper"
+							    data-slide-to="{{ loop.index0 }}"
+							    class="{{ loop.first ? 'active': '' }}">
+							</li>
+						{% endfor %}
+					</ol>
+					<div class="carousel-inner" role="listbox">
 
-    {% endif %}
+						{% for i in 1..4 %}
+
+							{% if ( attribute( fields, 'header_'~i ) ) %}
+								<div class="{{ loop.first ? 'carousel-item active': 'carousel-item' }}">
+									{% if ( attribute( fields, 'image_'~i ) ) %}
+										<img src="{{ attribute( fields, 'image_'~i ) }}" alt="First slide">
+									{% endif %}
+									<div class="carousel-caption">
+										<div class="page-header col-md-8 col-lg-8 col-sm-12 main-header pl-0 pr-0">
+											{% if ( attribute( fields, 'header_'~i ) ) %}
+												<h1>{{ attribute( fields, 'header_'~i ) }}</h1>
+											{% endif %}
+											{% if ( attribute( fields, 'subheader_'~i ) ) %}
+												<h3>{{ attribute( fields, 'subheader_'~i ) }}</h3>
+											{% endif %}
+											{% if ( attribute( fields, 'description_'~i )  ) %}
+												<p>{{ attribute( fields, 'description_'~i ) }}</p>
+											{% endif %}
+
+											<div class="row clearfix">
+												<div class="col-md-6">
+
+													{% if ( attribute( fields, 'link_text_'~i ) ) %}
+														<a href="{{ attribute( fields, 'link_url_'~i) }}"
+														   class="btn btn-small btn-medium btn-primary btn-block">{{ attribute( fields, 'link_text_'~i ) }}</a>
+													{% endif %}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+
+
+					</div>
+					<a class="carousel-control-prev" href="#carousel-wrapper" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true">
+          <i></i>
+          </span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carousel-wrapper" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true">
+          <i></i>
+          </span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+	{% endif %}
 
 {% endblock %}
