@@ -80,7 +80,7 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 						'type'  => 'url',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter %s link text', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter link text for %s image', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -90,7 +90,7 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 						'type'  => 'url',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter %s link url', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter link url for %s image', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
