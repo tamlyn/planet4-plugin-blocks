@@ -17,10 +17,19 @@
 						{% for image in fields %}
 							{% if ( image.url ) %}
 								<div class="{{ loop.first ? 'carousel-item active': 'carousel-item' }}">
-									<img src="{{ image.url }}" alt="{{ image.alt }}">
+									{% if ( image.credit ) %}
+										<h5 class="carousel-item-credit">{{ image.credit }}</h5>
+									{% endif %}
+									{% if ( image.url ) %}
+										<img src="{{ image.url }}" alt="{{ image.alt }}">
+									{% endif %}
 									<div class="carousel-caption">
-										<h3>{{ image.title }}</h3>
-										<p>{{ image.caption }}</p>
+										{% if ( image.title ) %}
+											<h3>{{ image.title }}</h3>
+										{% endif %}
+										{% if ( image.caption ) %}
+											<p>{{ image.caption }}</p>
+										{% endif %}
 									</div>
 								</div>
 							{% endif %}
