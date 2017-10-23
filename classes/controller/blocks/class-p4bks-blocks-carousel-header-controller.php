@@ -123,13 +123,13 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 
 			$attributes_temp = [];
 			for ( $i = 1; $i < 5; $i++ ) {
-				$temp_array = [
-					"header_$i"       => $attributes[ "header_$i" ],
-					"subheader_$i"    => $attributes[ "header_$i" ],
-					"description_$i"  => wpautop( $attributes[ "description_$i" ] ),
-					"image_$i"        => $attributes[ "image_$i" ],
-					"link_text_$i"    => $attributes[ "link_text_$i" ],
-					"link_url_$i"     => $attributes[ "link_url_$i" ],
+				$temp_array      = [
+					"header_$i"      => $attributes[ "header_$i" ],
+					"subheader_$i"   => $attributes[ "header_$i" ],
+					"description_$i" => $attributes[ "description_$i" ],
+					"image_$i"       => $attributes[ "image_$i" ],
+					"link_text_$i"   => $attributes[ "link_text_$i" ],
+					"link_url_$i"    => $attributes[ "link_url_$i" ],
 				];
 				$attributes_temp = array_merge( $attributes_temp, $temp_array );
 			}
@@ -144,8 +144,6 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 
 			$block_data = [
 				'fields'              => $attributes,
-				'available_languages' => P4BKS_LANGUAGES,
-				'domain'              => 'planet4-blocks',
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
