@@ -34,8 +34,6 @@
 									<a href="{{ value.permalink }}" class="mt-0 mb-1 article-headline">{{ value.post_title }}</a>
 								{% endif %}
 								<div class="article-write-info">
-									<span class="article-author-name">{{ __( 'by Author', domain ) }}</span>
-									<span class="seprater-symbol">/</span>
 									{% if ( value.post_modified ) %}
 										<span class="article-date">{{ value.post_modified|date("d M, Y") }}</span>
 									{% endif %}
@@ -66,8 +64,6 @@
 										<h4 class="mt-0 mb-1 article-headline">{{ value.post_title }}</h4>
 									{% endif %}
 									<div class="article-write-info">
-										<span class="article-author-name"{{ __( 'by Author', domain ) }}</span>
-										<span class="seprater-symbol">/</span>
 										{% if ( value.post_modified ) %}
 											<span class="article-date">{{ value.post_modified|date("d M, Y") }}</span>
 										{% endif %}
