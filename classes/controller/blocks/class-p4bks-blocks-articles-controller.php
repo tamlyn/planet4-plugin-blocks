@@ -80,7 +80,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 					$recent['alt_text']  = '';
 					$recent['thumbnail'] = '';
 
-					if ( has_post_thumbnail( $recent ) ) {
+					if ( has_post_thumbnail( $recent['ID'] ) ) {
 						$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'], 'single-post-thumbnail' );
 						$img_id              = get_post_thumbnail_id( $recent['ID'] );
 						$recent['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
