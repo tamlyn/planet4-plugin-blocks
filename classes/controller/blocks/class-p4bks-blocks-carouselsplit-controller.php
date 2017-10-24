@@ -72,18 +72,19 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselSplit_Controller' ) ) {
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
 
 					$temp_image       = wp_prepare_attachment_for_js( $image_id );
+					$temp_meta        = wp_get_attachment_metadata( $image_id );
 					$image            = [];
 					$image['url']     = $temp_image['url'];
 					$image['title']   = $temp_image['title'];
 					$image['caption'] = $temp_image['caption'];
+					$image['alt']     = $temp_image['alt'];
+					$image['credit']  = $temp_meta['image_meta']['copyright'];
 					$images[]         = $image;
 				}
 			}
 
 			$block_data = [
 				'fields'              => $images,
-				'available_languages' => P4BKS_LANGUAGES,
-				'domain'              => 'planet4-blocks',
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
