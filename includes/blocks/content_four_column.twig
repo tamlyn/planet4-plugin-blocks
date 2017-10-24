@@ -42,10 +42,10 @@
 				</div>
 				<div class="row mt-5">
 					<div class="col-md-4 col-lg-3 col-xl-3 mb-5">
-						{% if ( fields.action_button_text ) %}
-							<button class="btn btn-block btn-medium btn-small btn-primary">
+						{% if ( fields.action_button_text and fields.action_button_url ) %}
+							<a href="{{ fields.action_button_url }}" class="btn btn-block btn-medium btn-small btn-primary">
 								{{ fields.action_button_text }}
-							</button>
+							</a>
 						{% endif %}
 					</div>
 				</div>
