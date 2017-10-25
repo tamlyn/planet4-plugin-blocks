@@ -2,16 +2,16 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_Mediavideo_Controller' ) ) {
+if ( ! class_exists( 'P4BKS_Blocks_MediaVideo_Controller' ) ) {
 
-	class P4BKS_Blocks_Mediavideo_Controller extends P4BKS_Blocks_Controller {
+	class P4BKS_Blocks_MediaVideo_Controller extends P4BKS_Blocks_Controller {
 
 
 		/**
 		 * Override this method in order to give your block its own name.
 		 */
 		public function load() {
-			$this->block_name = 'mediavideo';
+			$this->block_name = 'media_video';
 			parent::load();
 		}
 
