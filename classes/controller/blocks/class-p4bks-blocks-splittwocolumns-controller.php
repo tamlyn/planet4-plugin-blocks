@@ -46,7 +46,7 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 				[
 					'attr'        => 'select_issue',
 					'label'       => __( 'Select an Issue', 'planet4-blocks' ),
-					'description' => 'Associate this block to the Issue that it will talk about',
+					'description' => __( 'Associate this block to the Issue that it will talk about', 'planet4-blocks' ),
 					'type'        => 'select',
 					'options'     => $options,
 				],
