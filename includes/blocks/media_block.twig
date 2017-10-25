@@ -1,0 +1,13 @@
+{% block media %}
+	{% if ( fields.image ) %}
+		<style>
+			.block-media {
+				background-image: url('{{ fields.image }}');
+			}
+		</style>
+		<div class="container">
+			<div class="block-media">
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

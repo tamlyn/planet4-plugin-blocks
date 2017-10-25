@@ -1,0 +1,57 @@
+{% block content_four_column %}
+
+	{% if ( fields ) %}
+
+		<div class="four-coloum-content">
+			<div class="container">
+				{% if ( fields.global_title ) %}
+					<h2>{{ fields.global_title }}</h2>
+				{% endif %}
+				<div class="row">
+					{% for i in 1..4 %}
+
+						<div class="col-md-4 col-lg-3 col-xl-3">
+							<div class="four-coloum-content-wrap clearfix">
+								<div class="four-coloum-content-info">
+									<div class="four-coloum-content-information hidden-xs-down">
+										{% if ( attribute( fields, 'title_'~i ) ) %}
+											<h4>{{ attribute( fields, 'title_'~i ) }}</h4>
+										{% endif %}
+										{% if ( attribute( fields, 'description_'~i )  ) %}
+											<p>{{ attribute( fields, 'description_'~i ) }}</p>
+										{% endif %}
+									</div>
+									<div class="four-coloum-content-symbol">
+										{% if ( attribute( fields, 'attachment_'~i ) ) %}
+										<img src="{{ attribute( fields, 'attachment_'~i ) }}"></div>
+									{% endif %}
+									<div class="content-download-link">
+										{% if ( attribute( fields, 'link_text_'~i ) ) %}
+											<a href="{{ attribute( fields, 'link_url_'~i) }}">
+												<span class="icon-doc-ic">
+													{{ attribute( fields, 'link_text_'~i ) }}
+												</span>
+											</a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+						</div>
+
+					{% endfor %}
+				</div>
+				<div class="row mt-5">
+					<div class="col-md-4 col-lg-3 col-xl-3 mb-5">
+						{% if ( fields.action_button_text and fields.action_button_url ) %}
+							<a href="{{ fields.action_button_url }}" class="btn btn-block btn-medium btn-small btn-primary">
+								{{ fields.action_button_text }}
+							</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+	{% endif %}
+
+{% endblock %}

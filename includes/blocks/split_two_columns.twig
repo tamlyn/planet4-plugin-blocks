@@ -1,0 +1,60 @@
+{% block split_two_columns %}
+
+{% if ( issue ) %}
+	<div id="split_two_column" class="split-two-column hidden-sm-down">
+		<div class="container">
+			<div class="split-two-column-skewed-left">
+				<div class="part-left">
+					{% if ( issue.title ) %}
+						<h2>{{ issue.title }}</h2>
+					{% endif %}
+					{% if ( issue.description ) %}
+						<h5>{{ issue.description }}</h5>
+					{% endif %}
+					{% if ( issue.link_text and issue.link_url ) %}
+						<a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+					{% endif %}
+				</div>
+				<div class="unskewed--left" style="background-image: url({{ issue.image }});">
+				</div>
+			</div>
+			<div class="split-two-column-skewed-right">
+				<div class="part-right">
+					{% if ( tag.slug ) %}
+						<a href="{{ tag.link }}">#{{ tag.slug }}</a>
+					{% endif %}
+					{% if ( tag.description ) %}
+						<h5 class="hidden-lg-down">{{ tag.description }}</h5>
+					{% endif %}
+					{% if ( tag.button_text and tag.button_link ) %}
+						<a class="btn btn-small btn-medium btn-primary btn-block" href="{{ tag.button_link }}">{{ tag.button_text }}</a>
+					{% endif %}
+				</div>
+				<div class="unskewed--right" style="background-image: url({{ tag.image }});"></div>
+			</div>
+		</div>
+	</div>
+	<div id="split_two_column_mobile_view" class="split-two-column-mobile-view hidden-sm-up" style="display: none;">
+		<ul class="list-unstyled">
+			<li class="list-one-item">
+				{% if ( issue.link_text and issue.link_url ) %}
+					<a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+				{% endif %}
+			</li>
+			<li class="list-one-item">
+				{% if ( issue.link_text and issue.link_url ) %}
+					<a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+				{% endif %}
+			</li>
+			<li class="list-one-item">
+				{% if ( issue.link_text and issue.link_url ) %}
+					<a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+				{% endif %}
+			</li>
+		</ul>
+	</div>
+{% endif %}
+<div class="clear"></div>
+
+{% endblock %}
+

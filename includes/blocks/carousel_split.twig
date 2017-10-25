@@ -1,0 +1,50 @@
+{% block carousel_split %}
+
+	{% if ( fields ) %}
+
+		<div class="container">
+			<div class="split-carousel-wrap">
+				<div id="carousel-wrapper" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						{% for image in fields %}
+							<li data-target="#carousel-wrapper"
+							    data-slide-to="{{ loop.index0 }}"
+							    class="{{ loop.first ? 'active': '' }}">
+							</li>
+						{% endfor %}
+					</ol>
+					<div class="carousel-inner" role="listbox">
+						{% for image in fields %}
+							{% if ( image.url ) %}
+								<div class="{{ loop.first ? 'carousel-item active': 'carousel-item' }}">
+									{% if ( image.credit ) %}
+										<h5 class="carousel-item-credit">{{ image.credit }}</h5>
+									{% endif %}
+									<img src="{{ image.url }}" alt="{{ image.alt }}">
+									<div class="carousel-caption">
+										{% if ( image.title ) %}
+											<h3>{{ image.title }}</h3>
+										{% endif %}
+										{% if ( image.caption ) %}
+											<p>{{ image.caption }}</p>
+										{% endif %}
+									</div>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<a class="carousel-control-prev" href="#carousel-wrapper" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carousel-wrapper" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"><i></i></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+	{% endif %}
+
+{% endblock %}
