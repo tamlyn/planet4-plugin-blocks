@@ -16,6 +16,7 @@ return array(
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_HappyPoint_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-happypoint-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_MediaBlock_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-mediablock-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_SplitTwoColumns_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-splittwocolumns-controller.php',
+    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_MediaVideo_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-mediavideo-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_StaticFourColumn_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-staticfourcolumn-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Subheader_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-subheader-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Tasks_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-tasks-controller.php',
