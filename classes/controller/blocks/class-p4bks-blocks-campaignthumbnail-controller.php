@@ -58,6 +58,38 @@ if ( ! class_exists( 'P4BKS_Blocks_CampaignThumbnail_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
+			$category_data  = get_the_category();
+			$category_id    = ( isset( $category_data[0]->cat_ID ) && ! empty( $category_data[0]->cat_ID ) ) ? $category_data[0]->cat_ID : '';
+
+			if( isset( $category_data[0]->cat_ID ) && ! empty( $category_data[0]->cat_ID ) ) {
+				$args         = array( 'numberposts' => '1', 'category' => $category_id );
+			} else {
+				$args         = array( 'numberposts' => '1' );
+			}
+
+			$recent_posts   = wp_get_recent_posts( $args );
+			$recent_post_id = ( isset( $recent_posts[0]['ID'] ) && ! empty( $recent_posts[0]['ID'] ) ) ? $recent_posts[0]['ID'] : '';
+
+			$post_tags      = array();
+			if( ! empty( $recent_post_id ) ) {
+				$post_tags    = get_the_tags( $recent_post_id );
+				$post_tags    = array_slice($post_tags, 0, 3);
+			}
+
+			foreach( $post_tags as $tag ) {
+				$tags           = array();
+				$tags['name']   = $tag->name;
+				$tags['slug']   = $tag->slug;
+				$tags['href']   = get_tag_link( $tag );
+				$attachment_id  = get_term_meta( $tag->term_id, 'tag_attachment_id', true );
+
+				if( ! empty( $attachment_id ) ) {
+					$tags['image'] = wp_get_attachment_image_src( $attachment_id );
+				}
+
+				$fields['tags'][] = $tags;
+			}
+
 			$data = [
 				'fields' => $fields,
 				'domain' => 'planet4-blocks',
