@@ -62,13 +62,13 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselSplit_Controller' ) ) {
 		 *
 		 * @return string Returns the compiled template.
 		 */
-		public function prepare_template( $attributes, $content, $shortcode_tag ): string {
+		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
 			$images     = [];
 			$images_ids = explode( ',', $attributes['multiple_images'] );
 			foreach ( $images_ids as $image_id ) {
 
-				$temp_array = wp_get_attachment_image_src( $image_id );
+				$temp_array = wp_get_attachment_image_src( $image_id, 'full' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
 
 					$temp_image       = wp_prepare_attachment_for_js( $image_id );
