@@ -135,20 +135,20 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 
 			$request = add_query_arg(
 				array_merge( $fields,
-					[
+					array(
 						'_tag'     => $shortcode_tag,
 						'_content' => $content,
 						'_post_id' => get_the_ID(),
-						'_nonce'    => wp_create_nonce( 'p4bks_preview_render_' . $this->block_name ),
+						'_nonce'   => wp_create_nonce( 'p4bks_preview_render_' . $this->block_name ),
 						'action'   => 'p4bks_preview_render_' . $this->block_name
-					]
+					)
 				),
 				admin_url( 'admin-ajax.php' )
 			);
 
 			ob_start();
 			?>
-				<iframe width="100%" src="<?php echo esc_url( $request ) ?>" onload="this.style.height = this.contentWindow.document.body.scrollHeight + 'px';"></iframe>
+			<iframe width="100%" src="<?php echo esc_url( $request ) ?>" onload="this.style.height = this.contentWindow.document.body.scrollHeight + 'px';"></iframe>
 			<?php
 			return ob_get_clean();
 		}
@@ -160,6 +160,11 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * via $this->prepare_template along with wrapper html and enqueued frontend styles and scripts
 		 */
 		public function prepare_admin_preview() {
+
+			// Shortcode UI not callable
+			if ( ! is_callable( 'Shortcode_UI', 'get_shortcode' ) ) {
+				exit;
+			}
 
 			$tag                 = sanitize_text_field( $_GET['_tag'] );
 			$content             = wp_kses_post( $_GET['content'] );
@@ -190,8 +195,8 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 				setup_postdata( $post );
 				// @codingStandardsIgnoreEnd
 			}
-			?>
 
+			?>
 			<html>
 				<head>
 					<?php do_action( 'wp_head' ); ?>
