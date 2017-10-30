@@ -29,16 +29,17 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 			$issues = get_posts( [
 				'post_type'     => 'page',
 				'category_name' => 'issues',
+				'post_parent'   => 0,
 				'numberposts'   => -1,
 			] );
 
 			$options = [];
 			if ( $issues ) {
 				foreach ( $issues as $issue ) {
-					array_push( $options, [
+					$options[] = [
 						'value' => (string) $issue->ID,
 						'label' => get_the_title( $issue->ID ),
-					] );
+					];
 				}
 			}
 
