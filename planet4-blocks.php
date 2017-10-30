@@ -68,7 +68,7 @@ P4BKS\P4BKS_Loader::get_instance( [
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Covers_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CarouselHeader_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Tagcloud_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Mediavideo_Controller',
+	'P4BKS\Controllers\Blocks\P4BKS_Blocks_MediaVideo_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_SplitTwoColumns_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Covers_Controller',
 	'P4BKS\Controllers\Menu\P4BKS_Settings_Controller',
