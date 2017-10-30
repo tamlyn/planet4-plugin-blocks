@@ -51,6 +51,7 @@ class ComposerStaticInit356100170ff2882375cd04c4c76f9df3
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_SplitTwoColumns_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-splittwocolumns-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_StaticFourColumn_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-staticfourcolumn-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Subheader_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-subheader-controller.php',
+        'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Tagcloud_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-tagcloud-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Tasks_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-tasks-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_TwoColumn_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-twocolumn-controller.php',
         'P4BKS\\Controllers\\Menu\\P4BKS_Controller' => __DIR__ . '/../..' . '/classes/controller/menu/class-p4bks-controller.php',
