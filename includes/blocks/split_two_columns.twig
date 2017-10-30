@@ -20,26 +20,21 @@
 			</div>
 			<div class="split-two-column-skewed-right">
 				<div class="part-right">
-					{% set campaign_image = '' %}
-					{% for campaign in issue.campaigns %}
-						{% if ( campaign.tag ) %}
-							<a href="{{ campaign.tag.href }}">#{{ campaign.tag.name }}</a>
-						{% endif %}
-						{% if ( campaign.description ) %}
-							<h5 class="hidden-lg-down">{{ campaign.description }}</h5>
-						{% endif %}
-						{% if ( campaign.link_text and campaign.link_url ) %}
-							<a class="btn btn-small btn-medium btn-primary btn-block" href="{{ campaign.link_url }}">{{ campaign.link_text }}</a>
-						{% endif %}
-						{% set campaign_image = campaign.image %}
-					{% endfor %}
+					{% if ( tag.slug ) %}
+						<a href="{{ tag.link }}">#{{ tag.slug }}</a>
+					{% endif %}
+					{% if ( tag.description ) %}
+						<h5 class="hidden-lg-down">{{ tag.description }}</h5>
+					{% endif %}
+					{% if ( tag.button_text and tag.button_link ) %}
+						<a class="btn btn-small btn-medium btn-primary btn-block" href="{{ tag.button_link }}">{{ tag.button_text }}</a>
+					{% endif %}
 				</div>
-				<div class="unskewed--right" style="background-image: url({{ campaign_image }});">
-				</div>
+				<div class="unskewed--right" style="background-image: url({{ tag.image }});"></div>
 			</div>
 		</div>
 	</div>
-	<div id="split_two_column_mobile_view" class="split-two-column-mobile-view hidden-sm-up">
+	<div id="split_two_column_mobile_view" class="split-two-column-mobile-view hidden-sm-up" style="display: none;">
 		<ul class="list-unstyled">
 			<li class="list-one-item">
 				{% if ( issue.link_text and issue.link_url ) %}

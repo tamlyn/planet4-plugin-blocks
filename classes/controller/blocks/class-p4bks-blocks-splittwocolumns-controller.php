@@ -29,6 +29,7 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 			$issues = get_posts( [
 				'post_type'     => 'page',
 				'category_name' => 'issues',
+				'numberposts'   => -1,
 			] );
 
 			$options = [];
@@ -45,10 +46,45 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 				[
 					'attr'        => 'select_issue',
 					'label'       => __( 'Select an Issue', 'planet4-blocks' ),
-					'description' => 'Associate this block to the Issue that it will talk about',
+					'description' => __( 'Associate this block to the Issue that it will talk about', 'planet4-blocks' ),
 					'type'        => 'select',
 					'options'     => $options,
 				],
+				[
+					'attr'        => 'select_tag',
+					'label'       => __( 'Select a Tag', 'planet4-blocks' ),
+					'description' => __( 'Associate the selected Issue with a Tag', 'planet4-blocks' ),
+					'type'        => 'term_select',
+					'taxonomy'    => 'post_tag',
+				],
+				[
+					'label' => __( 'Description', 'planet4-blocks' ),
+					'attr'  => 'description',
+					'type'  => 'textarea',
+					'meta'  => [
+						'placeholder' => __( 'Enter description', 'planet4-blocks' ),
+					],
+					'description' => __( '(Optional)', 'planet4-blocks' ),
+				],
+				[
+					'label' => __( 'Button text', 'planet4-blocks' ),
+					'attr'  => 'button_text',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => __( 'Enter button text', 'planet4-blocks' ),
+					],
+					'description' => __( '(Optional)', 'planet4-blocks' ),
+				],
+				[
+					'label' => __( 'Button link', 'planet4-blocks' ),
+					'attr'  => 'button_link',
+					'type'  => 'url',
+					'meta'  => [
+						'placeholder' => __( 'Enter button link', 'planet4-blocks' ),
+					],
+					'description' => __( '(Optional)', 'planet4-blocks' ),
+				],
+
 			];
 
 			/*
@@ -91,40 +127,25 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 			$issue_id = absint( $fields['select_issue'] );
 			$issue_meta_data = get_post_meta( $issue_id );
 
-			$campaigns = get_posts( [
-				'post_type'     => 'page',
-				'category_name' => 'campaigns',
-			] );
-
-			$campaigns_splits = [];
-			if ( $campaigns ) {
-				foreach ( $campaigns as $campaign ) {
-					$campaign_meta_data = get_post_meta( $issue_id );
-					$wp_tags = wp_get_post_tags( $campaign->ID );
-
-					if ( is_array( $wp_tags ) && $wp_tags ) {
-						$campaigns_splits[] = [
-							'tag'         => [
-								'name' => $wp_tags[0]->name,
-								'href' => get_tag_link( $wp_tags[0]->term_id ),
-							],
-							'description' => $campaign_meta_data['p4_description'][0],
-							'image'       => get_the_post_thumbnail_url( $campaign->ID ),
-							'link_text'   => __( 'SUPPORT THIS CAMPAIGN', 'planet4-blocks' ),
-							'link_url'    => get_post_permalink( $campaign->ID ),
-						];
-					}
-				}
-			}
+			$tag_id        = absint( $fields['select_tag'] );
+			$tag           = get_term( $tag_id );
+			$attachment_id = get_term_meta( $tag_id, 'tag_attachment_id', true );
 
 			$data = [
 				'issue' => [
-					'title'       => null === $issue_meta_data['p4_title'][0] ? get_the_title( $issue_id ) : $issue_meta_data['p4_title'][0],
+					'title'       => $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id ),
 					'description' => $issue_meta_data['p4_description'][0],
 					'image'       => get_the_post_thumbnail_url( $issue_id ),
 					'link_text'   => __( 'Learn more about this issue', 'planet4-blocks' ),
 					'link_url'    => get_post_permalink( $issue_id ),
-					'campaigns'   => $campaigns_splits,
+				],
+				'tag' => [
+					'image'       => wp_get_attachment_url( $attachment_id ),
+					'slug'        => $tag->slug,
+					'link'        => get_tag_link( $tag ),
+					'description' => $fields['description'] ?? $tag->description,
+					'button_text' => $fields['button_text'] ?? __( 'Support this campaign', 'planet4-blocks' ),
+					'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 				],
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
