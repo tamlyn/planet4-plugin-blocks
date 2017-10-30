@@ -168,7 +168,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 
 			$tag                 = sanitize_text_field( $_GET['_tag'] );
 			$content             = wp_kses_post( $_GET['content'] );
-			$post_id             = isset( $_GET['post_id'] ) && is_numeric( $_GET['post_id'] ) ? absint( $_GET['post_id'] ) : false;
+			$post_id             = isset( $_GET['_post_id'] ) && is_numeric( $_GET['_post_id'] ) ? absint( $_GET['_post_id'] ) : false;
 			$shortcode_object    = \Shortcode_UI::get_instance()->get_shortcode( $tag );
 			$shortcode_attrs     = is_array( $shortcode_object ) && is_array( $shortcode_object['attrs'] ) ? $shortcode_object['attrs'] : [];
 			$shortcode_attr_keys = wp_list_pluck( $shortcode_attrs, 'attr' );
