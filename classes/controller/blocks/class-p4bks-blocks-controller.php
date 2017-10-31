@@ -166,32 +166,33 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 				exit;
 			}
 
-			$tag                 = sanitize_text_field( $_GET['_tag'] );
-			$content             = wp_kses_post( $_GET['content'] );
-			$post_id             = isset( $_GET['_post_id'] ) && is_numeric( $_GET['_post_id'] ) ? absint( $_GET['_post_id'] ) : false;
-			$shortcode_object    = \Shortcode_UI::get_instance()->get_shortcode( $tag );
-			$shortcode_attrs     = is_array( $shortcode_object ) && is_array( $shortcode_object['attrs'] ) ? $shortcode_object['attrs'] : [];
-			$shortcode_attr_keys = wp_list_pluck( $shortcode_attrs, 'attr' );
-
 			// Don't do anything if an invalid nonce
 			if ( ! wp_verify_nonce( $_GET['_nonce'], 'p4bks_preview_render_' . $this->block_name ) ) {
 				exit;
 			}
 
-			$fields = [];
+			$tag                 = isset( $_GET['_tag'] ) ? sanitize_text_field( $_GET['_tag'] ) : '';
+			$content             = isset( $_GET['_content'] ) ? wp_kses_post( $_GET['_content'] ) : '';
+			$post_id             = isset( $_GET['_post_id'] ) && is_numeric( $_GET['_post_id'] ) ? absint( $_GET['_post_id'] ) : false;
+			$shortcode_object    = \Shortcode_UI::get_instance()->get_shortcode( $tag );
+			$shortcode_attrs     = is_array( $shortcode_object ) && is_array( $shortcode_object['attrs'] ) ? $shortcode_object['attrs'] : [];
+			$shortcode_attr_keys = wp_list_pluck( $shortcode_attrs, 'attr' );
+			$fields              = [];
 
 			// Filter out any $_GET params not used by the shortcode
 			foreach ( $shortcode_attr_keys as $attr_key ) {
-				if ( ! empty( $_GET[ $attr_key ] ) ) {
+				if ( isset( $_GET[ $attr_key ] ) ) {
 					$fields[ $attr_key ] = $_GET[ $attr_key ];
 				}
 			}
 
+			$current_post = get_post( $post_id );
+
 			// Setup postdata incase it's needed during shortcode render
-			if ( get_post( $post_id ) ) {
+			if ( $current_post ) {
 				// @codingStandardsIgnoreStart
 				global $post;
-				$post = get_post( $post_id );
+				$post = $current_post;
 				setup_postdata( $post );
 				// @codingStandardsIgnoreEnd
 			}
