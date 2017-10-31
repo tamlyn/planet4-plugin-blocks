@@ -1,0 +1,25 @@
+{% block campaign_thumbnail %}
+	{% if ( fields ) %}
+		<div class="container">
+			<div class="campaign-thumbnail-block">
+				{% if ( fields.title ) %}
+					<h2>{{ fields.title }}</h2>
+				{% endif %}
+				<div class="row thumbnail-largeview-container">
+					{% if ( fields.tags ) %}
+						{% for tag in fields.tags %}
+							<div class="col-md-4">
+								<div class="thumbnail-large">
+								{% if ( tag.image[0] ) %}
+									<img src="{{ tag.image[0] }}" alt="{{ value.alt_text }}" >
+								{% endif %}
+								<a href="{{ tag.href }}">#{{ tag.name }}</a>
+								</div>
+							</div>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

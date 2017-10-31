@@ -37,6 +37,7 @@ class ComposerStaticInit356100170ff2882375cd04c4c76f9df3
 
     public static $classMap = array (
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Articles_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-articles-controller.php',
+        'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CampaignThumbnail_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-campaignthumbnail-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CarouselHeader_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-carouselheader-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CarouselSplit_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-carouselsplit-controller.php',
         'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Carousel_Controller' => __DIR__ . '/../..' . '/classes/controller/blocks/class-p4bks-blocks-carousel-controller.php',
