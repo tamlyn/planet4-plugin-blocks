@@ -90,28 +90,13 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentThreeColumn_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-			$image_1_data_array             = wp_get_attachment_image_src( $fields['image_1'], 'cta' );
-			$image_2_data_array             = wp_get_attachment_image_src( $fields['image_2'], 'cta' );
-			$image_3_data_array             = wp_get_attachment_image_src( $fields['image_3'], 'cta' );
-
-			$images_data = array();
-
-			if ( is_array( $image_1_data_array ) && $image_1_data_array ) {
-				$images_data['image_1_src']   = $image_1_data_array[0];
-				$images_data['alt_1_text']    = get_post_meta( $fields['image_1'], '_wp_attachment_image_alt', true  );
+			for ( $i = 1; $i < 4; $i++ ) {
+				$img_array = wp_get_attachment_image_src( $fields[ "image_$i" ], 'full' );
+				if ( false !== $img_array && ! empty( $img_array ) ) {
+					$fields["alt_$i"]    = get_post_meta( $fields["image_$i"], '_wp_attachment_image_alt', true );
+					$fields["image_$i"]  = $img_array[0];
+				}
 			}
-
-			if ( is_array( $image_2_data_array ) && $image_2_data_array ) {
-				$images_data['image_2_src']   = $image_2_data_array[0];
-				$images_data['alt_2_text']    = get_post_meta( $fields['image_2'], '_wp_attachment_image_alt', true  );
-			}
-
-			if ( is_array( $image_3_data_array ) && $image_3_data_array ) {
-				$images_data['image_3_src']   = $image_3_data_array[0];
-				$images_data['alt_3_text']    = get_post_meta( $fields['image_1'], '_wp_attachment_image_alt', true  );
-			}
-
-			$fields['images'] = $images_data;
 
 			$data = [
 				'fields'      => $fields,
