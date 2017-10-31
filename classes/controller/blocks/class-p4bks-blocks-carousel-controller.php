@@ -108,7 +108,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 
 			foreach ( $explodeMultipleImageArray as $imageID ) {
 
-				$image_data_array             = wp_get_attachment_image_src( $imageID, 'cta' );
+				$image_data_array             = wp_get_attachment_image_src( $imageID, 'full' );
 
 				$images_data['image_src']     = $image_data_array[0];
 				$images_data['alt_text']      = get_post_meta( $imageID, '_wp_attachment_image_alt', true  );
