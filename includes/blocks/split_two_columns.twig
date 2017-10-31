@@ -9,7 +9,7 @@
 						<h2>{{ issue.title }}</h2>
 					{% endif %}
 					{% if ( issue.description ) %}
-						<h5>{{ issue.description }}</h5>
+						<h5>{{ issue.description|truncate(25, true)|raw }}</h5>
 					{% endif %}
 					{% if ( issue.link_text and issue.link_url ) %}
 						<a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
@@ -24,7 +24,7 @@
 						<a href="{{ tag.link }}">#{{ tag.slug }}</a>
 					{% endif %}
 					{% if ( tag.description ) %}
-						<h5 class="hidden-lg-down">{{ tag.description }}</h5>
+						<h5 class="hidden-lg-down">{{ tag.description|truncate(25, true)|raw }}</h5>
 					{% endif %}
 					{% if ( tag.button_text and tag.button_link ) %}
 						<a class="btn btn-small btn-medium btn-primary btn-block" href="{{ tag.button_link }}">{{ tag.button_text }}</a>

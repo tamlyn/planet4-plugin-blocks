@@ -136,7 +136,7 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
 
 			for ( $i = 1; $i < 5; $i++ ) {
-				$temp_array = wp_get_attachment_image_src( $attributes[ "image_$i" ] );
+				$temp_array = wp_get_attachment_image_src( $attributes[ "image_$i" ], 'full' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
 					$attributes[ "image_$i" ] = $temp_array[0];
 				}

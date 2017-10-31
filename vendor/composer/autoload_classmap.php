@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Articles_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-articles-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CampaignThumbnail_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-campaignthumbnail-controller.php',
-    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CarouselHeader_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-carousel-header-controller.php',
+    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CarouselHeader_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-carouselheader-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_CarouselSplit_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-carouselsplit-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Carousel_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-carousel-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_ContentFourColumn_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-contentfourcolumn-controller.php',
