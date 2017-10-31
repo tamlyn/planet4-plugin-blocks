@@ -1,20 +1,41 @@
 {% block content_three_column %}
 	{% if ( fields ) %}
-		{% if ( fields.title ) %}
-			<h1>{{ fields.title }}</h1>
-		{% endif %}
-		{% if ( fields.description ) %}
-			<p>{{ fields.description }}</p>
-		{% endif %}
-		<br><br>
-		{% if ( fields.images.image_1_src ) %}
-			<img src="{{ fields.images.image_1_src }}" alt="{{ fields.images.alt_1_text }}" >
-		{% endif %}
-		{% if ( fields.images.image_2_src ) %}
-			<img src="{{ fields.images.image_2_src }}" alt="{{ fields.images.alt_2_text }}" >
-		{% endif %}
-		{% if ( fields.images.image_3_src ) %}
-			<img src="{{ fields.images.image_3_src }}" alt="{{ fields.images.alt_3_text }}" >
-		{% endif %}
+		<div class="split-three-column">
+			<div class="container">
+				<div class="three-column-box">
+					<div class="three-column-info">
+						{% if ( fields.title ) %}
+							<h2>{{ fields.title }}</h2>
+						{% endif %}
+						{% if ( fields.description ) %}
+							<p>{{ fields.description }}</p>
+						{% endif %}
+					</div>
+					<div class="three-column-images row">
+						<div class="col">
+							<div class="first-column split-image">
+								{% if ( fields.images.image_1_src ) %}
+									<img src="{{ fields.images.image_1_src }}" alt="{{ fields.images.alt_1_text }}" >
+								{% endif %}
+							</div>
+						</div>
+						<div class="col">
+							<div class="second-column split-image">
+								{% if ( fields.images.image_2_src ) %}
+									<img src="{{ fields.images.image_2_src }}" alt="{{ fields.images.alt_2_text }}" >
+								{% endif %}
+							</div>
+						</div>
+						<div class="col">
+							<div class="third-column split-image">
+								{% if ( fields.images.image_3_src ) %}
+									<img src="{{ fields.images.image_3_src }}" alt="{{ fields.images.alt_3_text }}" >
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	{% endif %}
 {% endblock %}
