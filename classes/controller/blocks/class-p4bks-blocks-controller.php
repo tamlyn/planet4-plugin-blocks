@@ -126,29 +126,29 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 *
 		 * We need to load through iframe to enqueue frontend styles without breaking admin ui
 		 *
-		 * @param $fields
-		 * @param $content
-		 * @param $shortcode_tag
-		 * @return string
+		 * @param array $fields          Associative array of shortcode paramaters
+		 * @param string $content        The content of the shortcode block for content wrapper shortcodes only
+		 * @param string $shortcode_tag  The name of the shortcode
+		 * @return string                The html markup for the shortcode preview iframe
 		 */
 		public function prepare_template_preview_iframe( $fields, $content, $shortcode_tag ) {
 
 			$request = add_query_arg(
 				array_merge( $fields,
-					array(
+					[
 						'_tag'     => $shortcode_tag,
 						'_content' => $content,
 						'_post_id' => get_the_ID(),
 						'_nonce'   => wp_create_nonce( 'p4bks_preview_render_' . $this->block_name ),
-						'action'   => 'p4bks_preview_render_' . $this->block_name
-					)
+						'action'   => 'p4bks_preview_render_' . $this->block_name,
+					]
 				),
 				admin_url( 'admin-ajax.php' )
 			);
 
 			ob_start();
 			?>
-			<iframe width="100%" src="<?php echo esc_url( $request ) ?>" onload="this.style.height = this.contentWindow.document.body.scrollHeight + 'px';"></iframe>
+			<iframe width="100%" src="<?php echo esc_url( $request ); ?>" onload="this.style.height = this.contentWindow.document.body.scrollHeight + 'px';"></iframe>
 			<?php
 			return ob_get_clean();
 		}
@@ -219,13 +219,14 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * Callback for the shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array  $fields
-		 * @param string $content
-		 * @param string $shortcode_tag
+		 *
+		 * @param array $fields          Associative array of shortcode paramaters
+		 * @param string $content        The content of the shortcode block for content wrapper shortcodes only
+		 * @param string $shortcode_tag  The name of the shortcode
 		 *
 		 * @since 0.1.0
 		 *
-		 * @return string
+		 * @return string                The html markup for the shortcode preview iframe
 		 */
 		abstract public function prepare_template( $fields, $content, $shortcode_tag ) : string;
 	}
