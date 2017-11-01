@@ -39,6 +39,9 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 			add_action( 'init', array( $this, 'shortcode_ui_register_shortcodes' ) );
 			// Add Two Column element in UI
 			add_action( 'register_shortcode_ui', array( $this, 'prepare_fields' ) );
+
+			// Register an admin render callback for previewing in the wysiwyg
+			add_action( 'wp_ajax_p4bks_preview_render_' . $this->block_name, array( $this, 'prepare_admin_preview' ) );
 		}
 
 		/**
@@ -85,8 +88,26 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * @since 0.1.0
 		 */
 		public function shortcode_ui_register_shortcodes() {
-			// Define the callback for the advanced shortcode.
-			add_shortcode( 'shortcake_' . $this->block_name, array( $this, 'prepare_template' ) );
+
+			/**
+			 * If we're in a request to admin render shortcodes, use a preview iframe for render so we
+			 * can load in all the site styles.
+			 *
+			 * No clean filters/actions to check here so manually checking for ajax, action and user privs
+			 */
+			if (
+				wp_doing_ajax()
+				&& is_user_logged_in()
+				&& wp_get_current_user()->has_cap( 'edit_posts' )
+				&& isset( $_REQUEST['action'] )
+				&& $_REQUEST['action'] === 'bulk_do_shortcode'
+			) {
+				// Render a preview iframe using a wrapper method
+				add_shortcode( 'shortcake_' . $this->block_name, array( $this, 'prepare_template_preview_iframe' ) );
+			} else {
+				// Render using the default method
+				add_shortcode( 'shortcake_' . $this->block_name, array( $this, 'prepare_template' ) );
+			}
 		}
 
 		/**
@@ -101,16 +122,111 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		abstract public function prepare_fields();
 
 		/**
+		 * Output markup of an iframe to render shortcode when previewing in admin edit screen.
+		 *
+		 * We need to load through iframe to enqueue frontend styles without breaking admin ui
+		 *
+		 * @param array $fields          Associative array of shortcode paramaters
+		 * @param string $content        The content of the shortcode block for content wrapper shortcodes only
+		 * @param string $shortcode_tag  The name of the shortcode
+		 * @return string                The html markup for the shortcode preview iframe
+		 */
+		public function prepare_template_preview_iframe( $fields, $content, $shortcode_tag ) {
+
+			$request = add_query_arg(
+				array_merge( $fields,
+					[
+						'_tag'     => $shortcode_tag,
+						'_content' => $content,
+						'_post_id' => get_the_ID(),
+						'_nonce'   => wp_create_nonce( 'p4bks_preview_render_' . $this->block_name ),
+						'action'   => 'p4bks_preview_render_' . $this->block_name,
+					]
+				),
+				admin_url( 'admin-ajax.php' )
+			);
+
+			ob_start();
+			?>
+			<iframe width="100%" src="<?php echo esc_url( $request ); ?>" onload="this.style.height = this.contentWindow.document.body.scrollHeight + 'px';"></iframe>
+			<?php
+			return ob_get_clean();
+		}
+
+		/**
+		 * Render preview markup for the shortcode when loading through an iframe
+		 *
+		 * Takes a custom admin ajax request to render a shortcode and outputs shortcode
+		 * via $this->prepare_template along with wrapper html and enqueued frontend styles and scripts
+		 */
+		public function prepare_admin_preview() {
+
+			// Shortcode UI not callable
+			if ( ! is_callable( 'Shortcode_UI', 'get_shortcode' ) ) {
+				exit;
+			}
+
+			// Don't do anything if an invalid nonce
+			if ( ! wp_verify_nonce( $_GET['_nonce'], 'p4bks_preview_render_' . $this->block_name ) ) {
+				exit;
+			}
+
+			$tag                 = isset( $_GET['_tag'] ) ? sanitize_text_field( $_GET['_tag'] ) : '';
+			$content             = isset( $_GET['_content'] ) ? wp_kses_post( $_GET['_content'] ) : '';
+			$post_id             = isset( $_GET['_post_id'] ) && is_numeric( $_GET['_post_id'] ) ? absint( $_GET['_post_id'] ) : false;
+			$shortcode_object    = \Shortcode_UI::get_instance()->get_shortcode( $tag );
+			$shortcode_attrs     = is_array( $shortcode_object ) && is_array( $shortcode_object['attrs'] ) ? $shortcode_object['attrs'] : [];
+			$shortcode_attr_keys = wp_list_pluck( $shortcode_attrs, 'attr' );
+			$fields              = [];
+
+			// Filter out any $_GET params not used by the shortcode
+			foreach ( $shortcode_attr_keys as $attr_key ) {
+				if ( isset( $_GET[ $attr_key ] ) ) {
+					$fields[ $attr_key ] = $_GET[ $attr_key ];
+				}
+			}
+
+			$current_post = get_post( $post_id );
+
+			// Setup postdata incase it's needed during shortcode render
+			if ( $current_post ) {
+				// @codingStandardsIgnoreStart
+				global $post;
+				$post = $current_post;
+				setup_postdata( $post );
+				// @codingStandardsIgnoreEnd
+			}
+
+			?>
+			<html>
+				<head>
+					<?php do_action( 'wp_head' ); ?>
+				</head>
+				<body style="background-color: transparent;">
+					<?php echo $this->prepare_template( $fields, $content, $tag ); ?>
+				</body>
+				<footer>
+					<?php do_action( 'wp_footer' ); ?>
+				</footer>
+			</html>
+			<?php
+
+			// Ajax callbacks need to call exit
+			exit;
+		}
+
+		/**
 		 * Callback for the shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array  $fields
-		 * @param string $content
-		 * @param string $shortcode_tag
+		 *
+		 * @param array $fields          Associative array of shortcode paramaters
+		 * @param string $content        The content of the shortcode block for content wrapper shortcodes only
+		 * @param string $shortcode_tag  The name of the shortcode
 		 *
 		 * @since 0.1.0
 		 *
-		 * @return string
+		 * @return string                The html markup for the shortcode preview iframe
 		 */
 		abstract public function prepare_template( $fields, $content, $shortcode_tag ) : string;
 	}
