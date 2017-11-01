@@ -1,0 +1,41 @@
+{% block content_three_column %}
+	{% if ( fields ) %}
+		<div class="split-three-column">
+			<div class="container">
+				<div class="three-column-box">
+					<div class="three-column-info">
+						{% if ( fields.title ) %}
+							<h2>{{ fields.title }}</h2>
+						{% endif %}
+						{% if ( fields.description ) %}
+							<p>{{ fields.description }}</p>
+						{% endif %}
+					</div>
+					<div class="three-column-images row">
+						<div class="col">
+							<div class="first-column split-image">
+								{% if ( fields.image_1 ) %}
+									<img src="{{ fields.image_1 }}" alt="{{ fields.alt_1 }}" >
+								{% endif %}
+							</div>
+						</div>
+						<div class="col">
+							<div class="second-column split-image">
+								{% if ( fields.image_2 ) %}
+									<img src="{{ fields.image_2 }}" alt="{{ fields.alt_2 }}" >
+								{% endif %}
+							</div>
+						</div>
+						<div class="col">
+							<div class="third-column split-image">
+								{% if ( fields.image_3 ) %}
+									<img src="{{ fields.image_3 }}" alt="{{ fields.alt_3 }}" >
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
