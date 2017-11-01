@@ -57,6 +57,12 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 					'attr'  => 'boxout_link_url',
 					'type'  => 'text',
 				),
+				array(
+					'label' => __( 'Use mailing list iframe', 'planet4-blocks' ),
+					'attr'  => 'mailing_list_iframe',
+					'type'  => 'checkbox',
+					'value' => 'true'
+				)
 			);
 
 			// Define the Shortcode UI arguments.
