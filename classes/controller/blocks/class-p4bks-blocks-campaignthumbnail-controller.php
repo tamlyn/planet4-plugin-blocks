@@ -23,23 +23,23 @@ if ( ! class_exists( 'P4BKS_Blocks_CampaignThumbnail_Controller' ) ) {
 		 * @since 0.1.0
 		 */
 		public function prepare_fields() {
-			$fields = array(
-				array(
+			$fields = [
+				[
 					'label' => __( 'Title', 'planet4-blocks' ),
 					'attr'  => 'title',
 					'type'  => 'text',
-					'meta'  => array(
+					'meta'  => [
 						'placeholder' => __( 'Enter title', 'planet4-blocks' ),
-					),
-				)
-			);
+					],
+				]
+			];
 
 			// Define the Shortcode UI arguments.
-			$shortcode_ui_args = array(
+			$shortcode_ui_args = [
 				'label'         => __( 'Campaign Thumbnail', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/campaign_thumbnail.png' ) . '" />',
 				'attrs'         => $fields,
-			);
+			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
 		}
@@ -58,44 +58,93 @@ if ( ! class_exists( 'P4BKS_Blocks_CampaignThumbnail_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-			$category_data  = get_the_category();
-			$category_id    = ( isset( $category_data[0]->cat_ID ) && ! empty( $category_data[0]->cat_ID ) ) ? $category_data[0]->cat_ID : '';
+			$post_tags   = [];
 
-			if( isset( $category_data[0]->cat_ID ) && ! empty( $category_data[0]->cat_ID ) ) {
-				$args         = array( 'numberposts' => '1', 'category' => $category_id );
-			} else {
-				$args         = array( 'numberposts' => '1' );
-			}
+			// If $fields['category_id'] exists then we are on Campaign Page, else we are on Issue Page
+			if( ! empty ( $fields['category_id'] ) ) {
+				$page          = get_page_by_path('explore');
+				$parent_id     = ( ! empty( $page ) ) ? $page->ID : '';
+				$category      = get_category($fields['category_id']);
 
-			$recent_posts   = wp_get_recent_posts( $args );
-			$recent_post_id = ( isset( $recent_posts[0]['ID'] ) && ! empty( $recent_posts[0]['ID'] ) ) ? $recent_posts[0]['ID'] : '';
+				$context_tags  = get_queried_object();
 
-			$post_tags      = array();
-			if( ! empty( $recent_post_id ) ) {
-				$post_tags    = get_the_tags( $recent_post_id );
-				$post_tags    = array_slice($post_tags, 0, 3);
-			}
+				$args = array(
+					'post_type'      => 'page',
+					'post_parent'    => $parent_id
+				);
+				$explore_children = get_children( $args );
 
-			foreach( $post_tags as $tag ) {
-				$tags           = array();
-				$tags['name']   = $tag->name;
-				$tags['slug']   = $tag->slug;
-				$tags['href']   = get_tag_link( $tag );
-				$attachment_id  = get_term_meta( $tag->term_id, 'tag_attachment_id', true );
+				$page_id = '';
 
-				if( ! empty( $attachment_id ) ) {
-					$tags['image'] = wp_get_attachment_image_src( $attachment_id, 'medium' );
+				// Here, we are getting issue page ID.
+				if( $explore_children ) {
+					foreach ( $explore_children as $pages ) {
+						if( $pages->post_name == $category->slug) {
+							$page_id = $pages->ID;
+							break;
+						}
+					}
 				}
 
-				$fields['tags'][] = $tags;
-			}
+				$tags = wp_get_post_tags( $page_id );
 
+				if( $tags ) {
+
+					$i = 1;
+					foreach( $tags as $tag ) {
+						if( $context_tags->slug != $tag->slug ) {
+							$tag_remapped  = [
+								'name' => $tag->name,
+								'slug' => $tag->slug,
+								'href' => get_tag_link( $tag )
+							];
+							$attachment_id = get_term_meta( $tag->term_id, 'tag_attachment_id', true );
+
+							if( ! empty( $attachment_id ) ) {
+								$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id );
+								$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+							}
+
+							$fields['tags'][] = $tag_remapped;
+
+							if ( $i == 3 ) {
+								break;
+							}
+
+							$i++;
+
+						}
+					}
+				}
+			} else {
+
+				$tags  = get_the_tags();
+				if( $tags ) {
+					$tags  = array_slice( $tags, 0, 3 );
+
+					foreach( $tags as $tag ) {
+						$tag_remapped = [
+							'name' => $tag->name,
+							'slug' => $tag->slug,
+							'href' => get_tag_link( $tag )
+						];
+						$attachment_id	= get_term_meta( $tag->term_id, 'tag_attachment_id', true );
+
+						if( ! empty( $attachment_id ) ) {
+							$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id );
+							$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+						}
+
+						$fields['tags'][] = $tag_remapped;
+					}
+				}
+			}
 			$data = [
 				'fields' => $fields,
 				'domain' => 'planet4-blocks',
 			];
 
-			// Shortcode callbacks must return content, hence, output buffering here.
+			// Shortcode callbacks must	return content,	hence, output buffering	here.
 			ob_start();
 			$this->view->block( $this->block_name, $data );
 
