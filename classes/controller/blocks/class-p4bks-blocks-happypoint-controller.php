@@ -57,6 +57,12 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 					'attr'  => 'boxout_link_url',
 					'type'  => 'text',
 				),
+				array(
+					'label' => __( 'Use mailing list iframe', 'planet4-blocks' ),
+					'attr'  => 'mailing_list_iframe',
+					'type'  => 'checkbox',
+					'value' => 'true'
+				)
 			);
 
 			// Define the Shortcode UI arguments.
@@ -82,12 +88,13 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ): string {
 
 			$fields = shortcode_atts( array(
-				'background'       => '',
-				'opacity'          => 30,
-				'boxout_title'     => '',
-				'boxout_descr'     => '',
-				'boxout_link_text' => '',
-				'boxout_link_url'  => '',
+				'background'          => '',
+				'opacity'             => 30,
+				'boxout_title'        => '',
+				'boxout_descr'        => '',
+				'boxout_link_text'    => '',
+				'boxout_link_url'     => '',
+				'mailing_list_iframe' => ''
 			), $fields, $shortcode_tag );
 
 			if ( ! is_numeric( $fields['opacity'] ) ) {
@@ -98,6 +105,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 
 			$fields['background_html'] = wp_get_attachment_image( $fields['background'] );
 			$fields['background_src']  = wp_get_attachment_image_src( $fields['background'] );
+			$fields['engaging_network_id'] = get_option( 'engaging_network_form_id', '' ) ? get_option( 'engaging_network_form_id' ) : '';
 			$fields['opacity']         = $opacity;
 
 			$data = [

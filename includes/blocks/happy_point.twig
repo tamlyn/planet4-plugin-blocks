@@ -29,5 +29,10 @@
 				</div>
 			</div>
 		</div>
+		<div>
+			{% if ( fields.mailing_list_iframe == 'true' ) %}
+				<iframe src="{{ fields.engaging_network_id }}" allowtransparency="true">
+			{% endif %}
+		</div>
 	{% endif %}
 {% endblock %}
