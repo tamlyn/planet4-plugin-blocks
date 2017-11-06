@@ -84,7 +84,7 @@ if ( ! class_exists( 'P4BKS_Blocks_CampaignThumbnail_Controller' ) ) {
 				$attachment_id  = get_term_meta( $tag->term_id, 'tag_attachment_id', true );
 
 				if( ! empty( $attachment_id ) ) {
-					$tags['image'] = wp_get_attachment_image_src( $attachment_id );
+					$tags['image'] = wp_get_attachment_image_src( $attachment_id, 'medium' );
 				}
 
 				$fields['tags'][] = $tags;
