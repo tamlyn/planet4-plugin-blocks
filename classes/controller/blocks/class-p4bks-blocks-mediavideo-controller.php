@@ -45,7 +45,7 @@ if ( ! class_exists( 'P4BKS_Blocks_MediaVideo_Controller' ) ) {
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = array(
 				'label'         => __( 'Youtube Video', 'planet4-blocks' ),
-				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/media_video.png' ) . '" />',
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/media_video.jpg' ) . '" />',
 				'attrs'         => $fields,
 			);
 
