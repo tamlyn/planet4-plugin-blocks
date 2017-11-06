@@ -74,4 +74,5 @@ P4BKS\P4BKS_Loader::get_instance( [
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Carousel_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_ContentThreeColumn_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CampaignThumbnail_Controller',
+	'P4BKS\Controllers\Blocks\P4BKS_Blocks_TakeActionBoxout_Controller',
 ], 'P4BKS\Views\P4BKS_View' );
