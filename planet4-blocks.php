@@ -70,6 +70,8 @@ P4BKS\P4BKS_Loader::get_instance( [
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CarouselHeader_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Covers_Controller',
 	'P4BKS\Controllers\Menu\P4BKS_Settings_Controller',
- 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Articles_Controller',
+	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Articles_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Carousel_Controller',
+	'P4BKS\Controllers\Blocks\P4BKS_Blocks_ContentThreeColumn_Controller',
+	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CampaignThumbnail_Controller',
 ], 'P4BKS\Views\P4BKS_View' );

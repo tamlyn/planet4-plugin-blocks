@@ -14,7 +14,7 @@
 				<div class="topicwise-article-section clearfix col-md-12">
 					<ul class="topicwise-article-list list-unstyled hidden-sm-down">
 						{% for key,value in recent_posts %}
-							<li class="media topicwise-article-list-itme {% if key == 1 %}my-5{% endif %}">
+							<li class="media topicwise-article-list-item {% if key == 1 %}my-5{% endif %}">
 								<img class="d-flex mr-3 topicwise-article-image" src="{{ value.thumbnail|raw }}" alt="{{ value.alt_text }}">
 								<div class="media-body topicwise-article-body">
 								<div class="topicwise-article-tags">
@@ -47,7 +47,7 @@
 					</ul>
 					<ul class="topicwise-article-list list-unstyled hidden-sm-up">
 						{% for value in recent_posts %}
-							<li class="topicwise-article-list-itme article-mobile-view {% if key == 1 %}my-5{% endif %}">
+							<li class="topicwise-article-list-item article-mobile-view {% if key == 1 %}my-5{% endif %}">
 								<div class="topicwise-article-body">
 									<div class="topicwise-article-tags">
 										{% if ( value.category ) %}
