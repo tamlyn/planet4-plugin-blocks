@@ -4,7 +4,15 @@ namespace P4BKS\Controllers\Blocks;
 
 if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 
+	/**
+	 * Class P4BKS_Blocks_Carousel_Controller
+	 *
+	 * @package P4BKS\Controllers\Blocks
+	 */
 	class P4BKS_Blocks_Carousel_Controller extends P4BKS_Blocks_Controller {
+
+		/** @const string BLOCK_NAME */
+		const BLOCK_NAME = 'carousel';
 
 		/**
 		 * Override this method in order to give your block its own name.
@@ -12,7 +20,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		public function load() {
 			add_filter( 'attachment_fields_to_edit', array( $this, 'add_image_attachment_fields_to_edit' ), null, 2 );
 			add_filter( 'attachment_fields_to_save', array( $this, 'add_image_attachment_fields_to_save' ), null, 2 );
-			$this->block_name = 'carousel';
 			parent::load();
 		}
 
@@ -86,7 +93,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 				'attrs'         => $fields,
 			);
 
-			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
 
 		/**
@@ -129,7 +136,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->block( $this->block_name, $data );
+			$this->view->block( self::BLOCK_NAME, $data );
 
 			return ob_get_clean();
 		}

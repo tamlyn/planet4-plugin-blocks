@@ -11,14 +11,8 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 	 */
 	class P4BKS_Blocks_TwoColumn_Controller extends P4BKS_Blocks_Controller {
 
-		/**
-		 * Override this method in order to give your block its own name.
-		 */
-		public function load() {
-			// --- Set here the name of your block ---
-			$this->block_name = 'two_columns';
-			parent::load();
-		}
+		/** @const string BLOCK_NAME */
+		const BLOCK_NAME = 'two_columns';
 
 		/**
 		 * Shortcode UI setup for the twocolumn shortcode.
@@ -137,7 +131,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 				 * Include an icon with your shortcode. Optional.
 				 * Use a dashicon, or full HTML (e.g. <img src="/path/to/your/icon" />).
 				 */
-				'listItemImage' => '<img src="' . esc_url( plugins_url() . "/planet4-plugin-blocks/admin/images/$this->block_name.png" ) . '" />',
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/' . self::BLOCK_NAME . '.png' ) . '" />',
 
 				/*
 				 * Define the UI for attributes of the shortcode. Optional.
@@ -146,7 +140,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 				'attrs' => $fields,
 			];
 
-			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
 
 		/**
@@ -168,7 +162,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->block( $this->block_name, $data );
+			$this->view->block( self::BLOCK_NAME, $data );
 
 			return ob_get_clean();
 		}
