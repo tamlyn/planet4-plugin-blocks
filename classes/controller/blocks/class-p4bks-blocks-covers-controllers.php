@@ -4,16 +4,15 @@ namespace P4BKS\Controllers\Blocks;
 
 if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 
+	/**
+	 * Class P4BKS_Blocks_Covers_Controller
+	 *
+	 * @package P4BKS\Controllers\Blocks
+	 */
 	class P4BKS_Blocks_Covers_Controller extends P4BKS_Blocks_Controller {
 
-
-		/**
-		 * Override this method in order to give your block its own name.
-		 */
-		public function load() {
-			$this->block_name = 'covers';
-			parent::load();
-		}
+		/** @const string BLOCK_NAME */
+		const BLOCK_NAME = 'covers';
 
 		/**
 		 * Shortcode UI setup for the shortcode.
@@ -71,7 +70,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 				'attrs' => $fields,
 			];
 
-			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
 
 		/**
@@ -88,23 +87,23 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 			$tag_id = absint( $fields['select_tag'] );
 
 			$args = [
-				'post_type'     => 'page',
-				'post_status'   => 'publish',
-				'order_by'      => 'date',
-				'order'         => 'DESC',
-				'numberposts'   => P4BKS_COVERS_NUM,
+				'post_type'   => 'page',
+				'post_status' => 'publish',
+				'post_parent' => get_page_by_path( 'act', 'OBJECT', 'page' )->ID,
+				'orderby'     => 'post_date',
+				'order'       => 'DESC',
+				'numberposts' => P4BKS_COVERS_NUM,
 			];
 
-			// If we associated a tag with the covers to be displayed.
-			if( $tag_id ) {
+			// If user selected a tag to associate with the Take Action page covers.
+			if ( $tag_id ) {
 				$args['tag_id'] = $tag_id;
 			}
 
-			$actions = wp_get_recent_posts( $args, 'OBJECT' );
+			$actions = get_posts( $args );
 			$covers  = [];
 
 			if ( $actions ) {
-				$site_url          = get_site_url();
 				$cover_button_text = __( 'Take Action', 'planet4-blocks' );
 
 				foreach ( $actions as $action ) {
@@ -113,16 +112,16 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 
 					if ( is_array( $wp_tags ) && $wp_tags ) {
 						foreach ( $wp_tags as $wp_tag ) {
-							array_push( $tags, [
+							$tags[] = [
 								'slug' => $wp_tag->slug,
 								'href' => get_tag_link( $wp_tag ),
-							]);
+							];
 						}
 					}
 					$covers[] = [
 						'tags'        => $tags,
 						'title'       => get_the_title( $action ),
-						'excerpt'     => get_the_excerpt( $action ),	// Note: WordPress removes shortcodes from auto-generated excerpts.
+						'excerpt'     => get_the_excerpt( $action ),    // Note: WordPress removes shortcodes from auto-generated excerpts.
 						'image'       => get_the_post_thumbnail_url( $action ),
 						'button_text' => $cover_button_text,
 						'button_link' => get_post_permalink( $action->ID ),
@@ -138,7 +137,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->block( $this->block_name, $data );
+			$this->view->block( self::BLOCK_NAME, $data );
 
 			return ob_get_clean();
 		}
