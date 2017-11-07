@@ -11,13 +11,8 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 	 */
 	class P4BKS_Blocks_Tasks_Controller extends P4BKS_Blocks_Controller {
 
-		/**
-		 * Override this method in order to give your block its own name.
-		 */
-		public function load() {
-			$this->block_name = 'tasks';
-			parent::load();
-		}
+		/** @const string BLOCK_NAME */
+		const BLOCK_NAME = 'tasks';
 
 		/**
 		 * Shortcode UI setup for the tasks shortcode.
@@ -126,7 +121,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 				'attrs'         => $fields,
 			];
 
-			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
 
 		/**
@@ -172,7 +167,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->block( $this->block_name, $block_data );
+			$this->view->block( self::BLOCK_NAME, $block_data );
 
 			return ob_get_clean();
 		}
