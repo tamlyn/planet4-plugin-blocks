@@ -144,7 +144,7 @@ if ( ! class_exists( 'P4BKS_Blocks_CampaignThumbnail_Controller' ) ) {
 				'domain' => 'planet4-blocks',
 			];
 
-			// Shortcode callbacks must	return content,	hence, output buffering	here.
+			// Shortcode callbacks must return content, hence, output buffering	here.
 			ob_start();
 			$this->view->block( $this->block_name, $data );
 
