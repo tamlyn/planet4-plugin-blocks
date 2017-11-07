@@ -58,8 +58,6 @@ if ( ! class_exists( 'P4BKS_Blocks_CampaignThumbnail_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-			$post_tags   = [];
-
 			// If $fields['category_id'] exists then we are on Campaign Page, else we are on Issue Page
 			if( ! empty ( $fields['category_id'] ) ) {
 				$page          = get_page_by_path('explore');
