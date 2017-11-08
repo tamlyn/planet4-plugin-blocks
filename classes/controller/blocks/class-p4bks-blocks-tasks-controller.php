@@ -52,7 +52,8 @@ if ( ! class_exists( 'P4BKS_Blocks_Tasks_Controller' ) ) {
 				$fields[] =
 					[
 						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-						'label' => sprintf( __( 'Task %s: Title', 'planet4-blocks' ), $i ),
+						'label' => sprintf( __( 'Task %s: Title <br> 
+									<i>Title is mandatory. In order for the task to be appeared title has to be filled.</i>', 'planet4-blocks' ), $i ),
 						'attr'  => 'title_' . $i,
 						'type'  => 'text',
 						'meta'  => [
