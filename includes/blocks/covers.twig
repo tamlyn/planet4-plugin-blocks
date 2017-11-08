@@ -20,7 +20,7 @@
 								<div class="cover-card" style="background-image: url({{ cover.image }});">
 									{% if ( cover.tags ) %}
 										{% for tag in cover.tags %}
-											<a class="cover-card-tag" href="{{ tag.href }}">#{{ tag.slug }}</a>
+											<a class="cover-card-tag" href="{{ tag.href }}">#{{ tag.name }}</a>
 										{% endfor %}
 									{% endif %}
 									<h2 class="cover-card-heading">{{ cover.title|raw }}</h2>
