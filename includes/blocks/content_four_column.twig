@@ -1,5 +1,6 @@
 {% block content_four_column %}
 
+{% if ( posts ) %}
 	<div class="four-coloum-content">
 		<div class="container">
 			<h2>{{ __( 'Publications', 'planet4-blocks' ) }}</h2>
@@ -55,4 +56,6 @@
 			{% endif %}
 		</div>
 	</div>
+{% endif %}
+
 {% endblock %}
