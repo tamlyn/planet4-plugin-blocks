@@ -50,8 +50,8 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 		 * Callback for content four column shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array  $attributes    Defined attributes array for this shortcode.
-		 * @param string $content       Content.
+		 * @param array  $attributes Defined attributes array for this shortcode.
+		 * @param string $content Content.
 		 * @param string $shortcode_tag Shortcode tag name.
 		 *
 		 * @return string Returns the compiled template.
@@ -65,35 +65,38 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 				$tag_ids = explode( ',', $raw_tags );
 			}
 
-			// Get all posts with the specific tags.
-			// Construct the arguments array for the query.
-			// TODO investigate why WordPress returns results only for the first tag in the array and
-			// TODO change the query if needed.
-			$args  = [
-				'tag__in'  => $tag_ids,
-				'order'   => 'DESC',
-				'orderby' => 'date',
-			];
-			$query = new \WP_Query( $args );
-
 			$posts_array = [];
-			if ( $query->have_posts() ) {
+			if ( ! empty( $tag_ids ) ) {
 
-				$posts = $query->get_posts();
+				// Get all posts with the specific tags.
+				// Construct the arguments array for the query.
+				$args = [
+					'tag__in'       => $tag_ids,
+					'order'         => 'DESC',
+					'orderby'       => 'date',
+					'no_found_rows' => true,
+				];
 
-				foreach ( $posts as $post ) {
+				// Construct a WP_Query object and make a query based on the arguments array.
+				$query = new \WP_Query();
+				$posts = $query->query( $args );
 
-					$post->alt_text  = '';
-					$post->thumbnail = '';
+				if ( ! empty( $posts ) ) {
 
-					if ( has_post_thumbnail( $post ) ) {
-						$post->thumbnail = get_the_post_thumbnail_url( $post, 'single-post-thumbnail' );
-						$img_id          = get_post_thumbnail_id( $post );
-						$post->alt_text  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+					foreach ( $posts as $post ) {
+
+						$post->alt_text  = '';
+						$post->thumbnail = '';
+
+						if ( has_post_thumbnail( $post ) ) {
+							$post->thumbnail = get_the_post_thumbnail_url( $post, 'single-post-thumbnail' );
+							$img_id          = get_post_thumbnail_id( $post );
+							$post->alt_text  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+						}
+
+						$post->permalink = get_permalink( $post );
+						$posts_array[]   = $post;
 					}
-
-					$post->permalink = get_permalink( $post );
-					$posts_array[]   = $post;
 				}
 			}
 
