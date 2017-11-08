@@ -98,15 +98,13 @@ if ( ! class_exists( 'P4BKS_Blocks_TakeActionBoxout_Controller' ) ) {
 			}
 
 			// Populate variables.
-			$page_title   = null === $page ? '' : $page->post_title;
-			$page_excerpt = null === $page ? '' : $page->post_excerpt;
-			$tag_slug     = null === $tag ? '' : $tag->slug;
-			$tag_link     = null === $tag ? '' : get_tag_link( $tag );
-			$block        = [
-				'first_tag'      => $tag_slug,
-				'first_tag_link' => $tag_link,
-				'title'          => $page_title,
-				'excerpt'        => $page_excerpt,
+			$block = [
+				'first_tag'      => null === $tag ? '' : $tag->slug,
+				'first_tag_link' => null === $tag ? '' : get_tag_link( $tag ),
+				'title'          => null === $page ? '' : $page->post_title,
+				'excerpt'        => null === $page ? '' : $page->post_excerpt,
+				'link'           => null === $page ? '' : get_permalink( $page ),
+				'image'          => null === $page ? '' : get_the_post_thumbnail_url( $page, 'large' ),
 			];
 
 			$data = [

@@ -2,6 +2,14 @@
 
 	{% if ( page ) %}
 
+		{% if ( page.image ) %}
+			<style>
+				.boxout-block .boxout-block-card {
+					background-image: url({{ page.image }});
+				}
+			</style>
+		{% endif %}
+
 		<div class="boxout-block">
 			<div class="boxout-block-card card-one">
 				{% if ( page.first_tag and page.first_tag_link ) %}
@@ -11,9 +19,12 @@
 					<h2 class="boxout-block-card-heading">{{ page.title }}</h2>
 				{% endif %}
 				{% if ( page.excerpt ) %}
-					<p>{{ page.excerpt }}</p>
+					<p>{{ page.excerpt|excerpt(25)|raw }}</p>
 				{% endif %}
-				<button class="btn btn-primary btn-transparent btn-block boxout-block-card-btn">{{ __('take action', 'planet4-master-theme') }}</button>
+
+				<a class="btn btn-primary btn-transparent btn-block boxout-block-card-btn"
+				   href="{{ page.link ? page.link : '#' }}"
+				>{{ __('take action', 'planet4-master-theme') }}</a>
 			</div>
 		</div>
 
