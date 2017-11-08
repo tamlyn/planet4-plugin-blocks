@@ -11,13 +11,8 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 	 */
 	class P4BKS_Blocks_ContentFourColumn_Controller extends P4BKS_Blocks_Controller {
 
-		/**
-		 * Override this method in order to give your block its own name.
-		 */
-		public function load() {
-			$this->block_name = 'content_four_column';
-			parent::load();
-		}
+		/** @const string BLOCK_NAME */
+		const BLOCK_NAME = 'content_four_column';
 
 		/**
 		 * Shortcode UI setup for content four column shortcode.
@@ -37,6 +32,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 					'description' => __( 'Associate this block with Posts that have a specific Tag', 'planet4-blocks' ),
 					'type'        => 'term_select',
 					'taxonomy'    => 'post_tag',
+					'multiple'    => true,
 				],
 			];
 
@@ -47,7 +43,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 				'attrs'         => $fields,
 			];
 
-			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
 
 		/**
@@ -62,15 +58,22 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
-			$tag_id = absint( $attributes['select_tag'] );
+			$raw_tags = $attributes['select_tag'];
+			if ( empty( $raw_tags ) || ! preg_split( '/^\d+(,\d+)*$/', $raw_tags ) ) {
+				$tag_ids = [];
+			} else {
+				$tag_ids = explode( ',', $raw_tags );
+			}
 
-			// Get all posts with a specific tag.
+			// Get all posts with the specific tags.
 			// Construct the arguments array for the query.
-			$args  = array(
-				'tag_id'  => $tag_id,
+			// TODO investigate why WordPress returns results only for the first tag in the array and
+			// TODO change the query if needed.
+			$args  = [
+				'tag__in'  => $tag_ids,
 				'order'   => 'DESC',
 				'orderby' => 'date',
-			);
+			];
 			$query = new \WP_Query( $args );
 
 			$posts_array = [];
@@ -101,7 +104,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->block( $this->block_name, $block_data );
+			$this->view->block( self::BLOCK_NAME, $block_data );
 
 			return ob_get_clean();
 		}

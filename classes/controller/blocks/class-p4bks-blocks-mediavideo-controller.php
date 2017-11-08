@@ -4,16 +4,15 @@ namespace P4BKS\Controllers\Blocks;
 
 if ( ! class_exists( 'P4BKS_Blocks_MediaVideo_Controller' ) ) {
 
+	/**
+	 * Class P4BKS_Blocks_MediaVideo_Controller
+	 *
+	 * @package P4BKS\Controllers\Blocks
+	 */
 	class P4BKS_Blocks_MediaVideo_Controller extends P4BKS_Blocks_Controller {
 
-
-		/**
-		 * Override this method in order to give your block its own name.
-		 */
-		public function load() {
-			$this->block_name = 'media_video';
-			parent::load();
-		}
+		/** @const string BLOCK_NAME */
+		const BLOCK_NAME = 'media_video';
 
 		/**
 		 * Shortcode UI setup for the Mediavideo shortcode.
@@ -45,11 +44,11 @@ if ( ! class_exists( 'P4BKS_Blocks_MediaVideo_Controller' ) ) {
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = array(
 				'label'         => __( 'Youtube Video', 'planet4-blocks' ),
-				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/media_video.png' ) . '" />',
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/media_video.jpg' ) . '" />',
 				'attrs'         => $fields,
 			);
 
-			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
 
 		/**
@@ -73,7 +72,7 @@ if ( ! class_exists( 'P4BKS_Blocks_MediaVideo_Controller' ) ) {
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->block( $this->block_name, $data );
+			$this->view->block( self::BLOCK_NAME, $data );
 
 			return ob_get_clean();
 		}
