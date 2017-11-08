@@ -32,6 +32,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 					'description' => __( 'Associate this block with Posts that have a specific Tag', 'planet4-blocks' ),
 					'type'        => 'term_select',
 					'taxonomy'    => 'post_tag',
+					'multiple'    => true,
 				],
 			];
 
@@ -57,15 +58,22 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
-			$tag_id = absint( $attributes['select_tag'] );
+			$raw_tags = $attributes['select_tag'];
+			if ( empty( $raw_tags ) || ! preg_split( '/^\d+(,\d+)*$/', $raw_tags ) ) {
+				$tag_ids = [];
+			} else {
+				$tag_ids = explode( ',', $raw_tags );
+			}
 
-			// Get all posts with a specific tag.
+			// Get all posts with the specific tags.
 			// Construct the arguments array for the query.
-			$args  = array(
-				'tag_id'  => $tag_id,
+			// TODO investigate why WordPress returns results only for the first tag in the array and
+			// TODO change the query if needed.
+			$args  = [
+				'tag__in'  => $tag_ids,
 				'order'   => 'DESC',
 				'orderby' => 'date',
-			);
+			];
 			$query = new \WP_Query( $args );
 
 			$posts_array = [];
