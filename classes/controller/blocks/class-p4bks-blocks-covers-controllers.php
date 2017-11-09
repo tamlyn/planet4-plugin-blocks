@@ -113,7 +113,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 					if ( is_array( $wp_tags ) && $wp_tags ) {
 						foreach ( $wp_tags as $wp_tag ) {
 							$tags[] = [
-								'slug' => $wp_tag->slug,
+								'name' => $wp_tag->name,
 								'href' => get_tag_link( $wp_tag ),
 							];
 						}
