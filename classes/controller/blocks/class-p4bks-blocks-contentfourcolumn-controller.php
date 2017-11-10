@@ -27,6 +27,24 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 
 			$fields = [
 				[
+					'label' => __( 'Title. <i>If it is not defined, title will default to \'Publications\'</i>', 'planet4-blocks' ),
+					'attr'  => 'title',
+					'type'  => 'text',
+					'meta'  => [
+						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+						'placeholder' => __( 'Enter title for this block', 'planet4-blocks' ),
+						'data-plugin' => 'planet4-blocks',
+					],
+				],
+				[
+					'attr'        => 'p4_post_types',
+					'label'       => __( 'Select a Planet4 Post Type', 'planet4-blocks' ),
+					'description' => __( 'Select a Planet4 Post Type. Only posts of this type will be used to populate the content of this block', 'planet4-blocks' ),
+					'type'        => 'term_select',
+					'taxonomy'    => 'p4-page-type',
+					'multiple'    => true,
+				],
+				[
 					'attr'        => 'select_tag',
 					'label'       => __( 'Select a Tag', 'planet4-blocks' ),
 					'description' => __( 'Associate this block with Posts that have a specific Tag', 'planet4-blocks' ),
@@ -58,28 +76,73 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
-			$raw_tags = $attributes['select_tag'];
+			$raw_tags   = $attributes['select_tag'];
+			$post_types = $attributes['p4_post_types'];
+
+			// If any tag is selected convert the value to an array of tag ids.
 			if ( empty( $raw_tags ) || ! preg_split( '/^\d+(,\d+)*$/', $raw_tags ) ) {
 				$tag_ids = [];
 			} else {
 				$tag_ids = explode( ',', $raw_tags );
 			}
 
-			$posts_array = [];
-			if ( ! empty( $tag_ids ) ) {
+			// If any planet4 post type is selected convert the value to an array of term ids.
+			if ( empty( $post_types ) || ! preg_split( '/^\d+(,\d+)*$/', $post_types ) ) {
+				$post_types = [];
+			} else {
+				$post_types = explode( ',', $post_types );
+			}
 
-				// Get all posts with the specific tags.
-				// Construct the arguments array for the query.
-				$args = [
-					'tag__in'       => $tag_ids,
-					'order'         => 'DESC',
-					'orderby'       => 'date',
-					'no_found_rows' => true,
+			$posts_array = [];
+			$query_args  = [
+				'order'         => 'DESC',
+				'orderby'       => 'date',
+				'no_found_rows' => true,
+			];
+
+			// Get all posts with the specific tags.
+			// Construct the arguments array for the query.
+			if ( ! empty( $tag_ids ) && ! empty( $post_types ) ) {
+
+				$query_args['tax_query'] = [
+					'relation' => 'AND',
+					[
+						'taxonomy' => 'post_tag',
+						'field'    => 'term_id',
+						'terms'    => $tag_ids,
+					],
+					[
+						'taxonomy' => 'p4-post-type',
+						'field'    => 'term_id',
+						'terms'    => $post_types,
+					],
 				];
+			} elseif ( ! empty( $tag_ids ) && empty( $post_types ) ) {
+
+				$query_args['tax_query'] = [
+					[
+						'taxonomy' => 'post_tag',
+						'field'    => 'term_id',
+						'terms'    => $tag_ids,
+					],
+				];
+			} elseif ( empty( $tag_ids ) && ! empty( $post_types ) ) {
+
+				$query_args['tax_query'] = [
+					[
+						'taxonomy' => 'p4-page-type',
+						'field'    => 'term_id',
+						'terms'    => $post_types,
+					],
+				];
+			}
+
+			// If tax_query has been defined in the arguments array, then make a query based on these arguments.
+			if ( array_key_exists( 'tax_query', $query_args ) ) {
 
 				// Construct a WP_Query object and make a query based on the arguments array.
 				$query = new \WP_Query();
-				$posts = $query->query( $args );
+				$posts = $query->query( $query_args );
 
 				if ( ! empty( $posts ) ) {
 
@@ -101,6 +164,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 			}
 
 			$block_data = [
+				'title'  => ! empty( $attributes['title'] ) ? $attributes['title'] : 'Publications',
 				'posts'  => $posts_array,
 				'domain' => 'planet4-blocks',
 			];

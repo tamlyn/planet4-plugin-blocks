@@ -3,7 +3,10 @@
 {% if ( posts ) %}
 	<div class="four-coloum-content">
 		<div class="container">
-			<h2>{{ __( 'Publications', 'planet4-blocks' ) }}</h2>
+
+			{% if (title) %}
+				<h2>{{ __( title, 'planet4-blocks' ) }}</h2>
+			{% endif %}
 			{% for post in posts %}
 
 				{% if loop.index0 == 0 %}
