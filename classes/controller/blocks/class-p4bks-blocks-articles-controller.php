@@ -65,13 +65,27 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-			$fields['article_count'] = ( isset( $fields['article_count'] ) && ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
+			$fields['article_count'] = ( ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
+
+			//Get page categories
+			$post_categories         = get_the_category();
+
+			$category_id_array = [];
+			foreach ( $post_categories as $category ) {
+				$category_id_array[] = $category->term_id;
+			}
+
+			if ( $category_id_array ) {
+				$category_ids = implode( ',', $category_id_array );
+			}
+
 			// Get all posts with arguments.
-			$args = array(
+			$args = [
 				'numberposts' => $fields['article_count'],
-				'order'       => 'ASC',
-				'orderby'     => 'title',
-			);
+				'orderby'     => 'date',
+				'category'    => '( '.$category_ids.' )'
+			];
+
 			$all_posts = wp_get_recent_posts( $args );
 
 			if ( $all_posts ) {
@@ -87,9 +101,9 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 
 					$wp_tags = wp_get_post_tags( $recent['ID'] );
 
-					$tags = array();
+					$tags = [];
 
-					if ( is_array( $wp_tags ) && $wp_tags ) {
+					if ( $wp_tags ) {
 						foreach ( $wp_tags as $wp_tag ) {
 							$tags_data['name'] = $wp_tag->name;
 							$tags_data['slug'] = $wp_tag->slug;
@@ -101,7 +115,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 					$recent['tags'] = $tags;
 					$wp_categories  = get_the_category( $recent['ID'] );
 
-					$categories = array();
+					$categories = [];
 					if ( $wp_categories ) {
 						foreach ( $wp_categories as $wp_category ) {
 							$category_data['name'] = $wp_category->name;
