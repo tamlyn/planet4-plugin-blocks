@@ -68,10 +68,10 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 			$fields['article_count'] = ( ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
 
 			//Get page categories
-			$categories              = get_the_category();
+			$post_categories         = get_the_category();
 
 			$category_id_array = [];
-			foreach ( $categories as $category ) {
+			foreach ( $post_categories as $category ) {
 				$category_id_array[] = $category->term_id;
 			}
 
