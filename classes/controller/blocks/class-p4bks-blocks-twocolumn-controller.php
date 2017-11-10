@@ -16,10 +16,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 
 		/**
 		 * Shortcode UI setup for the twocolumn shortcode.
-		 *
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
-		 *
-		 * @since 0.1.0
 		 */
 		public function prepare_fields() {
 			/*
@@ -65,7 +62,6 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 					'label' => __( 'Button text', 'planet4-blocks' ),
 					'attr'  => 'button_text_1',
 					'type'  => 'text',
-					'value' => __( 'Find a way to make change', 'planet4-blocks' ),
 					'meta'  => [
 						'data-plugin' => 'planet4-blocks',
 					],
@@ -101,7 +97,6 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 					'label' => __( 'Button text', 'planet4-blocks' ),
 					'attr'  => 'button_text_2',
 					'type'  => 'text',
-					'value' => __( 'Explore the issues', 'planet4-blocks' ),
 					'meta'  => [
 						'data-plugin' => 'planet4-blocks',
 					],
@@ -151,9 +146,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TwoColumn_Controller' ) ) {
 		 * @param string $content The content of the post.
 		 * @param string $shortcode_tag The shortcode tag (shortcake_two_columns).
 		 *
-		 * @since 0.1.0
-		 *
-		 * @return string
+		 * @return string The html markup for the block.
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
