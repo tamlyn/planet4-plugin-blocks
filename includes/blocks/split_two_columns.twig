@@ -20,17 +20,17 @@
 			</div>
 			<div class="split-two-column-skewed-right">
 				<div class="part-right">
-					{% if ( tag.slug ) %}
-						<a href="{{ tag.link }}">#{{ tag.slug }}</a>
+					{% if ( campaign.name ) %}
+						<a href="{{ campaign.link }}">#{{ campaign.name }}</a>
 					{% endif %}
-					{% if ( tag.description ) %}
-						<h5 class="hidden-lg-down">{{ tag.description|truncate(25, true)|raw }}</h5>
+					{% if ( campaign.description ) %}
+						<h5 class="hidden-lg-down">{{ campaign.description|truncate(25, true)|raw }}</h5>
 					{% endif %}
-					{% if ( tag.button_text and tag.button_link ) %}
-						<a class="btn btn-small btn-medium btn-primary btn-block" href="{{ tag.button_link }}">{{ tag.button_text }}</a>
+					{% if ( campaign.button_text and campaign.button_link ) %}
+						<a class="btn btn-small btn-medium btn-primary btn-block" href="{{ campaign.button_link }}">{{ campaign.button_text }}</a>
 					{% endif %}
 				</div>
-				<div class="unskewed--right" style="background-image: url({{ tag.image }});"></div>
+				<div class="unskewed--right" style="background-image: url({{ campaign.image }});"></div>
 			</div>
 		</div>
 	</div>
