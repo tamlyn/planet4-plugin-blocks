@@ -124,11 +124,10 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 						'excerpt'     => get_the_excerpt( $action ),    // Note: WordPress removes shortcodes from auto-generated excerpts.
 						'image'       => get_the_post_thumbnail_url( $action ),
 						'button_text' => $cover_button_text,
-						'button_link' => get_post_permalink( $action->ID ),
+						'button_link' => get_permalink( $action->ID ),
 					];
 				}
 				$fields['button_text'] = __( 'Load More ...', 'planet4-blocks' );
-				$fields['button_link'] = '#';
 			}
 
 			$data = [
