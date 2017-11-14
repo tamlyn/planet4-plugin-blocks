@@ -12,7 +12,7 @@
 				{% if loop.index0 == 0 %}
 					<div class="row">
 				{% elseif loop.index0 is divisible by(4) %}
-					<div class="row c4-row-hidden" style="display: none;">
+					<div class="row row-hidden" style="display: none;">
 				{% endif %}
 
 				<div class="col-md-4 col-lg-3 col-xl-3">
@@ -51,7 +51,7 @@
 
 				<div class="row mt-5 load-more-button-div">
 					<div class="col-md-4 col-lg-3 col-xl-3 mb-5">
-						<button class="btn btn-block btn-medium btn-small btn-primary content-four-column-load-btn">
+						<button class="btn btn-block btn-medium btn-small btn-primary btn-load-more">
 							{{ __( 'Load More', 'planet4-blocks' ) }}
 						</button>
 					</div>
