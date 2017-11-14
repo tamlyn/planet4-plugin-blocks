@@ -17,7 +17,7 @@
 					{% if loop.index0 == 0 %}
 						<div class="row">
 					{% elseif loop.index0 is divisible by(3) %}
-						<div class="row c4-row-hidden" style="display: none;">
+						<div class="row row-hidden" style="display: none;">
 					{% endif %}
 					<div class="col-lg-4 col-md-6">
 						<div class="cover-card" style="background-image: url({{ cover.image }});">
@@ -36,7 +36,7 @@
 					{% endif %}
 				{% endfor %}
 				{% if ( covers|length > 3 and fields.button_text ) %}
-					<div class="col-lg-4 col-md-6 mb-5 load-more-button-div">
+					<div class="col-lg-4 col-md-6 mb-5">
 						<button class="btn btn-block btn-medium btn-small btn-transparent btn-load-more-covers btn-load-more">{{ fields.button_text }}</button>
 					</div>
 				{% endif %}
