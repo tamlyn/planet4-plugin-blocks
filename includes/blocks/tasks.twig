@@ -33,9 +33,15 @@
 												{% endif %}
 												<div class="steps-action">
 													{% if ( fields['attachment_'~i] ) %}
-														<img src="{{ fields['attachment_'~i] }}" alt=""/>
+														{% if ( fields['button_link_'~i] ) %}
+															<a href="{{ fields['button_link_'~i] }}">
+																<img src="{{ fields['attachment_'~i] }}" alt=""/>
+															</a>
+														{% else %}
+															<img src="{{ fields['attachment_'~i] }}" alt=""/>
+														{% endif %}
 													{% endif %}
-													{% if ( fields['button_text_'~i] and fields['button_text_'~i] ) %}
+													{% if ( fields['button_text_'~i] and fields['button_link_'~i] ) %}
 														<br>
 														<a class="btn btn-small btn-medium secondary-button"
 														   href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
