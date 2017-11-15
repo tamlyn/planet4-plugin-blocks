@@ -45,7 +45,7 @@ if ( ! defined( 'P4BKS_LANGUAGES' ) )           define( 'P4BKS_LANGUAGES',      
 	'en_US' => 'English',
 	'el_GR' => 'Ελληνικά',
 ] );
-if ( ! defined( 'P4BKS_COVERS_NUM' ) )          define( 'P4BKS_COVERS_NUM',         6 );
+if ( ! defined( 'P4BKS_COVERS_NUM' ) )          define( 'P4BKS_COVERS_NUM',         30 );
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) )       define( 'WP_UNINSTALL_PLUGIN',      P4BKS_PLUGIN_BASENAME );
 
 require_once __DIR__ . '/vendor/autoload.php';
