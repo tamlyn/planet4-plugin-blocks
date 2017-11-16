@@ -27,13 +27,13 @@
 							</div>
 							<div class="four-coloum-content-information hidden-xs-down">
 								{% if ( post.post_title ) %}
-									<h4><a href="{{ post.permalink }}">{{ post.post_title }}</a></h4>
+									<h4><a href="{{ post.permalink }}">{{ post.post_title|e('wp_kses_post')|raw }}</a></h4>
 								{% endif %}
 								{% if ( post.post_date ) %}
 									<p class="publication-date">{{ post.post_date|date('F Y') }}</p>
 								{% endif %}
 								{% if ( post.post_excerpt ) %}
-									<p>{{ post.post_excerpt }}</p>
+									<p>{{ post.post_excerpt|e('wp_kses_post')|raw }}</p>
 								{% endif %}
 							</div>
 
