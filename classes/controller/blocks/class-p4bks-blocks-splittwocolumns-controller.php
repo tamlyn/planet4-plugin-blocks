@@ -11,14 +11,8 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 	 */
 	class P4BKS_Blocks_SplitTwoColumns_Controller extends P4BKS_Blocks_Controller {
 
-
-		/**
-		 * Override this method in order to give your block its own name.
-		 */
-		public function load() {
-			$this->block_name = 'split_two_columns';
-			parent::load();
-		}
+		/** @const string BLOCK_NAME */
+		const BLOCK_NAME = 'split_two_columns';
 
 		/**
 		 * Shortcode UI setup for the shortcode.
@@ -26,16 +20,16 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 
-			$issues = get_posts( [
-				'post_type'     => 'page',
-				'category_name' => 'issues',
-				'post_parent'   => 0,
-				'numberposts'   => -1,
+			$categories = get_categories( [
+				'parent'  => get_cat_ID( 'Issues' ),            // Issue categories needs to be children of category Issues.
+				'orderby' => 'name',
+				'order'   => 'ASC',
 			] );
 
 			$options = [];
-			if ( $issues ) {
-				foreach ( $issues as $issue ) {
+			if ( $categories ) {
+				foreach ( $categories as $category ) {
+					$issue = get_page_by_title( $category->name );      // Category and Issue need to have the same name.
 					$options[] = [
 						'value' => (string) $issue->ID,
 						'label' => get_the_title( $issue->ID ),
@@ -102,7 +96,7 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 				 * Include an icon with your shortcode. Optional.
 				 * Use a dashicon, or full HTML (e.g. <img src="/path/to/your/icon" />).
 				 */
-				'listItemImage' => '<img src="' . esc_url( plugins_url() . "/planet4-plugin-blocks/admin/images/$this->block_name.png" ) . '" />',
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/' . self::BLOCK_NAME . '.png' ) . '" />',
 
 				/*
 				 * Define the UI for attributes of the shortcode. Optional.
@@ -111,7 +105,7 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 				'attrs' => $fields,
 			];
 
-			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
 
 		/**
@@ -132,26 +126,27 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 			$tag           = get_term( $tag_id );
 			$attachment_id = get_term_meta( $tag_id, 'tag_attachment_id', true );
 
-			$data = [
+			$data = $issue_meta_data ? [
 				'issue' => [
 					'title'       => $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id ),
-					'description' => $issue_meta_data['p4_description'][0],
+					'description' => $issue_meta_data['p4_description'][0] ?? '',
 					'image'       => get_the_post_thumbnail_url( $issue_id ),
 					'link_text'   => __( 'Learn more about this issue', 'planet4-blocks' ),
-					'link_url'    => get_post_permalink( $issue_id ),
+					'link_url'    => get_permalink( $issue_id ),
 				],
-				'tag' => [
+				'campaign' => [
 					'image'       => wp_get_attachment_url( $attachment_id ),
-					'slug'        => $tag->slug,
+					'name'        => $tag->name,
 					'link'        => get_tag_link( $tag ),
 					'description' => $fields['description'] ?? $tag->description,
 					'button_text' => $fields['button_text'] ?? __( 'Support this campaign', 'planet4-blocks' ),
 					'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 				],
-			];
+			] : [];
+
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->block( $this->block_name, $data );
+			$this->view->block( self::BLOCK_NAME, $data );
 
 			return ob_get_clean();
 		}

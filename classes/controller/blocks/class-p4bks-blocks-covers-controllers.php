@@ -4,16 +4,15 @@ namespace P4BKS\Controllers\Blocks;
 
 if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 
+	/**
+	 * Class P4BKS_Blocks_Covers_Controller
+	 *
+	 * @package P4BKS\Controllers\Blocks
+	 */
 	class P4BKS_Blocks_Covers_Controller extends P4BKS_Blocks_Controller {
 
-
-		/**
-		 * Override this method in order to give your block its own name.
-		 */
-		public function load() {
-			$this->block_name = 'covers';
-			parent::load();
-		}
+		/** @const string BLOCK_NAME */
+		const BLOCK_NAME = 'covers';
 
 		/**
 		 * Shortcode UI setup for the shortcode.
@@ -71,7 +70,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 				'attrs' => $fields,
 			];
 
-			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
 
 		/**
@@ -114,7 +113,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 					if ( is_array( $wp_tags ) && $wp_tags ) {
 						foreach ( $wp_tags as $wp_tag ) {
 							$tags[] = [
-								'slug' => $wp_tag->slug,
+								'name' => $wp_tag->name,
 								'href' => get_tag_link( $wp_tag ),
 							];
 						}
@@ -125,11 +124,10 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 						'excerpt'     => get_the_excerpt( $action ),    // Note: WordPress removes shortcodes from auto-generated excerpts.
 						'image'       => get_the_post_thumbnail_url( $action ),
 						'button_text' => $cover_button_text,
-						'button_link' => get_post_permalink( $action->ID ),
+						'button_link' => get_permalink( $action->ID ),
 					];
 				}
 				$fields['button_text'] = __( 'Load More ...', 'planet4-blocks' );
-				$fields['button_link'] = '#';
 			}
 
 			$data = [
@@ -138,7 +136,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->block( $this->block_name, $data );
+			$this->view->block( self::BLOCK_NAME, $data );
 
 			return ob_get_clean();
 		}
