@@ -242,5 +242,57 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * @return string                The html markup for the shortcode preview iframe
 		 */
 		abstract public function prepare_template( $fields, $content, $shortcode_tag ) : string;
+
+		/**
+		 * Define the image sizes that should be used by each block for it's images
+		 *
+		 * @return array
+		 */
+		private function define_image_sizes_per_block() {
+
+			$c     = get_called_class();
+			$sizes = [];
+			switch ( $c::BLOCK_NAME ) {
+				case 'carousel_header':
+					$sizes = [
+						'p4-ultra-wide-landscape-large-2',
+						'p4-wide-landscape-large',
+						'p4-portrait-meidum',
+						'p4-square-large',
+					];
+					break;
+				case 'split_two_columns':
+					$sizes = [
+						'p4-ultra-wide-landscape-large',
+						'p4-wide-landscape-large',
+						'p4-portrait-meidum',
+						'p4-square-large',
+					];
+					break;
+				default:
+					break;
+			}
+
+			return $sizes;
+		}
+
+		/**
+		 * Get an image tag based on the class (block) that is calling the method
+		 *
+		 * @param int/string $image_id WordPress image id.
+		 *
+		 * @return string
+		 */
+		protected function get_image_tag( $image_id ) {
+			if ( function_exists( '\Planet4\Images\Sizes\construct_image_tag' ) ) {
+				$sizes = $this->define_image_sizes_per_block();
+				$img   = \Planet4\Images\Sizes\construct_image_tag( $image_id, $sizes );
+			} else {
+				$img = wp_get_attachment_image( $image_id );
+			}
+
+			return $img;
+		}
+
 	}
 }
