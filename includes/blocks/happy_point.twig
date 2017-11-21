@@ -1,11 +1,9 @@
 {% block happy_point %}
 	{% if ( fields ) %}
-		{% if ( fields.background_src.0 or fields.opacity ) %}
+		{% if ( fields.background_src or fields.opacity ) %}
 			<style>
-				{% if ( fields.background_src.0 ) %}
-					.happy-point-block-wrap {
-						background: url({{ fields.background_src.0 }}) center center no-repeat;
-					}
+				{% if ( fields.background_src ) %}
+					{{ fields.background_src|raw }}
 				{% endif %}
 				{% if ( fields.opacity ) %}
 					.happy-point-block-wrap:before {
