@@ -32,7 +32,7 @@
 							{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
 								<div class="{{ loop.first ? 'carousel-item active': 'carousel-item' }}">
 									{% if ( attribute( fields, 'image_'~i ) ) %}
-										{{ attribute( fields, 'image_'~i )|raw }}
+										<img src="{{ attribute( fields, 'image_'~i ) }}" alt="{{ number_to_word }} slide">
 									{% endif %}
 									<div class="carousel-caption">
 										<div class="page-header col-md-8 col-lg-8 col-sm-12 main-header pl-0 pr-0">

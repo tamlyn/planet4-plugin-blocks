@@ -131,12 +131,14 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
 
 			for ( $i = 1; $i < 5; $i++ ) {
-				$image_id                 = $attributes[ "image_$i" ];
-				$attributes[ "image_$i" ] = $this->get_image_tag( $image_id );
+				$temp_array = wp_get_attachment_image_src( $attributes[ "image_$i" ], 'full' );
+				if ( false !== $temp_array && ! empty( $temp_array ) ) {
+					$attributes[ "image_$i" ] = $temp_array[0];
+				}
 			}
 
 			$block_data = [
-				'fields' => $attributes,
+				'fields'              => $attributes,
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
