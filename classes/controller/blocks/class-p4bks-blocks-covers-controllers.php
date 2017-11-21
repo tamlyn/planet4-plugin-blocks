@@ -86,7 +86,9 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 			$select_tags = $fields['select_tag'];
-			$tag_ids     = explode( ',', $select_tags );
+			if ( $select_tags ) {
+				$tag_ids = explode( ',', $select_tags );
+			}
 
 			$args = [
 				'post_type'   => 'page',
