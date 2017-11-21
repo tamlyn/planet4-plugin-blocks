@@ -86,9 +86,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 			$select_tags = $fields['select_tag'];
-			if ( $select_tags ) {
-				$tag_ids = explode( ',', $select_tags );
-			}
 
 			$args = [
 				'post_type'   => 'page',
@@ -100,7 +97,8 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 			];
 
 			// If user selected a tag to associate with the Take Action page covers.
-			if ( $tag_ids ) {
+			if ( $select_tags ) {
+				$tag_ids = explode( ',', $select_tags );
 				$args['tag__in'] = $tag_ids;
 			}
 
