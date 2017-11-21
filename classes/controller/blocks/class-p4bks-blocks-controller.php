@@ -253,20 +253,20 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 			$c     = get_called_class();
 			$sizes = [];
 			switch ( $c::BLOCK_NAME ) {
-				case 'carousel_header':
+				case 'carousel_split':
 					$sizes = [
-						'p4-ultra-wide-landscape-large-2',
-						'p4-wide-landscape-large',
-						'p4-portrait-meidum',
-						'p4-square-large',
+						'p4-carousel-split-image-s',
+						'p4-carousel-split-image-m',
+						'p4-carousel-split-image-l',
+						'p4-carousel-split-image-xl',
 					];
 					break;
-				case 'split_two_columns':
+				case 'happy_point':
 					$sizes = [
-						'p4-ultra-wide-landscape-large',
-						'p4-wide-landscape-large',
-						'p4-portrait-meidum',
-						'p4-square-large',
+						'p4-happy-point-image-s',
+						'p4-happy-point-image-m',
+						'p4-happy-point-image-l',
+						'p4-happy-point-image-xl',
 					];
 					break;
 				default:
@@ -277,7 +277,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		}
 
 		/**
-		 * Get an image tag based on the class (block) that is calling the method
+		 * Get an image html tag based on the class (block) that is calling the method
 		 *
 		 * @param int/string $image_id WordPress image id.
 		 *
@@ -291,6 +291,31 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 				$img = wp_get_attachment_image( $image_id );
 			}
 
+			return $img;
+		}
+
+		/**
+		 * Get an image tag based on the class (block) that is calling the method
+		 *
+		 * @param int/string $image_id    WordPress image id.
+		 * @param string     $css_classes Css classes.
+		 * @param string     $background_properties Extra css background properties.
+		 *
+		 * @return string
+		 */
+		protected function get_css_image_rules( $image_id, $css_classes, $background_properties = '' ) {
+			$img = '';
+			if ( function_exists( '\Planet4\Images\Sizes\construct_css_background_image' ) ) {
+				$sizes = $this->define_image_sizes_per_block();
+				$img   = \Planet4\Images\Sizes\construct_css_background_image( $image_id, $sizes, $css_classes, $background_properties );
+			} else {
+				$source = wp_get_attachment_image_src( $image_id, 'full' );
+				if ( ! empty( $source ) ) {
+					$img = " $css_classes {
+							   background: url('$source[0]') $background_properties ;
+							} ";
+				}
+			}
 			return $img;
 		}
 
