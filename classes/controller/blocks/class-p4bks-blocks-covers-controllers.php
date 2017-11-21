@@ -131,8 +131,9 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 			}
 
 			$data = [
-				'fields' => $fields,
-				'covers' => $covers,
+				'fields'    => $fields,
+				'covers'    => $covers,
+				'is_mobile' => wp_is_mobile(),
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
