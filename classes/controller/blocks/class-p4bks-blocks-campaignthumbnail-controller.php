@@ -59,18 +59,26 @@ if ( ! class_exists( 'P4BKS_Blocks_CampaignThumbnail_Controller' ) ) {
 
 			// If $fields['category_id'] exists then we are on Campaign Page, else we are on Issue Page
 			if( ! empty ( $fields['category_id'] ) ) {
-				$page          = get_page_by_path('explore');
-				$parent_id     = ( ! empty( $page ) ) ? $page->ID : '';
-				$category      = get_category($fields['category_id']);
 
-				$context_tags  = get_queried_object();
+				$category         = get_category( $fields['category_id'] );
+				$context_tags     = get_queried_object();
 
-				$args = array(
-					'post_type'      => 'page',
-					'post_parent'    => $parent_id
-				);
+				$parent_id = planet4_get_option( 'select_explore_page' );
+				if( 0 != $parent_id ) {
+					$args = array(
+						'post_type'      => 'page',
+						'post_parent'    => $parent_id
+					);
+				} else {
+					$page              = get_page_by_path( 'explore' );
+					$explore_id        = ( ! empty( $page ) ) ? $page->ID : '';
+					$args = array(
+						'post_type'      => 'page',
+						'post_parent'    => $explore_id
+					);
+				}
+
 				$explore_children = get_children( $args );
-
 				$page_id = '';
 
 				// Here, we are getting issue page ID.
@@ -86,7 +94,6 @@ if ( ! class_exists( 'P4BKS_Blocks_CampaignThumbnail_Controller' ) ) {
 				$tags = wp_get_post_tags( $page_id );
 
 				if( $tags ) {
-
 					$i = 1;
 					foreach( $tags as $tag ) {
 						if( $context_tags->slug != $tag->slug ) {

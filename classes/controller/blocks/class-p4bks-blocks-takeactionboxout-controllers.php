@@ -21,14 +21,24 @@ if ( ! class_exists( 'P4BKS_Blocks_TakeActionBoxout_Controller' ) ) {
 		public function prepare_fields() {
 
 			// Get the id of the ACT page. We need this to get the children posts/pages of the ACT Page.
-			$arguments = [
-				'post_type'     => 'page',
-				'post_name__in' => [ 'act', 'ACT', 'Act' ],
-			];
+			$parent_act_id      = planet4_get_option( 'select_act_page' );
+			if( 0 != $parent_act_id ) {
+				$act_page         = get_post( $parent_act_id );
+				$arguments = [
+					'post_type'     => 'page',
+					'post_name__in' => [ $act_page->post_name ],
+				];
+			} else {
+				$arguments = [
+					'post_type'     => 'page',
+					'post_name__in' => [ 'act', 'ACT', 'Act' ],
+				];
+			}
 
 			// Initialize variable.
 			$take_action_pages_args = [];
 			$query                  = new \WP_Query( $arguments );
+
 
 			// If ACT Page is found construct arguments array for the select box to be used below.
 			if ( $query->have_posts() ) {
@@ -75,6 +85,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TakeActionBoxout_Controller' ) ) {
 		 * @return string
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
+
 			$page_id = $fields['take_action_page'];
 
 			$args = [

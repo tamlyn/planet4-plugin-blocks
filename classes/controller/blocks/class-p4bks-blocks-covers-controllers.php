@@ -87,14 +87,26 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 			$select_tags = $fields['select_tag'];
 
-			$args = [
-				'post_type'   => 'page',
-				'post_status' => 'publish',
-				'post_parent' => get_page_by_path( 'act', 'OBJECT', 'page' )->ID,
-				'orderby'     => 'post_date',
-				'order'       => 'DESC',
-				'numberposts' => P4BKS_COVERS_NUM,
-			];
+			$parent_act_id  = planet4_get_option( 'select_act_page' );
+			if( 0 != $parent_act_id ) {
+				$args = [
+					'post_type'   => 'page',
+					'post_status' => 'publish',
+					'post_parent' => $parent_act_id,
+					'orderby'     => 'post_date',
+					'order'       => 'DESC',
+					'numberposts' => P4BKS_COVERS_NUM,
+				];
+			} else {
+				$args = [
+					'post_type'   => 'page',
+					'post_status' => 'publish',
+					'post_parent' => get_page_by_path( 'act', 'OBJECT', 'page' )->ID,
+					'orderby'     => 'post_date',
+					'order'       => 'DESC',
+					'numberposts' => P4BKS_COVERS_NUM,
+				];
+			}
 
 			// If user selected a tag to associate with the Take Action page covers.
 			if ( $select_tags ) {
