@@ -39,7 +39,6 @@ if ( ! class_exists( 'P4BKS_Blocks_TakeActionBoxout_Controller' ) ) {
 			$take_action_pages_args = [];
 			$query                  = new \WP_Query( $arguments );
 
-
 			// If ACT Page is found construct arguments array for the select box to be used below.
 			if ( $query->have_posts() ) {
 				$posts                  = $query->get_posts();
@@ -85,7 +84,6 @@ if ( ! class_exists( 'P4BKS_Blocks_TakeActionBoxout_Controller' ) ) {
 		 * @return string
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
-
 			$page_id = $fields['take_action_page'];
 
 			$args = [
