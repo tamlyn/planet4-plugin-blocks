@@ -21,9 +21,9 @@ if ( ! class_exists( 'P4BKS_Blocks_TakeActionBoxout_Controller' ) ) {
 		public function prepare_fields() {
 
 			// Get the id of the ACT page. We need this to get the children posts/pages of the ACT Page.
-			$parent_act_id      = planet4_get_option( 'select_act_page' );
+			$parent_act_id = planet4_get_option( 'select_act_page' );
 			if( 0 != $parent_act_id ) {
-				$act_page         = get_post( $parent_act_id );
+				$act_page = get_post( $parent_act_id );
 				$arguments = [
 					'post_type'     => 'page',
 					'post_name__in' => [ $act_page->post_name ],
