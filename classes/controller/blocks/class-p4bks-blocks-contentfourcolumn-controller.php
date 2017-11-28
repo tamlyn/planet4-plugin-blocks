@@ -37,9 +37,9 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 					],
 				],
 				[
-					'attr'        => 'p4_post_types',
-					'label'       => __( 'Select a Planet4 Post Type', 'planet4-blocks' ),
-					'description' => __( 'Select a Planet4 Post Type. Only posts of this type will be used to populate the content of this block', 'planet4-blocks' ),
+					'attr'        => 'p4_page_types',
+					'label'       => __( 'Select a Planet4 Page Type', 'planet4-blocks' ),
+					'description' => __( 'Select a Planet4 Page Type. Only posts of this type will be used to populate the content of this block', 'planet4-blocks' ),
 					'type'        => 'term_select',
 					'taxonomy'    => 'p4-page-type',
 					'multiple'    => true,
@@ -77,7 +77,7 @@ if ( ! class_exists( 'P4BKS_Blocks_ContentFourColumn_Controller' ) ) {
 		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
 			$raw_tags   = $attributes['select_tag'];
-			$post_types = $attributes['p4_post_types'];
+			$post_types = $attributes['p4_page_types'];
 
 			// If any tag is selected convert the value to an array of tag ids.
 			if ( empty( $raw_tags ) || ! preg_split( '/^\d+(,\d+)*$/', $raw_tags ) ) {
