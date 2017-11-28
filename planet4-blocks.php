@@ -3,7 +3,7 @@
  * Plugin Name: Planet4 - Blocks
  * Description: Creates all the blocks that will be available for usage by Shortcake.
  * Plugin URI: http://github.com/greenpeace/planet4-plugin-engagingnetworks
- * Version: 0.1.14
+ * Version: 0.1.16
  * Php Version: 7.0
  *
  * Author: Greenpeace International
@@ -45,7 +45,7 @@ if ( ! defined( 'P4BKS_LANGUAGES' ) )           define( 'P4BKS_LANGUAGES',      
 	'en_US' => 'English',
 	'el_GR' => 'Ελληνικά',
 ] );
-if ( ! defined( 'P4BKS_COVERS_NUM' ) )          define( 'P4BKS_COVERS_NUM',         6 );
+if ( ! defined( 'P4BKS_COVERS_NUM' ) )          define( 'P4BKS_COVERS_NUM',         30 );
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) )       define( 'WP_UNINSTALL_PLUGIN',      P4BKS_PLUGIN_BASENAME );
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -69,9 +69,10 @@ P4BKS\P4BKS_Loader::get_instance( [
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_MediaVideo_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CarouselHeader_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Covers_Controller',
-	'P4BKS\Controllers\Menu\P4BKS_Settings_Controller',
+	//'P4BKS\Controllers\Menu\P4BKS_Settings_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Articles_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Carousel_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_ContentThreeColumn_Controller',
 	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CampaignThumbnail_Controller',
+	'P4BKS\Controllers\Blocks\P4BKS_Blocks_TakeActionBoxout_Controller',
 ], 'P4BKS\Views\P4BKS_View' );

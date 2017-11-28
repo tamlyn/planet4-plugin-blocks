@@ -21,6 +21,7 @@ return array(
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_SplitTwoColumns_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-splittwocolumns-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_StaticFourColumn_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-staticfourcolumn-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Subheader_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-subheader-controller.php',
+    'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_TakeActionBoxout_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-takeactionboxout-controllers.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_Tasks_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-tasks-controller.php',
     'P4BKS\\Controllers\\Blocks\\P4BKS_Blocks_TwoColumn_Controller' => $baseDir . '/classes/controller/blocks/class-p4bks-blocks-twocolumn-controller.php',
     'P4BKS\\Controllers\\Menu\\P4BKS_Controller' => $baseDir . '/classes/controller/menu/class-p4bks-controller.php',

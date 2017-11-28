@@ -4,16 +4,15 @@ namespace P4BKS\Controllers\Blocks;
 
 if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 
+	/**
+	 * Class P4BKS_Blocks_HappyPoint_Controller
+	 *
+	 * @package P4BKS\Controllers\Blocks
+	 */
 	class P4BKS_Blocks_HappyPoint_Controller extends P4BKS_Blocks_Controller {
 
-		/**
-		 * Function to load the block and define its name.
-		 */
-		public function load() {
-			// --- Set here the name of your block ---
-			$this->block_name = 'happy_point';
-			parent::load();
-		}
+		/** @const string BLOCK_NAME */
+		const BLOCK_NAME = 'happy_point';
 
 		/**
 		 * Shortcode UI setup for the happypoint shortcode.
@@ -57,6 +56,12 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 					'attr'  => 'boxout_link_url',
 					'type'  => 'text',
 				),
+				array(
+					'label' => __( 'Use mailing list iframe', 'planet4-blocks' ),
+					'attr'  => 'mailing_list_iframe',
+					'type'  => 'checkbox',
+					'value' => 'true'
+				)
 			);
 
 			// Define the Shortcode UI arguments.
@@ -66,7 +71,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 				'attrs'         => $fields,
 			);
 
-			shortcode_ui_register_for_shortcode( 'shortcake_' . $this->block_name, $shortcode_ui_args );
+			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
 
 		/**
@@ -82,12 +87,13 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ): string {
 
 			$fields = shortcode_atts( array(
-				'background'       => '',
-				'opacity'          => 30,
-				'boxout_title'     => '',
-				'boxout_descr'     => '',
-				'boxout_link_text' => '',
-				'boxout_link_url'  => '',
+				'background'          => '',
+				'opacity'             => 30,
+				'boxout_title'        => '',
+				'boxout_descr'        => '',
+				'boxout_link_text'    => '',
+				'boxout_link_url'     => '',
+				'mailing_list_iframe' => ''
 			), $fields, $shortcode_tag );
 
 			if ( ! is_numeric( $fields['opacity'] ) ) {
@@ -96,9 +102,10 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 
 			$opacity = number_format( ( $fields['opacity'] / 100 ), 1 );
 
-			$fields['background_html'] = wp_get_attachment_image( $fields['background'] );
-			$fields['background_src']  = wp_get_attachment_image_src( $fields['background'], 'full' );
-			$fields['opacity']         = $opacity;
+			$fields['background_html']     = wp_get_attachment_image( $fields['background'] );
+			$fields['background_src']      = wp_get_attachment_image_src( $fields['background'], 'full' );
+			$fields['engaging_network_id'] = get_option( 'engaging_network_form_id', '' ) ? get_option( 'engaging_network_form_id' ) : '';
+			$fields['opacity']             = $opacity;
 
 			$data = [
 				'fields' => $fields
@@ -106,7 +113,7 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
-			$this->view->block( $this->block_name, $data );
+			$this->view->block( self::BLOCK_NAME, $data );
 
 			return ob_get_clean();
 		}

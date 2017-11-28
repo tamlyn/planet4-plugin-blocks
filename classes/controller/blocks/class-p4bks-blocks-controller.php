@@ -8,9 +8,22 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 
 	/**
 	 * Class P4BKS_Blocks_Controller
+	 *
+	 * @package P4BKS\Controllers\Blocks
 	 */
 	abstract class P4BKS_Blocks_Controller {
 
+		/** @const string BLOCK_NAME
+		 * The block's name.
+		 */
+		const BLOCK_NAME = 'default';
+
+		/** @var string $block_name
+		 * This property is replaced with the use of a const and Late Static Binding http://php.net/manual/en/language.oop5.late-static-bindings.php.
+		 * Should be removed completely in following changes.
+		 *
+		 * @deprecated This property is no longer needed. This also results in children controllers not needing to override the load() method.
+		 */
 		protected $block_name = 'default';
 
 		/** @var P4BKS_View $view */
@@ -21,27 +34,28 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * Avoid putting hooks inside the constructor, to make testing easier.
 		 *
 		 * @param P4BKS_View $view The view object.
-         *
-         * @since 0.1.0
+		 *
+		 * @since 0.1.0
 		 */
 		public function __construct( P4BKS_View $view ) {
 			$this->view = $view;
 		}
 
 		/**
+		 * Hooks all the needed functions to load the block.
 		 *
-         * @since 0.1.0
+		 * @since 0.1.0
 		 */
 		public function load() {
 			// Check to see if Shortcake is running, with an admin notice if not.
 			add_action( 'init', array( $this, 'shortcode_ui_detection' ) );
 			// Register the shortcodes.
 			add_action( 'init', array( $this, 'shortcode_ui_register_shortcodes' ) );
-			// Add Two Column element in UI
+			// Add Two Column element in UI.
 			add_action( 'register_shortcode_ui', array( $this, 'prepare_fields' ) );
 
-			// Register an admin render callback for previewing in the wysiwyg
-			add_action( 'wp_ajax_p4bks_preview_render_' . $this->block_name, array( $this, 'prepare_admin_preview' ) );
+			// Register an admin render callback for previewing in the wysiwyg.
+			add_action( 'wp_ajax_p4bks_preview_render_' . static::BLOCK_NAME, array( $this, 'prepare_admin_preview' ) );
 		}
 
 		/**
@@ -102,11 +116,11 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 				&& isset( $_REQUEST['action'] )
 				&& $_REQUEST['action'] === 'bulk_do_shortcode'
 			) {
-				// Render a preview iframe using a wrapper method
-				add_shortcode( 'shortcake_' . $this->block_name, array( $this, 'prepare_template_preview_iframe' ) );
+				// Render a preview iframe using a wrapper method.
+				add_shortcode( 'shortcake_' . static::BLOCK_NAME, array( $this, 'prepare_template_preview_iframe' ) );
 			} else {
-				// Render using the default method
-				add_shortcode( 'shortcake_' . $this->block_name, array( $this, 'prepare_template' ) );
+				// Render using the default method.
+				add_shortcode( 'shortcake_' . static::BLOCK_NAME, array( $this, 'prepare_template' ) );
 			}
 		}
 
@@ -126,10 +140,10 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 *
 		 * We need to load through iframe to enqueue frontend styles without breaking admin ui
 		 *
-		 * @param array $fields          Associative array of shortcode paramaters
-		 * @param string $content        The content of the shortcode block for content wrapper shortcodes only
-		 * @param string $shortcode_tag  The name of the shortcode
-		 * @return string                The html markup for the shortcode preview iframe
+		 * @param array  $fields         Associative array of shortcode paramaters.
+		 * @param string $content        The content of the shortcode block for content wrapper shortcodes only.
+		 * @param string $shortcode_tag  The name of the shortcode.
+		 * @return string                The html markup for the shortcode preview iframe.
 		 */
 		public function prepare_template_preview_iframe( $fields, $content, $shortcode_tag ) {
 
@@ -139,8 +153,8 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 						'_tag'     => $shortcode_tag,
 						'_content' => $content,
 						'_post_id' => get_the_ID(),
-						'_nonce'   => wp_create_nonce( 'p4bks_preview_render_' . $this->block_name ),
-						'action'   => 'p4bks_preview_render_' . $this->block_name,
+						'_nonce'   => wp_create_nonce( 'p4bks_preview_render_' . static::BLOCK_NAME ),
+						'action'   => 'p4bks_preview_render_' . static::BLOCK_NAME,
 					]
 				),
 				admin_url( 'admin-ajax.php' )
@@ -154,20 +168,20 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		}
 
 		/**
-		 * Render preview markup for the shortcode when loading through an iframe
+		 * Render preview markup for the shortcode when loading through an iframe.
 		 *
 		 * Takes a custom admin ajax request to render a shortcode and outputs shortcode
-		 * via $this->prepare_template along with wrapper html and enqueued frontend styles and scripts
+		 * via $this->prepare_template along with wrapper html and enqueued frontend styles and scripts.
 		 */
 		public function prepare_admin_preview() {
 
-			// Shortcode UI not callable
+			// Shortcode UI not callable.
 			if ( ! is_callable( 'Shortcode_UI', 'get_shortcode' ) ) {
 				exit;
 			}
 
-			// Don't do anything if an invalid nonce
-			if ( ! wp_verify_nonce( $_GET['_nonce'], 'p4bks_preview_render_' . $this->block_name ) ) {
+			// Don't do anything if an invalid nonce.
+			if ( ! wp_verify_nonce( $_GET['_nonce'], 'p4bks_preview_render_' . static::BLOCK_NAME ) ) {
 				exit;
 			}
 
@@ -179,7 +193,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 			$shortcode_attr_keys = wp_list_pluck( $shortcode_attrs, 'attr' );
 			$fields              = [];
 
-			// Filter out any $_GET params not used by the shortcode
+			// Filter out any $_GET params not used by the shortcode.
 			foreach ( $shortcode_attr_keys as $attr_key ) {
 				if ( isset( $_GET[ $attr_key ] ) ) {
 					$fields[ $attr_key ] = $_GET[ $attr_key ];
@@ -188,7 +202,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 
 			$current_post = get_post( $post_id );
 
-			// Setup postdata incase it's needed during shortcode render
+			// Setup postdata incase it's needed during shortcode render.
 			if ( $current_post ) {
 				// @codingStandardsIgnoreStart
 				global $post;
@@ -211,7 +225,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 			</html>
 			<?php
 
-			// Ajax callbacks need to call exit
+			// Ajax callbacks need to call exit.
 			exit;
 		}
 
@@ -219,10 +233,9 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * Callback for the shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 *
-		 * @param array $fields          Associative array of shortcode paramaters
-		 * @param string $content        The content of the shortcode block for content wrapper shortcodes only
-		 * @param string $shortcode_tag  The name of the shortcode
+		 * @param array  $fields         Associative array of shortcode paramaters.
+		 * @param string $content        The content of the shortcode block for content wrapper shortcodes only.
+		 * @param string $shortcode_tag  The name of the shortcode.
 		 *
 		 * @since 0.1.0
 		 *
