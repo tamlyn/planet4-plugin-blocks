@@ -37,31 +37,11 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 					),
 				),
 				array(
-					'label' => __( 'Boxout Title', 'planet4-blocks' ),
-					'attr'  => 'boxout_title',
-					'type'  => 'text',
-				),
-				array(
-					'label' => __( 'Boxout Description', 'planet4-blocks' ),
-					'attr'  => 'boxout_descr',
-					'type'  => 'text',
-				),
-				array(
-					'label' => __( 'Boxout Link Text', 'planet4-blocks' ),
-					'attr'  => 'boxout_link_text',
-					'type'  => 'text',
-				),
-				array(
-					'label' => __( 'Boxout Link Url', 'planet4-blocks' ),
-					'attr'  => 'boxout_link_url',
-					'type'  => 'text',
-				),
-				array(
 					'label' => __( 'Use mailing list iframe', 'planet4-blocks' ),
 					'attr'  => 'mailing_list_iframe',
 					'type'  => 'checkbox',
 					'value' => 'true'
-				)
+				),
 			);
 
 			// Define the Shortcode UI arguments.
@@ -89,11 +69,7 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 			$fields = shortcode_atts( array(
 				'background'          => '',
 				'opacity'             => 30,
-				'boxout_title'        => '',
-				'boxout_descr'        => '',
-				'boxout_link_text'    => '',
-				'boxout_link_url'     => '',
-				'mailing_list_iframe' => ''
+				'mailing_list_iframe' => '',
 			), $fields, $shortcode_tag );
 
 			if ( ! is_numeric( $fields['opacity'] ) ) {
