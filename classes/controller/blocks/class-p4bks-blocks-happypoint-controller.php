@@ -19,37 +19,34 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
 		 */
 		public function prepare_fields() {
-			$fields = array(
-				array(
+			$fields = [
+				[
 					'label'       => __( 'Background', 'planet4-blocks' ),
 					'attr'        => 'background',
 					'type'        => 'attachment',
-					'libraryType' => array( 'image' ),
+					'libraryType' => [ 'image' ],
 					'addButton'   => __( 'Select Background Image', 'planet4-blocks' ),
 					'frameTitle'  => __( 'Select Background Image', 'planet4-blocks' ),
-				),
-				array(
+				],
+				[
 					'label' => __( 'Opacity % . Number between 1 and 100. If you leave it empty 30 will be used', 'planet4-blocks' ),
 					'attr'  => 'opacity',
 					'type'  => 'number',
-					'meta'  => array(
-						'data-test' => 30,
-					),
-				),
-				array(
+					'meta'  => [ 'data-test' => 30 ],
+				],
+				[
 					'label' => __( 'Use mailing list iframe', 'planet4-blocks' ),
 					'attr'  => 'mailing_list_iframe',
 					'type'  => 'checkbox',
-					'value' => 'true'
-				),
-			);
+				],
+			];
 
 			// Define the Shortcode UI arguments.
-			$shortcode_ui_args = array(
+			$shortcode_ui_args = [
 				'label'         => __( 'Happy Point', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/icon_happy_point.png' ) . '" />',
 				'attrs'         => $fields,
-			);
+			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
@@ -66,11 +63,13 @@ if ( ! class_exists( 'P4BKS_Blocks_HappyPoint_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ): string {
 
-			$fields = shortcode_atts( array(
+			$shortcode_atts_pairs =[
 				'background'          => '',
 				'opacity'             => 30,
 				'mailing_list_iframe' => '',
-			), $fields, $shortcode_tag );
+			];
+
+			$fields = shortcode_atts( $shortcode_atts_pairs, $fields, $shortcode_tag );
 
 			if ( ! is_numeric( $fields['opacity'] ) ) {
 				$fields['opacity'] = 30;
