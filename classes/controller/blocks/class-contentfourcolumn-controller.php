@@ -76,8 +76,8 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
-			$raw_tags   = $attributes['select_tag'];
-			$post_types = $attributes['p4_page_types'];
+			$raw_tags   = $attributes['select_tag'] ?? '';
+			$post_types = $attributes['p4_page_types'] ?? '';
 
 			// If any tag is selected convert the value to an array of tag ids.
 			if ( empty( $raw_tags ) || ! preg_split( '/^\d+(,\d+)*$/', $raw_tags ) ) {
