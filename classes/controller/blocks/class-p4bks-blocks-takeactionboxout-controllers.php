@@ -75,7 +75,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TakeActionBoxout_Controller' ) ) {
 		 * @return string
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
-			$page_id = $fields['take_action_page'];
+			$page_id = $fields['take_action_page'] ?? '';
 
 			$args = [
 				'p'         => intval( $page_id ), // ID of a page, post.
