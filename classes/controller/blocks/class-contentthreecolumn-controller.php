@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_ContentThreeColumn_Controller' ) ) {
+if ( ! class_exists( 'ContentThreeColumn_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_ContentThreeColumn_Controller
+	 * Class ContentThreeColumn_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_ContentThreeColumn_Controller extends P4BKS_Blocks_Controller {
+	class ContentThreeColumn_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'content_three_column';

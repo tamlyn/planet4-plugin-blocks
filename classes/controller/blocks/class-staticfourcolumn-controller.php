@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_StaticFourColumn_Controller' ) ) {
+if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_StaticFourColumn_Controller
+	 * Class StaticFourColumn_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_StaticFourColumn_Controller extends P4BKS_Blocks_Controller {
+	class StaticFourColumn_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'static_four_column';
@@ -109,11 +109,11 @@ if ( ! class_exists( 'P4BKS_Blocks_StaticFourColumn_Controller' ) ) {
 			$attributes_temp = [];
 			for ( $i = 1; $i < 5; $i++ ) {
 				$temp_array = [
-					"title_$i"       => $attributes[ "title_$i" ],
-					"description_$i" => wpautop( $attributes[ "description_$i" ] ),
-					"attachment_$i"  => $attributes[ "attachment_$i" ],
-					"link_text_$i"   => $attributes[ "link_text_$i" ],
-					"link_url_$i"    => $attributes[ "link_url_$i" ],
+					"title_$i"       => $attributes[ "title_$i" ] ?? '',
+					"description_$i" => $attributes[ "description_$i" ] ? wpautop( $attributes[ "description_$i" ] ) : '',
+					"attachment_$i"  => $attributes[ "attachment_$i" ] ?? '',
+					"link_text_$i"   => $attributes[ "link_text_$i" ] ?? '',
+					"link_url_$i"    => $attributes[ "link_url_$i" ] ?? '',
 				];
 				$attributes_temp = array_merge( $attributes_temp, $temp_array );
 			}
