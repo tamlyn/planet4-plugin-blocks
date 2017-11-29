@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
+if ( ! class_exists( 'Covers_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_Covers_Controller
+	 * Class Covers_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_Covers_Controller extends P4BKS_Blocks_Controller {
+	class Covers_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'covers';

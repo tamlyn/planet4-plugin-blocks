@@ -2,49 +2,37 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-use P4BKS\Views\P4BKS_View;
+use P4BKS\Views\View;
 
-if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
+if ( ! class_exists( 'Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_Controller
+	 * Class Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	abstract class P4BKS_Blocks_Controller {
+	abstract class Controller {
 
 		/** @const string BLOCK_NAME
 		 * The block's name.
 		 */
 		const BLOCK_NAME = 'default';
 
-		/** @var string $block_name
-		 * This property is replaced with the use of a const and Late Static Binding http://php.net/manual/en/language.oop5.late-static-bindings.php.
-		 * Should be removed completely in following changes.
-		 *
-		 * @deprecated This property is no longer needed. This also results in children controllers not needing to override the load() method.
-		 */
-		protected $block_name = 'default';
-
-		/** @var P4BKS_View $view */
+		/** @var View $view */
 		protected $view;
 
 		/**
 		 * Creates the plugin's controller object.
 		 * Avoid putting hooks inside the constructor, to make testing easier.
 		 *
-		 * @param P4BKS_View $view The view object.
-		 *
-		 * @since 0.1.0
+		 * @param View $view The view object.
 		 */
-		public function __construct( P4BKS_View $view ) {
+		public function __construct( View $view ) {
 			$this->view = $view;
 		}
 
 		/**
 		 * Hooks all the needed functions to load the block.
-		 *
-		 * @since 0.1.0
 		 */
 		public function load() {
 			// Check to see if Shortcake is running, with an admin notice if not.
@@ -67,8 +55,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * Here, we choose to tell users that Shortcake isn't active, but equally you could let it be silent.
 		 *
 		 * Why not just self-deactivate this plugin? Because then the shortcodes would not be registered either.
-		 *
-		 * @since 0.1.0
 		 */
 		public function shortcode_ui_detection() {
 			if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
@@ -80,8 +66,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * Display an administration notice if the user can activate plugins.
 		 *
 		 * If the user can't activate plugins, then it's poor UX to show a notice they can't do anything to fix.
-		 *
-		 * @since 0.1.0
 		 */
 		public function shortcode_ui_notices() {
 			if ( current_user_can( 'activate_plugins' ) ) {
@@ -98,8 +82,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 *
 		 * This registration is done independently of any UI that might be associated with them, so it always happens, even if
 		 * Shortcake is not active.
-		 *
-		 * @since 0.1.0
 		 */
 		public function shortcode_ui_register_shortcodes() {
 
@@ -130,8 +112,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
 		 *
 		 * This example shortcode has many editable attributes, and more complex UI.
-		 *
-		 * @since 0.1.0
 		 */
 		abstract public function prepare_fields();
 
@@ -236,8 +216,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Controller' ) ) {
 		 * @param array  $fields         Associative array of shortcode paramaters.
 		 * @param string $content        The content of the shortcode block for content wrapper shortcodes only.
 		 * @param string $shortcode_tag  The name of the shortcode.
-		 *
-		 * @since 0.1.0
 		 *
 		 * @return string                The html markup for the shortcode preview iframe
 		 */

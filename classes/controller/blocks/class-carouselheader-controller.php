@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
+if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_CarouselHeader_Controller
+	 * Class CarouselHeader_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_CarouselHeader_Controller extends P4BKS_Blocks_Controller {
+	class CarouselHeader_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'carousel_header';
