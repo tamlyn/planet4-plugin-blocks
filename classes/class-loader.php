@@ -2,16 +2,16 @@
 
 namespace P4BKS;
 
-if ( ! class_exists( 'P4BKS_Loader' ) ) {
+if ( ! class_exists( 'Loader' ) ) {
 
 	/**
-	 * Class P4BKS_Loader
+	 * Class Loader
 	 *
 	 * This class checks requirements and if all are met then it hooks the plugin.
 	 */
-	final class P4BKS_Loader {
+	final class Loader {
 
-		/** @var P4BKS_Loader $instance */
+		/** @var Loader $instance */
 		private static $instance;
 		/** @var array $services */
 		private $services;
@@ -28,10 +28,10 @@ if ( ! class_exists( 'P4BKS_Loader' ) ) {
 		 * @param array  $services The Controller services to inject.
 		 * @param string $view_class The View class name.
 		 *
-		 * @return P4BKS_Loader
+		 * @return Loader
 		 */
-		public static function get_instance( $services = array(), $view_class ) : P4BKS_Loader {
-			! isset( self::$instance ) and self::$instance = new self( $services, $view_class );
+		public static function get_instance( $services = array(), $view_class ) : Loader {
+			! isset( self::$instance ) && self::$instance = new self( $services, $view_class );
 			return  self::$instance;
 		}
 
@@ -86,15 +86,15 @@ if ( ! class_exists( 'P4BKS_Loader' ) ) {
 						deactivate_plugins( P4BKS_PLUGIN_BASENAME );
 						$count = 0;
 						$message = '<div class="error fade">' .
-						               '<u>' . esc_html( P4BKS_PLUGIN_NAME ) . ' > ' . esc_html__( 'Requirements Error(s)', 'planet4-blocks' ) . '</u><br /><br />';
+									'<u>' . esc_html( P4BKS_PLUGIN_NAME ) . ' > ' . esc_html__( 'Requirements Error(s)', 'planet4-blocks' ) . '</u><br /><br />';
 
 						foreach ( $plugins['not_found'] as $plugin ) {
-							$message .=     '<br/><strong>' . (++$count) . '. ' . esc_html( $plugin['Name'] ) . '</strong> ' . esc_html__( 'plugin needs to be installed and activated.', 'planet4-blocks' ) . '<br />';
+							$message .= '<br/><strong>' . (++$count) . '. ' . esc_html( $plugin['Name'] ) . '</strong> ' . esc_html__( 'plugin needs to be installed and activated.', 'planet4-blocks' ) . '<br />';
 						}
 						foreach ( $plugins['not_updated'] as $plugin ) {
 							$message .= '<br/><strong>' . (++$count) . '. ' . esc_html( $plugin['Name'] ) . '</strong><br />' .
-							            esc_html__( 'Minimum version ', 'planet4-blocks' ) . '<strong>' . esc_html( $plugin['min_version'] ) . '</strong>' .
-							            '<br/>' . esc_html__( 'Current version ', 'planet4-blocks' ) . '<strong>' . esc_html( $plugin['Version'] ) . '</strong><br />';
+										esc_html__( 'Minimum version ', 'planet4-blocks' ) . '<strong>' . esc_html( $plugin['min_version'] ) . '</strong>' .
+										'<br/>' . esc_html__( 'Current version ', 'planet4-blocks' ) . '<strong>' . esc_html( $plugin['Version'] ) . '</strong><br />';
 						}
 
 						$message .= '</div><br />';
@@ -150,7 +150,7 @@ if ( ! class_exists( 'P4BKS_Loader' ) ) {
 						array_push( $plugins['not_updated'], array_merge( $plugin_data, $required_plugin ) );
 					}
 				}
-				if( count( $plugins ) > 0 ) {
+				if ( count( $plugins ) > 0 ) {
 					return false;
 				}
 			}

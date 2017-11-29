@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
+if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_SplitTwoColumns_Controller
+	 * Class SplitTwoColumns_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_SplitTwoColumns_Controller extends P4BKS_Blocks_Controller {
+	class SplitTwoColumns_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'split_two_columns';

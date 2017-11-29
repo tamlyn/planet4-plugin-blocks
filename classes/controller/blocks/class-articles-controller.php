@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
+if ( ! class_exists( 'Articles_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_Articles_Controller
+	 * Class Articles_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_Articles_Controller extends P4BKS_Blocks_Controller {
+	class Articles_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'articles';
@@ -83,7 +83,7 @@ if ( ! class_exists( 'P4BKS_Blocks_Articles_Controller' ) ) {
 			$args = [
 				'numberposts' => $fields['article_count'],
 				'orderby'     => 'date',
-				'category'    => '( '.$category_ids.' )'
+				'category'    => '( ' . $category_ids . ' )'
 			];
 
 			$all_posts = wp_get_recent_posts( $args );

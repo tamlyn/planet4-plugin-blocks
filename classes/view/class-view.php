@@ -4,12 +4,14 @@ namespace P4BKS\Views;
 
 use Timber\Timber;
 
-if ( ! class_exists( 'P4BKS_View' ) ) {
+if ( ! class_exists( 'View' ) ) {
 
 	/**
-	 * Class P4BKS_View
+	 * Class View
+	 *
+	 * @package P4BKS\Views
 	 */
-	class P4BKS_View {
+	class View {
 
 		/** @var string $template_dir The path to the template files. */
 		private $template_dir = P4BKS_INCLUDES_DIR;
@@ -60,7 +62,7 @@ if ( ! class_exists( 'P4BKS_View' ) ) {
 		 *
 		 * @param array|string $template_name The file name of the template to render.
 		 * @param array        $data The data to pass to the template.
-		 * @param string       $template_ext The extension of the template (php, twig, ...)
+		 * @param string       $template_ext The extension of the template (php, twig, ...).
 		 * @param string       $sub_dir The path to a subdirectory where the template is located (relative to $template_dir).
 		 */
 		public function block( $template_name, $data, $template_ext = 'twig', $sub_dir = 'blocks/' ) {

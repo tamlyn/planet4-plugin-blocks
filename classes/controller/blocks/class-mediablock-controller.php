@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_MediaBlock_Controller' ) ) {
+if ( ! class_exists( 'MediaBlock_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_MediaBlock_Controller
+	 * Class MediaBlock_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_MediaBlock_Controller extends P4BKS_Blocks_Controller {
+	class MediaBlock_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'media_block';
