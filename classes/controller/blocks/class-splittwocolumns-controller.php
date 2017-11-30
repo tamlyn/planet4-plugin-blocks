@@ -20,11 +20,15 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 
-			$categories = get_categories( [
-				'parent'  => get_cat_ID( 'Issues' ),            // Issue categories needs to be children of category Issues.
-				'orderby' => 'name',
-				'order'   => 'ASC',
-			] );
+			$issue_category_id = planet4_get_option( 'issues_parent_category' );
+			$categories        = [];
+			if( 0 !== absint( $issue_category_id ) ) {
+				$categories   = get_categories( [
+					'parent'    => $issue_category_id,                  // Get the dynamic id of the 'Issue' category
+					'orderby'   => 'name',
+					'order'     => 'ASC',
+				] );
+			}
 
 			$options = [];
 			if ( $categories ) {

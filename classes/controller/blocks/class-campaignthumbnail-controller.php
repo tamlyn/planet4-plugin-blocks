@@ -57,17 +57,18 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 
 			// If $fields['category_id'] exists then we are on Campaign Page, else we are on Issue Page.
 			if ( ! empty( $fields['category_id'] ) ) {
-				$page          = get_page_by_path( 'explore' );
-				$parent_id     = ( ! empty( $page ) ) ? $page->ID : '';
-				$category      = get_category( $fields['category_id'] );
+				$category         = get_category( $fields['category_id'] );
+				$context_tags     = get_queried_object();
+				$parent_id        = planet4_get_option( 'explore_page' );
+				$explore_children = [];
 
-				$context_tags  = get_queried_object();
-
-				$args = array(
-					'post_type'      => 'page',
-					'post_parent'    => $parent_id,
-				);
-				$explore_children = get_children( $args );
+				if( 0 !== absint( $parent_id ) ) {
+					$args = [
+						'post_type'      => 'page',
+						'post_parent'    => $parent_id
+					];
+					$explore_children = get_children( $args );
+				}
 
 				$page_id = '';
 
