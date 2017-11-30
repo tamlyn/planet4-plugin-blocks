@@ -20,7 +20,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 
-			$issue_category_id = planet4_get_option( 'select_category' );
+			$issue_category_id = planet4_get_option( 'issues_parent_category' );
 			$categories        = [];
 			if( 0 !== absint( $issue_category_id ) ) {
 				$categories   = get_categories( [

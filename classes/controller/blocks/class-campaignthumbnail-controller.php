@@ -59,7 +59,7 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 			if ( ! empty( $fields['category_id'] ) ) {
 				$category         = get_category( $fields['category_id'] );
 				$context_tags     = get_queried_object();
-				$parent_id        = planet4_get_option( 'select_explore_page' );
+				$parent_id        = planet4_get_option( 'explore_page' );
 				$explore_children = [];
 
 				if( 0 !== absint( $parent_id ) ) {

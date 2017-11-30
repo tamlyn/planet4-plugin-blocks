@@ -87,7 +87,7 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 			$select_tags = $fields['select_tag'];
 
-			$parent_act_id  = planet4_get_option( 'select_act_page' );
+			$parent_act_id  = planet4_get_option( 'act_page' );
 			$actions        = [];
 
 			if ( 0 !== absint( $parent_act_id ) ) {
