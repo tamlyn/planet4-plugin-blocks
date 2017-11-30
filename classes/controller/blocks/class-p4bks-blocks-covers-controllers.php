@@ -88,7 +88,9 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 			$select_tags = $fields['select_tag'];
 
 			$parent_act_id  = planet4_get_option( 'select_act_page' );
-			if( 0 != $parent_act_id ) {
+			$actions        = [];
+
+			if ( 0 !== absint( $parent_act_id ) ) {
 				$args = [
 					'post_type'   => 'page',
 					'post_status' => 'publish',
@@ -97,24 +99,13 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 					'order'       => 'DESC',
 					'numberposts' => P4BKS_COVERS_NUM,
 				];
-			} else {
-				$args = [
-					'post_type'   => 'page',
-					'post_status' => 'publish',
-					'post_parent' => get_page_by_path( 'act', 'OBJECT', 'page' )->ID,
-					'orderby'     => 'post_date',
-					'order'       => 'DESC',
-					'numberposts' => P4BKS_COVERS_NUM,
-				];
+				// If user selected a tag to associate with the Take Action page covers.
+				if ( $tag_id ) {
+					$args['tag_id'] = $tag_id;
+				}
+				$actions = get_posts( $args );
 			}
 
-			// If user selected a tag to associate with the Take Action page covers.
-			if ( $select_tags ) {
-				$tag_ids = explode( ',', $select_tags );
-				$args['tag__in'] = $tag_ids;
-			}
-
-			$actions = get_posts( $args );
 			$covers  = [];
 
 			if ( $actions ) {

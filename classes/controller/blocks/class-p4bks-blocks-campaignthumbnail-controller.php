@@ -62,23 +62,16 @@ if ( ! class_exists( 'P4BKS_Blocks_CampaignThumbnail_Controller' ) ) {
 
 				$category         = get_category( $fields['category_id'] );
 				$context_tags     = get_queried_object();
+				$parent_id        = planet4_get_option( 'select_explore_page' );
+				$explore_children = [];
 
-				$parent_id = planet4_get_option( 'select_explore_page' );
-				if( 0 != $parent_id ) {
-					$args = array(
+				if( 0 !== absint ( $parent_id ) ) {
+					$args = [
 						'post_type'      => 'page',
 						'post_parent'    => $parent_id
-					);
-				} else {
-					$page              = get_page_by_path( 'explore' );
-					$explore_id        = ( ! empty( $page ) ) ? $page->ID : '';
-					$args = array(
-						'post_type'      => 'page',
-						'post_parent'    => $explore_id
-					);
+					];
+					$explore_children = get_children( $args );
 				}
-
-				$explore_children = get_children( $args );
 				$page_id = '';
 
 				// Here, we are getting issue page ID.

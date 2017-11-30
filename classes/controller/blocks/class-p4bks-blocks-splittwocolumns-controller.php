@@ -21,15 +21,10 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 		public function prepare_fields() {
 
 			$issue_category_id = planet4_get_option( 'select_category' );
-			if( 0 != $issue_category_id ) {
-				$categories = get_categories( [
-					'parent'    => $issue_category_id,                // Get the dynamic id of the 'Issue' category
-					'orderby'   => 'name',
-					'order'     => 'ASC',
-				] );
-			} else {
-				$categories = get_categories( [
-					'parent'    => get_cat_ID( 'Issues' ),            // Issue categories needs to be children of category Issues.
+			$categories        = [];
+			if( 0 !== absint( $issue_category_id ) ) {
+				$categories   = get_categories( [
+					'parent'    => $issue_category_id,                  // Get the dynamic id of the 'Issue' category
 					'orderby'   => 'name',
 					'order'     => 'ASC',
 				] );
