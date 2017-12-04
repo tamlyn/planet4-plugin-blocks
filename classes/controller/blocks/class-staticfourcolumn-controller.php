@@ -27,6 +27,14 @@ if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 
 			// This block will have 4 different columns with same fields.
 			$fields = [];
+			$field   = [
+				[
+					'label' => __( 'Title', 'planet4-blocks' ),
+					'attr'  => 'title',
+					'type'  => 'text',
+				],
+			];
+			$fields  = array_merge( $fields, $field );
 
 			for ( $i = 1; $i < 5; $i++ ) {
 				$field   = [
