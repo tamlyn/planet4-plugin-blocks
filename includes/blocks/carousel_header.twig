@@ -2,13 +2,13 @@
 
 	{% if ( fields ) %}
 
-		<div class="">
+		<div>
 			<div class="split-carousel-wrap carousel-header">
-				<div id="carousel-wrapper" class="carousel slide" data-ride="carousel">
+				<div id="carousel-wrapper-header" class="carousel slide" data-ride="carousel">
 					<ol class="carousel-indicators">
 						{% for i in 1..4 %}
 							{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
-								<li data-target="#carousel-wrapper"
+								<li data-target="#carousel-wrapper-header"
 								    data-slide-to="{{ loop.index0 }}"
 								    class="{{ loop.first ? 'active': '' }}">
 								</li>
@@ -19,23 +19,13 @@
 
 						{% for i in 1..4 %}
 
-							{% if i == 1 %}
-								{% set number_to_word = 'First' %}
-							{% elseif i == 2 %}
-								{% set number_to_word = 'Second' %}
-							{% elseif i == 3 %}
-								{% set number_to_word = 'Third' %}
-							{% elseif i == 4 %}
-								{% set number_to_word = 'Fourth' %}
-							{% endif %}
-
 							{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
 								<div class="{{ loop.first ? 'carousel-item active': 'carousel-item' }}">
 									{% if ( attribute( fields, 'image_'~i ) ) %}
-										<img src="{{ attribute( fields, 'image_'~i ) }}" alt="{{ number_to_word }} slide">
+										<img src="{{ attribute( fields, 'image_'~i ) }}" alt="{{ attribute( fields, 'image_'~i~'_alt' )}}">
 									{% endif %}
 									<div class="carousel-caption">
-										<div class="page-header col-md-8 col-lg-8 col-sm-12 main-header pl-0 pr-0">
+										<div class="container main-header">
 											{% if ( attribute( fields, 'header_'~i ) ) %}
 												<h1>{{ attribute( fields, 'header_'~i ) }}</h1>
 											{% endif %}
@@ -46,15 +36,12 @@
 												<p>{{ attribute( fields, 'description_'~i ) }}</p>
 											{% endif %}
 
-											<div class="row clearfix">
-												<div class="col-md-6">
-
-													{% if ( attribute( fields, 'link_text_'~i ) ) %}
-														<a href="{{ attribute( fields, 'link_url_'~i) }}"
-														   class="btn btn-small btn-medium btn-primary btn-block">{{ attribute( fields, 'link_text_'~i ) }}</a>
-													{% endif %}
+                                            {% if ( attribute( fields, 'link_text_'~i ) ) %}
+												<div class="col-sm-12 col-md-4 col-lg-4 action-button">
+													<a href="{{ attribute( fields, 'link_url_'~i) }}"
+													   class="btn btn-small btn-medium btn-primary btn-block">{{ attribute( fields, 'link_text_'~i ) }}</a>
 												</div>
-											</div>
+                                            {% endif %}
 										</div>
 									</div>
 								</div>
@@ -62,13 +49,13 @@
 						{% endfor %}
 
 					</div>
-					<a class="carousel-control-prev" href="#carousel-wrapper" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
-						<span class="sr-only">Previous</span>
+					<a class="carousel-control-prev hidden-sm-down" href="#carousel-wrapper-header" role="button" data-slide="prev">
+          				<span class="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
+						<span class="sr-only">{{ __( 'Previous', domain ) }}</span>
 					</a>
-					<a class="carousel-control-next" href="#carousel-wrapper" role="button" data-slide="next">
+					<a class="carousel-control-next hidden-sm-down" href="#carousel-wrapper-header" role="button" data-slide="next">
 						<span class="carousel-control-next-icon" aria-hidden="true"><i></i></span>
-						<span class="sr-only">Next</span>
+						<span class="sr-only">{{ __( 'Next', domain ) }}</span>
 					</a>
 				</div>
 			</div>
