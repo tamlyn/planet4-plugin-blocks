@@ -1,28 +1,30 @@
 {% block two_columns %}
-
-{% if ( fields ) %}
-	<div class="container">
-		<div class="row content-two-column-block">
-			<div class="col-md-12 col-lg-6 col-sm-12">
-                {% if ( fields.title_1 ) %}
-					<h2>{{ fields.title_1|e('wp_kses_post')|raw }}</h2>
-                {% endif %}
-                {% if ( fields.description_1 ) %}
-					<p>{{ fields.description_1|e('wp_kses_post')|raw }}</p>
-                {% endif %}
-				{% if ( fields.button_text_1 and fields.button_link_1 ) %}
-					<button class="btn btn-light-blue btn-normal">{{ fields.button_link_1 }} {{ fields.button_text_1 }}</button>
-                {% endif %}
-			</div>
-			<div class="col-md-12 col-lg-6 col-sm-12">
-                {% if ( fields.title_2 ) %}
-					<h2>{{ fields.title_2|e('wp_kses_post')|raw }}</h2>
-                {% endif %}
-                {% if ( fields.description_2 ) %}
-					<p>{{ fields.description_2|e('wp_kses_post')|raw }}</p>
-				<button class="btn btn-light-blue btn-normal">{{ fields.button_link_2 }} {{ fields.button_text_2 }}</button>
-			</div>
-		</div>
-	</div>
-{% endif %}
+    {% if ( fields ) %}
+        <div class="container">
+            <div class="row content-two-column-block">
+                <div class="col-md-12 col-lg-6 col-sm-12">
+                    {% if ( fields.title_1 ) %}
+                        <h2>{{ fields.title_1|e('wp_kses_post')|raw }}</h2>
+                    {% endif %}
+                    {% if ( fields.description_1 ) %}
+                        <p>{{ fields.description_1|e('wp_kses_post')|raw }}</p>
+                    {% endif %}
+                    {% if ( fields.button_text_1 and fields.button_link_1 ) %}
+                        <button class="btn btn-light-blue btn-normal">{{ fields.button_link_1 }} {{ fields.button_text_1 }}</button>
+                    {% endif %}
+                </div>
+                <div class="col-md-12 col-lg-6 col-sm-12">
+                    {% if ( fields.title_2 ) %}
+                        <h2>{{ fields.title_2|e('wp_kses_post')|raw }}</h2>
+                    {% endif %}
+                    {% if ( fields.description_2 ) %}
+                        <p>{{ fields.description_2|e('wp_kses_post')|raw }}</p>
+                    {% endif %}
+                    {% if ( fields.button_text_2 and fields.button_link_2 ) %}
+                        <button class="btn btn-light-blue btn-normal">{{ fields.button_link_2 }} {{ fields.button_text_2 }}</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
