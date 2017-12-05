@@ -58,12 +58,14 @@ if ( ! class_exists( 'MediaBlock_Controller' ) ) {
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ): string {
 
-			$image_url       = wp_get_attachment_url( $attributes['attachment'] );
-			$fields          = [];
-			$fields['image'] = '';
+			$image_url          = wp_get_attachment_url( $attributes['attachment'] );
+			$fields             = [];
+			$fields['image']    = '';
+			$fields['alt_text'] = '';
 
 			if ( false !== $image_url && ! empty( $image_url ) ) {
-				$fields['image'] = $image_url;
+				$fields['image']    = $image_url;
+				$fields['alt_text'] = get_post_meta( $attributes['attachment'], '_wp_attachment_image_alt', true );
 			}
 
 			$block_data = [
