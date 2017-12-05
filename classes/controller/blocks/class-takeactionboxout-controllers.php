@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_TakeActionBoxout_Controller' ) ) {
+if ( ! class_exists( 'TakeActionBoxout_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_TakeActionBoxout_Controller
+	 * Class TakeActionBoxout_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_TakeActionBoxout_Controller extends P4BKS_Blocks_Controller {
+	class TakeActionBoxout_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'take_action_boxout';
@@ -21,10 +21,15 @@ if ( ! class_exists( 'P4BKS_Blocks_TakeActionBoxout_Controller' ) ) {
 		public function prepare_fields() {
 
 			// Get the id of the ACT page. We need this to get the children posts/pages of the ACT Page.
-			$arguments = [
-				'post_type'     => 'page',
-				'post_name__in' => [ 'act', 'ACT', 'Act' ],
-			];
+			$parent_act_id = planet4_get_option( 'act_page' );
+			$arguments     = [];
+			if( 0 !== absint( $parent_act_id ) ) {
+				$act_page = get_post( $parent_act_id );
+				$arguments = [
+					'post_type'     => 'page',
+					'post_name__in' => [ $act_page->post_name ],
+				];
+			}
 
 			// Initialize variable.
 			$take_action_pages_args = [];
@@ -75,7 +80,7 @@ if ( ! class_exists( 'P4BKS_Blocks_TakeActionBoxout_Controller' ) ) {
 		 * @return string
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
-			$page_id = $fields['take_action_page'];
+			$page_id = $fields['take_action_page'] ?? '';
 
 			$args = [
 				'p'         => intval( $page_id ), // ID of a page, post.

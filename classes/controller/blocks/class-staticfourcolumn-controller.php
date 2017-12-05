@@ -2,20 +2,20 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
+if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_CarouselHeader_Controller
+	 * Class StaticFourColumn_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_CarouselHeader_Controller extends P4BKS_Blocks_Controller {
+	class StaticFourColumn_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
-		const BLOCK_NAME = 'carousel_header';
+		const BLOCK_NAME = 'static_four_column';
 
 		/**
-		 * Shortcode UI setup for carousel header shortcode.
+		 * Shortcode UI setup for static four column shortcode.
 		 *
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
 		 *
@@ -25,37 +25,35 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 
-			// This block will have 4 different images/content with same fields.
+			// This block will have 4 different columns with same fields.
 			$fields = [];
+			$field   = [
+				[
+					'label' => __( 'Title', 'planet4-blocks' ),
+					'attr'  => 'title',
+					'type'  => 'text',
+				],
+			];
+			$fields  = array_merge( $fields, $field );
 
 			for ( $i = 1; $i < 5; $i++ ) {
 				$field   = [
 					[
-						// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-						'label'       => sprintf( __( 'Select file for %s image', 'planet4-blocks' ),  $i ),
-						'attr'        => 'image_' . $i,
+						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+						'label'       => sprintf( __( 'Select Image for %s column', 'planet4-blocks' ),  $i ),
+						'attr'        => 'attachment_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
 						'addButton'   => __( 'Select Image', 'shortcode-ui' ),
 						'frameTitle'  => __( 'Select Image', 'shortcode-ui' ),
 					],
 					[
-						'label' => __( 'Header', 'planet4-blocks' ),
-						'attr'  => 'header_' . $i,
+						'label' => __( 'Title', 'planet4-blocks' ),
+						'attr'  => 'title_' . $i,
 						'type'  => 'text',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter header of %s image', 'planet4-blocks' ), $i ),
-							'data-plugin' => 'planet4-blocks',
-						],
-					],
-					[
-						'label' => __( 'Subheader', 'planet4-blocks' ),
-						'attr'  => 'subheader_' . $i,
-						'type'  => 'text',
-						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter subheader of %s image', 'planet4-blocks' ), $i ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter title of %s column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -64,8 +62,8 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 						'attr'  => 'description_' . $i,
 						'type'  => 'textarea',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter description of %s image', 'planet4-blocks' ), $i ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter description of %s column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -74,8 +72,8 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 						'attr'  => 'link_text_' . $i,
 						'type'  => 'url',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter link text for %s image', 'planet4-blocks' ), $i ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter %s link text', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -84,8 +82,8 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 						'attr'  => 'link_url_' . $i,
 						'type'  => 'url',
 						'meta'  => [
-							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter link url for %s image', 'planet4-blocks' ), $i ),
+							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
+							'placeholder' => sprintf( __( 'Enter %s link url', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -96,8 +94,8 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
 				// translators: A block that contains 4 different columns each one with title and description.
-				'label'         => __( 'Carousel Header', 'planet4-blocks' ),
-				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/carousel_header.png' ) . '" />',
+				'label'         => __( 'Static Four Column', 'planet4-blocks' ),
+				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/static_four_column.png' ) . '" />',
 				'attrs'         => $fields,
 			];
 
@@ -105,7 +103,7 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 		}
 
 		/**
-		 * Callback for carousel header shortcode.
+		 * Callback for static four column shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
 		 * @param array  $attributes    Defined attributes array for this shortcode.
@@ -118,27 +116,28 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselHeader_Controller' ) ) {
 
 			$attributes_temp = [];
 			for ( $i = 1; $i < 5; $i++ ) {
-				$temp_array      = [
-					"header_$i"      => $attributes[ "header_$i" ],
-					"subheader_$i"   => $attributes[ "header_$i" ],
-					"description_$i" => $attributes[ "description_$i" ],
-					"image_$i"       => $attributes[ "image_$i" ],
-					"link_text_$i"   => $attributes[ "link_text_$i" ],
-					"link_url_$i"    => $attributes[ "link_url_$i" ],
+				$temp_array = [
+					"title_$i"       => $attributes[ "title_$i" ] ?? '',
+					"description_$i" => $attributes[ "description_$i" ] ? wpautop( $attributes[ "description_$i" ] ) : '',
+					"attachment_$i"  => $attributes[ "attachment_$i" ] ?? '',
+					"link_text_$i"   => $attributes[ "link_text_$i" ] ?? '',
+					"link_url_$i"    => $attributes[ "link_url_$i" ] ?? '',
 				];
 				$attributes_temp = array_merge( $attributes_temp, $temp_array );
 			}
 			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
 
 			for ( $i = 1; $i < 5; $i++ ) {
-				$temp_array = wp_get_attachment_image_src( $attributes[ "image_$i" ], 'full' );
+				$temp_array = wp_get_attachment_image_src( $attributes[ "attachment_$i" ], 'full' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
-					$attributes[ "image_$i" ] = $temp_array[0];
+					$attributes[ "attachment_$i" ] = $temp_array[0];
 				}
 			}
 
 			$block_data = [
 				'fields'              => $attributes,
+				'available_languages' => P4BKS_LANGUAGES,
+				'domain'              => 'planet4-blocks',
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.

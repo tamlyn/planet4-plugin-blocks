@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_CarouselSplit_Controller' ) ) {
+if ( ! class_exists( 'CarouselSplit_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_CarouselSplit_Controller
+	 * Class CarouselSplit_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_CarouselSplit_Controller extends P4BKS_Blocks_Controller {
+	class CarouselSplit_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'carousel_split';
@@ -58,8 +58,9 @@ if ( ! class_exists( 'P4BKS_Blocks_CarouselSplit_Controller' ) ) {
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
-			$images     = [];
-			$images_ids = explode( ',', $attributes['multiple_images'] );
+			$images          = [];
+			$multiple_images = $attributes['multiple_images'] ?? '';
+			$images_ids      = explode( ',', $multiple_images );
 			foreach ( $images_ids as $image_id ) {
 
 				$temp_array = wp_get_attachment_image_src( $image_id, 'full' );

@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
+if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_SplitTwoColumns_Controller
+	 * Class SplitTwoColumns_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_SplitTwoColumns_Controller extends P4BKS_Blocks_Controller {
+	class SplitTwoColumns_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'split_two_columns';
@@ -20,11 +20,15 @@ if ( ! class_exists( 'P4BKS_Blocks_SplitTwoColumns_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 
-			$categories = get_categories( [
-				'parent'  => get_cat_ID( 'Issues' ),            // Issue categories needs to be children of category Issues.
-				'orderby' => 'name',
-				'order'   => 'ASC',
-			] );
+			$issue_category_id = planet4_get_option( 'issues_parent_category' );
+			$categories        = [];
+			if( 0 !== absint( $issue_category_id ) ) {
+				$categories   = get_categories( [
+					'parent'    => $issue_category_id,                  // Get the dynamic id of the 'Issue' category
+					'orderby'   => 'name',
+					'order'     => 'ASC',
+				] );
+			}
 
 			$options = [];
 			if ( $categories ) {

@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
+if ( ! class_exists( 'Covers_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_Covers_Controller
+	 * Class Covers_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_Covers_Controller extends P4BKS_Blocks_Controller {
+	class Covers_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'covers';
@@ -87,22 +87,25 @@ if ( ! class_exists( 'P4BKS_Blocks_Covers_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 			$select_tags = $fields['select_tag'];
 
-			$args = [
-				'post_type'   => 'page',
-				'post_status' => 'publish',
-				'post_parent' => get_page_by_path( 'act', 'OBJECT', 'page' )->ID,
-				'orderby'     => 'post_date',
-				'order'       => 'DESC',
-				'numberposts' => P4BKS_COVERS_NUM,
-			];
+			$parent_act_id  = planet4_get_option( 'act_page' );
+			$actions        = [];
 
-			// If user selected a tag to associate with the Take Action page covers.
-			if ( $select_tags ) {
-				$tag_ids = explode( ',', $select_tags );
-				$args['tag__in'] = $tag_ids;
+			if ( 0 !== absint( $parent_act_id ) ) {
+				$args = [
+					'post_type'   => 'page',
+					'post_status' => 'publish',
+					'post_parent' => $parent_act_id,
+					'orderby'     => 'post_date',
+					'order'       => 'DESC',
+					'numberposts' => P4BKS_COVERS_NUM,
+				];
+				// If user selected a tag to associate with the Take Action page covers.
+				if ( $tag_id ) {
+					$args['tag_id'] = $tag_id;
+				}
+				$actions = get_posts( $args );
 			}
 
-			$actions = get_posts( $args );
 			$covers  = [];
 
 			if ( $actions ) {
