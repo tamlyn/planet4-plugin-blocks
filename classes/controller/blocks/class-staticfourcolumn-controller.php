@@ -118,7 +118,7 @@ if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 			for ( $i = 1; $i < 5; $i++ ) {
 				$temp_array = [
 					"title_$i"       => $attributes[ "title_$i" ] ?? '',
-					"description_$i" => $attributes[ "description_$i" ] ? wpautop( $attributes[ "description_$i" ] ) : '',
+					"description_$i" => $attributes[ "description_$i" ] ?? '',
 					"attachment_$i"  => $attributes[ "attachment_$i" ] ?? '',
 					"link_text_$i"   => $attributes[ "link_text_$i" ] ?? '',
 					"link_url_$i"    => $attributes[ "link_url_$i" ] ?? '',

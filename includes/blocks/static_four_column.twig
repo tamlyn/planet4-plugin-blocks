@@ -5,24 +5,26 @@
 		<div class="four-coloum">
 			<div class="container">
                 {% if ( fields.title ) %}
-					<h2>{{ fields.title }}</h2>
+					<h2>{{ fields.title|e('wp_kses_post')|raw }}</h2>
                 {% endif %}
 				<div class="row">
 					{% for i in 1..4 %}
 						<div class="col-md-6 col-lg-3 col-xl-3">
 							<div class="four-coloum-wrap clearfix">
-								<div class="four-coloum-symbol"><img src="{{ attribute( fields, 'attachment_'~i ) }}"></div>
+								<div class="four-coloum-symbol"><img src="{{ fields['attachment_'~i]|e('esc_url') }}"></div>
 								<div class="four-coloum-info">
 									<div class="four-coloum-information">
 										{% if ( attribute( fields, 'title_'~i ) ) %}
-											<h5>{{ attribute( fields, 'title_'~i ) }}</h5>
+											<h5>{{ fields['title_'~i]|e('wp_kses_post')|raw }}</h5>
 										{% endif %}
 										{% if ( attribute( fields, 'description_'~i )  ) %}
-											<p>{{ attribute( fields, 'description_'~i ) }}</p>
+											<p>{{ fields['description_'~i]|e('wp_kses_post')|raw }}</p>
 										{% endif %}
 										<div class="four-coloum-action">
 											{% if ( attribute( fields, 'link_text_'~i ) ) %}
-												<a href="{{ attribute( fields, 'link_url_'~i) }}">{{ attribute( fields, 'link_text_'~i ) }}</a>
+												<a href="{{ fields['link_url_'~i]|e('esc_url') }}">
+													{{ fields['link_text_'~i]|e('wp_kses_post')|raw }}
+												</a>
 											{% endif %}
 										</div>
 									</div>
