@@ -1,14 +1,14 @@
 {% block media_video %}
 	{% if ( fields ) %}
-		<div class="container">
-			<div class="video-block">
+		<div class="video-block">
+			<div class="container">
 				{% if ( fields.video_title ) %}
-					<h1>{{ fields.video_title }}</h1>
+					<h2>{{ fields.video_title }}</h2>
 				{% endif %}
 				{% if ( fields.youtube_id ) %}
 					<div class="video-section">
 						<iframe id="ytplayer" type="text/html" width="100%" height="100%"
-						src="https://www.youtube.com/embed/{{ fields.youtube_id }}?autoplay=0&rel=0"
+						src="https://www.youtube.com/embed/{{ fields.youtube_id }}?autoplay=0"
 						frameborder="0" allowfullscreen> </iframe>
 					</div>
 				{% endif %}
