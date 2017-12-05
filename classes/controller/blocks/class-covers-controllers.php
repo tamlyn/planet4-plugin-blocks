@@ -100,8 +100,9 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 					'numberposts' => P4BKS_COVERS_NUM,
 				];
 				// If user selected a tag to associate with the Take Action page covers.
-				if ( $tag_id ) {
-					$args['tag_id'] = $tag_id;
+				if ( $select_tags ) {
+					$tag_ids = explode( ',', $select_tags );
+					$args['tag__in'] = $tag_ids;
 				}
 				$actions = get_posts( $args );
 			}
