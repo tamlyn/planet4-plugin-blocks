@@ -30,7 +30,7 @@ if ( ! defined( 'P4BKS_REQUIRED_PLUGINS' ) )    define( 'P4BKS_REQUIRED_PLUGINS'
 	],
 	'shortcake' => [
 		'min_version' => '0.7.0',
-		'rel_path' => 'shortcake/shortcode-ui.php',
+		'rel_path' => 'shortcode-ui/shortcode-ui.php',
 	],
 ] );
 if ( ! defined( 'P4BKS_PLUGIN_BASENAME' ) )     define( 'P4BKS_PLUGIN_BASENAME',    plugin_basename( __FILE__ ) );
