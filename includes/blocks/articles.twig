@@ -10,12 +10,16 @@
 				</div>
 				<div class="col-md-4 col-lg-3 ml-auto hidden-sm-down">
 					<a class="btn btn-medium btn-blue btn-block" href="#">{{ __( 'READ ALL THE NEWS', domain ) }}</a>
-				</div> 
+                </div>
 				<div class="topicwise-article-section clearfix col-md-12">
 					<ul class="topicwise-article-list list-unstyled hidden-sm-down">
 						{% for key,value in recent_posts %}
 							<li class="media topicwise-article-list-item {% if key == 1 %}my-5{% endif %}">
-								<img class="d-flex mr-3 topicwise-article-image" src="{{ value.thumbnail|raw }}" alt="{{ value.alt_text }}">
+								<img class="d-flex mr-3 topicwise-article-image"  src="{{ value.thumbnail|resize(350) }}"
+									srcset="{{ value.thumbnail|resize(350)|retina(1) }} 1x,
+									{{ value.thumbnail|resize(350)|retina(2) }}  2x,
+									{{ value.thumbnail|resize(350)|retina(3) }}  3x,
+									{{ value.thumbnail|resize(350)|retina(4) }}  4x" alt="{{ value.alt_text }}">
 								<div class="media-body topicwise-article-body">
 								<div class="topicwise-article-tags">
 									{% if ( value.category ) %}
@@ -69,7 +73,12 @@
 										{% endif %}
 									</div>
 								</div>
-								<img class="topicwise-article-image" src="{{ value.thumbnail|raw }}" alt="{{ value.alt_text }}">
+								<img class="d-flex mr-3 topicwise-article-image"  src="{{ value.thumbnail|resize(350) }}"
+                                     srcset="{{ value.thumbnail|resize(350)|retina(1) }} 1x,
+									{{ value.thumbnail|resize(350)|retina(2) }}  2x,
+									{{ value.thumbnail|resize(350)|retina(3) }}  3x,
+									{{ value.thumbnail|resize(350)|retina(4) }}  4x" alt="{{ value.alt_text }}">
+
 							</li>
 						{% endfor %}
 					</ul>
