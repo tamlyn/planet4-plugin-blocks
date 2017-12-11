@@ -130,15 +130,18 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 			}
 			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
 
+			$total_images = 0;
 			for ( $i = 1; $i < 5; $i++ ) {
 				$image_id   = $attributes[ "image_$i" ];
 				$temp_array = wp_get_attachment_image_src( $image_id, 'full' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
 					$attributes[ "image_$i" ] = $temp_array[0];
+					$total_images++;
 				}
 				$temp_image                     = wp_prepare_attachment_for_js( $image_id );
 				$attributes[ "image_${i}_alt" ] = $temp_image['alt'] ?? '';
 			}
+			$attributes['total_images'] = $total_images;
 
 			$block_data = [
 				'fields' => $attributes,
