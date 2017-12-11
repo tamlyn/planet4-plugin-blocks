@@ -41,7 +41,7 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 					],
 					[
 						// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-						'label'       => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/grid_9.png' ) . '" />' . sprintf( __( 'Select focus point for %s image', 'planet4-blocks' ),  $i ),
+						'label'       => sprintf( __( 'Select focus point for image %s', 'planet4-blocks' ),  $i ) . '<img src="' . esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png') ) . '" />',
 						'attr'        => 'focus_image_' . $i,
 						'type'        => 'select',
 						'options'     => [
