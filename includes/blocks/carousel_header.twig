@@ -5,16 +5,18 @@
 		<div>
 			<div class="split-carousel-wrap carousel-header">
 				<div id="carousel-wrapper-header" class="carousel slide" data-ride="carousel">
-					<ol class="carousel-indicators">
-						{% for i in 1..4 %}
-							{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
-								<li data-target="#carousel-wrapper-header"
-								    data-slide-to="{{ loop.index0 }}"
-								    class="{{ loop.first ? 'active': '' }}">
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ol>
+					{% if fields.total_images > 1 %}
+						<ol class="carousel-indicators">
+							{% for i in 1..4 %}
+								{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
+									<li data-target="#carousel-wrapper-header"
+											data-slide-to="{{ loop.index0 }}"
+											class="{{ loop.first ? 'active': '' }}">
+									</li>
+								{% endif %}
+							{% endfor %}
+						</ol>
+					{% endif %}
 					<div class="carousel-inner" role="listbox">
 
 						{% for i in 1..4 %}
@@ -49,14 +51,16 @@
 						{% endfor %}
 
 					</div>
-					<a class="carousel-control-prev hidden-sm-down" href="#carousel-wrapper-header" role="button" data-slide="prev">
-          				<span class="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
-						<span class="sr-only">{{ __( 'Previous', domain ) }}</span>
-					</a>
-					<a class="carousel-control-next hidden-sm-down" href="#carousel-wrapper-header" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"><i></i></span>
-						<span class="sr-only">{{ __( 'Next', domain ) }}</span>
-					</a>
+					{% if fields.total_images > 1 %}
+						<a class="carousel-control-prev hidden-sm-down" href="#carousel-wrapper-header" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
+							<span class="sr-only">{{ __( 'Previous' ) }}</span>
+						</a>
+						<a class="carousel-control-next hidden-sm-down" href="#carousel-wrapper-header" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"><i></i></span>
+							<span class="sr-only">{{ __( 'Next' ) }}</span>
+						</a>
+					{% endif %}
 				</div>
 			</div>
 		</div>
