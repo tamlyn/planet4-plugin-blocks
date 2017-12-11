@@ -1,60 +1,47 @@
 {% block split_two_columns %}
 
 {% if ( issue ) %}
-	<div id="split_two_column" class="split-two-column hidden-sm-down">
-		<div class="container">
-			<div class="split-two-column-skewed-left">
-				<div class="part-left">
-					{% if ( issue.title ) %}
-						<h2>{{ issue.title }}</h2>
-					{% endif %}
-					{% if ( issue.description ) %}
-						<h5>{{ issue.description|truncate(25, true)|raw }}</h5>
-					{% endif %}
-					{% if ( issue.link_text and issue.link_url ) %}
-						<a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
-					{% endif %}
-				</div>
-				<div class="unskewed--left" style="background-image: url({{ issue.image }});">
-				</div>
+	<div class="split-two-column">
+		<div class="split-two-column-item item--left">
+			{% if ( issue.image ) %}
+				<div class="split-two-column-item-image" style="background-image:url({{ issue.image }})"></div>
+			{% endif %}
+			<div class="split-two-column-item-content">
+				{% if ( issue.title ) %}
+					<h2 class="split-two-column-item-title">
+						{% if ( issue.link_url ) %}
+							<a href="{{ issue.link_url }}">{{ issue.title }}</a>
+						{% else %}
+							{{ issue.title }}
+						{% endif %}
+					</h2>
+				{% endif %}
+				{% if ( issue.description ) %}
+					<p class="split-two-column-item-subtitle">{{ issue.description|truncate(25, true)|raw }}</p>
+				{% endif %}
+				{% if ( issue.link_text and issue.link_url ) %}
+					<a class="split-two-column-item-link" href="{{ issue.link_url }}">{{ issue.link_text }}</a>
+				{% endif %}
 			</div>
-			<div class="split-two-column-skewed-right">
-				<div class="part-right">
-					{% if ( campaign.name ) %}
-						<a href="{{ campaign.link }}">#{{ campaign.name }}</a>
-					{% endif %}
-					{% if ( campaign.description ) %}
-						<h5 class="hidden-lg-down">{{ campaign.description|truncate(25, true)|raw }}</h5>
-					{% endif %}
-					{% if ( campaign.button_text and campaign.button_link ) %}
-						<a class="btn btn-small btn-medium btn-primary btn-block" href="{{ campaign.button_link }}">{{ campaign.button_text }}</a>
-					{% endif %}
-				</div>
-				<div class="unskewed--right" style="background-image: url({{ campaign.image }});"></div>
+		</div>
+		<div class="split-two-column-item item--right">
+			{% if ( campaign.image ) %}
+				<div class="split-two-column-item-image" style="background-image:url({{ campaign.image }})"></div>
+			{% endif %}
+			<div class="split-two-column-item-content">
+				{% if ( campaign.name ) %}
+					<a class="split-two-column-item-tag" href="{{ campaign.link }}">#{{ campaign.name }}</a>
+				{% endif %}
+				{% if ( campaign.description ) %}
+					<p class="split-two-column-item-subtitle">{{ campaign.description|truncate(25, true)|raw }}</p>
+				{% endif %}
+				{% if ( campaign.button_text and campaign.button_link ) %}
+					<a class="btn btn-small btn-medium btn-primary btn-block split-two-column-item-button" href="{{ campaign.button_link }}">{{ campaign.button_text }}</a>
+				{% endif %}
 			</div>
 		</div>
 	</div>
-	<div id="split_two_column_mobile_view" class="split-two-column-mobile-view hidden-sm-up" style="display: none;">
-		<ul class="list-unstyled">
-			<li class="list-one-item">
-				{% if ( issue.link_text and issue.link_url ) %}
-					<a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
-				{% endif %}
-			</li>
-			<li class="list-one-item">
-				{% if ( issue.link_text and issue.link_url ) %}
-					<a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
-				{% endif %}
-			</li>
-			<li class="list-one-item">
-				{% if ( issue.link_text and issue.link_url ) %}
-					<a href="{{ issue.link_url }}">{{ issue.link_text }}</a>
-				{% endif %}
-			</li>
-		</ul>
-	</div>
 {% endif %}
-<div class="clear"></div>
 
 {% endblock %}
 
