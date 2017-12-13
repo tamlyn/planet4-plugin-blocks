@@ -4,7 +4,11 @@
 	<div class="split-two-column">
 		<div class="split-two-column-item item--left">
 			{% if ( issue.image ) %}
-				<div class="split-two-column-item-image" style="background-image:url({{ issue.image }})"></div>
+				{% if ( issue.focus ) %}
+						<div class="split-two-column-item-image" style="background-image:url({{ issue.image }}); background-position:{{ issue.focus }};"></div>
+				{% else %}
+						<div class="split-two-column-item-image" style="background-image:url({{ issue.image }});"></div>
+				{% endif %}
 			{% endif %}
 			<div class="split-two-column-item-content">
 				{% if ( issue.title ) %}
@@ -26,7 +30,11 @@
 		</div>
 		<div class="split-two-column-item item--right">
 			{% if ( campaign.image ) %}
-				<div class="split-two-column-item-image" style="background-image:url({{ campaign.image }})"></div>
+				{% if ( campaign.focus ) %}
+					<div class="split-two-column-item-image" style="background-image:url({{ campaign.image }}); background-position:{{ campaign.focus }};"></div>
+				{% else %}
+					<div class="split-two-column-item-image" style="background-image:url({{ campaign.image }});"></div>
+				{% endif %}
 			{% endif %}
 			<div class="split-two-column-item-content">
 				{% if ( campaign.name ) %}

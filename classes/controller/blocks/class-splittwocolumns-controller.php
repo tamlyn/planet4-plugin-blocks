@@ -20,11 +20,23 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 
+			$focus_options = [
+				[ 'value' => 'left top', 'label' => __( '1 - Top Left', 'planet4-blocks' ) ],
+				[ 'value' => 'center top', 'label' => __( '2 - Top Center', 'planet4-blocks' ) ],
+				[ 'value' => 'right top', 'label' => __( '3 - Top Right', 'planet4-blocks' ) ],
+				[ 'value' => 'left center', 'label' => __( '4 - Middle Left', 'planet4-blocks' ) ],
+				[ 'value' => 'center center', 'label' => __( '5 - Middle Center', 'planet4-blocks' ) ],
+				[ 'value' => 'right center', 'label' => __( '6 - Middle Right', 'planet4-blocks' ) ],
+				[ 'value' => 'left bottom', 'label' => __( '7 - Bottom Left', 'planet4-blocks' ) ],
+				[ 'value' => 'center bottom', 'label' => __( '8 - Bottom Center', 'planet4-blocks' ) ],
+				[ 'value' => 'right bottom', 'label' => __( '9 - Bottom Right', 'planet4-blocks' ) ],
+			];
+
 			$issue_category_id = planet4_get_option( 'issues_parent_category' );
 			$categories        = [];
 			if( 0 !== absint( $issue_category_id ) ) {
 				$categories   = get_categories( [
-					'parent'    => $issue_category_id,                  // Get the dynamic id of the 'Issue' category
+					'parent'    => $issue_category_id,                  // Get the dynamic id of the 'Issue' category.
 					'orderby'   => 'name',
 					'order'     => 'ASC',
 				] );
@@ -55,6 +67,18 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'description' => __( 'Associate the selected Issue with a Tag', 'planet4-blocks' ),
 					'type'        => 'term_select',
 					'taxonomy'    => 'post_tag',
+				],
+				[
+					'label'       => __( 'Select focus point for issue image', 'planet4-blocks' ) . '<img src="' . esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png' ) ) . '" />',
+					'attr'        => 'focus_issue_image',
+					'type'        => 'select',
+					'options'     => $focus_options,
+				],
+				[
+					'label'       => __( 'Select focus point for campaign image', 'planet4-blocks' ) . '<img src="' . esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png' ) ) . '" />',
+					'attr'        => 'focus_tag_image',
+					'type'        => 'select',
+					'options'     => $focus_options,
 				],
 				[
 					'label' => __( 'Description', 'planet4-blocks' ),
@@ -137,6 +161,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'image'       => get_the_post_thumbnail_url( $issue_id ),
 					'link_text'   => __( 'Learn more about this issue', 'planet4-blocks' ),
 					'link_url'    => get_permalink( $issue_id ),
+					'focus'       => $fields['focus_issue_image'] ?? '',
 				],
 				'campaign' => [
 					'image'       => wp_get_attachment_url( $attachment_id ),
@@ -145,6 +170,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'description' => $fields['description'] ?? $tag->description,
 					'button_text' => $fields['button_text'] ?? __( 'Support this campaign', 'planet4-blocks' ),
 					'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
+					'focus'       => $fields['focus_tag_image'] ?? '',
 				],
 			] : [];
 
