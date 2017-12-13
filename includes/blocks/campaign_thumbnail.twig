@@ -16,7 +16,7 @@
 													 {{ tag.image[0]|resize(340)|retina(2) }} 2x,
 													 {{ tag.image[0]|resize(340)|retina(3) }} 3x,
 													 {{ tag.image[0]|resize(340)|retina(4) }} 4x"
-											 alt="{{ value.alt_text }}">
+											 alt="{{ tag.alt_text }}">
 									{% endif %}
 									<span class="yellow-cta">#{{ tag.name }}</span>
 								</div>
