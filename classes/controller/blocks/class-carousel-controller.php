@@ -2,14 +2,14 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
+if ( ! class_exists( 'Carousel_Controller' ) ) {
 
 	/**
-	 * Class P4BKS_Blocks_Carousel_Controller
+	 * Class Carousel_Controller
 	 *
 	 * @package P4BKS\Controllers\Blocks
 	 */
-	class P4BKS_Blocks_Carousel_Controller extends P4BKS_Blocks_Controller {
+	class Carousel_Controller extends Controller {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'carousel';
@@ -24,11 +24,11 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		}
 
 		/**
-		 * Add custom media metadata fields
+		 * Add custom media metadata fields.
 		 *
-		 * @param $form_fields An array of fields included in the attachment form
-		 * @param $post The attachment record in the database
-		 * @return $form_fields The final array of form fields to use
+		 * @param array    $form_fields An array of fields included in the attachment form.
+		 * @param \WP_Post $post The attachment record in the database.
+		 * @return array Final array of form fields to use.
 		 */
 		function add_image_attachment_fields_to_edit( $form_fields, $post ) {
 
@@ -46,9 +46,10 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		/**
 		 * Save custom media metadata fields
 		 *
-		 * @param $post The $post data for the attachment
-		 * @param $attachment The $attachment part of the form $_POST ($_POST[attachments][postID])
-		 * @return $post
+		 * @param \WP_Post $post The $post data for the attachment.
+		 * @param array    $attachment The $attachment part of the form $_POST ($_POST[attachments][postID]).
+		 *
+		 * @return \WP_Post $post
 		 */
 		function add_image_attachment_fields_to_save( $post, $attachment ) {
 			if ( isset( $attachment['credit_text'] ) ) {
@@ -62,8 +63,6 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		 * Shortcode UI setup for the carousel shortcode.
 		 *
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
-		 *
-		 * @since 0.1.0
 		 */
 		public function prepare_fields() {
 			$fields = array(
@@ -110,17 +109,17 @@ if ( ! class_exists( 'P4BKS_Blocks_Carousel_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-			$explodeMultipleImageArray = explode( ',',$fields['multiple_image'] );
+			$explode_multiple_image_array = explode( ',',$fields['multiple_image'] );
 			$images_data = array();
 
-			foreach ( $explodeMultipleImageArray as $imageID ) {
+			foreach ( $explode_multiple_image_array as $image_id ) {
 
-				$image_data_array             = wp_get_attachment_image_src( $imageID, 'full' );
+				$image_data_array             = wp_get_attachment_image_src( $image_id, 'full' );
 
 				$images_data['image_src']     = $image_data_array[0];
-				$images_data['alt_text']      = get_post_meta( $imageID, '_wp_attachment_image_alt', true  );
-				$image_metadata               = get_post( $imageID );
-				$attachment_fields            = get_post_custom( $imageID );
+				$images_data['alt_text']      = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+				$image_metadata               = get_post( $image_id );
+				$attachment_fields            = get_post_custom( $image_id );
 				$images_data['credits']       = ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) ? $attachment_fields['_credit_text'][0] : '';
 				$images_data['title']         = $image_metadata->post_title;
 				$images_data['description']   = $image_metadata->post_content;

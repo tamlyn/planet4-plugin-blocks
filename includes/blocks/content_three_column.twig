@@ -14,22 +14,37 @@
 					<div class="three-column-images row">
 						<div class="col">
 							<div class="first-column split-image">
-								{% if ( fields.image_1 ) %}
-									<img src="{{ fields.image_1 }}" alt="{{ fields.alt_1 }}" >
+								{% if ( fields.image_3 ) %}
+									<img src="{{ fields.image_1|resize(640) }}"
+										 srcset="{{ fields.image_1|resize(640)|retina(1) }} 1x,
+												 {{ fields.image_1|resize(640)|retina(2) }} 2x,
+												 {{ fields.image_1|resize(640)|retina(3) }} 3x,
+												 {{ fields.image_1|resize(640)|retina(4) }} 4x"
+										 alt="{{ fields.alt_1 }}">
 								{% endif %}
 							</div>
 						</div>
 						<div class="col">
 							<div class="second-column split-image">
 								{% if ( fields.image_2 ) %}
-									<img src="{{ fields.image_2 }}" alt="{{ fields.alt_2 }}" >
+									<img src="{{ fields.image_2|resize(640) }}"
+										 srcset="{{ fields.image_2|resize(640)|retina(1) }} 1x,
+												 {{ fields.image_2|resize(640)|retina(2) }} 2x,
+												 {{ fields.image_2|resize(640)|retina(3) }} 3x,
+												 {{ fields.image_2|resize(640)|retina(4) }} 4x"
+										 alt="{{ fields.alt_2 }}">
 								{% endif %}
 							</div>
 						</div>
 						<div class="col">
 							<div class="third-column split-image">
 								{% if ( fields.image_3 ) %}
-									<img src="{{ fields.image_3 }}" alt="{{ fields.alt_3 }}" >
+									<img src="{{ fields.image_3|resize(640) }}"
+										 srcset="{{ fields.image_3|resize(640)|retina(1) }} 1x,
+												 {{ fields.image_3|resize(640)|retina(2) }} 2x,
+												 {{ fields.image_3|resize(640)|retina(3) }} 3x,
+												 {{ fields.image_3|resize(640)|retina(4) }} 4x"
+										 alt="{{ fields.alt_3 }}">
 								{% endif %}
 							</div>
 						</div>

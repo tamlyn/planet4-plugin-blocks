@@ -1,23 +1,28 @@
 {% block campaign_thumbnail %}
 	{% if ( fields.tags ) %}
-		<div class="container">
-			<div class="campaign-thumbnail-block">
+		<div class="campaign-thumbnail-block">
+			<div class="container">
 				{% if ( fields.title ) %}
 					<h2>{{ fields.title }}</h2>
 				{% endif %}
 				<div class="row thumbnail-largeview-container">
-					{% if ( fields.tags ) %}
-						{% for tag in fields.tags %}
-							<div class="col-md-4">
+					{% for tag in fields.tags %}
+						<div class="col-md-4">
+							<a href="{{ tag.href }}">
 								<div class="thumbnail-large">
-								{% if ( tag.image[0] ) %}
-									<img src="{{ tag.image[0] }}" alt="{{ value.alt_text }}" >
-								{% endif %}
-								<a href="{{ tag.href }}">#{{ tag.name }}</a>
+									{% if ( tag.image[0] ) %}
+										<img src="{{ tag.image[0]|resize(340) }}"
+											 srcset="{{ tag.image[0]|resize(340)|retina(1) }} 1x,
+													 {{ tag.image[0]|resize(340)|retina(2) }} 2x,
+													 {{ tag.image[0]|resize(340)|retina(3) }} 3x,
+													 {{ tag.image[0]|resize(340)|retina(4) }} 4x"
+											 alt="{{ tag.alt_text }}">
+									{% endif %}
+									<span class="yellow-cta">#{{ tag.name }}</span>
 								</div>
-							</div>
-						{% endfor %}
-					{% endif %}
+							</a>
+						</div>
+					{% endfor %}
 				</div>
 			</div>
 		</div>

@@ -1,13 +1,12 @@
 {% block media %}
 	{% if ( fields.image ) %}
-		<style>
-			.block-media {
-				background-image: url('{{ fields.image }}');
-			}
-		</style>
-		<div class="container">
-			<div class="block-media">
-			</div>
+		<div class="block-media">
+			<img src="{{ fields.image|resize(640) }}"
+				 srcset="{{ fields.image|resize(640)|retina(1) }} 1x,
+						 {{ fields.image|resize(640)|retina(2) }} 2x,
+						 {{ fields.image|resize(640)|retina(3) }} 3x,
+						 {{ fields.image|resize(640)|retina(4) }} 4x"
+				 alt="{{ fields.alt_text }}">
 		</div>
 	{% endif %}
 {% endblock %}

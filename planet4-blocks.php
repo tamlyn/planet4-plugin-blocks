@@ -3,7 +3,7 @@
  * Plugin Name: Planet4 - Blocks
  * Description: Creates all the blocks that will be available for usage by Shortcake.
  * Plugin URI: http://github.com/greenpeace/planet4-plugin-engagingnetworks
- * Version: 0.1.16
+ * Version: 0.1.18
  * Php Version: 7.0
  *
  * Author: Greenpeace International
@@ -30,7 +30,7 @@ if ( ! defined( 'P4BKS_REQUIRED_PLUGINS' ) )    define( 'P4BKS_REQUIRED_PLUGINS'
 	],
 	'shortcake' => [
 		'min_version' => '0.7.0',
-		'rel_path' => 'shortcake/shortcode-ui.php',
+		'rel_path' => 'shortcode-ui/shortcode-ui.php',
 	],
 ] );
 if ( ! defined( 'P4BKS_PLUGIN_BASENAME' ) )     define( 'P4BKS_PLUGIN_BASENAME',    plugin_basename( __FILE__ ) );
@@ -55,24 +55,24 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
 /* ==========================
       L O A D  P L U G I N
    ========================== */
-P4BKS\P4BKS_Loader::get_instance( [
+P4BKS\Loader::get_instance( [
 	// --- Add here your own Block Controller ---
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_ContentFourColumn_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_StaticFourColumn_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_TwoColumn_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CarouselSplit_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Tasks_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_HappyPoint_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_MediaBlock_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Subheader_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_SplitTwoColumns_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_MediaVideo_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CarouselHeader_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Covers_Controller',
-	//'P4BKS\Controllers\Menu\P4BKS_Settings_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Articles_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_Carousel_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_ContentThreeColumn_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_CampaignThumbnail_Controller',
-	'P4BKS\Controllers\Blocks\P4BKS_Blocks_TakeActionBoxout_Controller',
-], 'P4BKS\Views\P4BKS_View' );
+	'P4BKS\Controllers\Blocks\ContentFourColumn_Controller',
+	'P4BKS\Controllers\Blocks\StaticFourColumn_Controller',
+	'P4BKS\Controllers\Blocks\TwoColumn_Controller',
+	'P4BKS\Controllers\Blocks\CarouselSplit_Controller',
+	'P4BKS\Controllers\Blocks\Tasks_Controller',
+	'P4BKS\Controllers\Blocks\HappyPoint_Controller',
+	'P4BKS\Controllers\Blocks\MediaBlock_Controller',
+	'P4BKS\Controllers\Blocks\Subheader_Controller',
+	'P4BKS\Controllers\Blocks\SplitTwoColumns_Controller',
+	'P4BKS\Controllers\Blocks\MediaVideo_Controller',
+	'P4BKS\Controllers\Blocks\CarouselHeader_Controller',
+	'P4BKS\Controllers\Blocks\Covers_Controller',
+	//'P4BKS\Controllers\Menu\Settings_Controller',
+	'P4BKS\Controllers\Blocks\Articles_Controller',
+	'P4BKS\Controllers\Blocks\Carousel_Controller',
+	'P4BKS\Controllers\Blocks\ContentThreeColumn_Controller',
+	'P4BKS\Controllers\Blocks\CampaignThumbnail_Controller',
+	'P4BKS\Controllers\Blocks\TakeActionBoxout_Controller',
+], 'P4BKS\Views\View' );

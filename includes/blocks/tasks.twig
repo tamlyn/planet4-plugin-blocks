@@ -38,7 +38,13 @@
 																<img src="{{ fields['attachment_'~i] }}" alt=""/>
 															</a>
 														{% else %}
-															<img src="{{ fields['attachment_'~i] }}" alt=""/>
+															{% set image_src = fields['attachment_'~i] %}
+															<img src="{{ image_src|resize(200) }}"
+																 srcset="{{ image_src|resize(200)|retina(1) }} 1x,
+									 									 {{ image_src|resize(200)|retina(2) }} 2x,
+									 									 {{ image_src|resize(200)|retina(3) }} 3x,
+									 									 {{ image_src|resize(200)|retina(4) }} 4x"
+																 alt="">
 														{% endif %}
 													{% endif %}
 													{% if ( fields['button_text_'~i] and fields['button_link_'~i] ) %}
@@ -94,7 +100,13 @@
 											<div class="card-block info-with-image-wrap clearfix">
 												<div class="accordion-image-wrap">
 													{% if ( fields['attachment_'~i] ) %}
-														<img src="{{ fields['attachment_'~i] }}" alt=""/>
+														{% set image_src = fields['attachment_'~i] %}
+														<img src="{{ image_src|resize(200) }}"
+															 srcset="{{ image_src|resize(200)|retina(1) }} 1x,
+									 									 {{ image_src|resize(200)|retina(2) }} 2x,
+									 									 {{ image_src|resize(200)|retina(3) }} 3x,
+									 									 {{ image_src|resize(200)|retina(4) }} 4x"
+															 alt="">
 													{% endif %}
 												</div>
 												<div class="mobile-accordion-info">
