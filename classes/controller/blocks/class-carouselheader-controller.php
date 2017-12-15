@@ -154,6 +154,7 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 				$temp_array = wp_get_attachment_image_src( $image_id, 'large' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
 					$attributes[ "image_$i" ] = $temp_array[0];
+					$attributes[ "image_${i}_srcset" ] = wp_calculate_image_srcset(['1024', '768'], wp_get_attachment_image_src( $image_id, 'full' )[0], wp_get_attachment_metadata( $image_id ));
 					$total_images++;
 				}
 				$temp_image                     = wp_prepare_attachment_for_js( $image_id );
