@@ -151,7 +151,7 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 			$total_images = 0;
 			for ( $i = 1; $i < 5; $i++ ) {
 				$image_id   = $attributes[ "image_$i" ];
-				$temp_array = wp_get_attachment_image_src( $image_id, 'full' );
+				$temp_array = wp_get_attachment_image_src( $image_id, 'large' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
 					$attributes[ "image_$i" ] = $temp_array[0];
 					$total_images++;
