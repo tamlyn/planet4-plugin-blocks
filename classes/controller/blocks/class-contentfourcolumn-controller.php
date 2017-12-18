@@ -42,7 +42,7 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 						'label'       => $term->name . ' Posts',
 						'description' => 'Use Posts that belong to ' . $term->name . ' type to populate the content of this block',
 						'type'        => 'checkbox',
-						'value'       => 'publication' === $term->slug ? 'true' : 'false',
+						'value'       => 'false',
 					];
 				}
 			}
