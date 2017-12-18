@@ -191,7 +191,7 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 			}
 
 			$block_data = [
-				'title'  => ! empty( $attributes['title'] ) ? $attributes['title'] : 'Publications',
+				'title'  => ! empty( $attributes['title'] ) ? $attributes['title'] : __( 'Publications', 'planet4-blocks' ),
 				'posts'  => $posts_array,
 				'domain' => 'planet4-blocks',
 			];
