@@ -19,11 +19,9 @@
 						{% if ( single_image.credits ) %}
 							<h5 class="carousal-item-credit">{{ single_image.credits }}</h5>
 						{% endif %}
-						<img src="{{ single_image.image_src|resize(1106) }}"
-							 srcset="{{ single_image.image_src|resize(1106)|retina(1) }} 1x,
-									 {{ single_image.image_src|resize(1106)|retina(2) }} 2x,
-									 {{ single_image.image_src|resize(1106)|retina(3) }} 3x,
-									 {{ single_image.image_src|resize(1106)|retina(4) }} 4x"
+						<img src="{{ single_image.image_src }}"
+							 srcset="{{ single_image.image_srcset }}"
+							 sizes="{{ single_image.image_sizes }}"
 							 alt="{{ single_image.alt_text }}">
 						<div class="carousel-caption">
 							{% if ( single_image.title ) %}
