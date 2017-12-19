@@ -128,7 +128,7 @@ if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
 
 			for ( $i = 1; $i < 5; $i++ ) {
-				$temp_array = wp_get_attachment_image_src( $attributes[ "attachment_$i" ], 'full' );
+				$temp_array = wp_get_attachment_image_src( $attributes[ "attachment_$i" ], 'thumbnail' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
 					$attributes[ "attachment_$i" ] = $temp_array[0];
 				}
