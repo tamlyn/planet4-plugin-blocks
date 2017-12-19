@@ -10,12 +10,7 @@
 					{% for i in 1..4 %}
 						<div class="col-md-6 col-lg-3 col-xl-3 four-column-wrap">
 							{% if ( fields['attachment_'~i] ) %}
-								<img src="{{ fields['attachment_'~i]|resize(200) }}"
-									 srcset="{{ fields['attachment_'~i]|resize(200)|retina(1) }} 1x,
-											 {{ fields['attachment_'~i]|resize(200)|retina(2) }} 2x,
-											 {{ fields['attachment_'~i]|resize(200)|retina(3) }} 3x,
-											 {{ fields['attachment_'~i]|resize(200)|retina(4) }} 4x"
-									 alt="" class="four-column-symbol">
+								<img src="{{ fields['attachment_'~i] }}" alt="" class="four-column-symbol">
 							{% endif %}
 							<div class="four-column-information">
 								{% if ( attribute( fields, 'title_'~i ) ) %}
