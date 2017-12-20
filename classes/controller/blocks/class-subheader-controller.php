@@ -46,24 +46,21 @@ if ( ! class_exists( 'Subheader_Controller' ) ) {
 		 * Callback for the shortcake_twocolumn shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array $fields Array of fields that are to be used in the template.
+		 * @param array  $fields Array of fields that are to be used in the template.
 		 * @param string $content The content of the post.
 		 * @param string $shortcode_tag The shortcode tag (shortcake_blockname).
 		 *
 		 * @return string The complete html of the block
 		 */
-		public function prepare_template( $fields, $content, $shortcode_tag ): string {
+		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
 			$fields = shortcode_atts( array(
 				'title'       => '',
 				'description' => '',
 			), $fields, $shortcode_tag );
 
-			//Field "description" needs to be escaped, because we show it raw in the twig template
-			$fields['description'] = wp_kses( $fields['description'] );
-
 			$data = [
-				'fields' => $fields
+				'fields' => $fields,
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
