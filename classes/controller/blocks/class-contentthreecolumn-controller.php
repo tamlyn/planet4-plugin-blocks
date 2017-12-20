@@ -90,10 +90,10 @@ if ( ! class_exists( 'ContentThreeColumn_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
 			for ( $i = 1; $i < 4; $i++ ) {
-				$img_array = wp_get_attachment_image_src( $fields[ "image_$i" ], 'full' );
+				$img_array = wp_get_attachment_image_src( $fields[ "image_$i" ], 'medium_large' );
 				if ( $img_array ) {
-					$fields["alt_$i"]    = get_post_meta( $fields["image_$i"], '_wp_attachment_image_alt', true );
-					$fields["image_$i"]  = $img_array[0];
+					$fields[ "alt_$i" ]   = get_post_meta( $fields[ "image_$i" ], '_wp_attachment_image_alt', true );
+					$fields[ "image_$i" ] = $img_array[0];
 				}
 			}
 
