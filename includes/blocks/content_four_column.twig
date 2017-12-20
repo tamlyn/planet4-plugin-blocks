@@ -20,12 +20,7 @@
 									<div class="four-column-content-info">
 										<div class="four-column-content-symbol">
 											{% if ( post.thumbnail ) %}
-												<img src="{{ post.thumbnail|resize(255) }}"
-													 srcset="{{ post.thumbnail|resize(255)|retina(1) }} 1x,
-									 						 {{ post.thumbnail|resize(255)|retina(2) }} 2x,
-									 						 {{ post.thumbnail|resize(255)|retina(3) }} 3x,
-									 						 {{ post.thumbnail|resize(255)|retina(4) }} 4x"
-													 alt="{{ post.alt_text }}">
+												<img src="{{ post.thumbnail }}" alt="{{ post.alt_text }}">
 											{% endif %}
 										</div>
 										<div class="four-column-content-information">
