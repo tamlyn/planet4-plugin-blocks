@@ -21,20 +21,20 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 		public function prepare_fields() {
 
 			$focus_options = [
-				[ 'value' => 'left top', 'label' => __( '1 - Top Left', 'planet4-blocks' ) ],
-				[ 'value' => 'center top', 'label' => __( '2 - Top Center', 'planet4-blocks' ) ],
-				[ 'value' => 'right top', 'label' => __( '3 - Top Right', 'planet4-blocks' ) ],
-				[ 'value' => 'left center', 'label' => __( '4 - Middle Left', 'planet4-blocks' ) ],
+				[ 'value' => 'left top',      'label' => __( '1 - Top Left', 'planet4-blocks' ) ],
+				[ 'value' => 'center top',    'label' => __( '2 - Top Center', 'planet4-blocks' ) ],
+				[ 'value' => 'right top',     'label' => __( '3 - Top Right', 'planet4-blocks' ) ],
+				[ 'value' => 'left center',   'label' => __( '4 - Middle Left', 'planet4-blocks' ) ],
 				[ 'value' => 'center center', 'label' => __( '5 - Middle Center', 'planet4-blocks' ) ],
-				[ 'value' => 'right center', 'label' => __( '6 - Middle Right', 'planet4-blocks' ) ],
-				[ 'value' => 'left bottom', 'label' => __( '7 - Bottom Left', 'planet4-blocks' ) ],
+				[ 'value' => 'right center',  'label' => __( '6 - Middle Right', 'planet4-blocks' ) ],
+				[ 'value' => 'left bottom',   'label' => __( '7 - Bottom Left', 'planet4-blocks' ) ],
 				[ 'value' => 'center bottom', 'label' => __( '8 - Bottom Center', 'planet4-blocks' ) ],
-				[ 'value' => 'right bottom', 'label' => __( '9 - Bottom Right', 'planet4-blocks' ) ],
+				[ 'value' => 'right bottom',  'label' => __( '9 - Bottom Right', 'planet4-blocks' ) ],
 			];
 
 			$issue_category_id = planet4_get_option( 'issues_parent_category' );
 			$categories        = [];
-			if( 0 !== absint( $issue_category_id ) ) {
+			if ( 0 !== absint( $issue_category_id ) ) {
 				$categories   = get_categories( [
 					'parent'    => $issue_category_id,                  // Get the dynamic id of the 'Issue' category.
 					'orderby'   => 'name',
@@ -46,10 +46,12 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 			if ( $categories ) {
 				foreach ( $categories as $category ) {
 					$issue = get_page_by_title( $category->name );      // Category and Issue need to have the same name.
-					$options[] = [
-						'value' => (string) $issue->ID,
-						'label' => get_the_title( $issue->ID ),
-					];
+					if ( $issue ) {
+						$options[] = [
+							'value' => (string) $issue->ID,
+							'label' => get_the_title( $issue->ID ),
+						];
+					}
 				}
 			}
 
