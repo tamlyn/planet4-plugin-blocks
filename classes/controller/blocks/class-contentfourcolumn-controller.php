@@ -179,7 +179,7 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 						$post->thumbnail = '';
 
 						if ( has_post_thumbnail( $post ) ) {
-							$post->thumbnail = get_the_post_thumbnail_url( $post, 'single-post-thumbnail' );
+							$post->thumbnail = get_the_post_thumbnail_url( $post, 'medium' );
 							$img_id          = get_post_thumbnail_id( $post );
 							$post->alt_text  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 						}
