@@ -97,7 +97,7 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 							$attachment_id = get_term_meta( $tag->term_id, 'tag_attachment_id', true );
 
 							if ( ! empty( $attachment_id ) ) {
-								$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'full' );
+								$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'medium_large' );
 								$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 							}
 
@@ -127,7 +127,7 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 						$attachment_id = get_term_meta( $tag->term_id, 'tag_attachment_id', true );
 
 						if ( ! empty( $attachment_id ) ) {
-							$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'full' );
+							$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'medium_large' );
 							$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 						}
 

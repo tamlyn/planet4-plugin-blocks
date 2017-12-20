@@ -11,12 +11,7 @@
 							<a href="{{ tag.href }}">
 								<div class="thumbnail-large">
 									{% if ( tag.image[0] ) %}
-										<img src="{{ tag.image[0]|resize(340) }}"
-											 srcset="{{ tag.image[0]|resize(340)|retina(1) }} 1x,
-													 {{ tag.image[0]|resize(340)|retina(2) }} 2x,
-													 {{ tag.image[0]|resize(340)|retina(3) }} 3x,
-													 {{ tag.image[0]|resize(340)|retina(4) }} 4x"
-											 alt="{{ tag.alt_text }}">
+										<img src="{{ tag.image[0] }}" alt="{{ tag.alt_text }}">
 									{% endif %}
 									<span class="yellow-cta">#{{ tag.name }}</span>
 								</div>
