@@ -114,19 +114,14 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					}
 
 					$recent['tags'] = $tags;
-					$wp_categories  = get_the_category( $recent['ID'] );
+					$page_type_data = get_the_terms( $recent['ID'], 'p4-page-type' );
+					$page_type      = '';
 
-					$categories = [];
-					if ( $wp_categories ) {
-						foreach ( $wp_categories as $wp_category ) {
-							$category_data['name'] = $wp_category->name;
-							$category_data['slug'] = $wp_category->slug;
-							$category_data['href'] = get_category_link( $wp_category );
-							$categories[]          = $category_data;
-						}
+					if ($page_type_data) {
+						$page_type = $page_type_data[0]->name;
 					}
 
-					$recent['category']  = $categories;
+					$recent['page_type'] = $page_type;
 					$recent['permalink'] = get_permalink( $recent['ID'] );
 					$recent_posts[]      = $recent;
 				}
