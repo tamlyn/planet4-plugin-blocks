@@ -26,12 +26,8 @@
 									{% if ( value.tags ) %}
 										<ul class="tags-list article-list-item-tags">
 
-											{% if ( value.category ) %}
-												{% set categories = '' %}
-												{% for category_data in value.category %}
-													{% set categories = categories ~ ' ' ~ category_data.name|e('wp_kses_post')|raw %}
-												{% endfor %}
-												<li class="tag-item tag-item--main">{{ categories|raw }}</li>
+											{% if ( value.page_type ) %}
+												<li class="tag-item tag-item--main">{{ value.page_type }}</li>
 											{% endif %}
 											{% for tags_data in value.tags %}
 												<li class="tag-item"><a href="{{ tags_data.href }}">#{{ tags_data.name }}</a></li>
