@@ -39,6 +39,14 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 						'placeholder' => __( 'Enter articles count', 'planet4-blocks' ),
 					),
 				),
+				array(
+					'label' => __( 'Read More Link', 'planet4-blocks' ),
+					'attr'  => 'read_more_link',
+					'type'  => 'text',
+					'meta'  => array(
+						'placeholder' => __( 'Add read more button link', 'planet4-blocks' ),
+					),
+				),
 			);
 
 			// Define the Shortcode UI arguments.
@@ -65,7 +73,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-			$fields['article_count'] = ( ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
+			$fields['article_count']  = ( ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
+			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '#';
 
 			//Get page categories
 			$post_categories         = get_the_category();
