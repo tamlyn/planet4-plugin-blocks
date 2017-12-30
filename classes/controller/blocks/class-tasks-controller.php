@@ -83,8 +83,8 @@ if ( ! class_exists( 'Tasks_Controller' ) ) {
 						'attr'        => 'attachment_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
-						'addButton'   => __( 'Select Image', 'shortcode-ui' ),
-						'frameTitle'  => __( 'Select Image', 'shortcode-ui' ),
+						'addButton'   => __( 'Select Image', 'planet4-blocks' ),
+						'frameTitle'  => __( 'Select Image', 'planet4-blocks' ),
 					];
 
 				$fields[] =
