@@ -32,8 +32,8 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 				$field   = [
 					[
 						// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-						'label'       => sprintf( __( 'Select file for %s image', 'planet4-blocks' ),  $i ),
-						'attr'        => 'image_' . $i,
+						'label'       => sprintf( __( 'Select file for %s image', 'planet4-blocks' ),  ${i} ),
+						'attr'        => 'image_' . ${i},
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
 						'addButton'   => __( 'Select Image', 'shortcode-ui' ),
@@ -41,8 +41,8 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 					],
 					[
 						// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-						'label'       => sprintf( __( 'Select focus point for image %s', 'planet4-blocks' ),  $i ) . '<img src="' . esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png') ) . '" />',
-						'attr'        => 'focus_image_' . $i,
+						'label'       => sprintf( __( 'Select focus point for image %s', 'planet4-blocks' ),  ${i} ) . '<img src="' . esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png') ) . '" />',
+						'attr'        => 'focus_image_' . ${i},
 						'type'        => 'select',
 						'options'     => [
 							[ 'value' => 'left top',      'label' => __( '1 - Top Left', 'planet4-blocks' )],
@@ -58,51 +58,51 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 					],
 					[
 						'label' => __( 'Header', 'planet4-blocks' ),
-						'attr'  => 'header_' . $i,
+						'attr'  => 'header_' . ${i},
 						'type'  => 'text',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter header of %s image', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter header of %s image', 'planet4-blocks' ), ${i} ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
 						'label' => __( 'Subheader', 'planet4-blocks' ),
-						'attr'  => 'subheader_' . $i,
+						'attr'  => 'subheader_' . ${i},
 						'type'  => 'text',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter subheader of %s image', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter subheader of %s image', 'planet4-blocks' ), ${i} ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
 						'label' => __( 'Description', 'planet4-blocks' ),
-						'attr'  => 'description_' . $i,
+						'attr'  => 'description_' . ${i},
 						'type'  => 'textarea',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter description of %s image', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter description of %s image', 'planet4-blocks' ), ${i} ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
 						'label' => __( 'Text for link', 'planet4-blocks' ),
-						'attr'  => 'link_text_' . $i,
+						'attr'  => 'link_text_' . ${i},
 						'type'  => 'url',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter link text for %s image', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter link text for %s image', 'planet4-blocks' ), ${i} ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
 						'label' => __( 'Url for link', 'planet4-blocks' ),
-						'attr'  => 'link_url_' . $i,
+						'attr'  => 'link_url_' . ${i},
 						'type'  => 'url',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter link url for %s image', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter link url for %s image', 'planet4-blocks' ), ${i} ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -136,13 +136,13 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 			$attributes_temp = [];
 			for ( $i = 1; $i < 5; $i++ ) {
 				$temp_array      = [
-					"header_$i"      => $attributes[ "header_$i" ] ?? '',
-					"subheader_$i"   => $attributes[ "header_$i" ] ?? '',
-					"description_$i" => $attributes[ "description_$i" ] ?? '',
-					"image_$i"       => $attributes[ "image_$i" ] ?? '',
-					"focus_image_$i" => $attributes[ "focus_image_$i" ] ?? '',
-					"link_text_$i"   => $attributes[ "link_text_$i" ] ?? '',
-					"link_url_$i"    => $attributes[ "link_url_$i" ] ?? '',
+					"header_${i}"      => $attributes[ "header_${i}" ] ?? '',
+					"subheader_${i}"   => $attributes[ "header_${i}" ] ?? '',
+					"description_${i}" => $attributes[ "description_${i}" ] ?? '',
+					"image_${i}"       => $attributes[ "image_${i}" ] ?? '',
+					"focus_image_${i}" => $attributes[ "focus_image_${i}" ] ?? '',
+					"link_text_${i}"   => $attributes[ "link_text_${i}" ] ?? '',
+					"link_url_${i}"    => $attributes[ "link_url_${i}" ] ?? '',
 				];
 				$attributes_temp = array_merge( $attributes_temp, $temp_array );
 			}
@@ -150,10 +150,10 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 
 			$total_images = 0;
 			for ( $i = 1; $i < 5; $i++ ) {
-				$image_id   = $attributes[ "image_$i" ];
+				$image_id   = $attributes[ "image_${i}" ];
 				$temp_array = wp_get_attachment_image_src( $image_id, ['1118', '746'] );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
-					$attributes[ "image_$i" ]          = $temp_array[0];
+					$attributes[ "image_${i}" ]          = $temp_array[0];
 					$attributes[ "image_${i}_srcset" ] = wp_calculate_image_srcset(['1118', '746'], wp_get_attachment_image_src( $image_id, 'full' )[0], wp_get_attachment_metadata( $image_id ));
 					$total_images++;
 				}
