@@ -14,7 +14,7 @@
 				{% for cover in covers %}
 					{% if loop.index0 == 0 %}
 						<div class="row">
-					{% elseif loop.index0 % covers_per_row == 0 and loop.index0 > covers_per_row %}
+					{% elseif loop.index0 % covers_per_row == 0 and loop.index0 >= covers_per_row %}
 						<div class="row row-hidden" style="display: none;">
 					{% endif %}
 							<div class="cover-card card-one" style="background-image: url({{ cover.image }});">
@@ -32,8 +32,10 @@
 					{% endif %}
 				{% endfor %}
 				{% if ( covers|length > covers_per_row and fields.button_text ) %}
-					<div class="col-lg-4 col-md-6 mb-5">
-						<button class="btn btn-block btn-small btn-secondary btn-load-more">{{ fields.button_text }}</button>
+					<div class="row load-more-button-div">
+						<div class="col-md-4 col-lg-3 col-xl-3 mb-5">
+							<button class="btn btn-block btn-medium btn-secondary btn-load-more-blocks">{{ fields.button_text }}</button>
+						</div>
 					</div>
 				{% endif %}
 			</div>
