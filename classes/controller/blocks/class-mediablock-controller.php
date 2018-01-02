@@ -31,8 +31,8 @@ if ( ! class_exists( 'MediaBlock_Controller' ) ) {
 					'attr'        => 'attachment',
 					'type'        => 'attachment',
 					'libraryType' => [ 'image' ],
-					'addButton'   => __( 'Select Image', 'shortcode-ui' ),
-					'frameTitle'  => __( 'Select Image', 'shortcode-ui' ),
+					'addButton'   => __( 'Select Image', 'planet4-blocks' ),
+					'frameTitle'  => __( 'Select Image', 'planet4-blocks' ),
 				],
 			];
 

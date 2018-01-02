@@ -36,8 +36,8 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 						'attr'        => 'image_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
-						'addButton'   => __( 'Select Image', 'shortcode-ui' ),
-						'frameTitle'  => __( 'Select Image', 'shortcode-ui' ),
+						'addButton'   => __( 'Select Image', 'planet4-blocks' ),
+						'frameTitle'  => __( 'Select Image', 'planet4-blocks' ),
 					],
 					[
 						// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
