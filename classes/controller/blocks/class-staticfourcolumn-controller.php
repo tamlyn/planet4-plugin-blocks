@@ -40,8 +40,8 @@ if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 				$field   = [
 					[
 						// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-						'label'       => sprintf( __( 'Select Image for %s column', 'planet4-blocks' ), __($i) ),
-						'attr'        => 'attachment_' . __($i),
+						'label'       => sprintf( __( 'Select Image for %s column', 'planet4-blocks' ),  $i ),
+						'attr'        => 'attachment_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
 						'addButton'   => __( 'Select Image', 'planet4-blocks' ),
@@ -49,17 +49,17 @@ if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 					],
 					[
 						'label' => __( 'Title', 'planet4-blocks' ),
-						'attr'  => 'title_' . __($i),
+						'attr'  => 'title_' . $i,
 						'type'  => 'text',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter title of %s column', 'planet4-blocks' ), __($i) ),
+							'placeholder' => sprintf( __( 'Enter title of %s column', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
 						'label' => __( 'Description', 'planet4-blocks' ),
-						'attr'  => 'description_' .__($i),
+						'attr'  => 'description_' . $i,
 						'type'  => 'textarea',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
@@ -69,21 +69,21 @@ if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 					],
 					[
 						'label' => __( 'Text for link', 'planet4-blocks' ),
-						'attr'  => 'link_text_' . __($i),
+						'attr'  => 'link_text_' . $i,
 						'type'  => 'url',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter %s link text', 'planet4-blocks' ), __($i) ),
+							'placeholder' => sprintf( __( 'Enter %s link text', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
 					[
 						'label' => __( 'Url for link', 'planet4-blocks' ),
-						'attr'  => 'link_url_' . __($i),
+						'attr'  => 'link_url_' . $i,
 						'type'  => 'url',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter %s link url', 'planet4-blocks' ), __($i) ),
+							'placeholder' => sprintf( __( 'Enter %s link url', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					],
@@ -117,20 +117,20 @@ if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 			$attributes_temp = [];
 			for ( $i = 1; $i < 5; $i++ ) {
 				$temp_array = [
-					"title_". __($i)       => $attributes[ "title_". __($i) ] ?? '',
-					"description_". __($i) => $attributes[ "description_". __($i) ] ?? '',
-					"attachment_". __($i)  => $attributes[ "attachment_". __($i) ] ?? '',
-					"link_text_". __($i)   => $attributes[ "link_text_". __($i) ] ?? '',
-					"link_url_". __($i)    => $attributes[ "link_url_". __($i) ] ?? '',
+					"title_$i"       => $attributes[ "title_$i" ] ?? '',
+					"description_$i" => $attributes[ "description_$i" ] ?? '',
+					"attachment_$i"  => $attributes[ "attachment_$i" ] ?? '',
+					"link_text_$i"   => $attributes[ "link_text_$i" ] ?? '',
+					"link_url_$i"    => $attributes[ "link_url_$i" ] ?? '',
 				];
 				$attributes_temp = array_merge( $attributes_temp, $temp_array );
 			}
 			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
 
 			for ( $i = 1; $i < 5; $i++ ) {
-				$temp_array = wp_get_attachment_image_src( $attributes[ "attachment_". __($i) ], 'thumbnail' );
+				$temp_array = wp_get_attachment_image_src( $attributes[ "attachment_$i" ], 'thumbnail' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
-					$attributes[ "attachment_". __($i) ] = $temp_array[0];
+					$attributes[ "attachment_$i" ] = $temp_array[0];
 				}
 			}
 
