@@ -53,12 +53,12 @@ if ( ! class_exists( 'Tasks_Controller' ) ) {
 					[
 						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 						'label' => sprintf( __( 'Task %s: Title <br> 
-									<i>Title is mandatory. In order for the task to be appeared title has to be filled.</i>', 'planet4-blocks' ), $i ),
-						'attr'  => 'title_' . $i,
+									<i>Title is mandatory. In order for the task to be appeared title has to be filled.</i>', 'planet4-blocks' ), __($i) ),
+						'attr'  => 'title_' . __($i),
 						'type'  => 'text',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter title of %s task/column', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter title of %s task/column', 'planet4-blocks' ), __($i) ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					];
@@ -66,12 +66,12 @@ if ( ! class_exists( 'Tasks_Controller' ) ) {
 				$fields[] =
 					[
 						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-						'label' => sprintf( __( 'Task %s: Description', 'planet4-blocks' ), $i ),
-						'attr'  => 'description_' . $i,
+						'label' => sprintf( __( 'Task %s: Description', 'planet4-blocks' ), __($i) ),
+						'attr'  => 'description_' . __($i),
 						'type'  => 'textarea',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter description of %s task/column', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter description of %s task/column', 'planet4-blocks' ), __($i) ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					];
@@ -79,8 +79,8 @@ if ( ! class_exists( 'Tasks_Controller' ) ) {
 				$fields[] =
 					[
 						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-						'label'       => sprintf( __( 'Select Image for %s task/column', 'planet4-blocks' ), $i ),
-						'attr'        => 'attachment_' . $i,
+						'label'       => sprintf( __( 'Select Image for %s task/column', 'planet4-blocks' ), __($i) ),
+						'attr'        => 'attachment_' . __($i),
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
 						'addButton'   => __( 'Select Image', 'shortcode-ui' ),
@@ -90,12 +90,12 @@ if ( ! class_exists( 'Tasks_Controller' ) ) {
 				$fields[] =
 					[
 						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-						'label' => sprintf( __( 'Task %s: Button Text', 'planet4-blocks' ), $i ),
-						'attr'  => 'button_text_' . $i,
+						'label' => sprintf( __( 'Task %s: Button Text', 'planet4-blocks' ), __($i) ),
+						'attr'  => 'button_text_' . __($i),
 						'type'  => 'text',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter button text of %s task/column', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter button text of %s task/column', 'planet4-blocks' ), __($i) ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					];
@@ -103,12 +103,12 @@ if ( ! class_exists( 'Tasks_Controller' ) ) {
 				$fields[] =
 					[
 						// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-						'label' => sprintf( __( 'Task %s: Button Link', 'planet4-blocks' ), $i ),
-						'attr'  => 'button_link_' . $i,
+						'label' => sprintf( __( 'Task %s: Button Link', 'planet4-blocks' ), __($i) ),
+						'attr'  => 'button_link_' . __($i),
 						'type'  => 'url',
 						'meta'  => [
 							// translators: placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
-							'placeholder' => sprintf( __( 'Enter button link of %s task/column', 'planet4-blocks' ), $i ),
+							'placeholder' => sprintf( __( 'Enter button link of %s task/column', 'planet4-blocks' ), __($i) ),
 							'data-plugin' => 'planet4-blocks',
 						],
 					];
@@ -143,20 +143,20 @@ if ( ! class_exists( 'Tasks_Controller' ) ) {
 			];
 			for ( $i = 1; $i < 5; $i++ ) {
 				$temp_array = [
-					"title_$i"       => $attributes[ "title_$i" ] ?? '',
-					"description_$i" => $attributes[ "description_$i" ] ?? '',
-					"attachment_$i"  => $attributes[ "attachment_$i" ] ?? '',
-					"button_text_$i" => $attributes[ "button_text_$i" ] ?? '',
-					"button_link_$i" => $attributes[ "button_link_$i" ] ?? '',
+					"title_". __($i)       => $attributes[ "title_". __($i) ] ?? '',
+					"description_". __($i) => $attributes[ "description_". __($i) ] ?? '',
+					"attachment_". __($i)  => $attributes[ "attachment_". __($i) ] ?? '',
+					"button_text_". __($i) => $attributes[ "button_text_". __($i) ] ?? '',
+					"button_link_". __($i) => $attributes[ "button_link_". __($i) ] ?? '',
 				];
 				$attributes_temp = array_merge( $attributes_temp, $temp_array );
 			}
 			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
 
 			for ( $i = 1; $i < 5; $i++ ) {
-				$temp_array = wp_get_attachment_image_src( $attributes[ "attachment_$i" ], 'medium' );
+				$temp_array = wp_get_attachment_image_src( $attributes[ "attachment_". __($i) ], 'medium' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
-					$attributes[ "attachment_$i" ] = $temp_array[0];
+					$attributes[ "attachment_". __($i) ] = $temp_array[0];
 				}
 			}
 
