@@ -39,6 +39,14 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 						'placeholder' => __( 'Enter articles count', 'planet4-blocks' ),
 					),
 				),
+				array(
+					'label' => __( 'Read More Link', 'planet4-blocks' ),
+					'attr'  => 'read_more_link',
+					'type'  => 'text',
+					'meta'  => array(
+						'placeholder' => __( 'Add read more button link', 'planet4-blocks' ),
+					),
+				),
 			);
 
 			// Define the Shortcode UI arguments.
@@ -65,7 +73,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-			$fields['article_count'] = ( ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
+			// Read more button links to search results if no link is specified.
+			$fields['article_count']  = ( ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
+			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '/?s=+&orderby=relevant&f%5Bctype%5D%5BPost%5D=3';
 
 			//Get page categories
 			$post_categories         = get_the_category();
@@ -92,6 +102,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				foreach ( $all_posts as $recent ) {
 					$recent['alt_text']  = '';
 					$recent['thumbnail'] = '';
+					$recent['author']    = get_the_author_meta( 'display_name', $recent['post_author'] );
 
 					if ( has_post_thumbnail( $recent['ID'] ) ) {
 						$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'], 'single-post-thumbnail' );
@@ -113,19 +124,14 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					}
 
 					$recent['tags'] = $tags;
-					$wp_categories  = get_the_category( $recent['ID'] );
+					$page_type_data = get_the_terms( $recent['ID'], 'p4-page-type' );
+					$page_type      = '';
 
-					$categories = [];
-					if ( $wp_categories ) {
-						foreach ( $wp_categories as $wp_category ) {
-							$category_data['name'] = $wp_category->name;
-							$category_data['slug'] = $wp_category->slug;
-							$category_data['href'] = get_category_link( $wp_category );
-							$categories[]          = $category_data;
-						}
+					if ($page_type_data) {
+						$page_type = $page_type_data[0]->name;
 					}
 
-					$recent['category']  = $categories;
+					$recent['page_type'] = $page_type;
 					$recent['permalink'] = get_permalink( $recent['ID'] );
 					$recent_posts[]      = $recent;
 				}

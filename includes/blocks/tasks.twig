@@ -39,21 +39,15 @@
 															</a>
 														{% else %}
 															{% set image_src = fields['attachment_'~i] %}
-															<img src="{{ image_src|resize(200) }}"
-																 srcset="{{ image_src|resize(200)|retina(1) }} 1x,
-									 									 {{ image_src|resize(200)|retina(2) }} 2x,
-									 									 {{ image_src|resize(200)|retina(3) }} 3x,
-									 									 {{ image_src|resize(200)|retina(4) }} 4x"
-																 alt="">
+															<img src="{{ image_src }}" alt="">
 														{% endif %}
 													{% endif %}
 													{% if ( fields['button_text_'~i] and fields['button_link_'~i] ) %}
 														<br>
-														<a class="btn btn-small btn-medium secondary-button"
+														<a class="btn btn-small btn-medium btn-secondary"
 														   href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
 														</a>
 													{% endif %}
-
 												</div>
 											</div>
 										</div>
@@ -101,12 +95,7 @@
 												<div class="accordion-image-wrap">
 													{% if ( fields['attachment_'~i] ) %}
 														{% set image_src = fields['attachment_'~i] %}
-														<img src="{{ image_src|resize(200) }}"
-															 srcset="{{ image_src|resize(200)|retina(1) }} 1x,
-									 									 {{ image_src|resize(200)|retina(2) }} 2x,
-									 									 {{ image_src|resize(200)|retina(3) }} 3x,
-									 									 {{ image_src|resize(200)|retina(4) }} 4x"
-															 alt="">
+														<img src="{{ image_src }}" alt="">
 													{% endif %}
 												</div>
 												<div class="mobile-accordion-info">
@@ -116,7 +105,7 @@
 												</div>
 
 												{% if ( fields['button_text_'~i] and fields['button_text_'~i] ) %}
-													<a class="btn btn-small btn-medium secondary-button"
+													<a class="btn btn-small btn-medium btn-secondary"
 													   href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
 													</a>
 												{% endif %}

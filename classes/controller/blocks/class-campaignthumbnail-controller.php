@@ -59,7 +59,8 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 			if ( ! empty( $fields['category_id'] ) ) {
 				$category         = get_category( $fields['category_id'] );
 				$context_tags     = get_queried_object();
-				$parent_id        = planet4_get_option( 'explore_page' );
+				$options          = get_option( 'planet4_options' );
+				$parent_id        = $options['explore_page'];
 				$explore_children = [];
 
 				if( 0 !== absint( $parent_id ) ) {
@@ -97,7 +98,7 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 							$attachment_id = get_term_meta( $tag->term_id, 'tag_attachment_id', true );
 
 							if ( ! empty( $attachment_id ) ) {
-								$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'full' );
+								$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'medium_large' );
 								$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 							}
 
@@ -127,7 +128,7 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 						$attachment_id = get_term_meta( $tag->term_id, 'tag_attachment_id', true );
 
 						if ( ! empty( $attachment_id ) ) {
-							$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'full' );
+							$tag_remapped['image']    = wp_get_attachment_image_src( $attachment_id, 'medium_large' );
 							$tag_remapped['alt_text'] = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 						}
 

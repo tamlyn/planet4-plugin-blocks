@@ -74,6 +74,8 @@ if ( ! class_exists( 'CarouselSplit_Controller' ) ) {
 					$image['caption'] = $temp_image['caption'];
 					$image['alt']     = $temp_image['alt'];
 					$image['credit']  = $temp_meta['image_meta']['copyright'];
+					$image['srcset']  = wp_get_attachment_image_srcset( $image_id, 'full', wp_get_attachment_metadata( $image_id ) );
+					$image['sizes']   = wp_calculate_image_sizes( 'full', null, null, $image_id );
 					$images[]         = $image;
 				}
 			}

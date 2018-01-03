@@ -31,8 +31,8 @@ if ( ! class_exists( 'MediaBlock_Controller' ) ) {
 					'attr'        => 'attachment',
 					'type'        => 'attachment',
 					'libraryType' => [ 'image' ],
-					'addButton'   => __( 'Select Image', 'shortcode-ui' ),
-					'frameTitle'  => __( 'Select Image', 'shortcode-ui' ),
+					'addButton'   => __( 'Select Image', 'planet4-blocks' ),
+					'frameTitle'  => __( 'Select Image', 'planet4-blocks' ),
 				],
 			];
 
@@ -56,16 +56,19 @@ if ( ! class_exists( 'MediaBlock_Controller' ) ) {
 		 *
 		 * @return string Returns the compiled template.
 		 */
-		public function prepare_template( $attributes, $content, $shortcode_tag ): string {
+		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
-			$image_url          = wp_get_attachment_url( $attributes['attachment'] );
+			$image_id           = $attributes['attachment'];
+			$image              = wp_get_attachment_image_src( $image_id , 'full' );
 			$fields             = [];
 			$fields['image']    = '';
 			$fields['alt_text'] = '';
 
-			if ( false !== $image_url && ! empty( $image_url ) ) {
-				$fields['image']    = $image_url;
-				$fields['alt_text'] = get_post_meta( $attributes['attachment'], '_wp_attachment_image_alt', true );
+			if ( false !== $image && ! empty( $image ) ) {
+				$fields['image']        = $image[0];
+				$fields['alt_text']     = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
+				$fields['image_srcset'] = wp_get_attachment_image_srcset( $image_id, 'full', wp_get_attachment_metadata( $image_id ) );
+				$fields['image_sizes']  = wp_calculate_image_sizes( 'full', null, null, $image_id );
 			}
 
 			$block_data = [

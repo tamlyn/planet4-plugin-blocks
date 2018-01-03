@@ -1,11 +1,9 @@
 {% block media %}
 	{% if ( fields.image ) %}
-		<div class="block-media">
-			<img src="{{ fields.image|resize(640) }}"
-				 srcset="{{ fields.image|resize(640)|retina(1) }} 1x,
-						 {{ fields.image|resize(640)|retina(2) }} 2x,
-						 {{ fields.image|resize(640)|retina(3) }} 3x,
-						 {{ fields.image|resize(640)|retina(4) }} 4x"
+		<div class="block-media container">
+			<img src="{{ fields.image }}"
+				 srcset="{{ fields.image_srcset }}"
+				 sizes="{{ fields.image_sizes }}"
 				 alt="{{ fields.alt_text }}">
 		</div>
 	{% endif %}

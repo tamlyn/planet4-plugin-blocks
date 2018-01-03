@@ -83,8 +83,8 @@ if ( ! class_exists( 'Tasks_Controller' ) ) {
 						'attr'        => 'attachment_' . $i,
 						'type'        => 'attachment',
 						'libraryType' => [ 'image' ],
-						'addButton'   => __( 'Select Image', 'shortcode-ui' ),
-						'frameTitle'  => __( 'Select Image', 'shortcode-ui' ),
+						'addButton'   => __( 'Select Image', 'planet4-blocks' ),
+						'frameTitle'  => __( 'Select Image', 'planet4-blocks' ),
 					];
 
 				$fields[] =
@@ -154,7 +154,7 @@ if ( ! class_exists( 'Tasks_Controller' ) ) {
 			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
 
 			for ( $i = 1; $i < 5; $i++ ) {
-				$temp_array = wp_get_attachment_image_src( $attributes[ "attachment_$i" ], 'full' );
+				$temp_array = wp_get_attachment_image_src( $attributes[ "attachment_$i" ], 'medium' );
 				if ( false !== $temp_array && ! empty( $temp_array ) ) {
 					$attributes[ "attachment_$i" ] = $temp_array[0];
 				}
