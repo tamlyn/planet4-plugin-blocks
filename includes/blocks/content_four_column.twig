@@ -10,9 +10,9 @@
 
 			{% for post in posts %}
 				{% if loop.index0 == 0 %}
-					<div class="publications-slider row">
+					<div class="row publications-row">
 				{% elseif loop.index0 is divisible by(4) %}
-					<div class="publications-slider row row-hidden" style="display: none;">
+					<div class="row row-hidden" id="publications-row-{{ loop.index }}" style="display: none;">
 				{% endif %}
 						<div class="col-md-4 col-lg-3 col-xl-3">
 							<a href="{{ post.permalink }}">
@@ -46,7 +46,7 @@
 			{% if ( posts|length > 4 ) %}
 				<div class="row mt-5 load-more-button-div">
 					<div class="col-md-4 col-lg-3 col-xl-3 mb-5">
-						<button class="btn btn-block btn-medium btn-secondary btn-load-more">
+						<button class="btn btn-block btn-medium btn-secondary btn-load-more-click">
 							{{ __( 'Load More', 'planet4-blocks' ) }}
 						</button>
 					</div>
