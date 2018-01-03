@@ -79,7 +79,8 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 
 			$fields['background_html']     = wp_get_attachment_image( $fields['background'] );
 			$fields['background_src']      = wp_get_attachment_image_src( $fields['background'], 'full' );
-			$fields['engaging_network_id'] = planet4_get_option( 'engaging_network_form_id' ) ?? '';
+			$options                       = get_option( 'planet4_options' );
+			$fields['engaging_network_id'] = $options['engaging_network_form_id'] ?? '';
 			$fields['opacity']             = $opacity;
 
 			$data = [

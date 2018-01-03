@@ -32,7 +32,8 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 				[ 'value' => 'right bottom',  'label' => __( '9 - Bottom Right', 'planet4-blocks' ) ],
 			];
 
-			$issue_category_id = planet4_get_option( 'issues_parent_category' );
+			$option_values     = get_option( 'planet4_options' );
+			$issue_category_id = $option_values['issues_parent_category'] ?? '';
 			$categories        = [];
 			if ( 0 !== absint( $issue_category_id ) ) {
 				$categories   = get_categories( [
