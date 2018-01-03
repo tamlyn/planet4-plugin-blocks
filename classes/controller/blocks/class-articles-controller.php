@@ -73,8 +73,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
+			// Read more button links to search results if no link is specified.
 			$fields['article_count']  = ( ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
-			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '#';
+			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '/?s=+&orderby=relevant&f%5Bctype%5D%5BPost%5D=3';
 
 			//Get page categories
 			$post_categories         = get_the_category();
