@@ -2,69 +2,61 @@
 
 	{% if ( fields ) %}
 
-		<div>
-			<div class="split-carousel-wrap carousel-header">
-				<div id="carousel-wrapper-header" class="carousel slide" data-ride="carousel">
-					{% if fields.total_images > 1 %}
-						<ol class="carousel-indicators">
-							{% for i in 1..4 %}
-								{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
-									<li data-target="#carousel-wrapper-header"
-											data-slide-to="{{ loop.index0 }}"
-											class="{{ loop.first ? 'active': '' }}">
-									</li>
-								{% endif %}
-							{% endfor %}
-						</ol>
-					{% endif %}
-					<div class="carousel-inner" role="listbox">
+		<div class="carousel-header">
+			<div id="carousel-wrapper-header">
+				{% if fields.total_images > 1 %}
+					<ol class="carousel-indicators"></ol>
+				{% endif %}
+				<div class="carousel-inner" role="listbox">
 
-						{% for i in 1..4 %}
+					{% for i in 1..4 %}
 
-							{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
-								<div class="{{ loop.first ? 'carousel-item active': 'carousel-item' }}">
-									{% if ( attribute( fields, 'image_'~i ) ) %}
+						{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
+							{% if ( loop.first ) %}
+								{% set css_class = 'carousel-item active' %}
+							{% elseif ( loop.index == 2 ) %}
+								{% set css_class = 'carousel-item next' %}
+							{% else %}
+								{% set css_class = 'carousel-item' %}
+							{% endif %}
+							<div class="{{ css_class }}">
+								{% if ( attribute( fields, 'image_'~i ) ) %}
 									<img src="{{ fields['image_'~i] }}"
-										data-background-position="{{ fields['focus_image_'~i] }}"
-										srcset="{{ fields['image_'~i~'_srcset'] }}"
-										alt="{{ attribute( fields, 'image_'~i~'_alt' )}}">
-									{% endif %}
-									<div class="carousel-caption">
-										<div class="container main-header">
-											{% if ( attribute( fields, 'header_'~i ) ) %}
-												<h1>{{ attribute( fields, 'header_'~i ) }}</h1>
-											{% endif %}
-											{% if ( attribute( fields, 'subheader_'~i ) ) %}
-												<h3>{{ attribute( fields, 'subheader_'~i ) }}</h3>
-											{% endif %}
-											{% if ( attribute( fields, 'description_'~i )  ) %}
-												<p>{{ attribute( fields, 'description_'~i ) }}</p>
-											{% endif %}
+										 data-background-position="{{ fields['focus_image_'~i] }}"
+										 srcset="{{ fields['image_'~i~'_srcset'] }}"
+										 alt="{{ attribute( fields, 'image_'~i~'_alt' ) }}">
+								{% endif %}
+								<div class="carousel-caption">
+									<div class="container main-header">
+										{% if ( attribute( fields, 'header_'~i ) ) %}
+											<h2>{{ attribute( fields, 'header_'~i ) }}</h2>
+										{% endif %}
+										{% if ( attribute( fields, 'subheader_'~i ) ) %}
+											<h3>{{ attribute( fields, 'subheader_'~i ) }}</h3>
+										{% endif %}
+										{% if ( attribute( fields, 'description_'~i )  ) %}
+											<p>{{ attribute( fields, 'description_'~i ) }}</p>
+										{% endif %}
 
-                                            {% if ( attribute( fields, 'link_text_'~i ) ) %}
-												<div class="col-sm-12 col-md-4 col-lg-4 action-button">
-													<a href="{{ attribute( fields, 'link_url_'~i) }}"
-													   class="btn btn-small btn-medium btn-primary btn-block">{{ attribute( fields, 'link_text_'~i ) }}</a>
-												</div>
-                                            {% endif %}
-										</div>
+										{% if ( attribute( fields, 'link_text_'~i ) ) %}
+											<div class="col-sm-12 col-md-4 col-lg-4 action-button">
+												<a href="{{ attribute( fields, 'link_url_'~i) }}"
+												   class="btn btn-small btn-medium btn-primary btn-block">{{ attribute( fields, 'link_text_'~i ) }}</a>
+											</div>
+										{% endif %}
 									</div>
 								</div>
-							{% endif %}
-						{% endfor %}
+							</div>
+						{% endif %}
+					{% endfor %}
 
-					</div>
-					{% if fields.total_images > 1 %}
-						<a class="carousel-control-prev hidden-sm-down" href="#carousel-wrapper-header" role="button" data-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"><i></i></span>
-							<span class="sr-only">{{ __( 'Previous' ) }}</span>
-						</a>
-						<a class="carousel-control-next hidden-sm-down" href="#carousel-wrapper-header" role="button" data-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"><i></i></span>
-							<span class="sr-only">{{ __( 'Next' ) }}</span>
-						</a>
-					{% endif %}
 				</div>
+				{% if fields.total_images > 1 %}
+					<a class="carousel-control-next" href="#carousel-wrapper-header" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"><i></i></span>
+						<span class="sr-only">Next</span>
+					</a>
+				{% endif %}
 			</div>
 		</div>
 
