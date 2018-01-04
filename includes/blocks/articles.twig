@@ -46,8 +46,8 @@
 											{% if ( value.author ) %}
 												<span class="article-list-item-author">by <a href="#">{{ value.author }}</a></span>
 											{% endif %}
-											{% if ( value.post_modified ) %}
-												<time class="article-list-item-date" datetime="">{{ value.post_modified|date("d M, Y") }}</time>
+											{% if ( value.post_date ) %}
+												<time class="article-list-item-date" datetime="">{{ value.post_date|date("d M, Y") }}</time>
 											{% endif %}
 										</p>
 									</header>
