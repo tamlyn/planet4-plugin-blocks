@@ -10,7 +10,7 @@
 
 			{% for post in posts %}
 				{% if loop.index0 == 0 %}
-					<div class="row publications-row">
+					<div class="row publications-slider">
 				{% elseif loop.index0 is divisible by(4) %}
 					<div class="row row-hidden" id="publications-row-{{ loop.index }}" style="display: none;">
 				{% endif %}
@@ -38,7 +38,18 @@
 								</div>
 							</a>
 						</div>
-				{% if ( (loop.index0 % 4 == 3) or loop.last) %}
+				{% if ( (loop.index0 % 4 == 3)) %}
+				</div>
+				{% endif %}
+
+				{# note: add empty div columns based on remainder of the division of last row's columns and number 4
+				         to preserve row presentation (it is breaking because of slick slider,
+				         if number of columns are not 4). #}
+				{% if ( loop.last and (loop.index0 % 4 < 3)) %}
+					{% set empty_columns_count = 4 - (loop.index % 4) %}
+					{% for i in 1..empty_columns_count %}
+						<div class="col-md-4 col-lg-3 col-xl-3"></div>
+					{% endfor %}
 					</div>
 				{% endif %}
 			{% endfor %}
