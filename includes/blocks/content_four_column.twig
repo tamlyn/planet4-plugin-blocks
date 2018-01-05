@@ -10,7 +10,7 @@
 
 			{% for post in posts %}
 				{% if loop.index0 == 0 %}
-					<div class="row publications-row">
+					<div class="row publications-slider">
 				{% elseif loop.index0 is divisible by(4) %}
 					<div class="row row-hidden" id="publications-row-{{ loop.index }}" style="display: none;">
 				{% endif %}
