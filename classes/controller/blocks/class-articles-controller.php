@@ -85,6 +85,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				$category_id_array[] = $category->term_id;
 			}
 
+			$category_ids = '';
 			if ( $category_id_array ) {
 				$category_ids = implode( ',', $category_id_array );
 			}
