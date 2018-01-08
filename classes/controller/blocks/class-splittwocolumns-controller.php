@@ -171,7 +171,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'name'        => $tag->name,
 					'link'        => get_tag_link( $tag ),
 					'description' => $fields['description'] ?? $tag->description,
-					'button_text' => $fields['button_text'] ?? __( 'Support this campaign', 'planet4-blocks' ),
+					'button_text' => $fields['button_text'] ?? __( 'Get Involved', 'planet4-blocks' ),
 					'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 					'focus'       => $fields['focus_tag_image'] ?? '',
 				],
