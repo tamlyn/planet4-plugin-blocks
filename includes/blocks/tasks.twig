@@ -10,7 +10,7 @@
 				<div class="row">
 					{% if ( fields.tasks_description ) %}
 						<div class="col-md-12">
-							{{ fields.tasks_description }}
+							{{ fields.tasks_description|e('wp_kses_post')|raw }}
 						</div>
 					{% endif %}
 				</div>
