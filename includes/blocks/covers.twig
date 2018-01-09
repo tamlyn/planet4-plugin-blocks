@@ -18,7 +18,7 @@
 						<div class="row row-hidden" style="display: none;">
 					{% endif %}
 							<div class="col-lg-4 col-md-6">
-								<div class="cover-card card-one" style="background-image: url({{ cover.image }});">
+								<div class="cover-card card-one" style="background-image: linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url({{ cover.image }});">
 									{% if ( cover.tags ) %}
 										{% for tag in cover.tags %}
 											<a class="cover-card-tag" href="{{ tag.href|e('esc_url') }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
