@@ -3,7 +3,7 @@
 	{% if ( page ) %}
 
 		{% if ( page.image ) %}
-			{% set bg_image = 'style="background-image: url(\''~page.image~'\');"' %}
+			{% set bg_image = 'style="background-image: linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url(\''~page.image~'\');"' %}
 		{% else %}
 			{% set bg_image = '' %}
 		{% endif %}
