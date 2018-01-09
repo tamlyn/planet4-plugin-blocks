@@ -22,39 +22,47 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 * @since 0.1.0
 		 */
 		public function prepare_fields() {
-			$fields = array(
-				array(
+			$fields = [
+				[
 					'label' => __( 'Article Heading', 'planet4-blocks' ),
 					'attr'  => 'article_heading',
 					'type'  => 'text',
-					'meta'  => array(
+					'meta'  => [
 						'placeholder' => __( 'Enter article heading', 'planet4-blocks' ),
-					),
-				),
-				array(
+					],
+				],
+				[
 					'label' => __( 'Article Count', 'planet4-blocks' ),
 					'attr'  => 'article_count',
 					'type'  => 'number',
-					'meta'  => array(
+					'meta'  => [
 						'placeholder' => __( 'Enter articles count', 'planet4-blocks' ),
-					),
-				),
-				array(
+					],
+				],
+				[
+					'label' => __( 'Read More Text', 'planet4-blocks' ),
+					'attr'  => 'read_more_text',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => __( 'Add read more button text', 'planet4-blocks' ),
+					],
+				],
+				[
 					'label' => __( 'Read More Link', 'planet4-blocks' ),
 					'attr'  => 'read_more_link',
 					'type'  => 'text',
-					'meta'  => array(
+					'meta'  => [
 						'placeholder' => __( 'Add read more button link', 'planet4-blocks' ),
-					),
-				),
-			);
+					],
+				],
+			];
 
 			// Define the Shortcode UI arguments.
-			$shortcode_ui_args = array(
+			$shortcode_ui_args = [
 				'label'         => __( 'Articles', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/home_news.jpg' ) . '" />',
 				'attrs'         => $fields,
-			);
+			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
@@ -75,6 +83,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// Read more button links to search results if no link is specified.
 			$fields['article_count']  = ( ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
+			$fields['read_more_text'] = $fields['read_more_text'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
 			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '/?s=+&orderby=relevant&f%5Bctype%5D%5BPost%5D=3';
 
 			//Get page categories
