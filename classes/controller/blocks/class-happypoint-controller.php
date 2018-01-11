@@ -29,7 +29,7 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 					'frameTitle'  => __( 'Select Background Image', 'planet4-blocks' ),
 				],
 				[
-					'label' => __( 'Opacity % . Number between 1 and 100. If you leave it empty 30 will be used', 'planet4-blocks' ),
+					'label' => __( '<i>Use an overlay to fade the image back. Use a number between 1 and 100,<br /> the higher the number, the more faded the image will look. If you leave this <br/> empty, the default of 30 will be used.</i>', 'planet4-blocks' ),
 					'attr'  => 'opacity',
 					'type'  => 'number',
 					'meta'  => [ 'data-test' => 30 ],
