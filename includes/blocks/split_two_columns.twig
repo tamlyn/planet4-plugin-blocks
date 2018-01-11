@@ -32,11 +32,15 @@
 			{% if ( campaign.image ) %}
 				{% if ( campaign.focus ) %}
 					<div class="split-two-column-item-image" style="background-position:{{ campaign.focus }};">
-						<img src="{{ campaign.image }}" srcset="{{ campaign.srcset }}">
+						<img src="{{ campaign.image }}"
+							 srcset="{{ campaign.srcset }}"
+							 alt="{{ campaign.image_alt }}">
 					</div>
 				{% else %}
 					<div class="split-two-column-item-image">
-						<img src="{{ campaign.image }}" srcset="{{ campaign.srcset }}">
+						<img src="{{ campaign.image }}"
+							 srcset="{{ campaign.srcset }}"
+							 alt="{{ campaign.image_alt }}">
 					</div>
 				{% endif %}
 			{% endif %}
