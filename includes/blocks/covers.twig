@@ -1,7 +1,7 @@
 {% block covers %}
 
 	{% if ( covers ) %}
-		<div class="covers-block page-section">
+		<div class="covers-block">
 			<div class="container">
 				{% if ( fields.title ) %}
 					<h2 class="page-section-header">{{ fields.title }}</h2>
@@ -17,15 +17,17 @@
 					{% elseif loop.index0 is divisible by(covers_per_row) %}
 						<div class="row row-hidden" style="display: none;">
 					{% endif %}
-							<div class="cover-card card-one" style="background-image: url({{ cover.image }});">
-								{% if ( cover.tags ) %}
-									{% for tag in cover.tags %}
-										<a class="cover-card-tag" href="{{ tag.href|e('esc_url') }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
-									{% endfor %}
-								{% endif %}
-								<h2 class="cover-card-heading">{{ cover.title|e('wp_kses_post')|raw }}</h2>
-								<p>{{ cover.excerpt|truncate(25)|e('wp_kses_post')|raw }}</p>
-								<a class="btn btn-action btn-block cover-card-btn" href="{{ cover.button_link|e('esc_url') }}">{{ cover.button_text }}</a>
+							<div class="col-lg-4 col-md-6">
+								<div class="cover-card card-one" style="background-image: linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url({{ cover.image }});">
+									{% if ( cover.tags ) %}
+										{% for tag in cover.tags %}
+											<a class="cover-card-tag" href="{{ tag.href|e('esc_url') }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+										{% endfor %}
+									{% endif %}
+									<h2 class="cover-card-heading">{{ cover.title|e('wp_kses_post')|raw }}</h2>
+									<p>{{ cover.excerpt|truncate(25)|e('wp_kses_post')|raw }}</p>
+									<a class="btn btn-action btn-block cover-card-btn" href="{{ cover.button_link|e('esc_url') }}">{{ cover.button_text }}</a>
+								</div>
 							</div>
 					{% if ( loop.index0 % covers_per_row == (covers_per_row - 1) or loop.last) %}
 						</div>

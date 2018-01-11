@@ -14,8 +14,6 @@
 						{% if ( attribute( fields, 'header_'~i ) and attribute( fields, 'image_'~i ) ) %}
 							{% if ( loop.first ) %}
 								{% set css_class = 'carousel-item active' %}
-							{% elseif ( loop.index == 2 ) %}
-								{% set css_class = 'carousel-item next' %}
 							{% else %}
 								{% set css_class = 'carousel-item' %}
 							{% endif %}
