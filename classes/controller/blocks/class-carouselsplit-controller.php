@@ -25,11 +25,6 @@ if ( ! class_exists( 'CarouselSplit_Controller' ) ) {
 
 			$fields = [
 				[
-					'label' => __( 'Title', 'planet4-blocks' ),
-					'attr'  => 'title',
-					'type'  => 'text',
-				],
-				[
 					'label'       => __( 'Images', 'shortcode-ui' ),
 					'attr'        => 'multiple_images',
 					'type'        => 'attachment',
