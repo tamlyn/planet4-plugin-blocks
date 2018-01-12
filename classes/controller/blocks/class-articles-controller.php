@@ -118,6 +118,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 						$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'], 'single-post-thumbnail' );
 						$img_id              = get_post_thumbnail_id( $recent['ID'] );
 						$recent['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+						$recent['srcset']    = wp_calculate_image_srcset(['400', '267'], wp_get_attachment_image_src( $img_id, 'full' )[0], wp_get_attachment_metadata( $img_id ));
 					}
 
 					$wp_tags = wp_get_post_tags( $recent['ID'] );
