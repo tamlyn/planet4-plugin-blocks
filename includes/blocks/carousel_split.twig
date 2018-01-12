@@ -5,7 +5,9 @@
 		<div class="container">
 			<div class="carousel-wrap">
 				<div id="carousel-wrapper" class="carousel slide" data-ride="carousel">
-					<h1>{{ fields.title }}</h1>
+					{% if ( fields.title ) %}
+						<h1>{{ fields.title }}</h1>
+					{% endif %}
 					{% if fields|length > 1 %}
 						<ol class="carousel-indicators">
 							{% for image in fields %}
