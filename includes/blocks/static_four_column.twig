@@ -10,17 +10,23 @@
 						<div class="col-md-6 col-lg-3 col-xl-3 four-column-wrap">
 							{% set link_url = fields['link_url_'~i] %}
 							{% if ( fields['attachment_'~i] and link_url ) %}
-								<a href="{{ link_url|e('esc_url') }}">
-									<img src="{{ fields['attachment_'~i] }}" alt="" class="four-column-symbol">
-								</a>
+								<div class="four-column-symbol-container">
+									<div class="four-column-symbol">
+										<a href="{{ link_url|e('esc_url') }}">
+											<img src="{{ fields['attachment_'~i] }}" alt="">
+										</a>
+									</div>
+								</div>
 							{% elseif (fields['attachment_'~i]) %}
-								<img src="{{ fields['attachment_'~i] }}" alt="" class="four-column-symbol">
+								<div class="four-column-symbol-container">
+									<img src="{{ fields['attachment_'~i] }}" alt="">
+								</div>
 							{% endif %}
 							<div class="four-column-information">
 								{% if ( fields['title_'~i] and link_url ) %}
-									<a href="{{ link_url|e('esc_url') }}">
-										<h5>{{ fields['title_'~i]|e('wp_kses_post')|raw }}</h5>
-									</a>
+									<h5>
+										<a href="{{ link_url|e('esc_url') }}">{{ fields['title_'~i]|e('wp_kses_post')|raw }}</a>
+									</h5>
 								{% elseif ( fields['title_'~i] ) %}
 									<h5>{{ fields['title_'~i]|e('wp_kses_post')|raw }}</h5>
 								{% endif %}
