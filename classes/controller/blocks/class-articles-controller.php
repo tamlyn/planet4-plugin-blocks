@@ -22,39 +22,47 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 * @since 0.1.0
 		 */
 		public function prepare_fields() {
-			$fields = array(
-				array(
+			$fields = [
+				[
 					'label' => __( 'Article Heading', 'planet4-blocks' ),
 					'attr'  => 'article_heading',
 					'type'  => 'text',
-					'meta'  => array(
+					'meta'  => [
 						'placeholder' => __( 'Enter article heading', 'planet4-blocks' ),
-					),
-				),
-				array(
+					],
+				],
+				[
 					'label' => __( 'Article Count', 'planet4-blocks' ),
 					'attr'  => 'article_count',
 					'type'  => 'number',
-					'meta'  => array(
+					'meta'  => [
 						'placeholder' => __( 'Enter articles count', 'planet4-blocks' ),
-					),
-				),
-				array(
+					],
+				],
+				[
+					'label' => __( 'Read More Text', 'planet4-blocks' ),
+					'attr'  => 'read_more_text',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => __( 'Add read more button text', 'planet4-blocks' ),
+					],
+				],
+				[
 					'label' => __( 'Read More Link', 'planet4-blocks' ),
 					'attr'  => 'read_more_link',
 					'type'  => 'text',
-					'meta'  => array(
+					'meta'  => [
 						'placeholder' => __( 'Add read more button link', 'planet4-blocks' ),
-					),
-				),
-			);
+					],
+				],
+			];
 
 			// Define the Shortcode UI arguments.
-			$shortcode_ui_args = array(
+			$shortcode_ui_args = [
 				'label'         => __( 'Articles', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/home_news.jpg' ) . '" />',
 				'attrs'         => $fields,
-			);
+			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}
@@ -75,7 +83,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// Read more button links to search results if no link is specified.
 			$fields['article_count']  = ( ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
-			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '/?s=+&orderby=relevant&f%5Bctype%5D%5BPost%5D=3';
+			$fields['read_more_text'] = $fields['read_more_text'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
+			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '/?s=&orderby=post_date&f[ctype][Post]=3';
 
 			//Get page categories
 			$post_categories         = get_the_category();
@@ -85,6 +94,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				$category_id_array[] = $category->term_id;
 			}
 
+			$category_ids = '';
 			if ( $category_id_array ) {
 				$category_ids = implode( ',', $category_id_array );
 			}
@@ -93,7 +103,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$args = [
 				'numberposts' => $fields['article_count'],
 				'orderby'     => 'date',
-				'category'    => '( ' . $category_ids . ' )'
+				'category'    => '( ' . $category_ids . ' )',
 			];
 
 			$all_posts = wp_get_recent_posts( $args );
@@ -108,6 +118,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 						$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'], 'single-post-thumbnail' );
 						$img_id              = get_post_thumbnail_id( $recent['ID'] );
 						$recent['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+						$recent['srcset']    = wp_calculate_image_srcset( [ '400', '267' ], wp_get_attachment_image_src( $img_id, 'thumbnail' )[0], wp_get_attachment_metadata( $img_id ) );
 					}
 
 					$wp_tags = wp_get_post_tags( $recent['ID'] );
@@ -127,7 +138,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$page_type_data = get_the_terms( $recent['ID'], 'p4-page-type' );
 					$page_type      = '';
 
-					if ($page_type_data) {
+					if ( $page_type_data ) {
 						$page_type = $page_type_data[0]->name;
 					}
 

@@ -1,5 +1,4 @@
 {% block four_column %}
-
 	{% if ( fields ) %}
 		<section class="four-column">
 			<div class="container">
@@ -9,18 +8,33 @@
 				<div class="row">
 					{% for i in 1..4 %}
 						<div class="col-md-6 col-lg-3 col-xl-3 four-column-wrap">
-							{% if ( fields['attachment_'~i] ) %}
-								<img src="{{ fields['attachment_'~i] }}" alt="" class="four-column-symbol">
+							{% set link_url = fields['link_url_'~i] %}
+							{% if ( fields['attachment_'~i] and link_url ) %}
+								<div class="four-column-symbol-container">
+									<div class="four-column-symbol">
+										<a href="{{ link_url|e('esc_url') }}">
+											<img src="{{ fields['attachment_'~i] }}" alt="">
+										</a>
+									</div>
+								</div>
+							{% elseif (fields['attachment_'~i]) %}
+								<div class="four-column-symbol-container">
+									<img src="{{ fields['attachment_'~i] }}" alt="">
+								</div>
 							{% endif %}
 							<div class="four-column-information">
-								{% if ( attribute( fields, 'title_'~i ) ) %}
+								{% if ( fields['title_'~i] and link_url ) %}
+									<h5>
+										<a href="{{ link_url|e('esc_url') }}">{{ fields['title_'~i]|e('wp_kses_post')|raw }}</a>
+									</h5>
+								{% elseif ( fields['title_'~i] ) %}
 									<h5>{{ fields['title_'~i]|e('wp_kses_post')|raw }}</h5>
 								{% endif %}
-								{% if ( attribute( fields, 'description_'~i )  ) %}
+								{% if ( fields['description_'~i]  ) %}
 									<p>{{ fields['description_'~i]|e('wp_kses_post')|raw }}</p>
 								{% endif %}
-								{% if ( attribute( fields, 'link_text_'~i ) ) %}
-									<a href="{{ fields['link_url_'~i]|e('esc_url') }}">
+								{% if ( fields['link_text_'~i] ) %}
+									<a href="{{ link_url|e('esc_url') }}">
 										{{ fields['link_text_'~i]|e('wp_kses_post')|raw }}
 									</a>
 								{% endif %}
@@ -31,6 +45,4 @@
 			</div>
 		</section>
 	{% endif %}
-
 {% endblock %}
-

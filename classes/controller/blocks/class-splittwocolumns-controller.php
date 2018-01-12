@@ -168,10 +168,12 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 				],
 				'campaign' => [
 					'image'       => wp_get_attachment_url( $attachment_id ),
+					'srcset'      => wp_calculate_image_srcset( [ '1118', '746' ], wp_get_attachment_image_src( $attachment_id, 'full' )[0], wp_get_attachment_metadata( $attachment_id ) ),
+					'image_alt'   => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true),
 					'name'        => $tag->name,
 					'link'        => get_tag_link( $tag ),
 					'description' => $fields['description'] ?? $tag->description,
-					'button_text' => $fields['button_text'] ?? __( 'Support this campaign', 'planet4-blocks' ),
+					'button_text' => $fields['button_text'] ?? __( 'Get Involved', 'planet4-blocks' ),
 					'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 					'focus'       => $fields['focus_tag_image'] ?? '',
 				],

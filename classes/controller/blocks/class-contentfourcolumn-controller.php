@@ -98,7 +98,7 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 			$post_types = [];
 
 			// Filter p4_page_type keys from attributes array.
-			$post_types_temp = array_filter( $attributes, function ( $key ) {
+			$post_types_temp = array_filter( (array) $attributes, function ( $key ) {
 				return strpos( $key, 'p4_page_type' ) === 0 ;
 			}, ARRAY_FILTER_USE_KEY );
 
