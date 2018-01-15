@@ -163,7 +163,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'title'       => $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id ),
 					'description' => $issue_meta_data['p4_description'][0] ?? '',
 					'image'       => get_the_post_thumbnail_url( $issue_id ),
-					'srcset'      => wp_calculate_image_srcset( [ '1118', '746' ], wp_get_attachment_image_src( $issue_image_id, 'full' )[0], wp_get_attachment_metadata( $issue_image_id ) ),
+					'srcset'      => wp_get_attachment_image_srcset( $issue_image_id ),
 					'image_alt'   => get_post_meta( $issue_image_id, '_wp_attachment_image_alt', true),
 					'link_text'   => __( 'Learn more about this issue', 'planet4-blocks' ),
 					'link_url'    => get_permalink( $issue_id ),
