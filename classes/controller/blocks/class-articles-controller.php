@@ -104,6 +104,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				'numberposts' => $fields['article_count'],
 				'orderby'     => 'date',
 				'category'    => '( ' . $category_ids . ' )',
+				'post_status' => 'publish',
 			];
 
 			$all_posts = wp_get_recent_posts( $args );
@@ -112,13 +113,14 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				foreach ( $all_posts as $recent ) {
 					$recent['alt_text']  = '';
 					$recent['thumbnail'] = '';
-					$recent['author']    = get_the_author_meta( 'display_name', $recent['post_author'] );
+					$author_override     = get_post_meta( $recent['ID'], 'p4_author_override', true );
+					$recent['author']    = '' === $author_override ? get_the_author_meta( 'display_name', $recent['post_author'] ) : $author_override;
 
 					if ( has_post_thumbnail( $recent['ID'] ) ) {
-						$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'], 'single-post-thumbnail' );
+						$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'], 'medium' );
 						$img_id              = get_post_thumbnail_id( $recent['ID'] );
 						$recent['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-						$recent['srcset']    = wp_calculate_image_srcset( [ '400', '267' ], wp_get_attachment_image_src( $img_id, 'thumbnail' )[0], wp_get_attachment_metadata( $img_id ) );
+						$recent['srcset']    = wp_calculate_image_srcset( [ '400', '267' ], wp_get_attachment_image_src( $img_id, 'medium' )[0], wp_get_attachment_metadata( $img_id ) );
 					}
 
 					$wp_tags = wp_get_post_tags( $recent['ID'] );

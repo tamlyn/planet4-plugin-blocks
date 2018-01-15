@@ -153,23 +153,26 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 			$issue_id = absint( $fields['select_issue'] );
 			$issue_meta_data = get_post_meta( $issue_id );
 
-			$tag_id        = absint( $fields['select_tag'] );
-			$tag           = get_term( $tag_id );
-			$attachment_id = get_term_meta( $tag_id, 'tag_attachment_id', true );
+			$tag_id            = absint( $fields['select_tag'] );
+			$tag               = get_term( $tag_id );
+			$campaign_image_id = get_term_meta( $tag_id, 'tag_attachment_id', true );
+			$issue_image_id    = get_post_thumbnail_id( $issue_id );
 
 			$data = $issue_meta_data ? [
 				'issue' => [
 					'title'       => $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id ),
 					'description' => $issue_meta_data['p4_description'][0] ?? '',
 					'image'       => get_the_post_thumbnail_url( $issue_id ),
+					'srcset'      => wp_get_attachment_image_srcset( $issue_image_id ),
+					'image_alt'   => get_post_meta( $issue_image_id, '_wp_attachment_image_alt', true),
 					'link_text'   => __( 'Learn more about this issue', 'planet4-blocks' ),
 					'link_url'    => get_permalink( $issue_id ),
 					'focus'       => $fields['focus_issue_image'] ?? '',
 				],
 				'campaign' => [
-					'image'       => wp_get_attachment_url( $attachment_id ),
-					'srcset'      => wp_calculate_image_srcset( [ '1118', '746' ], wp_get_attachment_image_src( $attachment_id, 'full' )[0], wp_get_attachment_metadata( $attachment_id ) ),
-					'image_alt'   => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true),
+					'image'       => wp_get_attachment_url( $campaign_image_id ),
+					'srcset'      => wp_calculate_image_srcset( [ '1118', '746' ], wp_get_attachment_image_src( $campaign_image_id, 'full' )[0], wp_get_attachment_metadata( $campaign_image_id ) ),
+					'image_alt'   => get_post_meta( $campaign_image_id, '_wp_attachment_image_alt', true),
 					'name'        => $tag->name,
 					'link'        => get_tag_link( $tag ),
 					'description' => $fields['description'] ?? $tag->description,

@@ -5,9 +5,17 @@
 		<div class="split-two-column-item item--left">
 			{% if ( issue.image ) %}
 				{% if ( issue.focus ) %}
-						<div class="split-two-column-item-image" style="background-image:url({{ issue.image }}); background-position:{{ issue.focus }};"></div>
+						<div class="split-two-column-item-image" style="background-position:{{ issue.focus }};">
+							<img src="{{ issue.image }}"
+								 srcset="{{ issue.srcset }}"
+								 alt="{{ issue.image_alt }}">
+						</div>
 				{% else %}
-						<div class="split-two-column-item-image" style="background-image:url({{ issue.image }});"></div>
+						<div class="split-two-column-item-image">
+							<img src="{{ issue.image }}"
+								 srcset="{{ issue.srcset }}"
+								 alt="{{ issue.image_alt }}">
+						</div>
 				{% endif %}
 			{% endif %}
 			<div class="split-two-column-item-content">
