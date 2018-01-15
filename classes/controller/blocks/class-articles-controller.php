@@ -104,6 +104,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				'numberposts' => $fields['article_count'],
 				'orderby'     => 'date',
 				'category'    => '( ' . $category_ids . ' )',
+				'post_status' => 'publish',
 			];
 
 			$all_posts = wp_get_recent_posts( $args );
@@ -112,7 +113,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				foreach ( $all_posts as $recent ) {
 					$recent['alt_text']  = '';
 					$recent['thumbnail'] = '';
-					$recent['author']    = get_the_author_meta( 'display_name', $recent['post_author'] );
+					$author_override     = get_post_meta( $recent['ID'], 'p4_author_override', true );
+					$recent['author']    = '' === $author_override ? get_the_author_meta( 'display_name', $recent['post_author'] ) : $author_override;
 
 					if ( has_post_thumbnail( $recent['ID'] ) ) {
 						$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'], 'medium' );
