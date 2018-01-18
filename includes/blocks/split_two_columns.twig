@@ -60,7 +60,7 @@
 					<p class="split-two-column-item-subtitle">{{ campaign.description|truncate(25, true)|raw }}</p>
 				{% endif %}
 				{% if ( campaign.button_text and campaign.button_link ) %}
-					<a class="btn btn-small btn-medium btn-primary btn-block split-two-column-item-button" href="{{ campaign.button_link }}">{{ campaign.button_text }}</a>
+					<a class="btn btn-small btn-primary btn-block split-two-column-item-button" href="{{ campaign.button_link }}">{{ campaign.button_text }}</a>
 				{% endif %}
 			</div>
 		</div>
@@ -68,4 +68,3 @@
 {% endif %}
 
 {% endblock %}
-
