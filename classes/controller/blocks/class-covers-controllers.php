@@ -47,6 +47,24 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 					'taxonomy'    => 'post_tag',
 					'multiple'    => true,
 				],
+				[
+					'label'       => __( 'Number of covers displayed', 'planet4-blocks' ),
+					'description' => __( 'Select how many covers will be shown in large screens.<br> 
+										All available covers or only the first 6 covers.<br>
+										In small screens 4 covers will be shown by default.', 'planet4-blocks' ),
+					'attr'        => 'covers_view',
+					'type'        => 'select',
+					'options'     => [
+						[
+							'value' => '0',
+							'label' => __( 'Show 6 covers', 'planet4-blocks' ),
+						],
+						[
+							'value' => '1',
+							'label' => __( 'Show all covers', 'planet4-blocks' ),
+						],
+					],
+				],
 			];
 
 			/*
@@ -137,10 +155,12 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 				$fields['button_text'] = __( 'Load More ...', 'planet4-blocks' );
 			}
 
+			$covers_view = isset($fields['covers_view']) ? intval($fields['covers_view']) : 1;
+
 			$data = [
-				'fields'    => $fields,
-				'covers'    => $covers,
-				'is_mobile' => wp_is_mobile(),
+				'fields'      => $fields,
+				'covers'      => $covers,
+				'covers_view' => $covers_view,
 			];
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
