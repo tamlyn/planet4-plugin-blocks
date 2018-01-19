@@ -2,100 +2,19 @@
 # Copyright (C) 2017 Greenpeace International
 # License:     GPLv3
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-08 05:57+0300\n"
-"PO-Revision-Date: 2018-01-17 12:42+0200\n"
+"POT-Creation-Date: 2018-01-17 12:25+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: el_GR\n"
+"Language: en_UK\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
-"Project-Id-Version: Planet4-plugin-blocks\n"
-
-#: 
-msgid "Plugin Requirements Error!"
-msgstr ""
-
-#: 
-msgid " requires a newer version of the following plugin."
-msgstr ""
-
-#: 
-msgid "Minimum required version of "
-msgstr ""
-
-#: 
-msgid "Installed version of "
-msgstr ""
-
-#: classes/class-loader.php:112
-msgid " requires a newer version of PHP."
-msgstr "απαιτεί νεότερη έκδοση της PHP."
-
-#: classes/class-loader.php:113
-msgid "Minimum required version of PHP: "
-msgstr "Η ελάχιστη έκδοση της PHP που απαιτείται είναι: "
-
-#: classes/class-loader.php:114
-msgid "Running version of PHP: "
-msgstr "Η τρέχουσα έκδοση της PHP είναι:"
-
-#: 
-msgid "Plugin Conflict Error!"
-msgstr ""
-
-#: classes/class-loader.php:199
-msgid "Class P4BKS_Loader already exists."
-msgstr ""
-
-#: 
-msgid "Settings"
-msgstr ""
-
-#: 
-msgid "You do not have sufficient permissions to access this page."
-msgstr ""
-
-#: 
-msgid "Language"
-msgstr ""
-
-#: 
-msgid "Select Language"
-msgstr ""
-
-#: 
-msgid "Public"
-msgstr ""
-
-#: 
-msgid "Private"
-msgstr ""
-
-#: 
-msgid "Save Changes"
-msgstr ""
-
-#: 
-msgid "Plugin Settings are not configured well!"
-msgstr ""
-
-#: 
-msgid "Changes saved!"
-msgstr ""
-
-#: 
-msgid "Changes are not saved!"
-msgstr ""
-
-#: 
-msgid "Nonce verification failed!"
-msgstr ""
 
 #: classes/class-loader.php:89
 msgid "Requirements Error(s)"
@@ -107,18 +26,34 @@ msgstr ""
 
 #: classes/class-loader.php:96
 msgid "Minimum version "
-msgstr "Ελάχιστη έκδοση"
+msgstr ""
 
 #: classes/class-loader.php:97
 msgid "Current version "
-msgstr "Τρέχουσα έκδοση"
+msgstr ""
 
 #: classes/class-loader.php:112
 msgid "PHP Requirements Error"
 msgstr ""
 
+#: classes/class-loader.php:112
+msgid " requires a newer version of PHP."
+msgstr ""
+
+#: classes/class-loader.php:113
+msgid "Minimum required version of PHP: "
+msgstr ""
+
+#: classes/class-loader.php:114
+msgid "Running version of PHP: "
+msgstr ""
+
 #: classes/class-loader.php:199
 msgid "Conflict Error"
+msgstr ""
+
+#: classes/class-loader.php:199
+msgid "Class P4BKS_Loader already exists."
 msgstr ""
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:32
@@ -134,8 +69,9 @@ msgid "Title"
 msgstr ""
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:43
+#, php-format
 msgid "Select Image for %s column"
-msgstr "Επίλεξε εικόνα για την στήλη %s"
+msgstr ""
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:47
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:48
@@ -146,9 +82,10 @@ msgstr "Επίλεξε εικόνα για την στήλη %s"
 #: classes/controller/blocks/class-carouselheader-controller.php:39
 #: classes/controller/blocks/class-carouselheader-controller.php:40
 msgid "Select Image"
-msgstr "Επίλεξε εικόνα"
+msgstr ""
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:56
+#, php-format
 msgid "Enter title of %s column"
 msgstr ""
 
@@ -161,9 +98,10 @@ msgstr ""
 #: classes/controller/blocks/class-splittwocolumns-controller.php:87
 #: classes/controller/blocks/class-carouselheader-controller.php:80
 msgid "Description"
-msgstr "Περιγραφή"
+msgstr ""
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:66
+#, php-format
 msgid "Enter description of %s column"
 msgstr ""
 
@@ -173,6 +111,7 @@ msgid "Text for link"
 msgstr ""
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:76
+#, php-format
 msgid "Enter %s link text"
 msgstr ""
 
@@ -182,6 +121,7 @@ msgid "Url for link"
 msgstr ""
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:86
+#, php-format
 msgid "Enter %s link url"
 msgstr ""
 
@@ -206,7 +146,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-carousel-controller.php:78
 msgid "Select Carousel Images"
-msgstr "Επίλεξε εικόνες για το Carousel"
+msgstr ""
 
 #: classes/controller/blocks/class-carousel-controller.php:90
 msgid "Carousel"
@@ -229,39 +169,50 @@ msgid "Enter tasks description"
 msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:55
-msgid "Task %s: Title <br> \n"
-"\t\t\t\t\t\t\t\t\t<i>Title is mandatory. In order for the task to be appeared title has to be filled.</i>"
+#, php-format
+msgid ""
+"Task %s: Title <br> \n"
+"\t\t\t\t\t\t\t\t\t<i>Title is mandatory. In order for the task to be "
+"appeared title has to be filled.</i>"
 msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:61
+#, php-format
 msgid "Enter title of %s task/column"
 msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:69
+#, php-format
 msgid "Task %s: Description"
 msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:74
+#, php-format
 msgid "Enter description of %s task/column"
 msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:82
+#, php-format
 msgid "Select Image for %s task/column"
 msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:93
+#, php-format
 msgid "Task %s: Button Text"
 msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:98
+#, php-format
 msgid "Enter button text of %s task/column"
 msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:106
+#, php-format
 msgid "Task %s: Button Link"
 msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:111
+#, php-format
 msgid "Enter button link of %s task/column"
 msgstr ""
 
@@ -271,19 +222,19 @@ msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:27
 msgid "Article Heading"
-msgstr "Επικεφαλίδα άρθρου"
+msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:31
 msgid "Enter article heading"
-msgstr "Δώσε επικεφαλίδα άρθρου"
+msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:35
 msgid "Article Count"
-msgstr "Αριθμός άρθρων"
+msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:39
 msgid "Enter articles count"
-msgstr "Δώσε αριθμό άρθρων"
+msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:43
 msgid "Read More Text"
@@ -303,7 +254,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:62
 msgid "Articles"
-msgstr "Άρθρα"
+msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:86
 msgid "READ ALL THE NEWS"
@@ -323,7 +274,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-twocolumn-controller.php:57
 msgid "Enter description of first column"
-msgstr "Δώσε περιγραφή της πρώτης στήλης"
+msgstr ""
 
 #: classes/controller/blocks/class-twocolumn-controller.php:62
 #: classes/controller/blocks/class-twocolumn-controller.php:97
@@ -426,7 +377,10 @@ msgid "Select Background Image"
 msgstr ""
 
 #: classes/controller/blocks/class-happypoint-controller.php:32
-msgid "<i>We use an overlay to fade the image back. Use a number between 1 and 100,<br /> the higher the number, the more faded the image will look. If you leave this <br/> empty, the default of 30 will be used.</i>"
+msgid ""
+"<i>We use an overlay to fade the image back. Use a number between 1 and 100,"
+"<br /> the higher the number, the more faded the image will look. If you "
+"leave this <br/> empty, the default of 30 will be used.</i>"
 msgstr ""
 
 #: classes/controller/blocks/class-happypoint-controller.php:38
@@ -558,10 +512,12 @@ msgid "Get Involved"
 msgstr ""
 
 #: classes/controller/blocks/class-carouselheader-controller.php:35
+#, php-format
 msgid "Select file for %s image"
 msgstr ""
 
 #: classes/controller/blocks/class-carouselheader-controller.php:44
+#, php-format
 msgid "Select focus point for image %s"
 msgstr ""
 
@@ -570,22 +526,27 @@ msgid "Header"
 msgstr ""
 
 #: classes/controller/blocks/class-carouselheader-controller.php:65
+#, php-format
 msgid "Enter header of %s image"
 msgstr ""
 
 #: classes/controller/blocks/class-carouselheader-controller.php:75
+#, php-format
 msgid "Enter subheader of %s image"
 msgstr ""
 
 #: classes/controller/blocks/class-carouselheader-controller.php:85
+#, php-format
 msgid "Enter description of %s image"
 msgstr ""
 
 #: classes/controller/blocks/class-carouselheader-controller.php:95
+#, php-format
 msgid "Enter link text for %s image"
 msgstr ""
 
 #: classes/controller/blocks/class-carouselheader-controller.php:105
+#, php-format
 msgid "Enter link url for %s image"
 msgstr ""
 
@@ -614,7 +575,8 @@ msgid "Youtube Video"
 msgstr ""
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:52
-msgid "Title. <i>If it is not defined, title will default to 'Publications'</i>"
+msgid ""
+"Title. <i>If it is not defined, title will default to 'Publications'</i>"
 msgstr ""
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:57
@@ -649,4 +611,3 @@ msgstr ""
 #: classes/controller/menu/class-settings-controller.php:22
 msgid "Blocks"
 msgstr ""
-
