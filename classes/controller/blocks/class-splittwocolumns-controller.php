@@ -56,36 +56,97 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 				}
 			}
 
+			$all_tags           = get_tags( [ 'orderby' => 'name' ] );
+			$select_tag_options = [ '0' => '--Select Tag--' ];
+			foreach ( $all_tags as $tag ) {
+				$select_tag_options[] = [
+					'value' => (string) $tag->term_id,
+					'label' => $tag->name,
+				];
+			}
+
+			$select_issue_label = sprintf( '<h3>%1$s</h3>%2$s',
+										__( 'Issue fields (Column 1 - Left side)', 'planet4-blocks' ),
+										__( 'Select an issue', 'planet4-blocks' )
+			);
+			$select_tag_label   = sprintf(  '<br><hr/><br><h3>%1$s</h3>%2$s',
+										__( 'Campaign fields (Column 2 - Right side)', 'planet4-blocks' ),
+										__( 'Select a tag', 'planet4-blocks' )
+			);
+
 			$fields = [
 				[
 					'attr'        => 'select_issue',
-					'label'       => __( 'Select an Issue', 'planet4-blocks' ),
+					'label'       => $select_issue_label,
 					'description' => __( 'Associate this block to the Issue that it will talk about', 'planet4-blocks' ),
 					'type'        => 'select',
 					'options'     => $options,
 				],
 				[
-					'attr'        => 'select_tag',
-					'label'       => __( 'Select a Tag', 'planet4-blocks' ),
-					'description' => __( 'Associate the selected Issue with a Tag', 'planet4-blocks' ),
-					'type'        => 'term_select',
-					'taxonomy'    => 'post_tag',
+					'label' => __( 'Issue Title', 'planet4-blocks' ),
+					'attr'  => 'title',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => __( 'Enter title', 'planet4-blocks' ),
+						'data-plugin' => 'planet4-blocks',
+					],
+					'description' => __( '(Optional) Fill this only if you need to override issue title.', 'planet4-blocks' ),
 				],
 				[
-					'label'       => __( 'Select focus point for issue image', 'planet4-blocks' ) . '<img src="' . esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png' ) ) . '" />',
+					'label' => __( 'Issue Description', 'planet4-blocks' ),
+					'attr'  => 'issue_description',
+					'type'  => 'textarea',
+					'meta'  => [
+						'placeholder' => __( 'Enter description', 'planet4-blocks' ),
+					],
+					'description' => __( '(Optional) Fill this only if you need to override issue description.', 'planet4-blocks' ),
+				],
+				[
+					'label' => __( 'Issue link text', 'planet4-blocks' ),
+					'attr'  => 'issue_link_text',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => __( 'Enter link text', 'planet4-blocks' ),
+					],
+					'description' => __( '(Optional)', 'planet4-blocks' ),
+				],
+				[
+					'label' => __( 'Issue link path', 'planet4-blocks' ),
+					'attr'  => 'issue_link_path',
+					'type'  => 'url',
+					'meta'  => [
+						'placeholder' => __( 'Enter link path', 'planet4-blocks' ),
+					],
+					'description' => __( '(Optional)', 'planet4-blocks' ),
+				],
+				[
+					'label'       => __( 'Issue Image', 'shortcode-ui' ),
+					'attr'        => 'issue_image',
+					'type'        => 'attachment',
+					'libraryType' => [ 'image' ],
+					'addButton'   => __( 'Select Image for Issue', 'shortcode-ui' ),
+					'frameTitle'  => __( 'Select Image for Issue', 'shortcode-ui' ),
+					'description' => __( '(Optional)', 'planet4-blocks' ),
+				],
+				[
+					'label'       => __( 'Select focus point for issue image', 'planet4-blocks' ) . '<img src="' .
+					                 esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png' ) ) . '" />',
 					'attr'        => 'focus_issue_image',
 					'type'        => 'select',
 					'options'     => $focus_options,
+					'description' => __( '(Optional)', 'planet4-blocks' ),
 				],
 				[
-					'label'       => __( 'Select focus point for campaign image', 'planet4-blocks' ) . '<img src="' . esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png' ) ) . '" />',
-					'attr'        => 'focus_tag_image',
+					'attr'        => 'select_tag',
+					'label'       => $select_tag_label,
+					'description' => __( 'Associate the selected Issue with a Tag', 'planet4-blocks' ),
 					'type'        => 'select',
-					'options'     => $focus_options,
+					'options'     => $select_tag_options,
+					'multiple'    => false,
 				],
 				[
-					'label' => __( 'Description', 'planet4-blocks' ),
-					'attr'  => 'description',
+					'label' => __( 'Campaign Description', 'planet4-blocks' ),
+					'attr'  => 'tag_description',
 					'type'  => 'textarea',
 					'meta'  => [
 						'placeholder' => __( 'Enter description', 'planet4-blocks' ),
@@ -93,7 +154,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'description' => __( '(Optional)', 'planet4-blocks' ),
 				],
 				[
-					'label' => __( 'Button text', 'planet4-blocks' ),
+					'label' => __( 'Campaign button text', 'planet4-blocks' ),
 					'attr'  => 'button_text',
 					'type'  => 'text',
 					'meta'  => [
@@ -102,13 +163,29 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'description' => __( '(Optional)', 'planet4-blocks' ),
 				],
 				[
-					'label' => __( 'Button link', 'planet4-blocks' ),
+					'label' => __( 'Campaign button link', 'planet4-blocks' ),
 					'attr'  => 'button_link',
 					'type'  => 'url',
 					'meta'  => [
 						'placeholder' => __( 'Enter button link', 'planet4-blocks' ),
 					],
 					'description' => __( '(Optional)', 'planet4-blocks' ),
+				],
+				[
+					'label'       => __( 'Campaign Image', 'shortcode-ui' ),
+					'attr'        => 'tag_image',
+					'type'        => 'attachment',
+					'libraryType' => [ 'image' ],
+					'addButton'   => __( 'Select Image for Campaign', 'shortcode-ui' ),
+					'frameTitle'  => __( 'Select Image for Campaign', 'shortcode-ui' ),
+					'description' => __( '(Optional)', 'planet4-blocks' ),
+				],
+				[
+					'label'       => __( 'Select focus point for campaign image', 'planet4-blocks' ) . '<img src="' .
+					                 esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png' ) ) . '" />',
+					'attr'        => 'focus_tag_image',
+					'type'        => 'select',
+					'options'     => $focus_options,
 				],
 
 			];
@@ -150,32 +227,39 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 		 * @return string
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
-			$issue_id = absint( $fields['select_issue'] );
+			$issue_id        = absint( $fields['select_issue'] );
 			$issue_meta_data = get_post_meta( $issue_id );
 
 			$tag_id            = absint( $fields['select_tag'] );
 			$tag               = get_term( $tag_id );
-			$campaign_image_id = get_term_meta( $tag_id, 'tag_attachment_id', true );
-			$issue_image_id    = get_post_thumbnail_id( $issue_id );
+			$campaign_image_id = $fields['tag_image'] ?? get_term_meta( $tag_id, 'tag_attachment_id', true );
+			$issue_image_id    = $fields['issue_image'] ?? get_post_thumbnail_id( $issue_id );
+
+			$issue_title       = $fields['title'] ?? ( $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id ) );
+			$issue_description = $fields['issue_description'] ?? ( $issue_meta_data['p4_description'][0] ?? '' );
+			$issue_link_text   = $fields['issue_link_text'] ?? __( 'Learn more about this issue', 'planet4-blocks' );
+			$issue_link_path   = $fields['issue_link_path'] ?? get_permalink( $issue_id );
 
 			$data = $issue_meta_data ? [
 				'issue' => [
-					'title'       => $issue_meta_data['p4_title'][0] ?? get_the_title( $issue_id ),
-					'description' => $issue_meta_data['p4_description'][0] ?? '',
+					'title'       => $issue_title,
+					'description' => $issue_description,
 					'image'       => get_the_post_thumbnail_url( $issue_id ),
 					'srcset'      => wp_get_attachment_image_srcset( $issue_image_id ),
-					'image_alt'   => get_post_meta( $issue_image_id, '_wp_attachment_image_alt', true),
-					'link_text'   => __( 'Learn more about this issue', 'planet4-blocks' ),
-					'link_url'    => get_permalink( $issue_id ),
+					'image_alt'   => get_post_meta( $issue_image_id, '_wp_attachment_image_alt', true ),
+					'link_text'   => $issue_link_text,
+					'link_url'    => $issue_link_path,
 					'focus'       => $fields['focus_issue_image'] ?? '',
 				],
 				'campaign' => [
 					'image'       => wp_get_attachment_url( $campaign_image_id ),
-					'srcset'      => wp_calculate_image_srcset( [ '1118', '746' ], wp_get_attachment_image_src( $campaign_image_id, 'full' )[0], wp_get_attachment_metadata( $campaign_image_id ) ),
-					'image_alt'   => get_post_meta( $campaign_image_id, '_wp_attachment_image_alt', true),
+					'srcset'      => wp_calculate_image_srcset( [ '1118', '746' ],
+										wp_get_attachment_image_src( $campaign_image_id, 'full' )[0],
+										wp_get_attachment_metadata( $campaign_image_id ) ),
+					'image_alt'   => get_post_meta( $campaign_image_id, '_wp_attachment_image_alt', true ),
 					'name'        => $tag->name,
 					'link'        => get_tag_link( $tag ),
-					'description' => $fields['description'] ?? $tag->description,
+					'description' => $fields['tag_description'] ?? $tag->description,
 					'button_text' => $fields['button_text'] ?? __( 'Get Involved', 'planet4-blocks' ),
 					'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 					'focus'       => $fields['focus_tag_image'] ?? '',
