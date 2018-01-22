@@ -7,7 +7,7 @@
 		{% else %}
 			{% set bg_image = '' %}
 		{% endif %}
-		<div class="cover-card single-cover dark-card-bg" {{ bg_image|raw }}>
+		<div id="action-card" class="cover-card single-cover dark-card-bg" {{ bg_image|raw }}>
 			{% if ( page.first_tag and page.first_tag_link ) %}
 				<a href="{{ page.first_tag_link }}" class="cover-card-tag">#{{ page.first_tag }}</a>
 			{% endif %}
