@@ -120,12 +120,12 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'description' => __( '(Optional)', 'planet4-blocks' ),
 				],
 				[
-					'label'       => __( 'Issue Image', 'shortcode-ui' ),
+					'label'       => __( 'Issue Image', 'planet4-blocks' ),
 					'attr'        => 'issue_image',
 					'type'        => 'attachment',
 					'libraryType' => [ 'image' ],
-					'addButton'   => __( 'Select Image for Issue', 'shortcode-ui' ),
-					'frameTitle'  => __( 'Select Image for Issue', 'shortcode-ui' ),
+					'addButton'   => __( 'Select Image for Issue', 'planet4-blocks' ),
+					'frameTitle'  => __( 'Select Image for Issue', 'planet4-blocks' ),
 					'description' => __( '(Optional)', 'planet4-blocks' ),
 				],
 				[
@@ -172,12 +172,12 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'description' => __( '(Optional)', 'planet4-blocks' ),
 				],
 				[
-					'label'       => __( 'Campaign Image', 'shortcode-ui' ),
+					'label'       => __( 'Campaign Image', 'planet4-blocks' ),
 					'attr'        => 'tag_image',
 					'type'        => 'attachment',
 					'libraryType' => [ 'image' ],
-					'addButton'   => __( 'Select Image for Campaign', 'shortcode-ui' ),
-					'frameTitle'  => __( 'Select Image for Campaign', 'shortcode-ui' ),
+					'addButton'   => __( 'Select Image for Campaign', 'planet4-blocks' ),
+					'frameTitle'  => __( 'Select Image for Campaign', 'planet4-blocks' ),
 					'description' => __( '(Optional)', 'planet4-blocks' ),
 				],
 				[
