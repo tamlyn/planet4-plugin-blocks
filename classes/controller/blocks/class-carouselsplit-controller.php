@@ -25,13 +25,13 @@ if ( ! class_exists( 'CarouselSplit_Controller' ) ) {
 
 			$fields = [
 				[
-					'label'       => __( 'Images', 'planet4-blocks' ),
+					'label'       => __( 'Images', 'shortcode-ui' ),
 					'attr'        => 'multiple_images',
 					'type'        => 'attachment',
 					'libraryType' => [ 'image' ],
 					'multiple'    => true,
-					'addButton'   => __( 'Select Images for Carousel', 'planet4-blocks' ),
-					'frameTitle'  => __( 'Select Images for Carousel', 'planet4-blocks' ),
+					'addButton'   => __( 'Select Images for Carousel', 'shortcode-ui' ),
+					'frameTitle'  => __( 'Select Images for Carousel', 'shortcode-ui' ),
 				],
 			];
 

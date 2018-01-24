@@ -3,19 +3,19 @@
 	{% if ( page ) %}
 
 		{% if ( page.image ) %}
-			{% set bg_image = 'style="background-image: url(\''~page.image~'\');"' %}
+			{% set bg_image = 'style="background-image: linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url(\''~page.image~'\');"' %}
 		{% else %}
 			{% set bg_image = '' %}
 		{% endif %}
-		<div id="action-card" class="cover-card single-cover dark-card-bg" {{ bg_image|raw }}>
+		<div class="cover-card single-cover dark-card-bg" {{ bg_image|raw }}>
 			{% if ( page.first_tag and page.first_tag_link ) %}
 				<a href="{{ page.first_tag_link }}" class="cover-card-tag">#{{ page.first_tag }}</a>
 			{% endif %}
 			{% if ( page.title ) %}
-				<h2 class="cover-card-heading">{{ page.title|e('wp_kses_post')|raw }}</h2>
+				<h2 class="cover-card-heading">{{ page.title }}</h2>
 			{% endif %}
 			{% if ( page.excerpt ) %}
-				<p>{{ page.excerpt|e('wp_kses_post')|excerpt(25)|raw }}</p>
+				<p>{{ page.excerpt|excerpt(25)|raw }}</p>
 			{% endif %}
 			{% if ( page.link ) %}
 				<a class="btn btn-action btn-block cover-card-btn" href="{{ page.link }}">
