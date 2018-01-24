@@ -13,7 +13,7 @@
 
 				<div class="row limit-visibility">
 					{% for cover in covers %}
-						<div class="col-lg-4 col-md-6">
+						<div class="col-lg-4 col-md-6 cover-card-column">
 							<div class="cover-card card-one" style="background-image: url({{ cover.image }});">
 								{% if ( cover.tags ) %}
 									{% for tag in cover.tags %}
