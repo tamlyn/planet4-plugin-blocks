@@ -13,29 +13,31 @@
 
 				<div class="row limit-visibility">
 					{% for cover in covers %}
-						<div class="cover-card card-one" style="background-image: linear-gradient(180deg, rgba(213, 239, 242, 1), rgba(255, 255, 255, 0.3)), url({{ cover.image }});">
-							{% if ( cover.tags ) %}
-								{% for tag in cover.tags %}
-									<a class="cover-card-tag"
-									   href="{{ tag.href|e('esc_url') }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
-								{% endfor %}
-							{% endif %}
-							<h2 class="cover-card-heading">{{ cover.title|e('wp_kses_post')|raw }}</h2>
-							<p>{{ cover.excerpt|truncate(25)|e('wp_kses_post')|raw }}</p>
-							<a class="btn btn-action btn-block cover-card-btn"
-							   href="{{ cover.button_link|e('esc_url') }}">{{ cover.button_text }}</a>
+						<div class="col-lg-4 col-md-6 cover-card-column">
+							<div class="cover-card card-one" style="background-image: url({{ cover.image }});">
+								{% if ( cover.tags ) %}
+									{% for tag in cover.tags %}
+										<a class="cover-card-tag"
+											 href="{{ tag.href|e('esc_url') }}">#{{ tag.name|e('wp_kses_post')|raw }}</a>
+									{% endfor %}
+								{% endif %}
+								<h2 class="cover-card-heading">{{ cover.title|e('wp_kses_post')|raw }}</h2>
+								<p>{{ cover.excerpt|truncate(25)|e('wp_kses_post')|raw }}</p>
+								<a class="btn btn-action btn-block cover-card-btn"
+									 href="{{ cover.button_link|e('esc_url') }}">{{ cover.button_text }}</a>
+							</div>
 						</div>
 					{% endfor %}
 				</div>
 
 				{% if ( fields.button_text ) %}
 					{% if ( covers|length > 6 and covers_view == 0 ) %}
-						<div class="col-lg-4 col-md-6 mb-5 load-more-covers-button-div">
+						<div class="col-lg-4 col-md-6 mb-lg-5 load-more-covers-button-div">
 							<button class="btn btn-block btn-small btn-secondary btn-load-more-covers-click">{{ fields.button_text }}</button>
 						</div>
 					{% elseif ( ( covers|length > 4 and covers|length <= 6 and covers_view == 0 ) or
 								( covers|length > 4 and covers_view == 1 ) ) %}
-						<div class="col-lg-4 col-md-6 mb-5 load-more-covers-button-div hidden-lg-up">
+						<div class="col-lg-4 col-md-6 mb-lg-5 load-more-covers-button-div hidden-lg-up">
 							<button class="btn btn-block btn-small btn-secondary btn-load-more-covers-click">{{ fields.button_text }}</button>
 						</div>
 					{% endif %}
