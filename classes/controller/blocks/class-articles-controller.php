@@ -86,6 +86,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$fields['read_more_text'] = $fields['read_more_text'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
 			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '/?s=&orderby=post_date&f[ctype][Post]=3';
 			$exclude_post_id          = (int) $fields['exclude_post_id'] ?? '';
+			$tag_id                   = $fields['tag_id'] ?? '';
 
 			//Get page categories
 			$post_categories         = get_the_category();
@@ -111,6 +112,10 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			// For post page block so current main post will exclude.
 			if( $exclude_post_id ) {
 				$args['post__not_in'] = [$exclude_post_id];
+			}
+
+			if ( $tag_id ) {
+				$args['tag_id'] = $tag_id;
 			}
 
 			$all_posts = wp_get_recent_posts( $args );
