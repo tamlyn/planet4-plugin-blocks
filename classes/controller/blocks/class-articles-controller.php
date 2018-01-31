@@ -84,7 +84,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			// Read more button links to search results if no link is specified.
 			$fields['article_count']  = ( ! empty( $fields['article_count'] ) ) ? $fields['article_count'] : 3;
 			$fields['read_more_text'] = $fields['read_more_text'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
-			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '/?s=&orderby=post_date&f[ctype][Post]=3';
+			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_site_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
 			$exclude_post_id          = (int) $fields['exclude_post_id'] ?? '';
 			$tag_id                   = $fields['tag_id'] ?? '';
 
