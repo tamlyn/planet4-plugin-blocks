@@ -64,6 +64,7 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 							// translators: placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 							'placeholder' => sprintf( __( 'Enter header of %s image', 'planet4-blocks' ), $i ),
 							'data-plugin' => 'planet4-blocks',
+							'maxlength' => 40,
 						],
 					],
 					[
