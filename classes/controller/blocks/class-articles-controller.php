@@ -100,9 +100,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			// On other than tag page, read more link should lead to search page-preselected with current page categories.
 			if ( '' == $tag_id ) {
 				$category_filter = '';
-				if ( $category_id_array ) {
-					foreach ( $category_id_array as $category_id ) {
-						$category_filter .= '&f[cat][' . get_category($category_id)->name . ']=' . $category_id;
+				if ( $post_categories ) {
+					foreach ( $post_categories as $category ) {
+						$category_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
 					}
 				}
 				$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : $read_more_link . $category_filter;
