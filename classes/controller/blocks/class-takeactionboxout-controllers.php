@@ -106,7 +106,7 @@ if ( ! class_exists( 'TakeActionBoxout_Controller' ) ) {
 
 			// Populate variables.
 			$block = [
-				'first_tag'      => null === $tag ? '' : $tag->slug,
+				'first_tag'      => null === $tag ? '' : $tag->name,
 				'first_tag_link' => null === $tag ? '' : get_tag_link( $tag ),
 				'title'          => null === $page ? '' : $page->post_title,
 				'excerpt'        => null === $page ? '' : $page->post_excerpt,
