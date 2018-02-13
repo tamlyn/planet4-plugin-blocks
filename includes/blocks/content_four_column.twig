@@ -20,7 +20,9 @@
 									<div class="four-column-content-info">
 										<div class="four-column-content-symbol">
 											{% if ( post.thumbnail ) %}
-												<img src="{{ post.thumbnail }}" alt="{{ post.alt_text }}">
+												<img src="{{ post.thumbnail }}"
+													 alt="{{ post.alt_text }}"
+													 srcset="{{ post.srcset }}">
 											{% endif %}
 										</div>
 										<div class="four-column-content-information">
