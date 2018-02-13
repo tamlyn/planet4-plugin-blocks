@@ -99,13 +99,28 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// On other than tag page, read more link should lead to search page-preselected with current page categories.
 			if ( '' == $tag_id ) {
-				$category_filter = '';
+				$read_more_filter = '';
 				if ( $post_categories ) {
+					$options = get_option( 'planet4_options' );
 					foreach ( $post_categories as $category ) {
-						$category_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
+						// For issue page.
+						if ( $category->parent === (int)$options['issues_parent_category'] ) {
+							$read_more_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
+						}
 					}
 				}
-				$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : $read_more_link . $category_filter;
+
+				if ( '' === $read_more_filter ) {
+					// For normal page and post.
+					$post_tags = get_the_tags();
+					if ( $post_tags ) {
+						foreach ( $post_tags as $tag ) {
+							$read_more_filter .= '&f[tag][' . $tag->name . ']=' . $tag->term_id;
+						}
+					}
+				}
+
+				$read_more_link = $fields['read_more_link'] ?? $read_more_link . $read_more_filter;
 			}
 			$fields['read_more_link'] = $read_more_link;
 
