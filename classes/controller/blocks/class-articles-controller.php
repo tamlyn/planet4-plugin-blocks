@@ -86,7 +86,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$fields['read_more_text'] = $fields['read_more_text'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
 			$tag_id                   = $fields['tag_id'] ?? '';
 			$tag_filter               = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';
-			$fields['read_more_link'] = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_site_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
+			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_site_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
 			$exclude_post_id          = (int) $fields['exclude_post_id'] ?? '';
 
 			//Get page categories
@@ -96,6 +96,18 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			foreach ( $post_categories as $category ) {
 				$category_id_array[] = $category->term_id;
 			}
+
+			// On other than tag page, read more link should lead to search page-preselected with current page categories.
+			if ( '' == $tag_id ) {
+				$category_filter = '';
+				if ( $post_categories ) {
+					foreach ( $post_categories as $category ) {
+						$category_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
+					}
+				}
+				$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : $read_more_link . $category_filter;
+			}
+			$fields['read_more_link'] = $read_more_link;
 
 			$category_ids = '';
 			if ( $category_id_array ) {
