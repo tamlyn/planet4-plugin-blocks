@@ -5,6 +5,7 @@
 				{% if ( fields.background_src.0 ) %}
 					.happy-point-block-wrap {
 						background: url({{ fields.background_src.0 }}) center center no-repeat;
+						data-background-position: {{ fields['focus_image'] }};
 					}
 				{% endif %}
 				{% if ( fields.opacity ) %}
