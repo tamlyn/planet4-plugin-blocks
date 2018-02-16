@@ -57,14 +57,14 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 					'type'        => 'select',
 					'options'     => [
 						[
-							'value' => '3',
-							// translators: placeholder is a number.
-							'label' => sprintf( __( 'Show %s covers', 'planet4-blocks' ), 3 ),
-						],
-						[
 							'value' => '0',
 							// translators: placeholder is a number.
 							'label' => sprintf( __( 'Show %s covers', 'planet4-blocks' ), 6 ),
+						],
+						[
+							'value' => '3',
+							// translators: placeholder is a number.
+							'label' => sprintf( __( 'Show %s covers', 'planet4-blocks' ), 3 ),
 						],
 						[
 							'value' => '1',
