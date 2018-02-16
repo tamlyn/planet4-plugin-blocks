@@ -50,14 +50,21 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 				[
 					'label'       => __( 'Number of covers displayed', 'planet4-blocks' ),
 					'description' => __( 'Select how many covers will be shown in large screens.<br> 
-										All available covers or only the first 6 covers.<br>
-										In small screens 4 covers will be shown by default.', 'planet4-blocks' ),
+										All available covers, first 3 covers or first 6 covers.<br>
+										In small screens 4 covers will be shown by default, except when 3 covers is selected.',
+										'planet4-blocks' ),
 					'attr'        => 'covers_view',
 					'type'        => 'select',
 					'options'     => [
 						[
+							'value' => '3',
+							// translators: placeholder is a number.
+							'label' => sprintf( __( 'Show %s covers', 'planet4-blocks' ), 3 ),
+						],
+						[
 							'value' => '0',
-							'label' => __( 'Show 6 covers', 'planet4-blocks' ),
+							// translators: placeholder is a number.
+							'label' => sprintf( __( 'Show %s covers', 'planet4-blocks' ), 6 ),
 						],
 						[
 							'value' => '1',
@@ -155,7 +162,7 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 				$fields['button_text'] = __( 'Load More ...', 'planet4-blocks' );
 			}
 
-			$covers_view = isset($fields['covers_view']) ? intval($fields['covers_view']) : 1;
+			$covers_view = isset( $fields['covers_view'] ) ? intval( $fields['covers_view'] ) : 1;
 
 			$data = [
 				'fields'      => $fields,
