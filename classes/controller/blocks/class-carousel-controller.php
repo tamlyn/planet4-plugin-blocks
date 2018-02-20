@@ -117,7 +117,7 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 				$image_data_array             = wp_get_attachment_image_src( $image_id, 'retina-large' );
 				$images_data['image_src']     = $image_data_array[0];
 				$images_data['image_srcset']  = wp_get_attachment_image_srcset( $image_id, 'retina-large', wp_get_attachment_metadata( $image_id ) );
-				$images_data['image_sizes']   = wp_calculate_image_sizes( 'large', null, null, $image_id );
+				$images_data['image_sizes']   = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
 				$images_data['alt_text']      = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
 				$image_metadata               = get_post( $image_id );
 				$attachment_fields            = get_post_custom( $image_id );
