@@ -46,6 +46,7 @@ if ( ! class_exists( 'MediaVideo_Controller' ) ) {
 				'label'         => __( 'Youtube Video', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/media_video.jpg' ) . '" />',
 				'attrs'         => $fields,
+				'post_type'     => P4BKS_ALLOWED_PAGETYPE,
 			);
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
