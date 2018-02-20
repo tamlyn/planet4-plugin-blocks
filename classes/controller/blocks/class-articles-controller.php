@@ -155,7 +155,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					foreach ( $post_tags as $tag ) {
 						$tag_id_array[] = $tag->term_id;
 					}
-					$args['tag_id'] = implode( ',', $tag_id_array );
+					$args['tag__in'] = $tag_id_array;
 				}
 			}
 
