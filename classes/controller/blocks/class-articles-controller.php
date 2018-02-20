@@ -97,7 +97,10 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				$category_id_array[] = $category->term_id;
 			}
 
-			// On other than tag page, read more link should lead to search page-preselected with current page categories.
+			// Get page/post tags.
+			$post_tags = get_the_tags();
+
+			// On other than tag page, read more link should lead to search page-preselected with current page categories/tags.
 			if ( '' == $tag_id ) {
 				$read_more_filter = '';
 				if ( $post_categories ) {
@@ -112,7 +115,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 				if ( '' === $read_more_filter ) {
 					// For normal page and post.
-					$post_tags = get_the_tags();
 					if ( $post_tags ) {
 						foreach ( $post_tags as $tag ) {
 							$read_more_filter .= '&f[tag][' . $tag->name . ']=' . $tag->term_id;
@@ -144,6 +146,17 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			if ( $tag_id ) {
 				$args['tag_id'] = $tag_id;
+			}
+
+			// For post, display related article based on current post tags.
+			if ( 'post' === get_post_type() ) {
+				if ( $post_tags ) {
+					$tag_id_array = [];
+					foreach ( $post_tags as $tag ) {
+						$tag_id_array[] = $tag->term_id;
+					}
+					$args['tag__in'] = $tag_id_array;
+				}
 			}
 
 			$all_posts = wp_get_recent_posts( $args );
