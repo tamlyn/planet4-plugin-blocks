@@ -83,7 +83,7 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 			$shortcode_atts_pairs =[
 				'background'          => '',
 				'opacity'             => 30,
-				"focus_image" => $attributes[ "focus_image" ] ?? '',
+				"focus_image" => $attributes[ "focus_image" ] ?? 'center center',
 				'mailing_list_iframe' => '',
 			];
 
