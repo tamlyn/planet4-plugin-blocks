@@ -46,11 +46,11 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 			$options = [];
 			if ( $categories ) {
 				foreach ( $categories as $category ) {
-					$issue = get_page_by_title( $category->name );      // Category and Issue need to have the same name.
+					$issue = get_page_by_title( html_entity_decode( $category->name ) );      // Category and Issue need to have the same name.
 					if ( $issue ) {
 						$options[] = [
 							'value' => (string) $issue->ID,
-							'label' => get_the_title( $issue->ID ),
+							'label' => html_entity_decode( $category->name ),
 						];
 					}
 				}
