@@ -37,6 +37,7 @@ if ( ! class_exists( 'Subheader_Controller' ) ) {
 				'label'         => __( 'Subheader', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/icon_subheader.png' ) . '" />',
 				'attrs'         => $fields,
+				'post_type'     => P4BKS_ALLOWED_PAGETYPE,
 			);
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );

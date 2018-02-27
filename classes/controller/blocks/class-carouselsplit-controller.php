@@ -41,6 +41,7 @@ if ( ! class_exists( 'CarouselSplit_Controller' ) ) {
 				'label'         => __( 'Carousel Split', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/carousel_split.png' ) . '" />',
 				'attrs'         => $fields,
+				'post_type'     => P4BKS_ALLOWED_PAGETYPE,
 			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );

@@ -42,6 +42,7 @@ if ( ! class_exists( 'MediaBlock_Controller' ) ) {
 				'label'         => __( 'Media block', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/media_block.png' ) . '" />',
 				'attrs'         => $fields,
+				'post_type'     => P4BKS_ALLOWED_PAGETYPE,
 			];
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
 		}

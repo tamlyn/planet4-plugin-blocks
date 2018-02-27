@@ -94,6 +94,7 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 				 * See above, to where the the assignment to the $fields variable was made.
 				 */
 				'attrs' => $fields,
+				'post_type' => P4BKS_ALLOWED_PAGETYPE,
 			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
