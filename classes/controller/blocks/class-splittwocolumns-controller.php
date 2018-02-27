@@ -242,7 +242,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 
 			$data = $issue_meta_data ? [
 				'issue' => [
-					'title'       => $issue_title,
+					'title'       => html_entity_decode( $issue_title ),
 					'description' => $issue_description,
 					'image'       => get_the_post_thumbnail_url( $issue_id ),
 					'srcset'      => wp_get_attachment_image_srcset( $issue_image_id ),
