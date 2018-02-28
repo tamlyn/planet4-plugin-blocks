@@ -211,6 +211,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 				 * See above, to where the the assignment to the $fields variable was made.
 				 */
 				'attrs' => $fields,
+				'post_type' => P4BKS_ALLOWED_PAGETYPE,
 			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
@@ -242,7 +243,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 
 			$data = $issue_meta_data ? [
 				'issue' => [
-					'title'       => $issue_title,
+					'title'       => html_entity_decode( $issue_title ),
 					'description' => $issue_description,
 					'image'       => get_the_post_thumbnail_url( $issue_id ),
 					'srcset'      => wp_get_attachment_image_srcset( $issue_image_id ),

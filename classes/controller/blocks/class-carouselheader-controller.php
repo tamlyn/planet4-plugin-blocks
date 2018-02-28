@@ -117,6 +117,7 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 				'label'         => __( 'Carousel Header', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/carousel_header.png' ) . '" />',
 				'attrs'         => $fields,
+				'post_type'     => P4BKS_ALLOWED_PAGETYPE,
 			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
@@ -138,7 +139,7 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 			for ( $i = 1; $i < 5; $i++ ) {
 				$temp_array      = [
 					"header_$i"      => $attributes[ "header_$i" ] ?? '',
-					"subheader_$i"   => $attributes[ "header_$i" ] ?? '',
+					"subheader_$i"   => $attributes[ "subheader_$i" ] ?? '',
 					"description_$i" => $attributes[ "description_$i" ] ?? '',
 					"image_$i"       => $attributes[ "image_$i" ] ?? '',
 					"focus_image_$i" => $attributes[ "focus_image_$i" ] ?? '',
@@ -147,7 +148,7 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 				];
 				$attributes_temp = array_merge( $attributes_temp, $temp_array );
 			}
-			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
+			$attributes = shortcode_atts( $attributes, $attributes_temp, $shortcode_tag );
 
 			$total_images = 0;
 			for ( $i = 1; $i < 5; $i++ ) {
