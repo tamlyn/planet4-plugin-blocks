@@ -100,15 +100,21 @@ if ( ! class_exists( 'TakeActionBoxout_Controller' ) ) {
 				$posts   = $query->get_posts();
 				$page    = $posts[0];
 				$wp_tags = wp_get_post_tags( $page->ID );
+				$tags    = [];
+
 				if ( is_array( $wp_tags ) && $wp_tags ) {
-					$tag = $wp_tags[0];
+					foreach ( $wp_tags as $wp_tag ) {
+						$tags[] = [
+							'name' => $wp_tag->name,
+							'link' => get_tag_link( $wp_tag ),
+						];
+					}
 				}
 			}
 
 			// Populate variables.
 			$block = [
-				'first_tag'      => null === $tag ? '' : $tag->name,
-				'first_tag_link' => null === $tag ? '' : get_tag_link( $tag ),
+				'campaigns'      => $tags,
 				'title'          => null === $page ? '' : $page->post_title,
 				'excerpt'        => null === $page ? '' : $page->post_excerpt,
 				'link'           => null === $page ? '' : get_permalink( $page ),
@@ -116,7 +122,7 @@ if ( ! class_exists( 'TakeActionBoxout_Controller' ) ) {
 			];
 
 			$data = [
-				'page' => $block,
+				'boxout' => $block,
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
