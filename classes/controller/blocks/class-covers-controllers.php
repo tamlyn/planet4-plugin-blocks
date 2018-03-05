@@ -137,7 +137,7 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 			$covers  = [];
 
 			if ( $actions ) {
-				$cover_button_text = __( 'Take Action', 'planet4-blocks' );
+				$cover_button_text = $options['take_action_covers_button_text'] ?? __( 'Take Action', 'planet4-blocks' );
 
 				foreach ( $actions as $action ) {
 					$tags    = [];
