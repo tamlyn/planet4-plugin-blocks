@@ -54,6 +54,7 @@ if ( ! class_exists( 'Loader' ) ) {
 				}
 			}
 			$this->check_requirements();
+			add_action('plugins_loaded', array( $this, 'load_i18n' ) );
 		}
 
 		/**
