@@ -15,30 +15,32 @@
 					<div class="row row-hidden" id="publications-row-{{ loop.index }}" style="display: none;">
 				{% endif %}
 						<div class="col-md-4 col-lg-3 col-xl-3">
-							<a href="{{ post.permalink }}">
-								<div class="four-column-content-wrap clearfix">
-									<div class="four-column-content-info">
-										<div class="four-column-content-symbol">
-											{% if ( post.thumbnail ) %}
+							<div class="four-column-content-wrap clearfix">
+								<div class="four-column-content-info">
+									<div class="four-column-content-symbol">
+										{% if ( post.thumbnail ) %}
+											<a href="{{ post.permalink }}">
 												<img src="{{ post.thumbnail }}"
 													 alt="{{ post.alt_text }}"
 													 srcset="{{ post.srcset }}">
-											{% endif %}
-										</div>
-										<div class="four-column-content-information">
-											{% if ( post.post_title ) %}
+										 </a>
+										{% endif %}
+									</div>
+									<div class="four-column-content-information">
+										{% if ( post.post_title ) %}
+											<a href="{{ post.permalink }}">
 												<h4>{{ post.post_title|e('wp_kses_post')|raw }}</h4>
-											{% endif %}
-											{% if ( post.post_date ) %}
-												<p class="publication-date">{{ post.post_date|date('F Y') }}</p>
-											{% endif %}
-											{% if ( post.post_excerpt ) %}
-												<p class="d-none d-md-block">{{ post.post_excerpt|truncate( 30, true )|e('wp_kses_post')|raw }}</p>
-											{% endif %}
-										</div>
+											</a>
+										{% endif %}
+										{% if ( post.post_date ) %}
+											<p class="publication-date">{{ post.post_date|date('F Y') }}</p>
+										{% endif %}
+										{% if ( post.post_excerpt ) %}
+											<p class="d-none d-md-block">{{ post.post_excerpt|truncate( 30, true )|e('wp_kses_post')|raw }}</p>
+										{% endif %}
 									</div>
 								</div>
-							</a>
+							</div>
 						</div>
 				{% if ( (loop.index0 % 4 == 3)) %}
 				</div>
