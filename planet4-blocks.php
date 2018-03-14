@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Planet4 - Blocks
  * Description: Creates all the blocks that will be available for usage by Shortcake.
- * Plugin URI: http://github.com/greenpeace/planet4-plugin-engagingnetworks
- * Version: 0.1.42.1
+ * Plugin URI: http://github.com/greenpeace/planet4-plugin-blocks
+ * Version: 0.1.43
  * Php Version: 7.0
  *
  * Author: Greenpeace International
