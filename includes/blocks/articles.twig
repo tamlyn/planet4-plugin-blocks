@@ -44,7 +44,7 @@
 										{% endif %}
 										<p class="article-list-item-meta">
 											{% if ( value.author ) %}
-												<span class="article-list-item-author">by {{ value.author }}</span>
+												<span class="article-list-item-author">{{ __( 'by', domain ) }} {{ value.author }}</span>
 											{% endif %}
 											{% if ( value.post_date ) %}
 												<time class="article-list-item-date" datetime="">{{ value.post_date|date("d M, Y") }}</time>
@@ -54,7 +54,7 @@
 
 									{% if ( value.post_excerpt ) %}
 										<p class="article-list-item-content">
-											<a href="{{ value.permalink }}">{{ value.post_excerpt|truncate( 30, true )|e('wp_kses_post')|raw }}</a>
+											{{ value.post_excerpt|truncate( 30, true )|e('wp_kses_post')|raw }}
 										</p>
 									{% endif %}
 								</div>
