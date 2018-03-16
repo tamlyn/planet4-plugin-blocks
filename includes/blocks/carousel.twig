@@ -22,12 +22,14 @@
 							 alt="{{ single_image.alt_text }}">
 						{% if ( single_image.caption or single_image.credits ) %}
 							<div class="carousel-caption">
-								{% if ( single_image.caption ) %}
-									<h3>{{ single_image.caption }}</h3>
-								{% endif %}
-								{% if ( single_image.credits ) %}
-									<p class="d-none d-md-block">{{ single_image.credits }}</p>
-								{% endif %}
+								<p>
+									{% if ( single_image.caption ) %}
+										{{ single_image.caption }}
+									{% endif %}
+									{% if ( single_image.credits ) %}
+										{{ single_image.credits }}
+									{% endif %}
+								</p>
 							</div>
 						{% endif %}
 					</div>
