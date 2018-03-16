@@ -74,22 +74,19 @@
 								{% if ( fields['title_'~i] ) %}
 
 									<div class="card">
-										<div class="card-header" role="tab" id="heading-{{ number_to_word }}">
-											<h5 class="mb-0">
-												<a {{ i>1 ? 'class="collapsed"' : '' }}
-														data-toggle="collapse" data-parent="#accordion"
-														href="#collapse-{{ number_to_word }}"
-														aria-expanded="true"
-														aria-controls="collapse-{{ number_to_word }}">
-													<span class="step-number">{{ i }}</span>
-													{% if ( fields['title_'~i] ) %}
-														{{ fields['title_'~i] }}
-													{% endif %}
-												</a>
-											</h5>
-										</div>
+										<a class="card-header {{ i>1 ? 'collapsed' : '' }}" role="tab" id="heading-{{ number_to_word }}"
+												data-toggle="collapse" data-target="#collapse-{{ number_to_word }}"
+												href="#collapse-{{ number_to_word }}"
+												aria-expanded="true"
+												aria-controls="collapse-{{ number_to_word }}">
+											<span class="step-number">{{ i }}</span>
+											{% if ( fields['title_'~i] ) %}
+												{{ fields['title_'~i] }}
+											{% endif %}
+										</a>
 
-										<div id="collapse-{{ number_to_word }}" class="{{ i == 1 ? 'collapse show' : 'collapse' }}" role="tabpanel"
+										<div id="collapse-{{ number_to_word }}" class="{{ i == 1 ? 'collapse show' : 'collapse' }}"
+												 data-parent="#accordion" role="tabpanel"
 										     aria-labelledby="heading-{{ number_to_word }}">
 											<div class="card-block info-with-image-wrap clearfix">
 												<div class="accordion-image-wrap">
