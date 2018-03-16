@@ -32,27 +32,26 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 				[ 'value' => 'right bottom',  'label' => __( '9 - Bottom Right', 'planet4-blocks' ) ],
 			];
 
-			$option_values     = get_option( 'planet4_options' );
-			$issue_category_id = $option_values['issues_parent_category'] ?? '';
-			$categories        = [];
-			if ( 0 !== absint( $issue_category_id ) ) {
-				$categories   = get_categories( [
-					'parent'    => $issue_category_id,                  // Get the dynamic id of the 'Issue' category.
-					'orderby'   => 'name',
-					'order'     => 'ASC',
-				] );
-			}
+			$option_values   = get_option( 'planet4_options' );
+			$options         = [];
+			$explore_page_id = $option_values['explore_page'] ?? '';
 
-			$options = [];
-			if ( $categories ) {
-				foreach ( $categories as $category ) {
-					$issue = get_page_by_title( html_entity_decode( $category->name ) );      // Category and Issue need to have the same name.
-					if ( $issue ) {
-						$options[] = [
-							'value' => (string) $issue->ID,
-							'label' => html_entity_decode( $category->name ),
-						];
-					}
+			$args = array(
+				'sort_order'   => 'asc',
+				'sort_column'  => 'post_title',
+				'hierarchical' => 1,
+				'child_of'     => $explore_page_id,
+				'post_type'    => 'page',
+				'post_status'  => 'publish'
+			);
+			$pages = get_pages($args);
+
+			if ( $pages ) {
+				foreach ( $pages as $issue ) {
+					$options[] = [
+						'value' => (string) $issue->ID,
+						'label' => $issue->post_title,
+					];
 				}
 			}
 
