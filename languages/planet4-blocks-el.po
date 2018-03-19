@@ -797,6 +797,10 @@ msgstr "Διάλεξε γλώσσα"
 msgid "Save Changes"
 msgstr "Αποθήκευσε αλλαγές"
 
+#: includes/blocks/articles.twig:47
+msgid "by"
+msgstr "από"
+
 #. Plugin Name of the plugin/theme
 msgid "Planet4 - Blocks"
 msgstr ""
