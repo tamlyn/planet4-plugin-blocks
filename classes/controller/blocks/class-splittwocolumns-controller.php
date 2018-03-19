@@ -39,12 +39,11 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 			$args = array(
 				'sort_order'   => 'asc',
 				'sort_column'  => 'post_title',
-				'hierarchical' => 1,
 				'child_of'     => $explore_page_id,
 				'post_type'    => 'page',
-				'post_status'  => 'publish'
+				'post_status'  => 'publish',
 			);
-			$pages = get_pages($args);
+			$pages = get_pages( $args );
 
 			if ( $pages ) {
 				foreach ( $pages as $issue ) {
