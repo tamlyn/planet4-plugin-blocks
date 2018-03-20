@@ -7,7 +7,7 @@
 				{% endif %}
 				<div class="row">
 					{% for i in 1..4 %}
-						<div class="col-md-6 col-lg-3 col-xl-3 four-column-wrap">
+						<div class="col-md-6 col-lg four-column-wrap">
 							{% set link_url = fields['link_url_'~i] %}
 							{% if ( fields['attachment_'~i] and link_url ) %}
 								<div class="four-column-symbol-container">
