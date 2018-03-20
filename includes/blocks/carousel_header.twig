@@ -22,6 +22,7 @@
 									<img src="{{ fields['image_'~i] }}"
 										 data-background-position="{{ fields['focus_image_'~i] }}"
 										 srcset="{{ fields['image_'~i~'_srcset'] }}"
+										 sizes="{{ fields['image_'~i~'_sizes'] }}"
 										 alt="{{ attribute( fields, 'image_'~i~'_alt' ) }}">
 								{% endif %}
 								<div class="carousel-caption">
