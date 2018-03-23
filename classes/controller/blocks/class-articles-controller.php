@@ -177,10 +177,11 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$recent['author']    = '' === $author_override ? get_the_author_meta( 'display_name', $recent['post_author'] ) : $author_override;
 
 					if ( has_post_thumbnail( $recent['ID'] ) ) {
-						$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'], 'medium' );
-						$img_id              = get_post_thumbnail_id( $recent['ID'] );
-						$recent['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-						$recent['srcset']    = wp_calculate_image_srcset( [ '400', '267' ], wp_get_attachment_image_src( $img_id, 'medium' )[0], wp_get_attachment_metadata( $img_id ) );
+						$recent['thumbnail']       = get_the_post_thumbnail_url( $recent['ID'], 'articles-medium-large' );
+						$img_id                    = get_post_thumbnail_id( $recent['ID'] );
+						$dimensions                = wp_get_attachment_metadata( $img_id );
+						$recent['thumbnail_ratio'] = ( isset( $dimensions['height'] ) && $dimensions['height'] > 0 ) ? $dimensions['width'] / $dimensions['height'] : 1;
+						$recent['alt_text']        = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 					}
 
 					$wp_tags = wp_get_post_tags( $recent['ID'] );
