@@ -63,7 +63,7 @@ P4BKS\Loader::get_instance( [
 	'P4BKS\Controllers\Blocks\ContentFourColumn_Controller',
 	'P4BKS\Controllers\Blocks\StaticFourColumn_Controller',
 	'P4BKS\Controllers\Blocks\TwoColumn_Controller',
-	'P4BKS\Controllers\Blocks\CarouselSplit_Controller',
+	//'P4BKS\Controllers\Blocks\CarouselSplit_Controller',
 	'P4BKS\Controllers\Blocks\Tasks_Controller',
 	'P4BKS\Controllers\Blocks\HappyPoint_Controller',
 	'P4BKS\Controllers\Blocks\MediaBlock_Controller',
