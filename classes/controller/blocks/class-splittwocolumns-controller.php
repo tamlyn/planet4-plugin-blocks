@@ -43,7 +43,8 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 				'post_type'    => 'page',
 				'post_status'  => 'publish',
 			);
-			$pages = get_pages( $args );
+			$pages   = get_pages( $args );
+			$options = [ '0' => '--Select Issue--' ];
 
 			if ( $pages ) {
 				foreach ( $pages as $issue ) {
