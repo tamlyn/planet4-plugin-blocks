@@ -37,11 +37,12 @@ if ( ! class_exists( 'CarouselSplit_Controller' ) ) {
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
+				// replace the post_type value with P4BKS_ALLOWED_PAGETYPE when you want this enabled again.
 				// translators: A block that contains a carousel with split images.
 				'label'         => __( 'Carousel Split', 'planet4-blocks' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/carousel_split.png' ) . '" />',
 				'attrs'         => $fields,
-				'post_type'     => P4BKS_ALLOWED_PAGETYPE,
+				'post_type'     => 'none',
 			];
 
 			shortcode_ui_register_for_shortcode( 'shortcake_' . self::BLOCK_NAME, $shortcode_ui_args );
