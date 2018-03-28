@@ -72,6 +72,33 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 				$fields = array_merge( $fields, $checkboxes );
 			}
 
+			$fields[] = [
+				'label'       => __( 'Number of Posts displayed', 'planet4-blocks' ),
+				'description' => __( 'Show 1 Row: Displays 4 Posts on desktop and 3 Posts on mobile.<br> 
+									Show 2 Rows: Displays 8 Posts on desktop and 6 Posts on mobile.<br>
+									(Another Row will be revealed each time the Load More button is clicked)<br>
+									Show All Rows: Displays all available Posts on desktop and 4 Posts on mobile.',
+									'planet4-blocks' ),
+				'attr'        => 'posts_view',
+				'type'        => 'select',
+				'options'     => [
+					[
+						'value' => '0',
+						// translators: placeholder is a number.
+						'label' => __( 'Show 1 Row', 'planet4-blocks' ),
+					],
+					[
+						'value' => '3',
+						// translators: placeholder is a number.
+						'label' => __( 'Show 2 Rows', 'planet4-blocks' ),
+					],
+					[
+						'value' => '1',
+						'label' => __( 'Show All Posts', 'planet4-blocks' ),
+					],
+				],
+			];
+
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
 				'label'         => __( 'Content Four Column', 'planet4-blocks' ),
@@ -194,9 +221,10 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 			}
 
 			$block_data = [
-				'title'  => ! empty( $attributes['title'] ) ? $attributes['title'] : __( 'Publications', 'planet4-blocks' ),
-				'posts'  => $posts_array,
-				'domain' => 'planet4-blocks',
+				'title'      => ! empty( $attributes['title'] ) ? $attributes['title'] : __( 'Publications', 'planet4-blocks' ),
+				'posts'      => $posts_array,
+				'posts_view' => isset( $attributes['posts_view'] ) ? intval( $attributes['posts_view'] ) : 1,
+				'domain'     => 'planet4-blocks',
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.

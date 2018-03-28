@@ -9,9 +9,9 @@
 			{% endif %}
 
 			{% for post in posts %}
-				{% if loop.index0 == 0 %}
+				{% if ( loop.index0 == 0  or ( posts_view == 3 and loop.index0 == 4 ) or ( posts_view == 1 and loop.index0 is divisible by(4) ) ) %}
 					<div class="row publications-slider">
-				{% elseif loop.index0 is divisible by(4) %}
+				{% elseif ( ( ( posts_view == 0 and posts|length > 4 ) or ( posts_view == 3 and posts|length > 8) ) and loop.index0 is divisible by(4) ) %}
 					<div class="row row-hidden" id="publications-row-{{ loop.index }}" style="display: none;">
 				{% endif %}
 						<div class="col-md-4 col-lg">
@@ -58,11 +58,19 @@
 				{% endif %}
 			{% endfor %}
 
-			{% if ( posts|length > 4 ) %}
-				<div class="row mt-3 load-more-button-div">
+			{% if ( posts|length <= 4 or ( posts|length > 4 and posts|length <= 8 and posts_view == 3 ) or posts_view == 1 ) %}
+				<div class="row mt-3 load-more-posts-button-div">
+					<div class="col-md-4 col-lg-4 col-xl-3 mb-5 d-lg-none">
+						<button class="btn btn-block btn-medium btn-secondary btn-load-more-posts-click">
+							{{ __( 'Load More', domain ) }}
+						</button>
+					</div>
+				</div>
+			{% else %}
+				<div class="row mt-3 load-more-posts-button-div">
 					<div class="col-md-4 col-lg-4 col-xl-3 mb-5">
-						<button class="btn btn-block btn-medium btn-secondary btn-load-more-click">
-							{{ __( 'Load More', 'planet4-blocks' ) }}
+						<button class="btn btn-block btn-medium btn-secondary btn-load-more-posts-click">
+							{{ __( 'Load More', domain ) }}
 						</button>
 					</div>
 				</div>
