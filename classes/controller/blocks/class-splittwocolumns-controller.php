@@ -43,7 +43,8 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 				'post_type'    => 'page',
 				'post_status'  => 'publish',
 			);
-			$pages = get_pages( $args );
+			$pages   = get_pages( $args );
+			$options = [ '0' => '--Select Issue--' ];
 
 			if ( $pages ) {
 				foreach ( $pages as $issue ) {
@@ -239,11 +240,11 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 			$issue_link_text   = $fields['issue_link_text'] ?? __( 'Learn more about this issue', 'planet4-blocks' );
 			$issue_link_path   = $fields['issue_link_path'] ?? get_permalink( $issue_id );
 
-			$data = $issue_meta_data ? [
+			$data = [
 				'issue' => [
 					'title'       => html_entity_decode( $issue_title ),
 					'description' => $issue_description,
-					'image'       => get_the_post_thumbnail_url( $issue_id ),
+					'image'       => wp_get_attachment_url( $issue_image_id ),
 					'srcset'      => wp_get_attachment_image_srcset( $issue_image_id ),
 					'image_alt'   => get_post_meta( $issue_image_id, '_wp_attachment_image_alt', true ),
 					'link_text'   => $issue_link_text,
@@ -263,7 +264,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 					'focus'       => $fields['focus_tag_image'] ?? '',
 				],
-			] : [];
+			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
