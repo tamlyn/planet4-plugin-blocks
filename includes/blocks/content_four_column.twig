@@ -1,66 +1,61 @@
 {% block content_four_column %}
 
 {% if ( posts ) %}
-	<div class="four-column-content">
+	{% if ( posts_view == 0) %}
+		{% set posts_view_class = 'show-1-row' %}
+	{% elseif ( posts_view == 3) %}
+		{% set posts_view_class = 'show-2-rows' %}
+	{% else %}
+		{% set posts_view_class = 'show-all-rows' %}
+	{% endif %}
+
+	<div class="four-column-content {{ posts_view_class }}">
 		<div class="container">
 
 			{% if (title) %}
 				<h2 class="page-section-header">{{ title }}</h2>
 			{% endif %}
 
+			<div class="row limit-visibility">
 			{% for post in posts %}
-				{% if ( loop.index0 == 0  or ( posts_view == 3 and loop.index0 == 4 ) or ( posts_view == 1 and loop.index0 is divisible by(4) ) ) %}
-					<div class="row publications-slider">
-				{% elseif ( ( ( posts_view == 0 and posts|length > 4 ) or ( posts_view == 3 and posts|length > 8) ) and loop.index0 is divisible by(4) ) %}
-					<div class="row row-hidden" id="publications-row-{{ loop.index }}" style="display: none;">
-				{% endif %}
-						<div class="col-md-4 col-lg">
-							<div class="four-column-content-wrap clearfix">
-								<div class="four-column-content-info">
-									<div class="four-column-content-symbol">
-										{% if ( post.thumbnail ) %}
-											<a href="{{ post.permalink }}">
-												<img src="{{ post.thumbnail }}"
-													 alt="{{ post.alt_text }}"
-													 srcset="{{ post.srcset }}">
-										 </a>
-										{% endif %}
-									</div>
-									<div class="four-column-content-information">
-										{% if ( post.post_title ) %}
-											<a href="{{ post.permalink }}">
-												<h4>{{ post.post_title|e('wp_kses_post')|raw }}</h4>
-											</a>
-										{% endif %}
-										{% if ( post.post_date ) %}
-											<p class="publication-date">{{ post.post_date|date('F Y') }}</p>
-										{% endif %}
-										{% if ( post.post_excerpt ) %}
-											<p class="d-none d-md-block">{{ post.post_excerpt|truncate( 30, true )|e('wp_kses_post')|raw }}</p>
-										{% endif %}
-									</div>
-								</div>
+				<div class="col-md-4 col-lg-3 post-column">
+					<div class="four-column-content-wrap clearfix">
+						<div class="four-column-content-info">
+							<div class="four-column-content-symbol">
+								{% if ( post.thumbnail ) %}
+									<a href="{{ post.permalink }}">
+										<img src="{{ post.thumbnail }}"
+											 alt="{{ post.alt_text }}"
+											 srcset="{{ post.srcset }}">
+								 </a>
+								{% endif %}
+							</div>
+							<div class="four-column-content-information">
+								{% if ( post.post_title ) %}
+									<a href="{{ post.permalink }}">
+										<h4>{{ post.post_title|e('wp_kses_post')|raw }}</h4>
+									</a>
+								{% endif %}
+								{% if ( post.post_date ) %}
+									<p class="publication-date">{{ post.post_date|date('F Y') }}</p>
+								{% endif %}
+								{% if ( post.post_excerpt ) %}
+									<p class="d-none d-md-block">{{ post.post_excerpt|truncate( 30, true )|e('wp_kses_post')|raw }}</p>
+								{% endif %}
 							</div>
 						</div>
-				{% if ( (loop.index0 % 4 == 3)) %}
-				</div>
-				{% endif %}
-
-				{# note: add empty div columns based on remainder of the division of last row's columns and number 4
-				         to preserve row presentation (it is breaking because of slick slider,
-				         if number of columns are not 4). #}
-				{% if ( loop.last and (loop.index0 % 4 < 3)) %}
-					{% set empty_columns_count = 4 - (loop.index % 4) %}
-					{% for i in 1..empty_columns_count %}
-						<div class="col-md-4 col-lg-3 col-xl-3"></div>
-					{% endfor %}
 					</div>
-				{% endif %}
+				</div>
 			{% endfor %}
+			</div>
 
-			{% if ( posts|length <= 4 or ( posts|length > 4 and posts|length <= 8 and posts_view == 3 ) or posts_view == 1 ) %}
-				<div class="row mt-3 load-more-posts-button-div">
-					<div class="col-md-4 col-lg-4 col-xl-3 mb-5 d-lg-none">
+
+			{% if ( posts|length <= 4
+				or ( posts|length > 4 and posts|length <= 8 and posts_view == 3 )
+				or ( posts|length > 3 and posts|length <= 6 and posts_view == 3 )
+				or posts_view == 1 ) %}
+				<div class="row mt-3 load-more-posts-button-div" style="display: none;">
+					<div class="col-md-4 col-lg-3 col-xl-3 mb-5">
 						<button class="btn btn-block btn-medium btn-secondary btn-load-more-posts-click">
 							{{ __( 'Load More', domain ) }}
 						</button>
@@ -68,7 +63,7 @@
 				</div>
 			{% else %}
 				<div class="row mt-3 load-more-posts-button-div">
-					<div class="col-md-4 col-lg-4 col-xl-3 mb-5">
+					<div class="col-md-4 col-lg-3 col-xl-3 mb-5">
 						<button class="btn btn-block btn-medium btn-secondary btn-load-more-posts-click">
 							{{ __( 'Load More', domain ) }}
 						</button>

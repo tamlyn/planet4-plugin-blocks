@@ -84,12 +84,10 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 				'options'     => [
 					[
 						'value' => '0',
-						// translators: placeholder is a number.
 						'label' => __( 'Show 1 Row', 'planet4-blocks' ),
 					],
 					[
 						'value' => '3',
-						// translators: placeholder is a number.
 						'label' => __( 'Show 2 Rows', 'planet4-blocks' ),
 					],
 					[
