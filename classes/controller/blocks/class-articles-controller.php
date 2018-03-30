@@ -184,22 +184,20 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				$read_more_link = $fields['read_more_link'] ?? $read_more_link . $read_more_filter;
 			}
 			$fields['read_more_link'] = $read_more_link;
-
-
-			$category_ids = '';
-			if ( ! $fields['ignore_categories'] ) {
-				if ( $category_id_array ) {
-					$category_ids = implode( ',', $category_id_array );
-					$args['category'] = '( ' . $category_ids . ' )';
-				}
-			}
-
+			
 			// Get all posts with arguments.
 			$args = [
 				'numberposts' => $fields['article_count'],
 				'orderby'     => 'date',
 				'post_status' => 'publish',
 			];
+
+			if ( ! $fields['ignore_categories'] ) {
+				if ( $category_id_array ) {
+					$category_ids = implode( ',', $category_id_array );
+					$args['category'] = '( ' . $category_ids . ' )';
+				}
+			}
 
 			// For post page block so current main post will exclude.
 			if( $exclude_post_id ) {
