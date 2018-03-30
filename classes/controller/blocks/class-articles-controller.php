@@ -22,6 +22,29 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 * @since 0.1.0
 		 */
 		public function prepare_fields() {
+
+			$checkboxes                 = [];
+			$planet4_article_type_terms = get_terms(
+				[
+					'hide_empty' => false,
+					'orderby'    => 'name',
+					'taxonomy'   => 'p4-page-type',
+				]
+			);
+
+			// Construct a checkbox for each p4-page-type.
+			if ( ! empty( $planet4_article_type_terms ) ) {
+				foreach ( $planet4_article_type_terms as $term ) {
+					$checkboxes [] = [
+						'attr'        => 'p4_page_type_' . str_replace( '-', '_', $term->slug ),
+						'label'       => $term->name . ' Posts',
+						'description' => 'Use Posts that belong to ' . $term->name . ' type to populate the content of this block',
+						'type'        => 'checkbox',
+						'value'       => 'false',
+					];
+				}
+			}
+
 			$fields = [
 				[
 					'label' => __( 'Article Heading', 'planet4-blocks' ),
@@ -56,6 +79,10 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					],
 				],
 			];
+
+			if ( ! empty( $checkboxes ) ) {
+				$fields = array_merge( $fields, $checkboxes );
+			}
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
@@ -94,6 +121,22 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$category_id_array = [];
 			foreach ( $post_categories as $category ) {
 				$category_id_array[] = $category->term_id;
+			}
+
+			// Filter p4_page_type keys from attributes array.
+			$post_types_temp = array_filter( (array) $fields, function ( $key ) {
+				return strpos( $key, 'p4_page_type' ) === 0 ;
+			}, ARRAY_FILTER_USE_KEY );
+
+			// If any p4_page_type was selected extract the term's slug to be used in the wp query below.
+			if ( ! empty( $post_types_temp ) ) {
+				foreach ( $post_types_temp as $type => $value ) {
+					if ( 'true' === $value ) {
+						$post_types[] = str_replace( '_', '-',
+							str_replace( 'p4_page_type_', '', $type )
+						);
+					}
+				}
 			}
 
 			// Article block default text setting.
@@ -154,6 +197,16 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			if ( $tag_id ) {
 				$args['tag_id'] = $tag_id;
+			}
+
+			if ( ! empty( $post_types ) ) {
+				$args['tax_query'] = [
+					[
+						'taxonomy' => 'p4-page-type',
+						'field'    => 'slug',
+						'terms'    => $post_types,
+					],
+				];
 			}
 
 			// For post, display related article based on current post tags.
