@@ -37,7 +37,7 @@
 									</div>
 								{% endif %}
 								<div class="article-list-item-body">
-									{% if ( value.tags ) %}
+									{% if ( value.tags or value.page_type ) %}
 										<ul class="tags-list article-list-item-tags">
 
 											{% if ( value.page_type ) %}
