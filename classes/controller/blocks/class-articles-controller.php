@@ -190,6 +190,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			if ( ! $fields['ignore_categories'] ) {
 				if ( $category_id_array ) {
 					$category_ids = implode( ',', $category_id_array );
+					$args['category'] = '( ' . $category_ids . ' )';
 				}
 			}
 
@@ -197,7 +198,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$args = [
 				'numberposts' => $fields['article_count'],
 				'orderby'     => 'date',
-				'category'    => '( ' . $category_ids . ' )',
 				'post_status' => 'publish',
 			];
 
