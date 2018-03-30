@@ -166,7 +166,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			// On other than tag page, read more link should lead to search page-preselected with current page categories/tags.
 			if ( '' == $tag_id ) {
 				$read_more_filter = '';
-				if ( 'false' == $fields['ignore_categories'] ) {
+				if ( 'true' != $fields['ignore_categories'] ) {
 					if ( $post_categories ) {
 						foreach ( $post_categories as $category ) {
 							// For issue page.
@@ -202,7 +202,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				'post_status' => 'publish',
 			];
 
-			if ( 'false' == $fields['ignore_categories'] ) {
+			if ( 'true' != $fields['ignore_categories'] ) {
 				if ( $category_id_array ) {
 					$category_ids = implode( ',', $category_id_array );
 					$args['category'] = '( ' . $category_ids . ' )';
