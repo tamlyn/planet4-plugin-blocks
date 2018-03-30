@@ -34,6 +34,14 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// Construct a checkbox for each p4-page-type.
 			if ( ! empty( $planet4_article_type_terms ) ) {
+				$checkboxes [] = [
+					'attr'        => 'ignore_categories',
+					'label'       => 'Ignore Categories',
+					'description' => 'Ignore categories when filtering posts to populate the content of this block',
+					'type'        => 'checkbox',
+					'value'       => 'false',
+				];
+
 				foreach ( $planet4_article_type_terms as $term ) {
 					$checkboxes [] = [
 						'attr'        => 'p4_page_type_' . str_replace( '-', '_', $term->slug ),
@@ -177,9 +185,12 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			}
 			$fields['read_more_link'] = $read_more_link;
 
+
 			$category_ids = '';
-			if ( $category_id_array ) {
-				$category_ids = implode( ',', $category_id_array );
+			if ( ! $fields['ignore_categories'] ) {
+				if ( $category_id_array ) {
+					$category_ids = implode( ',', $category_id_array );
+				}
 			}
 
 			// Get all posts with arguments.
@@ -219,7 +230,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$args['tag__in'] = $tag_id_array;
 				}
 			}
-
 			$all_posts = wp_get_recent_posts( $args );
 
 			if ( $all_posts ) {
