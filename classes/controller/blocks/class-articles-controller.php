@@ -140,9 +140,12 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			if ( ! empty( $post_types_temp ) ) {
 				foreach ( $post_types_temp as $type => $value ) {
 					if ( 'true' === $value ) {
-						$post_types[] = str_replace( '_', '-',
+						$post_type = str_replace( '_', '-',
 							str_replace( 'p4_page_type_', '', $type )
 						);
+						$post_types[] = $post_type;
+						// We cannot filter search for more than one pagetype, so use the last one
+						$read_more_post_type = $post_type;
 					}
 				}
 			}
@@ -163,13 +166,20 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			// On other than tag page, read more link should lead to search page-preselected with current page categories/tags.
 			if ( '' == $tag_id ) {
 				$read_more_filter = '';
-				if ( $post_categories ) {
-					foreach ( $post_categories as $category ) {
-						// For issue page.
-						if ( $category->parent === (int)$options['issues_parent_category'] ) {
-							$read_more_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
+				if ( 'false' == $fields['ignore_categories'] ) {
+					if ( $post_categories ) {
+						foreach ( $post_categories as $category ) {
+							// For issue page.
+							if ( $category->parent === (int) $options['issues_parent_category'] ) {
+								$read_more_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
+							}
 						}
 					}
+				}
+
+				if ( ! empty( $post_types ) ) {
+					$page_type_data = get_term_by( 'slug', wp_unslash( $read_more_post_type ), 'p4-page-type' );
+					$read_more_filter .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
 				}
 
 				if ( '' === $read_more_filter ) {
@@ -184,7 +194,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				$read_more_link = $fields['read_more_link'] ?? $read_more_link . $read_more_filter;
 			}
 			$fields['read_more_link'] = $read_more_link;
-			
+
 			// Get all posts with arguments.
 			$args = [
 				'numberposts' => $fields['article_count'],
@@ -192,7 +202,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				'post_status' => 'publish',
 			];
 
-			if ( ! $fields['ignore_categories'] ) {
+			if ( 'false' == $fields['ignore_categories'] ) {
 				if ( $category_id_array ) {
 					$category_ids = implode( ',', $category_id_array );
 					$args['category'] = '( ' . $category_ids . ' )';
