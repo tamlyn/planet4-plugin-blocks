@@ -2,14 +2,14 @@
 {% if ( images ) %}
 <div class="container">
 	<div class="carousel-wrap">
-		<div id="carousel-wrapper" class="carousel slide" data-ride="carousel">
+		<div id="{{ id }}" class="carousel slide" data-ride="carousel">
 			{% if ( title ) %}
 				<h1>{{ title }}</h1>
 			{% endif %}
 			{% if images|length > 1 %}
 				<ol class="carousel-indicators">
 					{% for key,single_image in images %}
-						<li data-target="#carousel-wrapper" data-slide-to="{{ key }}" {% if key == 0 %} class="active" {% endif %}></li>
+						<li data-target="#{{ id }}" data-slide-to="{{ key }}" {% if key == 0 %} class="active" {% endif %}></li>
 					{% endfor %}
 				</ol>
 			{% endif %}
@@ -36,13 +36,13 @@
 				{% endfor %}
 			</div>
 			{% if images|length > 1 %}
-				<a class="carousel-control-prev" href="#carousel-wrapper" role="button" data-slide="prev">
+				<a class="carousel-control-prev" href="#{{ id }}" role="button" data-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true">
 					<i></i>
 					</span>
 					<span class="sr-only">{{ __( 'Previous' ) }}</span>
 				</a>
-				<a class="carousel-control-next" href="#carousel-wrapper" role="button" data-slide="next">
+				<a class="carousel-control-next" href="#{{ id }}" role="button" data-slide="next">
 					<span class="carousel-control-next-icon" aria-hidden="true">
 					<i></i>
 					</span>

@@ -17,13 +17,27 @@
 					<div class="article-list-section clearfix col-md-12">
 						{% for key,value in recent_posts %}
 							<article class="article-list-item">
-								<a href="{{ value.permalink }}" class="article-list-item-image">
-									<img class="d-flex mr-3 topicwise-article-image"
-										 src="{{ value.thumbnail }}"
-										 alt="{{ value.alt_text }}">
-								</a>
+								{% if value.thumbnail_ratio < 1 %}
+									<div class="article-list-item-image">
+										<div class="article-image-holder">
+											<a href="{{ value.permalink }}">
+												<img class="d-flex topicwise-article-image"
+												     src="{{ value.thumbnail }}"
+												     alt="{{ value.alt_text }}">
+											</a>
+										</div>
+									</div>
+								{% else %}
+									<div class="article-list-item-image article-list-item-image-max-width">
+										<a href="{{ value.permalink }}">
+											<img class="d-flex mr-3 topicwise-article-image"
+											     src="{{ value.thumbnail }}"
+											     alt="{{ value.alt_text }}">
+										</a>
+									</div>
+								{% endif %}
 								<div class="article-list-item-body">
-									{% if ( value.tags ) %}
+									{% if ( value.tags or value.page_type ) %}
 										<ul class="tags-list article-list-item-tags">
 
 											{% if ( value.page_type ) %}

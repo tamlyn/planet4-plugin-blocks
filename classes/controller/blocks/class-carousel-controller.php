@@ -28,14 +28,15 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 		 *
 		 * @param array    $form_fields An array of fields included in the attachment form.
 		 * @param \WP_Post $post The attachment record in the database.
+		 *
 		 * @return array Final array of form fields to use.
 		 */
 		function add_image_attachment_fields_to_edit( $form_fields, $post ) {
 
-			// Add a Credit field
+			// Add a Credit field.
 			$form_fields['credit_text'] = array(
 				'label' => __( 'Credit' ),
-				'input' => 'text', // this is default if "input" is omitted
+				'input' => 'text', // this is default if "input" is omitted.
 				'value' => get_post_meta( $post->ID, '_credit_text', true ),
 				'helps' => __( 'The owner of the image.' ),
 			);
@@ -46,8 +47,8 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 		/**
 		 * Save custom media metadata fields
 		 *
-		 * @param \WP_Post $post The $post data for the attachment.
-		 * @param array    $attachment The $attachment part of the form $_POST ($_POST[attachments][postID]).
+		 * @param \WP_Post $post        The $post data for the attachment.
+		 * @param array    $attachment  The $attachment part of the form $_POST ($_POST[attachments][postID]).
 		 *
 		 * @return \WP_Post $post
 		 */
@@ -82,7 +83,7 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 					'multiple'    => true,
 					'addButton'   => 'Select Carousel Images',
 					'frameTitle'  => 'Select Carousel Images',
-				)
+				),
 			);
 
 			// Define the Shortcode UI arguments.
@@ -100,19 +101,20 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 		 * Callback for the shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array  $fields This contains array of multiple image field.
-		 * @param string $content This is the post content.
+		 * @param array  $fields        This contains array of multiple image field.
+		 * @param string $content       This is the post content.
 		 * @param string $shortcode_tag The shortcode block of carousel.
 		 *
 		 * @since 0.1.0
 		 *
 		 * @return string All the data used for the html.
 		 */
-		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
+		public function prepare_template( $fields, $content, $shortcode_tag ): string {
 
-			$explode_multiple_image_array = explode( ',',$fields['multiple_image'] );
-			$images_data = array();
+			$explode_multiple_image_array = explode( ',', $fields['multiple_image'] );
+			$images_data                  = array();
 
+			$images_dimensions = [];
 			foreach ( $explode_multiple_image_array as $image_id ) {
 
 				$image_data_array            = wp_get_attachment_image_src( $image_id, 'retina-large' );
@@ -124,11 +126,20 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 				$images_data['credits']      = ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) ? $attachment_fields['_credit_text'][0] : '';
 				$images_data['caption']      = wp_get_attachment_caption( $image_id );
 
+				if ( count( $image_data_array ) >= 3 ) {
+					$images_dimensions[] = $image_data_array[1];
+					$images_dimensions[] = $image_data_array[2];
+				}
+
 				$images[] = $images_data;
 			}
 
+			$carousel_title   = ( isset( $fields['carousel_block_title'] ) && ! empty( $fields['carousel_block_title'] ) ) ? $fields['carousel_block_title'] : '';
+			$carousel_id      = $this->generate_hash( $carousel_title, $images_dimensions );
+
 			$data = [
-				'title'  => ( isset( $fields['carousel_block_title'] ) && ! empty( $fields['carousel_block_title'] ) ) ? $fields['carousel_block_title'] : '',
+				'id'     => $carousel_id,
+				'title'  => $carousel_title,
 				'images' => $images,
 				'domain' => 'planet4-blocks',
 			];
@@ -138,6 +149,21 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 			$this->view->block( self::BLOCK_NAME, $data );
 
 			return ob_get_clean();
+		}
+
+		/**
+		 * Create a short hash to be used as the carousel's dom id.
+		 *
+		 * @param string $title      Carousel's title.
+		 * @param array  $dimensions Dimensions of carousel's images.
+		 *
+		 * @return string A string that will be the carousel's id.
+		 */
+		private function generate_hash( $title, $dimensions ) {
+			$temp_string      = $title . '_' . implode( '_', $dimensions );
+			$carousel_id_hash = hash( 'crc32', $temp_string );
+
+			return 'carousel_' . $carousel_id_hash;
 		}
 	}
 }

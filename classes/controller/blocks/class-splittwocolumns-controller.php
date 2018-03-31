@@ -32,27 +32,26 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 				[ 'value' => 'right bottom',  'label' => __( '9 - Bottom Right', 'planet4-blocks' ) ],
 			];
 
-			$option_values     = get_option( 'planet4_options' );
-			$issue_category_id = $option_values['issues_parent_category'] ?? '';
-			$categories        = [];
-			if ( 0 !== absint( $issue_category_id ) ) {
-				$categories   = get_categories( [
-					'parent'    => $issue_category_id,                  // Get the dynamic id of the 'Issue' category.
-					'orderby'   => 'name',
-					'order'     => 'ASC',
-				] );
-			}
+			$option_values   = get_option( 'planet4_options' );
+			$options         = [];
+			$explore_page_id = $option_values['explore_page'] ?? '';
 
-			$options = [];
-			if ( $categories ) {
-				foreach ( $categories as $category ) {
-					$issue = get_page_by_title( html_entity_decode( $category->name ) );      // Category and Issue need to have the same name.
-					if ( $issue ) {
-						$options[] = [
-							'value' => (string) $issue->ID,
-							'label' => html_entity_decode( $category->name ),
-						];
-					}
+			$args = array(
+				'sort_order'   => 'asc',
+				'sort_column'  => 'post_title',
+				'child_of'     => $explore_page_id,
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+			);
+			$pages   = get_pages( $args );
+			$options = [ '0' => '--Select Issue--' ];
+
+			if ( $pages ) {
+				foreach ( $pages as $issue ) {
+					$options[] = [
+						'value' => (string) $issue->ID,
+						'label' => $issue->post_title,
+					];
 				}
 			}
 
@@ -241,11 +240,11 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 			$issue_link_text   = $fields['issue_link_text'] ?? __( 'Learn more about this issue', 'planet4-blocks' );
 			$issue_link_path   = $fields['issue_link_path'] ?? get_permalink( $issue_id );
 
-			$data = $issue_meta_data ? [
+			$data = [
 				'issue' => [
 					'title'       => html_entity_decode( $issue_title ),
 					'description' => $issue_description,
-					'image'       => get_the_post_thumbnail_url( $issue_id ),
+					'image'       => wp_get_attachment_url( $issue_image_id ),
 					'srcset'      => wp_get_attachment_image_srcset( $issue_image_id ),
 					'image_alt'   => get_post_meta( $issue_image_id, '_wp_attachment_image_alt', true ),
 					'link_text'   => $issue_link_text,
@@ -265,7 +264,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 					'button_link' => $fields['button_link'] ?? get_tag_link( $tag ),
 					'focus'       => $fields['focus_tag_image'] ?? '',
 				],
-			] : [];
+			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
