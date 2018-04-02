@@ -2,7 +2,7 @@
 	{% if ( fields ) %}
 		<div class="happy-point-block-wrap block-wide">
 			<picture>
-				<img src="{{ fields.background_src.0 }}" style="object-position:{{ fields.focus_image }};opacity:{{ fields.opacity }};" border="0" />
+				<img src="{{ fields.background_src.0|default(fields.default_image) }}" style="object-position:{{ fields.focus_image }};opacity:{{ fields.opacity }};" border="0" />
 			</picture>
 			<div class="container">
 				<div class="row justify-content-md-center">
