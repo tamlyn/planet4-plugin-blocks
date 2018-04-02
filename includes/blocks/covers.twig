@@ -2,9 +2,9 @@
 
 	{% if ( covers ) %}
 
-		{% if ( covers_view == "3") %}
+		{% if ( covers_view == "0" ) %}
 			{% set covers_view_class = 'show-3-covers' %}
-		{% elseif ( covers_view == "0") %}
+		{% elseif ( covers_view == "3" ) %}
 			{% set covers_view_class = 'show-6-covers' %}
 		{% else %}
 			{% set covers_view_class = 'show-all-covers' %}
