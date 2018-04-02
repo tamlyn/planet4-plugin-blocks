@@ -101,6 +101,7 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 			$options                       = get_option( 'planet4_options' );
 			$fields['engaging_network_id'] = $options['engaging_network_form_id'] ?? '';
 			$fields['opacity']             = $opacity;
+			$fields['default_image']       = get_bloginfo( 'template_directory' ) . '/images/happy-point-block-bg.jpg';
 
 			$data = [
 				'fields' => $fields
