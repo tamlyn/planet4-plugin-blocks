@@ -73,18 +73,18 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 		 * Callback for the shortcake_twocolumn shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array $fields Array of fields that are to be used in the template.
+		 * @param array  $fields Array of fields that are to be used in the template.
 		 * @param string $content The content of the post.
 		 * @param string $shortcode_tag The shortcode tag (shortcake_blockname).
 		 *
 		 * @return string The complete html of the block
 		 */
-		public function prepare_template( $fields, $content, $shortcode_tag ): string {
+		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
-			$shortcode_atts_pairs =[
+			$shortcode_atts_pairs = [
 				'background'          => '',
 				'opacity'             => 30,
-				"focus_image" => $attributes[ "focus_image" ] ?? 'center center',
+				'focus_image'         => $attributes['focus_image'] ?? 'center center',
 				'mailing_list_iframe' => '',
 			];
 
@@ -96,14 +96,18 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 
 			$opacity = number_format( ( $fields['opacity'] / 100 ), 1 );
 
-			$fields['background_html']     = wp_get_attachment_image( $fields['background'] );
-			$fields['background_src']      = wp_get_attachment_image_src( $fields['background'], 'full' );
+			$image_id                      = $fields['background'];
+			$img_meta                      = wp_get_attachment_metadata( $image_id );
+			$fields['background_src']      = wp_get_attachment_image_src( $image_id, 'retina-large' );
+			$fields['background_srcset']   = wp_get_attachment_image_srcset( $image_id, 'retina-large', $img_meta );
+			$fields['background_sizes']    = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
 			$options                       = get_option( 'planet4_options' );
 			$fields['engaging_network_id'] = $options['engaging_network_form_id'] ?? '';
 			$fields['opacity']             = $opacity;
+			$fields['default_image']       = get_bloginfo( 'template_directory' ) . '/images/happy-point-block-bg.jpg';
 
 			$data = [
-				'fields' => $fields
+				'fields' => $fields,
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
