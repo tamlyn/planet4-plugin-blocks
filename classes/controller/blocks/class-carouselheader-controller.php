@@ -152,16 +152,18 @@ if ( ! class_exists( 'CarouselHeader_Controller' ) ) {
 
 			$total_images = 0;
 			for ( $i = 1; $i < 5; $i++ ) {
-				$image_id   = $attributes[ "image_$i" ];
-				$temp_array = wp_get_attachment_image_src( $image_id, 'retina-large' );
-				if ( false !== $temp_array && ! empty( $temp_array ) ) {
-					$attributes[ "image_$i" ]          = $temp_array[0];
-					$attributes[ "image_${i}_srcset" ] = wp_get_attachment_image_srcset( $image_id, 'retina-large', wp_get_attachment_metadata( $image_id ) );
-					$attributes[ "image_${i}_sizes" ]  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
-					$total_images++;
+				if ( array_key_exists("image_$i", $attributes ) ) {
+					$image_id   = $attributes[ "image_$i" ];
+					$temp_array = wp_get_attachment_image_src( $image_id, 'retina-large' );
+					if ( false !== $temp_array && ! empty( $temp_array ) ) {
+						$attributes[ "image_$i" ]          = $temp_array[0];
+						$attributes[ "image_${i}_srcset" ] = wp_get_attachment_image_srcset( $image_id, 'retina-large', wp_get_attachment_metadata( $image_id ) );
+						$attributes[ "image_${i}_sizes" ]  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
+						$total_images++;
+					}
+					$temp_image                     = wp_prepare_attachment_for_js( $image_id );
+					$attributes[ "image_${i}_alt" ] = $temp_image['alt'] ?? '';
 				}
-				$temp_image                     = wp_prepare_attachment_for_js( $image_id );
-				$attributes[ "image_${i}_alt" ] = $temp_image['alt'] ?? '';
 			}
 			$attributes['total_images'] = $total_images;
 
