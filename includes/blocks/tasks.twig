@@ -20,54 +20,60 @@
 				<div class="can-do-steps d-none d-lg-block">
 					<div class="row">
 						{% for i in 1..4 %}
-							<div class="col" data-id="{{ i }}">
-								{% if ( fields['title_'~i] ) %}
+							{% if ( fields['title_'~i] ) %}
+								<div class="col" data-id="{{ i }}">
 									<span class="step-number" id="step-{{ i }}">{{ i }}</span>
-								{% endif %}
-							</div>
+								</div>
+							{% endif %}
 						{% endfor %}
 					</div>
 					<div class="step-info">
 						<div class="row">
 							{% for i in 1..4 %}
-								<div class="col" data-id="{{ i }}">
-									{% if ( fields['title_'~i] ) %}
+								{% if ( fields['title_'~i] ) %}
+									<div class="col" data-id="{{ i }}">
 										<h5>{{ fields['title_'~i] }}</h5>
-									{% endif %}
-								</div>
+									</div>
+								{% endif %}
 							{% endfor %}
 						</div>
 						<div class="row">
 							{% for i in 1..4 %}
-								<div class="col" data-id="{{ i }}">
-									{% if ( fields['description_'~i] ) %}
-										<p>{{ fields['description_'~i]|e('wp_kses_post')|raw }}</p>
-									{% endif %}
-								</div>
+								{% if ( fields['title_'~i] ) %}
+									<div class="col" data-id="{{ i }}">
+										{% if ( fields['description_'~i] ) %}
+											<p>{{ fields['description_'~i]|e('wp_kses_post')|raw }}</p>
+										{% endif %}
+									</div>
+								{% endif %}
 							{% endfor %}
 						</div>
 						<div class="steps-action">
 							<div class="row">
 								{% for i in 1..4 %}
-									<div class="col" data-id="{{ i }}">
-										{% if ( fields['attachment_'~i] ) %}
-												<a href="{{ fields['button_link_'~i] }}">
-													<img src="{{ fields['attachment_'~i] }}" alt=""/>
-												</a>
-											</div>
-										{% endif %}
-									</div>
+									{% if ( fields['title_'~i] ) %}
+										<div class="col" data-id="{{ i }}">
+											{% if ( fields['attachment_'~i] ) %}
+													<a href="{{ fields['button_link_'~i] }}">
+														<img src="{{ fields['attachment_'~i] }}" alt=""/>
+													</a>
+												</div>
+											{% endif %}
+										</div>
+									{% endif %}
 								{% endfor %}
 							</div>
 							<div class="row">
 								{% for i in 1..4 %}
-									<div class="col" data-id="{{ i }}">
-										{% if ( fields['button_text_'~i] and fields['button_link_'~i] ) %}
-											<a class="btn btn-small btn-medium btn-secondary"
-												 href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
-											</a>
-										{% endif %}
-									</div>
+									{% if ( fields['title_'~i] ) %}
+										<div class="col" data-id="{{ i }}">
+											{% if ( fields['button_text_'~i] and fields['button_link_'~i] ) %}
+												<a class="btn btn-small btn-medium btn-secondary"
+													 href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
+												</a>
+											{% endif %}
+										</div>
+									{% endif %}
 								{% endfor %}
 							</div>
 						</div>
