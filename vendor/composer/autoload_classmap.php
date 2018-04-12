@@ -20,6 +20,7 @@ return array(
     'P4BKS\\Controllers\\Blocks\\MediaVideo_Controller' => $baseDir . '/classes/controller/blocks/class-mediavideo-controller.php',
     'P4BKS\\Controllers\\Blocks\\SplitTwoColumns_Controller' => $baseDir . '/classes/controller/blocks/class-splittwocolumns-controller.php',
     'P4BKS\\Controllers\\Blocks\\StaticFourColumn_Controller' => $baseDir . '/classes/controller/blocks/class-staticfourcolumn-controller.php',
+    'P4BKS\\Controllers\\Blocks\\SubMenu_Controller' => $baseDir . '/classes/controller/blocks/class-submenu-controller.php',
     'P4BKS\\Controllers\\Blocks\\Subheader_Controller' => $baseDir . '/classes/controller/blocks/class-subheader-controller.php',
     'P4BKS\\Controllers\\Blocks\\TakeActionBoxout_Controller' => $baseDir . '/classes/controller/blocks/class-takeactionboxout-controllers.php',
     'P4BKS\\Controllers\\Blocks\\Tasks_Controller' => $baseDir . '/classes/controller/blocks/class-tasks-controller.php',
