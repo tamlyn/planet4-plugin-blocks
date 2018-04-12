@@ -121,7 +121,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$tag_id                   = $fields['tag_id'] ?? '';
 			$tag_filter               = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';
 			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_site_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
-			$exclude_post_id          = (int) $fields['exclude_post_id'] ?? '';
+			$exclude_post_id          = (int) ( $fields['exclude_post_id'] ?? '' );
 
 			//Get page categories
 			$post_categories         = get_the_category();
@@ -159,6 +159,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$fields['article_heading'] = $fields['article_heading'] ?? $article_title;
 			$fields['read_more_text']  = $fields['read_more_text'] ?? $article_button_title;
 			$fields['article_count']   = $fields['article_count'] ?? $article_count;
+			$ignore_categories         = $fields['ignore_categories'] ?? 'false';
 
 			// Get page/post tags.
 			$post_tags = get_the_tags();
@@ -166,7 +167,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			// On other than tag page, read more link should lead to search page-preselected with current page categories/tags.
 			if ( '' == $tag_id ) {
 				$read_more_filter = '';
-				if ( 'true' != $fields['ignore_categories'] ) {
+				if ( 'true' != $ignore_categories ) {
 					if ( $post_categories ) {
 						foreach ( $post_categories as $category ) {
 							// For issue page.
@@ -202,7 +203,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				'post_status' => 'publish',
 			];
 
-			if ( 'true' != $fields['ignore_categories'] ) {
+			if ( 'true' != $ignore_categories ) {
 				if ( $category_id_array ) {
 					$category_ids = implode( ',', $category_id_array );
 					$args['category'] = '( ' . $category_ids . ' )';
