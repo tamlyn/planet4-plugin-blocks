@@ -19,8 +19,12 @@ jQuery(function ($) {
 			view: "editAttributeHeading"
 		};
 
-		$.get(blocks.url + "/admin/templates/submenu.tpl.php", function (data) {
-			$("#wpwrap").append(data);
+		wp.shortcake.hooks.addAction('shortcode-ui.render_edit', function (shortcodeModel) {
+			$(".shortcode-ui-attribute-heading2").parent().before('<p></p>');
+		});
+
+		wp.shortcake.hooks.addAction('shortcode-ui.render_new', function (shortcodeModel) {
+			$(".shortcode-ui-attribute-heading2").parent().before('<p></p>');
 		});
 	}
 });

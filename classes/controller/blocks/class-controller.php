@@ -44,18 +44,6 @@ if ( ! class_exists( 'Controller' ) ) {
 
 			// Register an admin render callback for previewing in the wysiwyg.
 			add_action( 'wp_ajax_p4bks_preview_render_' . static::BLOCK_NAME, array( $this, 'prepare_admin_preview' ) );
-			wp_enqueue_style( 'p4bks_admin_style_blocks', P4BKS_ADMIN_DIR . 'css/admin_blocks.css', array(), '0.1' );
-			add_action( 'enqueue_shortcode_ui', function () {
-				wp_enqueue_script( 'submenu-view', P4BKS_ADMIN_DIR . 'js/submenu_heading_view.js', array( 'shortcode-ui' ) );
-				wp_enqueue_script( 'blocks-ui', P4BKS_ADMIN_DIR . 'js/blocks-ui.js', array( 'shortcode-ui' ) );
-				wp_localize_script(
-					'blocks-ui',
-					'blocks',
-					[
-						'url' => wp_make_link_relative( plugins_url( P4BKS_PLUGIN_DIRNAME ) ),
-					]
-				);
-			} );
 		}
 
 		/**

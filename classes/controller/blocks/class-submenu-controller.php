@@ -2,7 +2,6 @@
 
 namespace P4BKS\Controllers\Blocks;
 
-
 if ( ! class_exists( 'SubMenu_Controller' ) ) {
 
 	/**
@@ -16,6 +15,61 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 		const BLOCK_NAME = 'submenu';
 
 		/**
+		 * Hooks all the needed functions to load the block.
+		 */
+		public function load() {
+			parent::load();
+			add_action( 'admin_print_footer_scripts-post.php', [ $this, 'print_admin_footer_scripts' ], 1 );
+			add_action( 'admin_print_footer_scripts-post-new.php', [ $this, 'print_admin_footer_scripts' ], 1 );
+			add_action( 'admin_enqueue_scripts', [ $this, 'load_admin_assets' ] );
+		}
+
+
+		/**
+		 * Load assets only on the admin pages of the plugin.
+		 *
+		 * @param string $hook The slug name of the current admin page.
+		 */
+		public function load_admin_assets( $hook ) {
+
+			if ( 'post.php' !== $hook && 'post-new.php' !== $hook ) {
+				return;
+			}
+
+			wp_enqueue_style( 'p4bks_admin_style_blocks', P4BKS_ADMIN_DIR . 'css/admin_blocks.css', [], '0.1' );
+			add_action( 'enqueue_shortcode_ui', function () {
+				wp_enqueue_script( 'submenu-view', P4BKS_ADMIN_DIR . 'js/submenu_heading_view.js', [ 'shortcode-ui' ] );
+				wp_enqueue_script( 'blocks-ui', P4BKS_ADMIN_DIR . 'js/blocks-ui.js', [ 'shortcode-ui' ] );
+			} );
+		}
+
+		/**
+		 * Get underscore template from filesystem.
+		 *
+		 * @param string $template Template name.
+		 *
+		 * @return bool|string
+		 */
+		private function get_template( $template ) {
+
+			$template = P4BKS_PLUGIN_DIR . '/admin/templates/' . $template . '.tpl.php';
+			if ( file_exists( $template ) ) {
+				$contents = file_get_contents( $template );
+
+				return false !== $contents ? $contents : '';
+			}
+
+			return '';
+		}
+
+		/**
+		 * Load underscore templates to footer.
+		 */
+		public function print_admin_footer_scripts() {
+			echo $this->get_template( 'submenu' );
+		}
+
+		/**
 		 * Shortcode UI setup for content four column shortcode.
 		 *
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
@@ -25,7 +79,6 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 		 * @since 1.0.0
 		 */
 		public function prepare_fields() {
-
 
 			$heading_options = [
 				[
@@ -171,8 +224,8 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 			);
 
 			$block_data = [
-				'title'  => $attributes['title'] ?? '',
-				'menu'   => $menu,
+				'title' => $attributes['title'] ?? '',
+				'menu'  => $menu,
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
@@ -242,8 +295,8 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 		 * Create a std object representing a node/heading.
 		 *
 		 * @param \DOMElement $node
-		 * @param string      $type
-		 * @param string      $link
+		 * @param string $type
+		 * @param string $link
 		 *
 		 * @return \stdClass
 		 */
@@ -263,7 +316,7 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 		/**
 		 * Decide if header should be allowed.
 		 *
-		 * @param string $heading   Heading's number.
+		 * @param string $heading Heading's number.
 		 *
 		 * @return bool
 		 */
