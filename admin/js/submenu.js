@@ -2,14 +2,9 @@ $(document).ready(function () {
 	'use strict';
 
 	// Parse submenu object passed to a variable from server-side.
-	if ('undefined' !== submenu) {
-		try {
-			submenu = JSON.parse(submenu);
-		} catch (e) {
-			submenu = [];
-		}
+	if ('undefined' === submenu || ! Array.isArray(submenu)) {
+		submenu = [];
 	}
-
 
 	for (var i = 0; i < submenu.length; i++) {
 		var menu = submenu[i];

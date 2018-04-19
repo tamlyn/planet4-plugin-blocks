@@ -111,8 +111,8 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 			$fields = [
 				[
 					'block_heading'     => __( 'Anchor Link Submenu', 'planet4-blocks' ),
-					'block_description' => __( 'An in-page table of contents to help users have a sense of what\'s on the page 
-                                        and let them jump to a topic they are interested in.', 'planet4-blocks' ),
+					'block_description' => __( 'An in-page table of contents to help users have a sense of what\'s on 
+												the page and let them jump to a topic they are interested in.', 'planet4-blocks' ),
 					'attr'              => 'submenu_style',
 					'label'             => __( 'What style of menu do you need?', 'planet4-blocks' ),
 					'description'       => __( 'Associate this block with Posts that have a specific Tag', 'planet4-blocks' ),
@@ -120,18 +120,18 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 					'options'           => [
 						[
 							'value' => '1',
-							'label' => __( 'Long full-width', 'planet4-blocks' ),
+							'label' => __( 'Short sidebar', 'planet4-blocks' ),
 							'desc'  => 'Use: on long pages (more than 5 screens) when list items are short (up to 10 words)<br>Max items<br>recommended:9<br>Example',
 						],
 						[
 							'value' => '2',
-							'label' => __( 'Short full-width', 'planet4-blocks' ),
-							'desc'  => 'Use: on long pages (more than 5 screens) when list items are short (up to 10 words)<br>Max items<br>recommended:9<br>Example',
+							'label' => __( 'Long full-width', 'planet4-blocks' ),
+							'desc'  => 'Use: on long pages (more than 5 screens) when list items are long (+ 10 words)<br>No max items<br>recommended.<br>Example',
 						],
 						[
 							'value' => '3',
-							'label' => __( 'Short sidebar', 'planet4-blocks' ),
-							'desc'  => 'Use: on long pages (more than 5 screens) when list items are short (up to 10 words)<br>Max items<br>recommended:9<br>Example',
+							'label' => __( 'Short full-width', 'planet4-blocks' ),
+							'desc'  => 'Use: on long pages (more than 5 screens) when list items are short (up to 5 words)<br>No max items<br>recommended.<br>Example',
 						],
 					],
 				],
@@ -195,11 +195,11 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 		}
 
 		/**
-		 * Callback for content four column shortcode.
+		 * Callback for submenu shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array  $attributes Defined attributes array for this shortcode.
-		 * @param string $content Content.
+		 * @param array  $attributes    Defined attributes array for this shortcode.
+		 * @param string $content       Content.
 		 * @param string $shortcode_tag Shortcode tag name.
 		 *
 		 * @return string Returns the compiled template.
@@ -217,11 +217,7 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 			$menu = $this->parse_post_content( $content, [ $heading1, $heading2 ], [ $link1, $link2 ] );
 
 			wp_enqueue_script( 'submenu', P4BKS_ADMIN_DIR . 'js/submenu.js' );
-			wp_localize_script(
-				'submenu',
-				'submenu',
-				wp_json_encode( $menu )
-			);
+			wp_localize_script( 'submenu', 'submenu', $menu );
 
 			$block_data = [
 				'title' => $attributes['title'] ?? '',
@@ -294,9 +290,9 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 		/**
 		 * Create a std object representing a node/heading.
 		 *
-		 * @param \DOMElement $node
-		 * @param string $type
-		 * @param string $link
+		 * @param \DOMElement $node  Dom element.
+		 * @param string      $type  Type/name of the tag.
+		 * @param string      $link  String that defines if the menu object should contain an anchor tag.
 		 *
 		 * @return \stdClass
 		 */
