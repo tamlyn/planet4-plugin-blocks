@@ -93,21 +93,6 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 				];
 			}
 
-			$list_style_options = [
-				[
-					'value' => '0',
-					'label' => __( 'None', 'planet4-blocks' ),
-				],
-				[
-					'value' => '1',
-					'label' => __( 'Bullet', 'planet4-blocks' ),
-				],
-				[
-					'value' => '2',
-					'label' => __( 'Numbered', 'planet4-blocks' ),
-				],
-			];
-
 			$fields = [
 				[
 					'block_heading'     => __( 'Anchor Link Submenu', 'planet4-blocks' ),
@@ -158,12 +143,6 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 					'value' => 'false',
 				],
 				[
-					'attr'    => 'list_style1',
-					'label'   => __( 'List style' ),
-					'type'    => 'p4_select',
-					'options' => $list_style_options,
-				],
-				[
 					'attr'    => 'heading2',
 					'label'   => __( '<b>Submenu item #2</b>' ),
 					'type'    => 'p4_select',
@@ -174,12 +153,6 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 					'label' => __( 'Link' ),
 					'type'  => 'p4_checkbox',
 					'value' => 'false',
-				],
-				[
-					'attr'    => 'list_style2',
-					'label'   => __( 'List style' ),
-					'type'    => 'p4_select',
-					'options' => $list_style_options,
 				],
 			];
 
