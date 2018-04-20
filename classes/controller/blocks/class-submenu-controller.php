@@ -102,23 +102,6 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 					'label'             => __( 'What style of menu do you need?', 'planet4-blocks' ),
 					'description'       => __( 'Associate this block with Posts that have a specific Tag', 'planet4-blocks' ),
 					'type'              => 'p4_radio',
-					'options'           => [
-						[
-							'value' => '1',
-							'label' => __( 'Short sidebar', 'planet4-blocks' ),
-							'desc'  => 'Use: on long pages (more than 5 screens) when list items are short (up to 10 words)<br>Max items<br>recommended:9<br>Example',
-						],
-						[
-							'value' => '2',
-							'label' => __( 'Long full-width', 'planet4-blocks' ),
-							'desc'  => 'Use: on long pages (more than 5 screens) when list items are long (+ 10 words)<br>No max items<br>recommended.<br>Example',
-						],
-						[
-							'value' => '3',
-							'label' => __( 'Short full-width', 'planet4-blocks' ),
-							'desc'  => 'Use: on long pages (more than 5 screens) when list items are short (up to 5 words)<br>No max items<br>recommended.<br>Example',
-						],
-					],
 				],
 				[
 					'label'       => __( '<h3>Submenu title</h3>', 'planet4-blocks' ),
