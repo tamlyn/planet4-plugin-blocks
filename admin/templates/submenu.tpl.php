@@ -2,6 +2,27 @@
 
 	<h2>{{{ data.block_heading }}}</h2>
 	<p><i>{{{ data.block_description }}}</i></p>
+	<div class="shortcode-ui-field-radio shortcode-ui-attribute-{{ data.attr }}">
+		<h3>{{{ data.label }}}</h3>
+		<div class="row" style="vertical-align: top;">
+
+			<# _.each( data.options, function( option ) { #>
+
+				<div style="display: inline-block ; margin: 10px; padding: 20px; max-width: 25%">
+					<label style="display: inline;">
+						<input type="radio" name="{{ data.attr }}" value="{{ option.value }}"
+						<# if ( option.value == data.value ) { print('checked'); } #> />
+							{{ option.label }}
+					</label>
+					<p>
+						<img src="{{ option.image }}" alt="submenu">
+					</p>
+					<p class="description" style="display: inline">{{{ option.desc }}}</p>
+				</div>
+			<# }); #>
+			<br>
+		</div>
+	</div>
 </script>
 
 <script type="text/html" id="tmpl-shortcode-ui-field-p4-select">
