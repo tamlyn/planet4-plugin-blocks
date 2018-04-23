@@ -96,12 +96,32 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 			$fields = [
 				[
 					'block_heading'     => __( 'Anchor Link Submenu', 'planet4-blocks' ),
-					'block_description' => __( 'An in-page table of contents to help users have a sense of what\'s on 
+					'block_description' => __( 'An in-page table of contents to help users have a sense of what\'s on
 												the page and let them jump to a topic they are interested in.', 'planet4-blocks' ),
 					'attr'              => 'submenu_style',
 					'label'             => __( 'What style of menu do you need?', 'planet4-blocks' ),
 					'description'       => __( 'Associate this block with Posts that have a specific Tag', 'planet4-blocks' ),
 					'type'              => 'p4_radio',
+					'options'           => [
+						[
+							'value' => '1',
+							'label' => __( 'Long full-width', 'planet4-blocks' ),
+							'desc'  => 'Use: on long pages (more than 5 screens) when list items are long (+ 10 words)<br>No max items<br>recommended.',
+							'image' => esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/submenu-long.jpg' ),
+						],
+						[
+							'value' => '2',
+							'label' => __( 'Short full-width', 'planet4-blocks' ),
+							'desc'  => 'Use: on long pages (more than 5 screens) when list items are short (up to 5 words)<br>No max items<br>recommended.',
+							'image' => esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/submenu-short.jpg' ),
+						],
+						[
+							'value' => '3',
+							'label' => __( 'Short sidebar', 'planet4-blocks' ),
+							'desc'  => 'Use: on long pages (more than 5 screens) when list items are short (up to 10 words)<br>Max items<br>recommended: 9',
+							'image' => esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/submenu-sidebar.jpg' ),
+						],
+					],
 				],
 				[
 					'label'       => __( '<h3>Submenu title</h3>', 'planet4-blocks' ),
@@ -178,6 +198,7 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 			$block_data = [
 				'title' => $attributes['title'] ?? '',
 				'menu'  => $menu,
+				'style' => $attributes['submenu_style'] ?? '1',
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
