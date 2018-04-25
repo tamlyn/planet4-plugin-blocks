@@ -112,13 +112,16 @@ if ( ! class_exists( 'TakeActionBoxout_Controller' ) ) {
 				}
 			}
 
+			$options = get_option( 'planet4_options' );
+
 			// Populate variables.
 			$block = [
-				'campaigns'      => $tags,
-				'title'          => null === $page ? '' : $page->post_title,
-				'excerpt'        => null === $page ? '' : $page->post_excerpt,
-				'link'           => null === $page ? '' : get_permalink( $page ),
-				'image'          => null === $page ? '' : get_the_post_thumbnail_url( $page, 'large' ),
+				'campaigns' => $tags,
+				'title'     => null === $page ? '' : $page->post_title,
+				'excerpt'   => null === $page ? '' : $page->post_excerpt,
+				'link'      => null === $page ? '' : get_permalink( $page ),
+				'link_text' => $options['take_action_covers_button_text'] ?? 'take action',
+				'image'     => null === $page ? '' : get_the_post_thumbnail_url( $page, 'large' ),
 			];
 
 			$data = [
