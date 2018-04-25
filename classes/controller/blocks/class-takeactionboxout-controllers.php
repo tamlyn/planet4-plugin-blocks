@@ -120,7 +120,7 @@ if ( ! class_exists( 'TakeActionBoxout_Controller' ) ) {
 				'title'     => null === $page ? '' : $page->post_title,
 				'excerpt'   => null === $page ? '' : $page->post_excerpt,
 				'link'      => null === $page ? '' : get_permalink( $page ),
-				'link_text' => $options['take_action_covers_button_text'] ?? 'take action',
+				'link_text' => $options['take_action_covers_button_text'] ?? __( 'take action', 'planet4-blocks' ),
 				'image'     => null === $page ? '' : get_the_post_thumbnail_url( $page, 'large' ),
 			];
 
