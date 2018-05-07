@@ -1,0 +1,38 @@
+{% block submenu %}
+
+	{% if ( menu ) %}
+		<div class="submenu-block
+			{% if style == 2 %}submenu-short{% endif %}
+			{% if style == 3 %}submenu-sidebar{% endif %}">
+
+			{% if ( title ) %}
+				<h2>{{ title }}</h2>
+			{% endif %}
+
+			<div class="submenu-menu">
+				{% for m in menu %}
+					<ul class="submenu-item">
+						{% if ( m.link ) %}
+							<li><a href="#{{ m.id }}">{{ m.text }}</a></li>
+						{% else %}
+							<li>{{ m.text }}</li>
+						{% endif %}
+						{% if ( m.children ) %}
+							<ul>
+								{% for child in m.children %}
+									{% if ( child.link ) %}
+										<li><a href="#{{ child.id }}">{{ child.text }}</a></li>
+									{% else %}
+										<li>{{ child.text }}</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						{% endif %}
+					</ul>
+				{% endfor %}
+			</div>
+
+		</div>
+	{% endif %}
+
+{% endblock %}

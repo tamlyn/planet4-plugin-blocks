@@ -14,105 +14,127 @@
 						</div>
 					{% endif %}
 				</div>
+
 				<div class="clearfix"></div>
-				<div class="can-do-steps">
-					<div class="d-none d-lg-flex row">
+
+				<div class="can-do-steps d-none d-lg-block">
+					<div class="row">
+						{% for i in 1..4 %}
+							{% if ( fields['title_'~i] ) %}
+								<div class="col" data-id="{{ i }}">
+									<span class="step-number" id="step-{{ i }}">{{ i }}</span>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<div class="step-info">
+						<div class="row">
+							{% for i in 1..4 %}
+								{% if ( fields['title_'~i] ) %}
+									<div class="col" data-id="{{ i }}">
+										<h5>{{ fields['title_'~i] }}</h5>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="row">
+							{% for i in 1..4 %}
+								{% if ( fields['title_'~i] ) %}
+									<div class="col" data-id="{{ i }}">
+										{% if ( fields['description_'~i] ) %}
+											<p>{{ fields['description_'~i]|e('wp_kses_post')|raw }}</p>
+										{% endif %}
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+						<div class="steps-action">
+							<div class="row">
+								{% for i in 1..4 %}
+									{% if ( fields['title_'~i] ) %}
+										<div class="col" data-id="{{ i }}">
+											{% if ( fields['attachment_'~i] ) %}
+													<a href="{{ fields['button_link_'~i] }}">
+														<img src="{{ fields['attachment_'~i] }}" alt=""/>
+													</a>
+												</div>
+											{% endif %}
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+							<div class="row">
+								{% for i in 1..4 %}
+									{% if ( fields['title_'~i] ) %}
+										<div class="col" data-id="{{ i }}">
+											{% if ( fields['button_text_'~i] and fields['button_link_'~i] ) %}
+												<a class="btn btn-small btn-medium btn-secondary"
+													 href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
+												</a>
+											{% endif %}
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="can-do-steps-mobile d-lg-none">
+					<div id="accordion" role="tablist" aria-multiselectable="true">
 						{% for i in 1..4 %}
 
+							{% if i == 1 %}
+								{% set number_to_word = 'one' %}
+							{% elseif i == 2 %}
+								{% set number_to_word = 'two' %}
+							{% elseif i == 3 %}
+								{% set number_to_word = 'three' %}
+							{% elseif i == 4 %}
+								{% set number_to_word = 'four' %}
+							{% endif %}
+
 							{% if ( fields['title_'~i] ) %}
-								<div class="col">
-									<div class="step-info-wrap clearfix">
+
+								<div class="card">
+									<a class="card-header {{ i>1 ? 'collapsed' : '' }}" role="tab" id="heading-{{ number_to_word }}"
+											data-toggle="collapse" data-target="#collapse-{{ number_to_word }}"
+											href="#collapse-{{ number_to_word }}"
+											aria-expanded="true"
+											aria-controls="collapse-{{ number_to_word }}">
 										<span class="step-number">{{ i }}</span>
-										<div class="step-info">
-											<div class="steps-information">
-												{% if ( fields['title_'~i] ) %}
-													<h5>{{ fields['title_'~i] }}</h5>
+										{% if ( fields['title_'~i] ) %}
+											{{ fields['title_'~i] }}
+										{% endif %}
+									</a>
+
+									<div id="collapse-{{ number_to_word }}" class="{{ i == 1 ? 'collapse show' : 'collapse' }}"
+											 data-parent="#accordion" role="tabpanel"
+									     aria-labelledby="heading-{{ number_to_word }}">
+										<div class="card-block info-with-image-wrap clearfix">
+											<div class="accordion-image-wrap">
+												{% if ( fields['attachment_'~i] ) %}
+													{% set image_src = fields['attachment_'~i] %}
+													<img src="{{ image_src }}" alt="">
 												{% endif %}
-												{% if ( fields['description_'~i] ) %}
-													<p>{{ fields['description_'~i]|e('wp_kses_post')|raw }}</p>
-												{% endif %}
-												<div class="steps-action">
-													{% if ( fields['attachment_'~i] ) %}
-														{% if ( fields['button_link_'~i] ) %}
-															<a href="{{ fields['button_link_'~i] }}">
-																<img src="{{ fields['attachment_'~i] }}" alt=""/>
-															</a>
-														{% else %}
-															{% set image_src = fields['attachment_'~i] %}
-															<img src="{{ image_src }}" alt="">
-														{% endif %}
-													{% endif %}
-													{% if ( fields['button_text_'~i] and fields['button_link_'~i] ) %}
-														<br>
-														<a class="btn btn-small btn-medium btn-secondary"
-														   href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
-														</a>
-													{% endif %}
-												</div>
 											</div>
+											<div class="mobile-accordion-info">
+												{% if ( fields['description_'~i] ) %}
+													<p>{{ fields['description_'~i] }}</p>
+												{% endif %}
+											</div>
+
+											{% if ( fields['button_text_'~i] and fields['button_text_'~i] ) %}
+												<a class="btn btn-small btn-secondary"
+												   href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
+												</a>
+											{% endif %}
+
 										</div>
 									</div>
 								</div>
 							{% endif %}
 						{% endfor %}
-					</div>
-
-					<div class="can-do-steps-mobile d-lg-none">
-						<div id="accordion" role="tablist" aria-multiselectable="true">
-							{% for i in 1..4 %}
-
-								{% if i == 1 %}
-									{% set number_to_word = 'one' %}
-								{% elseif i == 2 %}
-									{% set number_to_word = 'two' %}
-								{% elseif i == 3 %}
-									{% set number_to_word = 'three' %}
-								{% elseif i == 4 %}
-									{% set number_to_word = 'four' %}
-								{% endif %}
-
-								{% if ( fields['title_'~i] ) %}
-
-									<div class="card">
-										<a class="card-header {{ i>1 ? 'collapsed' : '' }}" role="tab" id="heading-{{ number_to_word }}"
-												data-toggle="collapse" data-target="#collapse-{{ number_to_word }}"
-												href="#collapse-{{ number_to_word }}"
-												aria-expanded="true"
-												aria-controls="collapse-{{ number_to_word }}">
-											<span class="step-number">{{ i }}</span>
-											{% if ( fields['title_'~i] ) %}
-												{{ fields['title_'~i] }}
-											{% endif %}
-										</a>
-
-										<div id="collapse-{{ number_to_word }}" class="{{ i == 1 ? 'collapse show' : 'collapse' }}"
-												 data-parent="#accordion" role="tabpanel"
-										     aria-labelledby="heading-{{ number_to_word }}">
-											<div class="card-block info-with-image-wrap clearfix">
-												<div class="accordion-image-wrap">
-													{% if ( fields['attachment_'~i] ) %}
-														{% set image_src = fields['attachment_'~i] %}
-														<img src="{{ image_src }}" alt="">
-													{% endif %}
-												</div>
-												<div class="mobile-accordion-info">
-													{% if ( fields['description_'~i] ) %}
-														<p>{{ fields['description_'~i] }}</p>
-													{% endif %}
-												</div>
-
-												{% if ( fields['button_text_'~i] and fields['button_text_'~i] ) %}
-													<a class="btn btn-small btn-secondary"
-													   href="{{ fields['button_link_'~i] }}">{{ fields['button_text_'~i] }}
-													</a>
-												{% endif %}
-
-											</div>
-										</div>
-									</div>
-								{% endif %}
-							{% endfor %}
-						</div>
 					</div>
 				</div>
 			</div>

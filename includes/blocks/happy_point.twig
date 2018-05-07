@@ -2,15 +2,19 @@
 	{% if ( fields ) %}
 		<div class="happy-point-block-wrap block-wide">
 			<picture>
-				<img src="{{ fields.background_src.0 }}" style="object-position:{{ fields.focus_image }};opacity:{{ fields.opacity }};" border="0" />
+				<img src="{{ fields.background_src.0|default(fields.default_image) }}"
+				     style="object-position:{{ fields.focus_image }};opacity:{{ fields.opacity }};"
+				     border="0"
+				     srcset="{{ fields.background_srcset }}"
+				     sizes="{{ fields.background_sizes }}"
+				/>
 			</picture>
 			<div class="container">
 				<div class="row justify-content-md-center">
-					<div class="col-md-10 pt-20">
-						{% if ( fields.mailing_list_iframe == 'true' ) %}
-							<iframe src="{{ fields.engaging_network_id }}" allowtransparency="true" frameborder="0" scrolling="no" width="100%" ></iframe>
-						{% endif %}
-					</div>
+					{% if ( fields.mailing_list_iframe == 'true' ) %}
+						<div class="col-md-10 pt-20" id="happy-point" data-src="{{ fields.engaging_network_id }}">
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>

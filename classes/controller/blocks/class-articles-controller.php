@@ -22,6 +22,37 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 * @since 0.1.0
 		 */
 		public function prepare_fields() {
+
+			$checkboxes                 = [];
+			$planet4_article_type_terms = get_terms(
+				[
+					'hide_empty' => false,
+					'orderby'    => 'name',
+					'taxonomy'   => 'p4-page-type',
+				]
+			);
+
+			// Construct a checkbox for each p4-page-type.
+			if ( ! empty( $planet4_article_type_terms ) ) {
+				$checkboxes [] = [
+					'attr'        => 'ignore_categories',
+					'label'       => 'Ignore Categories',
+					'description' => 'Ignore categories when filtering posts to populate the content of this block',
+					'type'        => 'checkbox',
+					'value'       => 'false',
+				];
+
+				foreach ( $planet4_article_type_terms as $term ) {
+					$checkboxes [] = [
+						'attr'        => 'p4_page_type_' . str_replace( '-', '_', $term->slug ),
+						'label'       => $term->name . ' Posts',
+						'description' => 'Use Posts that belong to ' . $term->name . ' type to populate the content of this block',
+						'type'        => 'checkbox',
+						'value'       => 'false',
+					];
+				}
+			}
+
 			$fields = [
 				[
 					'label' => __( 'Article Heading', 'planet4-blocks' ),
@@ -57,6 +88,10 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				],
 			];
 
+			if ( ! empty( $checkboxes ) ) {
+				$fields = array_merge( $fields, $checkboxes );
+			}
+
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
 				'label'         => __( 'Articles', 'planet4-blocks' ),
@@ -86,7 +121,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$tag_id                   = $fields['tag_id'] ?? '';
 			$tag_filter               = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';
 			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_site_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
-			$exclude_post_id          = (int) $fields['exclude_post_id'] ?? '';
+			$exclude_post_id          = (int) ( $fields['exclude_post_id'] ?? '' );
 
 			//Get page categories
 			$post_categories         = get_the_category();
@@ -94,6 +129,25 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$category_id_array = [];
 			foreach ( $post_categories as $category ) {
 				$category_id_array[] = $category->term_id;
+			}
+
+			// Filter p4_page_type keys from attributes array.
+			$post_types_temp = array_filter( (array) $fields, function ( $key ) {
+				return strpos( $key, 'p4_page_type' ) === 0 ;
+			}, ARRAY_FILTER_USE_KEY );
+
+			// If any p4_page_type was selected extract the term's slug to be used in the wp query below.
+			if ( ! empty( $post_types_temp ) ) {
+				foreach ( $post_types_temp as $type => $value ) {
+					if ( 'true' === $value ) {
+						$post_type = str_replace( '_', '-',
+							str_replace( 'p4_page_type_', '', $type )
+						);
+						$post_types[] = $post_type;
+						// We cannot filter search for more than one pagetype, so use the last one
+						$read_more_post_type = $post_type;
+					}
+				}
 			}
 
 			// Article block default text setting.
@@ -105,6 +159,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$fields['article_heading'] = $fields['article_heading'] ?? $article_title;
 			$fields['read_more_text']  = $fields['read_more_text'] ?? $article_button_title;
 			$fields['article_count']   = $fields['article_count'] ?? $article_count;
+			$ignore_categories         = $fields['ignore_categories'] ?? 'false';
 
 			// Get page/post tags.
 			$post_tags = get_the_tags();
@@ -112,13 +167,20 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			// On other than tag page, read more link should lead to search page-preselected with current page categories/tags.
 			if ( '' == $tag_id ) {
 				$read_more_filter = '';
-				if ( $post_categories ) {
-					foreach ( $post_categories as $category ) {
-						// For issue page.
-						if ( $category->parent === (int)$options['issues_parent_category'] ) {
-							$read_more_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
+				if ( 'true' != $ignore_categories ) {
+					if ( $post_categories ) {
+						foreach ( $post_categories as $category ) {
+							// For issue page.
+							if ( $category->parent === (int) $options['issues_parent_category'] ) {
+								$read_more_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
+							}
 						}
 					}
+				}
+
+				if ( ! empty( $post_types ) ) {
+					$page_type_data = get_term_by( 'slug', wp_unslash( $read_more_post_type ), 'p4-page-type' );
+					$read_more_filter .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
 				}
 
 				if ( '' === $read_more_filter ) {
@@ -134,18 +196,19 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			}
 			$fields['read_more_link'] = $read_more_link;
 
-			$category_ids = '';
-			if ( $category_id_array ) {
-				$category_ids = implode( ',', $category_id_array );
-			}
-
 			// Get all posts with arguments.
 			$args = [
 				'numberposts' => $fields['article_count'],
 				'orderby'     => 'date',
-				'category'    => '( ' . $category_ids . ' )',
 				'post_status' => 'publish',
 			];
+
+			if ( 'true' != $ignore_categories ) {
+				if ( $category_id_array ) {
+					$category_ids = implode( ',', $category_id_array );
+					$args['category'] = '( ' . $category_ids . ' )';
+				}
+			}
 
 			// For post page block so current main post will exclude.
 			if( $exclude_post_id ) {
@@ -154,6 +217,16 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			if ( $tag_id ) {
 				$args['tag_id'] = $tag_id;
+			}
+
+			if ( ! empty( $post_types ) ) {
+				$args['tax_query'] = [
+					[
+						'taxonomy' => 'p4-page-type',
+						'field'    => 'slug',
+						'terms'    => $post_types,
+					],
+				];
 			}
 
 			// For post, display related article based on current post tags.
@@ -166,7 +239,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$args['tag__in'] = $tag_id_array;
 				}
 			}
-
 			$all_posts = wp_get_recent_posts( $args );
 
 			if ( $all_posts ) {
@@ -177,10 +249,11 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$recent['author']    = '' === $author_override ? get_the_author_meta( 'display_name', $recent['post_author'] ) : $author_override;
 
 					if ( has_post_thumbnail( $recent['ID'] ) ) {
-						$recent['thumbnail'] = get_the_post_thumbnail_url( $recent['ID'], 'medium' );
-						$img_id              = get_post_thumbnail_id( $recent['ID'] );
-						$recent['alt_text']  = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
-						$recent['srcset']    = wp_calculate_image_srcset( [ '400', '267' ], wp_get_attachment_image_src( $img_id, 'medium' )[0], wp_get_attachment_metadata( $img_id ) );
+						$recent['thumbnail']       = get_the_post_thumbnail_url( $recent['ID'], 'articles-medium-large' );
+						$img_id                    = get_post_thumbnail_id( $recent['ID'] );
+						$dimensions                = wp_get_attachment_metadata( $img_id );
+						$recent['thumbnail_ratio'] = ( isset( $dimensions['height'] ) && $dimensions['height'] > 0 ) ? $dimensions['width'] / $dimensions['height'] : 1;
+						$recent['alt_text']        = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
 					}
 
 					$wp_tags = wp_get_post_tags( $recent['ID'] );

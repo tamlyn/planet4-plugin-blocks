@@ -49,9 +49,10 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 				],
 				[
 					'label'       => __( 'Number of covers displayed', 'planet4-blocks' ),
-					'description' => __( 'Select how many covers will be shown in large screens.<br> 
-										All available covers, first 3 covers or first 6 covers.<br>
-										In small screens 4 covers will be shown by default, except when 3 covers is selected.',
+					'description' => __( 'Show 1 Row: Displays 3 Covers on desktop and 2 Covers on mobile.<br> 
+										Show 2 Rows: Displays 6 Covers on desktop and 4 covers on mobile.<br>
+										(Another Row will be revealed each time the Load More button is clicked)<br>
+										Show All Covers: Displays all available Covers on desktop and 4 Covers on mobile.',
 										'planet4-blocks' ),
 					'attr'        => 'covers_view',
 					'type'        => 'select',
@@ -59,16 +60,16 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 						[
 							'value' => '0',
 							// translators: placeholder is a number.
-							'label' => sprintf( __( 'Show %s covers', 'planet4-blocks' ), 6 ),
+							'label' => __( 'Show 1 Row', 'planet4-blocks' ),
 						],
 						[
 							'value' => '3',
 							// translators: placeholder is a number.
-							'label' => sprintf( __( 'Show %s covers', 'planet4-blocks' ), 3 ),
+							'label' => __( 'Show 2 Rows', 'planet4-blocks' ),
 						],
 						[
 							'value' => '1',
-							'label' => __( 'Show all covers', 'planet4-blocks' ),
+							'label' => __( 'Show All Covers', 'planet4-blocks' ),
 						],
 					],
 				],
@@ -111,7 +112,7 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 		 * @return string
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
-			$select_tags = $fields['select_tag'];
+			$select_tags = $fields['select_tag'] ?? '';
 
 			$options       = get_option( 'planet4_options' );
 			$parent_act_id = $options['act_page'];
