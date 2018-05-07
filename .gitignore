@@ -3,6 +3,11 @@ vendor/*
 !vendor/composer
 !vendor/autoload.php
 
+# Translation backups #
+################
+/languages/*.po~
+/languages/*.pot~
+
 # Logs #
 ########
 *.log
