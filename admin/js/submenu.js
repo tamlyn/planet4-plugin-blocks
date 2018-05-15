@@ -45,4 +45,16 @@ $(document).ready(function () {
 			}
 		}
 	}
+
+	// Add click event for submenu links.
+    $('.submenu-link').click(function (event) {
+        event.preventDefault();
+        var link = $.attr(this, 'href');
+        $('html, body').animate({
+            scrollTop: $(link).offset().top - 100
+        }, 2000);
+        window.location.hash = link;
+
+        return false;
+    });
 });
