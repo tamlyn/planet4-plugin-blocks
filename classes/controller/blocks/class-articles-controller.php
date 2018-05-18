@@ -123,7 +123,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_site_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
 			$exclude_post_id          = (int) ( $fields['exclude_post_id'] ?? '' );
 
-			//Get page categories
+			// Get page categories.
 			$post_categories         = get_the_category();
 
 			$category_id_array = [];
@@ -144,7 +144,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 							str_replace( 'p4_page_type_', '', $type )
 						);
 						$post_types[] = $post_type;
-						// We cannot filter search for more than one pagetype, so use the last one
+						// We cannot filter search for more than one pagetype, so use the last one.
 						$read_more_post_type = $post_type;
 					}
 				}
@@ -179,7 +179,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				}
 
 				if ( ! empty( $post_types ) ) {
-					$page_type_data = get_term_by( 'slug', wp_unslash( $read_more_post_type ), 'p4-page-type' );
+					$page_type_data   = get_term_by( 'slug', wp_unslash( $read_more_post_type ), 'p4-page-type' );
 					$read_more_filter .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
 				}
 
@@ -211,8 +211,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			}
 
 			// For post page block so current main post will exclude.
-			if( $exclude_post_id ) {
-				$args['post__not_in'] = [$exclude_post_id];
+			if ( $exclude_post_id ) {
+				$args['post__not_in'] = [ $exclude_post_id ];
 			}
 
 			if ( $tag_id ) {
@@ -229,8 +229,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				];
 			}
 
-			// For post, display related article based on current post tags.
-			if ( 'post' === get_post_type() ) {
+			// For posts and pages, display related articles based on current post/page tags.
+			$current_post_type = get_post_type();
+			if ( 'post' === $current_post_type || ( 'page' === $current_post_type && '' === $tag_id ) ) {
 				if ( $post_tags ) {
 					$tag_id_array = [];
 					foreach ( $post_tags as $tag ) {
