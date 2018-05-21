@@ -123,7 +123,14 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 				$images_data['image_sizes']  = wp_calculate_image_sizes( 'retina-large', null, null, $image_id );
 				$images_data['alt_text']     = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
 				$attachment_fields           = get_post_custom( $image_id );
-				$images_data['credits']      = ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) ? $attachment_fields['_credit_text'][0] : '';
+				$images_data['credits']      = '';
+				if ( isset( $attachment_fields['_credit_text'][0] ) && ! empty( $attachment_fields['_credit_text'][0] ) ) {
+					$images_data['credits'] = $attachment_fields['_credit_text'][0];
+					if ( ! is_numeric( strpos( $attachment_fields['_credit_text'][0], '©' ) ) ) {
+						$images_data['credits'] = '© ' . $images_data['credits'];
+					}
+				}
+
 				$images_data['caption']      = wp_get_attachment_caption( $image_id );
 
 				if ( count( $image_data_array ) >= 3 ) {

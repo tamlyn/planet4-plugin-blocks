@@ -120,12 +120,13 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 
 			if ( 0 !== absint( $parent_act_id ) ) {
 				$args = [
-					'post_type'   => 'page',
-					'post_status' => 'publish',
-					'post_parent' => $parent_act_id,
-					'orderby'     => 'menu_order',
-					'order'       => 'ASC',
-					'numberposts' => P4BKS_COVERS_NUM,
+					'post_type'        => 'page',
+					'post_status'      => 'publish',
+					'post_parent'      => $parent_act_id,
+					'orderby'          => 'menu_order',
+					'order'            => 'ASC',
+					'suppress_filters' => false,
+					'numberposts'      => P4BKS_COVERS_NUM,
 				];
 				// If user selected a tag to associate with the Take Action page covers.
 				if ( $select_tags ) {
