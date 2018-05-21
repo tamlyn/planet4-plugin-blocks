@@ -13,7 +13,7 @@
 				{% for m in menu %}
 					<ul class="submenu-item">
 						{% if ( m.link ) %}
-							<li><a href="#{{ m.id }}">{{ m.text }}</a></li>
+							<li><a href="#{{ m.id }}" class="submenu-link">{{ m.text }}</a></li>
 						{% else %}
 							<li>{{ m.text }}</li>
 						{% endif %}
@@ -21,7 +21,7 @@
 							<ul>
 								{% for child in m.children %}
 									{% if ( child.link ) %}
-										<li><a href="#{{ child.id }}">{{ child.text }}</a></li>
+										<li><a href="#{{ child.id }}" class="submenu-link">{{ child.text }}</a></li>
 									{% else %}
 										<li>{{ child.text }}</li>
 									{% endif %}

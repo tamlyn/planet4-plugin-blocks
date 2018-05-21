@@ -92,7 +92,7 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 					foreach( $tags as $tag ) {
 						if ( $context_tags->slug != $tag->slug ) {
 							$tag_remapped  = [
-								'name' => $tag->name,
+								'name' => html_entity_decode( $tag->name ),
 								'slug' => $tag->slug,
 								'href' => get_tag_link( $tag )
 							];
@@ -122,7 +122,7 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 
 					foreach ( $tags as $tag ) {
 						$tag_remapped = [
-							'name' => $tag->name,
+							'name' => html_entity_decode( $tag->name ),
 							'slug' => $tag->slug,
 							'href' => get_tag_link( $tag ),
 						];
