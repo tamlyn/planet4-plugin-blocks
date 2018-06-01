@@ -253,9 +253,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 				],
 				'campaign' => [
 					'image'       => wp_get_attachment_url( $campaign_image_id ),
-					'srcset'      => wp_calculate_image_srcset( [ '1118', '746' ],
-										wp_get_attachment_image_src( $campaign_image_id, 'full' )[0],
-										wp_get_attachment_metadata( $campaign_image_id ) ),
+					'srcset'      => wp_get_attachment_image_srcset( $campaign_image_id ),
 					'image_alt'   => get_post_meta( $campaign_image_id, '_wp_attachment_image_alt', true ),
 					'name'        => $tag instanceof \WP_Error ? '' : html_entity_decode( $tag->name ),
 					'link'        => get_tag_link( $tag ),
