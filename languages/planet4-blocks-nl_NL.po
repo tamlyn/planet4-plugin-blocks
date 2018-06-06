@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2018-03-03 18:41+0000\n"
-"PO-Revision-Date: 2018-06-06 15:10+0000\n"
+"PO-Revision-Date: 2018-06-06 15:38+0000\n"
 "Last-Translator: Berit Soolsma <bsoolsma@greenpeace.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -693,7 +693,7 @@ msgstr "Take Action"
 
 #: classes/controller/blocks/class-covers-controllers.php:163
 msgid "Load More ..."
-msgstr "Load more..."
+msgstr "Meer acties"
 
 #: classes/controller/blocks/class-takeactionboxout-controllers.php:57
 msgid "Select a Take Action Page"
@@ -784,7 +784,7 @@ msgstr "take action"
 
 #: includes/blocks/content_four_column.twig:63
 msgid "Load More"
-msgstr "Load more"
+msgstr "Meer publicaties"
 
 #. Plugin Name of the plugin/theme
 msgid "Planet4 - Blocks"
