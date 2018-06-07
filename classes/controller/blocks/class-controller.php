@@ -71,7 +71,7 @@ if ( ! class_exists( 'Controller' ) ) {
 			if ( current_user_can( 'activate_plugins' ) ) {
 				?>
 				<div class="error message">
-					<p><?php esc_html_e( 'Shortcode UI plugin must be active for Planet4 - Blocks plugin to work.', 'planet4-blocks' ); ?></p>
+					<p><?php esc_html_e( 'Shortcode UI plugin must be active for Planet4 - Blocks plugin to work.', 'planet4-blocks-backend' ); ?></p>
 				</div>
 				<?php
 			}
