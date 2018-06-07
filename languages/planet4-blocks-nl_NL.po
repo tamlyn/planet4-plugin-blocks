@@ -32,11 +32,11 @@ msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:240
 msgid "Learn more about this issue"
-msgstr ""
+msgstr "Learn more about this issue"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:261
 msgid "Get Involved"
-msgstr ""
+msgstr "Get Involved"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:123
 msgid "take action"
@@ -44,7 +44,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:222
 msgid "Publications"
-msgstr ""
+msgstr "Publications"
 
 #: classes/controller/blocks/class-articles-controller.php:154
 msgid "Related Articles"
@@ -61,15 +61,15 @@ msgstr ""
 #: includes/blocks/content_four_column.twig:60
 #: includes/blocks/content_four_column.twig:68
 msgid "Load More"
-msgstr ""
+msgstr "Meer publicaties"
 
 #. Plugin Name of the plugin/theme
 msgid "Planet4 - Blocks"
-msgstr ""
+msgstr "Planet4 - Blocks"
 
 #. Description of the plugin/theme
 msgid "Creates all the blocks that will be available for usage by Shortcake."
-msgstr ""
+msgstr "Creates all the blocks that will be available for usage by Shortcake."
 
 #. URI of the plugin
 msgid "http://github.com/greenpeace/planet4-plugin-blocks"
@@ -77,8 +77,8 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Greenpeace International"
-msgstr ""
+msgstr "Greenpeace International"
 
 #. Author URI of the plugin/theme
 msgid "http://www.greenpeace.org/"
-msgstr ""
+msgstr "http://www.greenpeace.org/"
