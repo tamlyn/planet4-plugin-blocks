@@ -3,7 +3,7 @@
  * Plugin Name: Planet4 - Blocks
  * Description: Creates all the blocks that will be available for usage by Shortcake.
  * Plugin URI: http://github.com/greenpeace/planet4-plugin-blocks
- * Version: 1.7
+ * Version: 1.9
  * Php Version: 7.0
  *
  * Author: Greenpeace International
@@ -79,4 +79,5 @@ P4BKS\Loader::get_instance( [
 	'P4BKS\Controllers\Blocks\CampaignThumbnail_Controller',
 	'P4BKS\Controllers\Blocks\TakeActionBoxout_Controller',
 	'P4BKS\Controllers\Blocks\SubMenu_Controller',
+	'P4BKS\Controllers\Blocks\Cookies_Controller',
 ], 'P4BKS\Views\View' );

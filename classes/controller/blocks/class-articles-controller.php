@@ -34,7 +34,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// Construct a checkbox for each p4-page-type.
 			if ( ! empty( $planet4_article_type_terms ) ) {
-				$checkboxes [] = [
+				$checkboxes[] = [
 					'attr'        => 'ignore_categories',
 					'label'       => 'Ignore Categories',
 					'description' => 'Ignore categories when filtering posts to populate the content of this block',
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				];
 
 				foreach ( $planet4_article_type_terms as $term ) {
-					$checkboxes [] = [
+					$checkboxes[] = [
 						'attr'        => 'p4_page_type_' . str_replace( '-', '_', $term->slug ),
 						'label'       => $term->name . ' Posts',
 						'description' => 'Use Posts that belong to ' . $term->name . ' type to populate the content of this block',
@@ -55,35 +55,35 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			$fields = [
 				[
-					'label' => __( 'Article Heading', 'planet4-blocks' ),
+					'label' => __( 'Article Heading', 'planet4-blocks-backend' ),
 					'attr'  => 'article_heading',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => __( 'Enter article heading', 'planet4-blocks' ),
+						'placeholder' => __( 'Enter article heading', 'planet4-blocks-backend' ),
 					],
 				],
 				[
-					'label' => __( 'Article Count', 'planet4-blocks' ),
+					'label' => __( 'Article Count', 'planet4-blocks-backend' ),
 					'attr'  => 'article_count',
 					'type'  => 'number',
 					'meta'  => [
-						'placeholder' => __( 'Enter articles count', 'planet4-blocks' ),
+						'placeholder' => __( 'Enter articles count', 'planet4-blocks-backend' ),
 					],
 				],
 				[
-					'label' => __( 'Read More Text', 'planet4-blocks' ),
+					'label' => __( 'Read More Text', 'planet4-blocks-backend' ),
 					'attr'  => 'read_more_text',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => __( 'Add read more button text', 'planet4-blocks' ),
+						'placeholder' => __( 'Add read more button text', 'planet4-blocks-backend' ),
 					],
 				],
 				[
-					'label' => __( 'Read More Link', 'planet4-blocks' ),
+					'label' => __( 'Read More Link', 'planet4-blocks-backend' ),
 					'attr'  => 'read_more_link',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => __( 'Add read more button link', 'planet4-blocks' ),
+						'placeholder' => __( 'Add read more button link', 'planet4-blocks-backend' ),
 					],
 				],
 			];
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
-				'label'         => __( 'Articles', 'planet4-blocks' ),
+				'label'         => __( 'Articles', 'planet4-blocks-backend' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/home_news.jpg' ) . '" />',
 				'attrs'         => $fields,
 				'post_type'     => P4BKS_ALLOWED_PAGETYPE,
@@ -118,14 +118,13 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
 			// Read more button links to search results if no link is specified.
-			$tag_id                   = $fields['tag_id'] ?? '';
-			$tag_filter               = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';
-			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_site_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
-			$exclude_post_id          = (int) ( $fields['exclude_post_id'] ?? '' );
+			$tag_id          = $fields['tag_id'] ?? '';
+			$tag_filter      = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';
+			$read_more_link  = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_site_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
+			$exclude_post_id = (int) ( $fields['exclude_post_id'] ?? '' );
 
 			// Get page categories.
-			$post_categories         = get_the_category();
-
+			$post_categories   = get_the_category();
 			$category_id_array = [];
 			foreach ( $post_categories as $category ) {
 				$category_id_array[] = $category->term_id;
@@ -151,10 +150,10 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			}
 
 			// Article block default text setting.
-			$options               = get_option( 'planet4_options' );
-			$article_title         = $options['articles_block_title'] ?? __( 'Related Articles', 'planet4-blocks' );
-			$article_button_title  = $options['articles_block_button_title'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
-			$article_count         = $options['articles_count'] ?? 3;
+			$options              = get_option( 'planet4_options' );
+			$article_title        = $options['articles_block_title'] ?? __( 'Related Articles', 'planet4-blocks' );
+			$article_button_title = $options['articles_block_button_title'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
+			$article_count        = $options['articles_count'] ?? 3;
 
 			$fields['article_heading'] = $fields['article_heading'] ?? $article_title;
 			$fields['read_more_text']  = $fields['read_more_text'] ?? $article_button_title;
@@ -165,9 +164,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$post_tags = get_the_tags();
 
 			// On other than tag page, read more link should lead to search page-preselected with current page categories/tags.
-			if ( '' == $tag_id ) {
+			if ( '' === $tag_id ) {
 				$read_more_filter = '';
-				if ( 'true' != $ignore_categories ) {
+				if ( 'true' !== $ignore_categories ) {
 					if ( $post_categories ) {
 						foreach ( $post_categories as $category ) {
 							// For issue page.
@@ -198,12 +197,13 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// Get all posts with arguments.
 			$args = [
-				'numberposts' => $fields['article_count'],
-				'orderby'     => 'date',
-				'post_status' => 'publish',
+				'numberposts'      => $fields['article_count'],
+				'orderby'          => 'date',
+				'post_status'      => 'publish',
+				'suppress_filters' => false,
 			];
 
-			if ( 'true' != $ignore_categories ) {
+			if ( 'true' !== $ignore_categories ) {
 				if ( $category_id_array ) {
 					$category_ids = implode( ',', $category_id_array );
 					$args['category'] = '( ' . $category_ids . ' )';
@@ -240,7 +240,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$args['tag__in'] = $tag_id_array;
 				}
 			}
-			$all_posts = wp_get_recent_posts( $args );
+			$all_posts    = wp_get_recent_posts( $args );
+			$recent_posts = [];
 
 			if ( $all_posts ) {
 				foreach ( $all_posts as $recent ) {
@@ -285,9 +286,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			}
 
 			$data = [
-				'fields'        => $fields,
-				'recent_posts'  => $recent_posts,
-				'domain'        => 'planet4-blocks',
+				'fields'       => $fields,
+				'recent_posts' => $recent_posts,
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.
