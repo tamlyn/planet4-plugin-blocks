@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2018-06-07 11:24+0000\n"
-"PO-Revision-Date: 2018-06-11 10:33+0000\n"
+"PO-Revision-Date: 2018-06-11 11:54+0000\n"
 "Last-Translator: Berit Soolsma <bsoolsma@greenpeace.org>\n"
 "Language-Team: Dutch\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "Meer laden"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:240
 msgid "Learn more about this issue"
-msgstr "Lees meer over dit onderwerp"
+msgstr "Lees verder"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:261
 msgid "Get Involved"
