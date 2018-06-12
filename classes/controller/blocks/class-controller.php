@@ -126,17 +126,16 @@ if ( ! class_exists( 'Controller' ) ) {
 		 * @return string                The html markup for the shortcode preview iframe.
 		 */
 		public function prepare_template_preview_iframe( $fields, $content, $shortcode_tag ) {
-
-			$request = add_query_arg(
-				array_merge( $fields,
-					[
-						'_tag'     => $shortcode_tag,
-						'_content' => $content,
-						'_post_id' => get_the_ID(),
-						'_nonce'   => wp_create_nonce( 'p4bks_preview_render_' . static::BLOCK_NAME ),
-						'action'   => 'p4bks_preview_render_' . static::BLOCK_NAME,
-					]
-				),
+			$preview_args   = [
+				'_tag'     => $shortcode_tag,
+				'_content' => $content,
+				'_post_id' => get_the_ID(),
+				'_nonce'   => wp_create_nonce( 'p4bks_preview_render_' . static::BLOCK_NAME ),
+				'action'   => 'p4bks_preview_render_' . static::BLOCK_NAME,
+			];
+			$request_params = ! is_null( $fields ) && ! empty( $fields ) ? array_merge( $fields, $preview_args ) : $preview_args;
+			$request        = add_query_arg(
+				$request_params,
 				admin_url( 'admin-ajax.php' )
 			);
 
