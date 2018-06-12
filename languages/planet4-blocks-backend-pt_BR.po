@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2018-06-12 16:55+0000\n"
+"PO-Revision-Date: 2018-06-12 18:52+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 #: classes/class-loader.php:98
 msgid "Current version "
-msgstr ""
+msgstr "Versão atual"
 
 #: classes/class-loader.php:113
 msgid "PHP Requirements Error"
@@ -47,15 +47,15 @@ msgstr ""
 
 #: classes/class-loader.php:200
 msgid "Conflict Error"
-msgstr ""
+msgstr "Erro de conflito"
 
 #: classes/class-loader.php:200
 msgid "Class P4BKS_Loader already exists."
-msgstr ""
+msgstr "Classe P4BKS_Loader já existe"
 
 #: classes/controller/blocks/class-cookies-controller.php:32
 msgid "Cookies title"
-msgstr ""
+msgstr "Título dos Cookies"
 
 #: classes/controller/blocks/class-cookies-controller.php:33
 msgid "Main title for cookies block"
@@ -63,7 +63,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-cookies-controller.php:38
 msgid "Cookies general description"
-msgstr ""
+msgstr "Descrição geral dos Cookies"
 
 #: classes/controller/blocks/class-cookies-controller.php:39
 msgid "Main description for cookies block"
@@ -83,11 +83,11 @@ msgstr ""
 
 #: classes/controller/blocks/class-cookies-controller.php:51
 msgid "Description for the 'necessary cookies' paragraph"
-msgstr ""
+msgstr "Descrição para o parágrafo \"Cookies necessários\""
 
 #: classes/controller/blocks/class-cookies-controller.php:56
 msgid "All Cookies Name"
-msgstr ""
+msgstr "All Cookies nome"
 
 #: classes/controller/blocks/class-cookies-controller.php:57
 msgid "Label for the 'all cookies' checkbox"
@@ -95,15 +95,15 @@ msgstr ""
 
 #: classes/controller/blocks/class-cookies-controller.php:62
 msgid "All Cookies Description"
-msgstr ""
+msgstr "All Cookies descrição"
 
 #: classes/controller/blocks/class-cookies-controller.php:63
 msgid "Description for the 'all cookies' paragraph"
-msgstr ""
+msgstr "Descrição para o parágrafo \"Todos os cookies\""
 
 #: classes/controller/blocks/class-cookies-controller.php:71
 msgid "Cookies"
-msgstr ""
+msgstr "Cookies"
 
 #: classes/controller/blocks/class-mediablock-controller.php:30
 msgid "Select Image for the media block"
@@ -173,14 +173,14 @@ msgstr ""
 #: classes/controller/blocks/class-twocolumn-controller.php:53
 #: classes/controller/blocks/class-twocolumn-controller.php:89
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:39
 #: classes/controller/blocks/class-covers-controllers.php:38
 #: classes/controller/blocks/class-splittwocolumns-controller.php:99
 #: classes/controller/blocks/class-splittwocolumns-controller.php:151
 msgid "Enter description"
-msgstr ""
+msgstr "Coloque a descrição"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:43
 msgid "Image 1"
@@ -219,7 +219,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-covers-controllers.php:45
 msgid "Associate this block with Actions that have specific Tags"
-msgstr ""
+msgstr "Associar esse bloco com Ações que tenham Tags específicas"
 
 #: classes/controller/blocks/class-covers-controllers.php:51
 msgid "Number of covers displayed"
@@ -258,7 +258,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-campaignthumbnail-controller.php:36
 msgid "Campaign Thumbnail"
-msgstr ""
+msgstr "Thumb da campanha"
 
 #: classes/controller/blocks/class-tasks-controller.php:30
 msgid "Tasks Title"
@@ -319,7 +319,7 @@ msgstr ""
 #: classes/controller/blocks/class-tasks-controller.php:98
 #, php-format
 msgid "Enter button text of %s task/column"
-msgstr ""
+msgstr "Coloque o texto do botão da coluna %s"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:106
@@ -331,7 +331,7 @@ msgstr ""
 #: classes/controller/blocks/class-tasks-controller.php:111
 #, php-format
 msgid "Enter button link of %s task/column"
-msgstr ""
+msgstr "Coloque o link do botão para o %s da tarefa/coluna"
 
 #. A block that contains different columns each one with title and description and an image.
 #: classes/controller/blocks/class-tasks-controller.php:120
@@ -384,13 +384,13 @@ msgstr "7 - Embaixo à esq."
 #: classes/controller/blocks/class-carouselheader-controller.php:55
 #: classes/controller/blocks/class-happypoint-controller.php:66
 msgid "8 - Bottom Center"
-msgstr ""
+msgstr "8 - Embaixo ao centro"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:32
 #: classes/controller/blocks/class-carouselheader-controller.php:56
 #: classes/controller/blocks/class-happypoint-controller.php:70
 msgid "9 - Bottom Right"
-msgstr ""
+msgstr "9 - Embaixo à dir. "
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:68
 msgid "Issue fields (Column 1 - Left side)"
@@ -402,7 +402,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:72
 msgid "Campaign fields (Column 2 - Right side)"
-msgstr ""
+msgstr "Campos da Campanha (Coluna 2 - lado direito)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:73
 msgid "Select a tag"
@@ -410,7 +410,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:80
 msgid "Associate this block to the Issue that it will talk about"
-msgstr ""
+msgstr "Associar este bloco com o Problema relacionado a ele"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:85
 msgid "Issue Title"
@@ -474,31 +474,31 @@ msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:141
 msgid "Associate the selected Issue with a Tag"
-msgstr ""
+msgstr "Associar o Problema selecionado à Tag"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:147
 msgid "Campaign Description"
-msgstr ""
+msgstr "Descrição da Campanha"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:156
 msgid "Campaign button text"
-msgstr ""
+msgstr "Texto do botão da campanha"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:160
 msgid "Enter button text"
-msgstr ""
+msgstr "Coloque o texto do botão"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:165
 msgid "Campaign button link"
-msgstr ""
+msgstr "Link do botão da campanha"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:169
 msgid "Enter button link"
-msgstr ""
+msgstr "Coloque o texto do botão"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:174
 msgid "Campaign Image"
-msgstr ""
+msgstr "Imagem da campanha"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:178
 #: classes/controller/blocks/class-splittwocolumns-controller.php:179
@@ -519,7 +519,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:58
 msgid "Associate this block with a Take Action page"
-msgstr ""
+msgstr "Associar este bloco com uma página Agir Agora"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:66
 msgid "Take Action Boxout"
@@ -543,7 +543,7 @@ msgstr ""
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:64
 #: classes/controller/blocks/class-submenu-controller.php:103
 msgid "Associate this block with Posts that have a specific Tag"
-msgstr ""
+msgstr "Associar este bloco com Posts que tenham uma Tag específica"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:76
 msgid "Number of Posts displayed"
@@ -566,7 +566,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:102
 msgid "Content Four Column"
-msgstr ""
+msgstr "Coluna de quatro conteúdos"
 
 #: classes/controller/blocks/class-carousel-controller.php:79
 msgid "Select Carousel Images"
@@ -574,7 +574,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-carousel-controller.php:91
 msgid "Carousel"
-msgstr ""
+msgstr "Carrossel"
 
 #: classes/controller/blocks/class-carouselsplit-controller.php:28
 msgid "Images"
@@ -588,7 +588,7 @@ msgstr ""
 #. A block that contains a carousel with split images.
 #: classes/controller/blocks/class-carouselsplit-controller.php:41
 msgid "Carousel Split"
-msgstr ""
+msgstr "Divisão do Carrossel"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:43
@@ -606,7 +606,7 @@ msgstr ""
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:66
 #, php-format
 msgid "Enter description of %s column"
-msgstr ""
+msgstr "Coloque a descrição da coluna %s"
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:71
 #: classes/controller/blocks/class-carouselheader-controller.php:91
@@ -617,7 +617,7 @@ msgstr ""
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:76
 #, php-format
 msgid "Enter %s link text"
-msgstr ""
+msgstr "Coloque %s texto do link"
 
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:81
 #: classes/controller/blocks/class-carouselheader-controller.php:101
@@ -628,7 +628,7 @@ msgstr ""
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:86
 #, php-format
 msgid "Enter %s link url"
-msgstr ""
+msgstr "Coloque %s a url do link"
 
 #. A block that contains 4 different columns each one with title and description.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:97
@@ -676,7 +676,7 @@ msgstr ""
 #: classes/controller/blocks/class-carouselheader-controller.php:86
 #, php-format
 msgid "Enter description of %s image"
-msgstr ""
+msgstr "Coloque a descrição da imagem %s"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:96
@@ -693,11 +693,11 @@ msgstr ""
 #. A block that contains 4 different columns each one with title and description.
 #: classes/controller/blocks/class-carouselheader-controller.php:117
 msgid "Carousel Header"
-msgstr ""
+msgstr "Cabeçalho do carrossel"
 
 #: classes/controller/blocks/class-happypoint-controller.php:24
 msgid "Background"
-msgstr ""
+msgstr "Fundo"
 
 #: classes/controller/blocks/class-happypoint-controller.php:28
 #: classes/controller/blocks/class-happypoint-controller.php:29
@@ -749,7 +749,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-submenu-controller.php:98
 msgid "Anchor Link Submenu"
-msgstr ""
+msgstr "Link de submenu de âncora"
 
 #: classes/controller/blocks/class-submenu-controller.php:99
 msgid ""
@@ -757,6 +757,9 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t\t\t\tthe page and let them jump to a topic they are "
 "interested in."
 msgstr ""
+"Um índice na página ajuda os usuários a ter uma ideia do que há na página\n"
+"\t\t\t\t\t\t\t\t\t\t\t\te os ajuda a ir num tópico que eles estão "
+"interessados.\n"
 
 #: classes/controller/blocks/class-submenu-controller.php:102
 msgid "What style of menu do you need?"
@@ -793,16 +796,16 @@ msgstr ""
 #: classes/controller/blocks/class-twocolumn-controller.php:62
 #: classes/controller/blocks/class-twocolumn-controller.php:97
 msgid "Button text"
-msgstr ""
+msgstr "Texto do botão"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:70
 #: classes/controller/blocks/class-twocolumn-controller.php:105
 msgid "Button link"
-msgstr ""
+msgstr "Link do botão"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:74
 msgid "Enter button link of first column"
-msgstr ""
+msgstr "Coloque o link do botão da primeira coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:85
 msgid "Enter title of second column"
@@ -814,7 +817,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-twocolumn-controller.php:109
 msgid "Enter button link of second column"
-msgstr ""
+msgstr "Coloque o link do botão da segunda coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:123
 msgid "Two Columns"
@@ -822,19 +825,19 @@ msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:58
 msgid "Article Heading"
-msgstr ""
+msgstr "Heading do artigo"
 
 #: classes/controller/blocks/class-articles-controller.php:62
 msgid "Enter article heading"
-msgstr ""
+msgstr "Coloque o cabeçalho do artigo"
 
 #: classes/controller/blocks/class-articles-controller.php:66
 msgid "Article Count"
-msgstr ""
+msgstr "Contagem de artigos"
 
 #: classes/controller/blocks/class-articles-controller.php:70
 msgid "Enter articles count"
-msgstr ""
+msgstr "Coloque a contagem do artigo"
 
 #: classes/controller/blocks/class-articles-controller.php:74
 msgid "Read More Text"
@@ -842,7 +845,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:78
 msgid "Add read more button text"
-msgstr ""
+msgstr "Adicionar texto \"leia mais\""
 
 #: classes/controller/blocks/class-articles-controller.php:82
 msgid "Read More Link"
@@ -850,16 +853,16 @@ msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:86
 msgid "Add read more button link"
-msgstr ""
+msgstr "Adicionar botão \"leia mais\""
 
 #: classes/controller/blocks/class-articles-controller.php:97
 msgid "Articles"
-msgstr ""
+msgstr "Artigos"
 
 #: classes/controller/menu/class-settings-controller.php:21
 #: classes/controller/menu/class-settings-controller.php:22
 msgid "Blocks"
-msgstr ""
+msgstr "Blocos"
 
 #: includes/settings.twig:4
 msgid "Settings"
