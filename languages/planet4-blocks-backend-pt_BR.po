@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2018-06-12 18:52+0000\n"
+"PO-Revision-Date: 2018-06-12 19:51+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -131,7 +131,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-mediavideo-controller.php:31
 msgid "Enter video title"
-msgstr ""
+msgstr "Coloque o título do vídeo"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:35
 msgid "Youtube ID"
@@ -139,7 +139,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-mediavideo-controller.php:39
 msgid "Enter youtube video id"
-msgstr ""
+msgstr "Coloque a ID do vídeo no YouTube (o final da URL)"
 
 #: classes/controller/blocks/class-mediavideo-controller.php:46
 msgid "Youtube Video"
@@ -163,7 +163,7 @@ msgstr ""
 #: classes/controller/blocks/class-splittwocolumns-controller.php:89
 #: classes/controller/blocks/class-carousel-controller.php:75
 msgid "Enter title"
-msgstr ""
+msgstr "Coloque o título"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:35
 #: classes/controller/blocks/class-covers-controllers.php:34
@@ -184,7 +184,7 @@ msgstr "Coloque a descrição"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:43
 msgid "Image 1"
-msgstr ""
+msgstr "Imagem 1"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:47
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:48
@@ -193,7 +193,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:51
 msgid "Image 2"
-msgstr ""
+msgstr "Imagem 2"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:55
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:56
@@ -202,7 +202,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:59
 msgid "Image 3"
-msgstr ""
+msgstr "Imagem 3"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:63
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:64
@@ -266,7 +266,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:34
 msgid "Enter tasks title"
-msgstr ""
+msgstr "Coloque o título das tarefas"
 
 #: classes/controller/blocks/class-tasks-controller.php:39
 msgid "Tasks Description"
@@ -274,7 +274,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-tasks-controller.php:43
 msgid "Enter tasks description"
-msgstr ""
+msgstr "Coloque a descrição das tarefas"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:55
@@ -289,7 +289,7 @@ msgstr ""
 #: classes/controller/blocks/class-tasks-controller.php:61
 #, php-format
 msgid "Enter title of %s task/column"
-msgstr ""
+msgstr "Coloque o título da tarefa/coluna %s"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:69
@@ -301,7 +301,7 @@ msgstr ""
 #: classes/controller/blocks/class-tasks-controller.php:74
 #, php-format
 msgid "Enter description of %s task/column"
-msgstr ""
+msgstr "Coloque a descrição da coluna/tarefa %s"
 
 #. placeholder needs to represent the ordinal of the task/column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-tasks-controller.php:82
@@ -394,7 +394,7 @@ msgstr "9 - Embaixo à dir. "
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:68
 msgid "Issue fields (Column 1 - Left side)"
-msgstr ""
+msgstr "Campos do Problema (Coluna 1 - lado esquerdo)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:69
 msgid "Select an issue"
@@ -414,7 +414,7 @@ msgstr "Associar este bloco com o Problema relacionado a ele"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:85
 msgid "Issue Title"
-msgstr ""
+msgstr "Título do Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:92
 msgid "(Optional) Fill this only if you need to override issue title."
@@ -424,7 +424,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:95
 msgid "Issue Description"
-msgstr ""
+msgstr "Descrição do Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:101
 msgid "(Optional) Fill this only if you need to override issue description."
@@ -434,11 +434,11 @@ msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:104
 msgid "Issue link text"
-msgstr ""
+msgstr "Texto do link deste Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:108
 msgid "Enter link text"
-msgstr ""
+msgstr "Coloque o texto do link"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:110
 #: classes/controller/blocks/class-splittwocolumns-controller.php:119
@@ -453,15 +453,15 @@ msgstr "(Opcional)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:113
 msgid "Issue link path"
-msgstr ""
+msgstr "Caminho do link deste Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:117
 msgid "Enter link path"
-msgstr ""
+msgstr "Coloque o caminho do link"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:122
 msgid "Issue Image"
-msgstr ""
+msgstr "Imagem do Problema"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:126
 #: classes/controller/blocks/class-splittwocolumns-controller.php:127
@@ -534,7 +534,7 @@ msgstr ""
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:57
 #: classes/controller/blocks/class-submenu-controller.php:132
 msgid "Enter title for this block"
-msgstr ""
+msgstr "Coloque o título deste bloco"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:63
 msgid "Select a Tag"
@@ -578,7 +578,7 @@ msgstr "Carrossel"
 
 #: classes/controller/blocks/class-carouselsplit-controller.php:28
 msgid "Images"
-msgstr ""
+msgstr "Imagens"
 
 #: classes/controller/blocks/class-carouselsplit-controller.php:33
 #: classes/controller/blocks/class-carouselsplit-controller.php:34
@@ -600,7 +600,7 @@ msgstr ""
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:56
 #, php-format
 msgid "Enter title of %s column"
-msgstr ""
+msgstr "Coloque o título da coluna %s"
 
 #. placeholder needs to represent the ordinal of the column, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-staticfourcolumn-controller.php:66
@@ -653,13 +653,13 @@ msgstr ""
 
 #: classes/controller/blocks/class-carouselheader-controller.php:60
 msgid "Header"
-msgstr ""
+msgstr "Cabeçalho"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:65
 #, php-format
 msgid "Enter header of %s image"
-msgstr ""
+msgstr "Coloque o cabeçalho da imagem %s"
 
 #: classes/controller/blocks/class-carouselheader-controller.php:71
 #: classes/controller/blocks/class-subheader-controller.php:37
@@ -670,7 +670,7 @@ msgstr ""
 #: classes/controller/blocks/class-carouselheader-controller.php:76
 #, php-format
 msgid "Enter subheader of %s image"
-msgstr ""
+msgstr "Coloque o sub-cabeçalho da imagem %s"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:86
@@ -682,13 +682,13 @@ msgstr "Coloque a descrição da imagem %s"
 #: classes/controller/blocks/class-carouselheader-controller.php:96
 #, php-format
 msgid "Enter link text for %s image"
-msgstr ""
+msgstr "Coloque o texto do link para a imagem %s"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:106
 #, php-format
 msgid "Enter link url for %s image"
-msgstr ""
+msgstr "Coloque a url da imagem %s"
 
 #. A block that contains 4 different columns each one with title and description.
 #: classes/controller/blocks/class-carouselheader-controller.php:117
@@ -729,15 +729,15 @@ msgstr ""
 
 #: classes/controller/blocks/class-happypoint-controller.php:86
 msgid "Iframe url"
-msgstr ""
+msgstr "URL do iframe"
 
 #: classes/controller/blocks/class-happypoint-controller.php:93
 msgid "Enter iframe url"
-msgstr ""
+msgstr "Coloque a url do iframe"
 
 #: classes/controller/blocks/class-happypoint-controller.php:100
 msgid "Happy Point"
-msgstr ""
+msgstr "Ponto Feliz"
 
 #: classes/controller/blocks/class-submenu-controller.php:86
 msgid "None"
@@ -745,7 +745,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-submenu-controller.php:92
 msgid "Heading"
-msgstr ""
+msgstr "Cabecilho"
 
 #: classes/controller/blocks/class-submenu-controller.php:98
 msgid "Anchor Link Submenu"
@@ -787,11 +787,11 @@ msgstr ""
 
 #: classes/controller/blocks/class-twocolumn-controller.php:48
 msgid "Enter title of first column"
-msgstr ""
+msgstr "Coloque o título da primeira coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:57
 msgid "Enter description of first column"
-msgstr ""
+msgstr "Coloque a descrição da primeira coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:62
 #: classes/controller/blocks/class-twocolumn-controller.php:97
@@ -809,11 +809,11 @@ msgstr "Coloque o link do botão da primeira coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:85
 msgid "Enter title of second column"
-msgstr ""
+msgstr "Coloque o título da segunda coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:93
 msgid "Enter description of second column"
-msgstr ""
+msgstr "Coloque a descrição da segunda coluna"
 
 #: classes/controller/blocks/class-twocolumn-controller.php:109
 msgid "Enter button link of second column"
