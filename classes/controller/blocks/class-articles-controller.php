@@ -55,35 +55,35 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			$fields = [
 				[
-					'label' => __( 'Article Heading', 'planet4-blocks' ),
+					'label' => __( 'Article Heading', 'planet4-blocks-backend' ),
 					'attr'  => 'article_heading',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => __( 'Enter article heading', 'planet4-blocks' ),
+						'placeholder' => __( 'Enter article heading', 'planet4-blocks-backend' ),
 					],
 				],
 				[
-					'label' => __( 'Article Count', 'planet4-blocks' ),
+					'label' => __( 'Article Count', 'planet4-blocks-backend' ),
 					'attr'  => 'article_count',
 					'type'  => 'number',
 					'meta'  => [
-						'placeholder' => __( 'Enter articles count', 'planet4-blocks' ),
+						'placeholder' => __( 'Enter articles count', 'planet4-blocks-backend' ),
 					],
 				],
 				[
-					'label' => __( 'Read More Text', 'planet4-blocks' ),
+					'label' => __( 'Read More Text', 'planet4-blocks-backend' ),
 					'attr'  => 'read_more_text',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => __( 'Add read more button text', 'planet4-blocks' ),
+						'placeholder' => __( 'Add read more button text', 'planet4-blocks-backend' ),
 					],
 				],
 				[
-					'label' => __( 'Read More Link', 'planet4-blocks' ),
+					'label' => __( 'Read More Link', 'planet4-blocks-backend' ),
 					'attr'  => 'read_more_link',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => __( 'Add read more button link', 'planet4-blocks' ),
+						'placeholder' => __( 'Add read more button link', 'planet4-blocks-backend' ),
 					],
 				],
 			];
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
-				'label'         => __( 'Articles', 'planet4-blocks' ),
+				'label'         => __( 'Articles', 'planet4-blocks-backend' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/home_news.jpg' ) . '" />',
 				'attrs'         => $fields,
 				'post_type'     => P4BKS_ALLOWED_PAGETYPE,
@@ -288,7 +288,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$data = [
 				'fields'       => $fields,
 				'recent_posts' => $recent_posts,
-				'domain'       => 'planet4-blocks',
 			];
 
 			// Shortcode callbacks must return content, hence, output buffering here.

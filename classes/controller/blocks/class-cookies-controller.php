@@ -29,38 +29,38 @@ if ( ! class_exists( 'Cookies_Controller' ) ) {
 
 			$fields = [
 				[
-					'label'       => __( 'Cookies title', 'planet4-blocks' ),
-					'description' => __( 'Main title for cookies block', 'planet4-blocks' ),
+					'label'       => __( 'Cookies title', 'planet4-blocks-backend' ),
+					'description' => __( 'Main title for cookies block', 'planet4-blocks-backend' ),
 					'attr'        => 'title',
 					'type'        => 'text',
 				],
 				[
-					'label'       => __( 'Cookies general description', 'planet4-blocks' ),
-					'description' => __( 'Main description for cookies block', 'planet4-blocks' ),
+					'label'       => __( 'Cookies general description', 'planet4-blocks-backend' ),
+					'description' => __( 'Main description for cookies block', 'planet4-blocks-backend' ),
 					'attr'        => 'description',
 					'type'        => 'text',
 				],
 				[
-					'label'       => __( 'Necessary Cookies Name', 'planet4-blocks' ),
-					'description' => __( 'Label for the \'necessary cookies\' checkbox', 'planet4-blocks' ),
+					'label'       => __( 'Necessary Cookies Name', 'planet4-blocks-backend' ),
+					'description' => __( 'Label for the \'necessary cookies\' checkbox', 'planet4-blocks-backend' ),
 					'attr'        => 'necessary_cookies_name',
 					'type'        => 'text',
 				],
 				[
-					'label'       => __( 'Necessary Cookies Description', 'planet4-blocks' ),
-					'description' => __( 'Description for the \'necessary cookies\' paragraph', 'planet4-blocks' ),
+					'label'       => __( 'Necessary Cookies Description', 'planet4-blocks-backend' ),
+					'description' => __( 'Description for the \'necessary cookies\' paragraph', 'planet4-blocks-backend' ),
 					'attr'        => 'necessary_cookies_description',
 					'type'        => 'text',
 				],
 				[
-					'label'       => __( 'All Cookies Name', 'planet4-blocks' ),
-					'description' => __( 'Label for the \'all cookies\' checkbox', 'planet4-blocks' ),
+					'label'       => __( 'All Cookies Name', 'planet4-blocks-backend' ),
+					'description' => __( 'Label for the \'all cookies\' checkbox', 'planet4-blocks-backend' ),
 					'attr'        => 'all_cookies_name',
 					'type'        => 'text',
 				],
 				[
-					'label'       => __( 'All Cookies Description', 'planet4-blocks' ),
-					'description' => __( 'Description for the \'all cookies\' paragraph', 'planet4-blocks' ),
+					'label'       => __( 'All Cookies Description', 'planet4-blocks-backend' ),
+					'description' => __( 'Description for the \'all cookies\' paragraph', 'planet4-blocks-backend' ),
 					'attr'        => 'all_cookies_description',
 					'type'        => 'text',
 				],
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Cookies_Controller' ) ) {
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
-				'label'         => __( 'Cookies', 'planet4-blocks' ),
+				'label'         => __( 'Cookies', 'planet4-blocks-backend' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/cookies.png' ) . '" />',
 				'attrs'         => $fields,
 				'post_type'     => P4BKS_ALLOWED_PAGETYPE,

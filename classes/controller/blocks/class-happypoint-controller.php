@@ -21,83 +21,83 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 		public function prepare_fields() {
 			$fields = [
 				[
-					'label'       => __( 'Background', 'planet4-blocks' ),
+					'label'       => __( 'Background', 'planet4-blocks-backend' ),
 					'attr'        => 'background',
 					'type'        => 'attachment',
 					'libraryType' => [ 'image' ],
-					'addButton'   => __( 'Select Background Image', 'planet4-blocks' ),
-					'frameTitle'  => __( 'Select Background Image', 'planet4-blocks' ),
+					'addButton'   => __( 'Select Background Image', 'planet4-blocks-backend' ),
+					'frameTitle'  => __( 'Select Background Image', 'planet4-blocks-backend' ),
 				],
 				[
-					'label'   => __( 'Select focus point for background image', 'planet4-blocks' ) . '<img src="' . esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png' ) ) . '" />',
+					'label'   => __( 'Select focus point for background image', 'planet4-blocks-backend' ) . '<img src="' . esc_url( plugins_url( '/planet4-plugin-blocks/admin/images/grid_9.png' ) ) . '" />',
 					'attr'    => 'focus_image',
 					'type'    => 'select',
 					'options' => [
 						[
 							'value' => 'left top',
-							'label' => __( '1 - Top Left', 'planet4-blocks' ),
+							'label' => __( '1 - Top Left', 'planet4-blocks-backend' ),
 						],
 						[
 							'value' => 'center top',
-							'label' => __( '2 - Top Center', 'planet4-blocks' ),
+							'label' => __( '2 - Top Center', 'planet4-blocks-backend' ),
 						],
 						[
 							'value' => 'right top',
-							'label' => __( '3 - Top Right', 'planet4-blocks' ),
+							'label' => __( '3 - Top Right', 'planet4-blocks-backend' ),
 						],
 						[
 							'value' => 'left center',
-							'label' => __( '4 - Middle Left', 'planet4-blocks' ),
+							'label' => __( '4 - Middle Left', 'planet4-blocks-backend' ),
 						],
 						[
 							'value' => 'center center',
-							'label' => __( '5 - Middle Center', 'planet4-blocks' ),
+							'label' => __( '5 - Middle Center', 'planet4-blocks-backend' ),
 						],
 						[
 							'value' => 'right center',
-							'label' => __( '6 - Middle Right', 'planet4-blocks' ),
+							'label' => __( '6 - Middle Right', 'planet4-blocks-backend' ),
 						],
 						[
 							'value' => 'left bottom',
-							'label' => __( '7 - Bottom Left', 'planet4-blocks' ),
+							'label' => __( '7 - Bottom Left', 'planet4-blocks-backend' ),
 						],
 						[
 							'value' => 'center bottom',
-							'label' => __( '8 - Bottom Center', 'planet4-blocks' ),
+							'label' => __( '8 - Bottom Center', 'planet4-blocks-backend' ),
 						],
 						[
 							'value' => 'right bottom',
-							'label' => __( '9 - Bottom Right', 'planet4-blocks' ),
+							'label' => __( '9 - Bottom Right', 'planet4-blocks-backend' ),
 						],
 					],
 				],
 				[
-					'label' => __( '<i>We use an overlay to fade the image back. Use a number between 1 and 100,<br /> the higher the number, the more faded the image will look. If you leave this <br/> empty, the default of 30 will be used.</i>', 'planet4-blocks' ),
+					'label' => __( '<i>We use an overlay to fade the image back. Use a number between 1 and 100,<br /> the higher the number, the more faded the image will look. If you leave this <br/> empty, the default of 30 will be used.</i>', 'planet4-blocks-backend' ),
 					'attr'  => 'opacity',
 					'type'  => 'number',
 					'meta'  => [ 'data-test' => 30 ],
 				],
 				[
-					'label' => __( 'Use mailing list iframe', 'planet4-blocks' ),
+					'label' => __( 'Use mailing list iframe', 'planet4-blocks-backend' ),
 					'attr'  => 'mailing_list_iframe',
 					'type'  => 'checkbox',
 				],
 				[
-					'label'       => __( 'Iframe url', 'planet4-blocks' ),
+					'label'       => __( 'Iframe url', 'planet4-blocks-backend' ),
 					'attr'        => 'iframe_url',
 					'type'        => 'url',
 					'encode'      => true,
 					'description' => __( 'If a url is set in this field and the \'mailing list iframe\' option is enabled,
-									  it will override the planet4 engaging network setting.', 'planet4-blocks' ),
+									  it will override the planet4 engaging network setting.', 'planet4-blocks-backend-backend' ),
 					'meta'        => [
-						'placeholder' => __( 'Enter iframe url', 'planet4-blocks' ),
+						'placeholder' => __( 'Enter iframe url', 'planet4-blocks-backend' ),
 					],
 				],
 			];
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
-				'label'         => __( 'Happy Point', 'planet4-blocks' ),
+				'label'         => __( 'Happy Point', 'planet4-blocks-backend' ),
 				'listItemImage' => '<img src="' . esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/icon_happy_point.png' ) . '" />',
 				'attrs'         => $fields,
 				'post_type'     => P4BKS_ALLOWED_PAGETYPE,
