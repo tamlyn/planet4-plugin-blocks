@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2018-06-13 13:22+0000\n"
+"PO-Revision-Date: 2018-06-12 19:51+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
@@ -15,15 +15,15 @@ msgstr ""
 
 #: classes/class-loader.php:90
 msgid "Requirements Error(s)"
-msgstr "Erro de requerimento(s)"
+msgstr ""
 
 #: classes/class-loader.php:93
 msgid "plugin needs to be installed and activated."
-msgstr "plugin precisa estar instalado e ativado."
+msgstr ""
 
 #: classes/class-loader.php:97
 msgid "Minimum version "
-msgstr "Versão mínima:"
+msgstr ""
 
 #: classes/class-loader.php:98
 msgid "Current version "
@@ -31,7 +31,7 @@ msgstr "Versão atual"
 
 #: classes/class-loader.php:113
 msgid "PHP Requirements Error"
-msgstr "Erro de requerimento PHP"
+msgstr ""
 
 #: classes/class-loader.php:113
 msgid " requires a newer version of PHP."
@@ -39,11 +39,11 @@ msgstr "requer uma versão mais recente do PHP."
 
 #: classes/class-loader.php:114
 msgid "Minimum required version of PHP: "
-msgstr "Versão mínima requerida do PHP:"
+msgstr ""
 
 #: classes/class-loader.php:115
 msgid "Running version of PHP: "
-msgstr "Versão atual do PHP:"
+msgstr ""
 
 #: classes/class-loader.php:200
 msgid "Conflict Error"
@@ -59,7 +59,7 @@ msgstr "Título dos Cookies"
 
 #: classes/controller/blocks/class-cookies-controller.php:33
 msgid "Main title for cookies block"
-msgstr "Título para bloco dos cookies"
+msgstr ""
 
 #: classes/controller/blocks/class-cookies-controller.php:38
 msgid "Cookies general description"
@@ -67,19 +67,19 @@ msgstr "Descrição geral dos Cookies"
 
 #: classes/controller/blocks/class-cookies-controller.php:39
 msgid "Main description for cookies block"
-msgstr "Bloco com descrição principal dos cookies"
+msgstr ""
 
 #: classes/controller/blocks/class-cookies-controller.php:44
 msgid "Necessary Cookies Name"
-msgstr "Nome dos \"Cookies necessários\""
+msgstr ""
 
 #: classes/controller/blocks/class-cookies-controller.php:45
 msgid "Label for the 'necessary cookies' checkbox"
-msgstr "Texto para checkbox de \"cookies necessários\""
+msgstr ""
 
 #: classes/controller/blocks/class-cookies-controller.php:50
 msgid "Necessary Cookies Description"
-msgstr "Descrição dos \"Cookies necessários\""
+msgstr ""
 
 #: classes/controller/blocks/class-cookies-controller.php:51
 msgid "Description for the 'necessary cookies' paragraph"
@@ -91,7 +91,7 @@ msgstr "All Cookies nome"
 
 #: classes/controller/blocks/class-cookies-controller.php:57
 msgid "Label for the 'all cookies' checkbox"
-msgstr "Texto para a checkbox de \"All cookies\""
+msgstr ""
 
 #: classes/controller/blocks/class-cookies-controller.php:62
 msgid "All Cookies Description"
@@ -123,7 +123,7 @@ msgstr ""
 #. A block that displays an image that supports transparency and blends with the background.
 #: classes/controller/blocks/class-mediablock-controller.php:42
 msgid "Media block"
-msgstr "Bloco de mídia"
+msgstr ""
 
 #: classes/controller/blocks/class-mediavideo-controller.php:27
 msgid "Video Title"
@@ -189,7 +189,7 @@ msgstr "Imagem 1"
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:47
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:48
 msgid "Select First Image"
-msgstr "Selecione a primeira imagem"
+msgstr ""
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:51
 msgid "Image 2"
@@ -223,7 +223,7 @@ msgstr "Associar esse bloco com Ações que tenham Tags específicas"
 
 #: classes/controller/blocks/class-covers-controllers.php:51
 msgid "Number of covers displayed"
-msgstr "Número de capas exibidas"
+msgstr ""
 
 #: classes/controller/blocks/class-covers-controllers.php:52
 msgid ""
@@ -398,7 +398,7 @@ msgstr "Campos do Problema (Coluna 1 - lado esquerdo)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:69
 msgid "Select an issue"
-msgstr "Selecione um problema"
+msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:72
 msgid "Campaign fields (Column 2 - Right side)"
@@ -406,7 +406,7 @@ msgstr "Campos da Campanha (Coluna 2 - lado direito)"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:73
 msgid "Select a tag"
-msgstr "Selecione uma tag"
+msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:80
 msgid "Associate this block to the Issue that it will talk about"
@@ -470,7 +470,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:131
 msgid "Select focus point for issue image"
-msgstr "Selecione o ponto focal da imagem do problema"
+msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:141
 msgid "Associate the selected Issue with a Tag"
@@ -507,7 +507,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:183
 msgid "Select focus point for campaign image"
-msgstr "Selecione o ponto focal da imagem da campanha"
+msgstr ""
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:200
 msgid "Split Two Columns"
@@ -515,7 +515,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:57
 msgid "Select a Take Action Page"
-msgstr "Selecione uma página de Ação"
+msgstr ""
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:58
 msgid "Associate this block with a Take Action page"
@@ -538,7 +538,7 @@ msgstr "Coloque o título deste bloco"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:63
 msgid "Select a Tag"
-msgstr "Selecione uma Tag"
+msgstr ""
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:64
 #: classes/controller/blocks/class-submenu-controller.php:103
@@ -547,7 +547,7 @@ msgstr "Associar este bloco com Posts que tenham uma Tag específica"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:76
 msgid "Number of Posts displayed"
-msgstr "Número de posts exibidos"
+msgstr ""
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:77
 msgid ""
@@ -570,7 +570,7 @@ msgstr "Coluna de quatro conteúdos"
 
 #: classes/controller/blocks/class-carousel-controller.php:79
 msgid "Select Carousel Images"
-msgstr "Selecione as imagens para o carrossel"
+msgstr ""
 
 #: classes/controller/blocks/class-carousel-controller.php:91
 msgid "Carousel"
@@ -643,13 +643,13 @@ msgstr ""
 #: classes/controller/blocks/class-carouselheader-controller.php:35
 #, php-format
 msgid "Select file for %s image"
-msgstr "Selecione o arquivo para as imagens %s"
+msgstr ""
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:44
 #, php-format
 msgid "Select focus point for image %s"
-msgstr "Selecione o ponto focal da imagem %"
+msgstr ""
 
 #: classes/controller/blocks/class-carouselheader-controller.php:60
 msgid "Header"
@@ -702,11 +702,11 @@ msgstr "Fundo"
 #: classes/controller/blocks/class-happypoint-controller.php:28
 #: classes/controller/blocks/class-happypoint-controller.php:29
 msgid "Select Background Image"
-msgstr "Selecione uma imagem de fundo"
+msgstr ""
 
 #: classes/controller/blocks/class-happypoint-controller.php:32
 msgid "Select focus point for background image"
-msgstr "Selecione o ponto focal da imagem de fundo"
+msgstr ""
 
 #: classes/controller/blocks/class-happypoint-controller.php:75
 msgid ""
@@ -741,7 +741,7 @@ msgstr "Ponto Feliz"
 
 #: classes/controller/blocks/class-submenu-controller.php:86
 msgid "None"
-msgstr "Nenhum"
+msgstr ""
 
 #: classes/controller/blocks/class-submenu-controller.php:92
 msgid "Heading"
@@ -767,7 +767,7 @@ msgstr ""
 
 #: classes/controller/blocks/class-submenu-controller.php:108
 msgid "Long full-width"
-msgstr "Tamanho completo"
+msgstr ""
 
 #: classes/controller/blocks/class-submenu-controller.php:114
 msgid "Short full-width"
@@ -841,7 +841,7 @@ msgstr "Coloque a contagem do artigo"
 
 #: classes/controller/blocks/class-articles-controller.php:74
 msgid "Read More Text"
-msgstr "Texto para ler mais"
+msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:78
 msgid "Add read more button text"
@@ -849,7 +849,7 @@ msgstr "Adicionar texto \"leia mais\""
 
 #: classes/controller/blocks/class-articles-controller.php:82
 msgid "Read More Link"
-msgstr "Link para ler mais"
+msgstr ""
 
 #: classes/controller/blocks/class-articles-controller.php:86
 msgid "Add read more button link"
