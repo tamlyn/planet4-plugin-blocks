@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2018-06-07 11:24+0000\n"
-"PO-Revision-Date: 2018-06-18 18:15+0000\n"
+"PO-Revision-Date: 2018-06-12 16:40+0000\n"
 "Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Mostrar mais"
 
 #. Plugin Name of the plugin/theme
 msgid "Planet4 - Blocks"
-msgstr "Planet4 - Blocks"
+msgstr "Planet4 - Blocos"
 
 #. Description of the plugin/theme
 msgid "Creates all the blocks that will be available for usage by Shortcake."
