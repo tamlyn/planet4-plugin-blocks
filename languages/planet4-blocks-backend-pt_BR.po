@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2018-06-20 18:58+0000\n"
-"Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
+"PO-Revision-Date: 2018-06-20 21:21+0000\n"
+"Last-Translator: Julia Mente <jmarubay@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -265,7 +265,7 @@ msgstr "Cover do bloco de Ação"
 
 #: classes/controller/blocks/class-campaignthumbnail-controller.php:36
 msgid "Campaign Thumbnail"
-msgstr "Thumb da campanha"
+msgstr "Tags relacionadas"
 
 #: classes/controller/blocks/class-tasks-controller.php:30
 msgid "Tasks Title"
@@ -592,7 +592,7 @@ msgstr "Selecione as imagens para o carrossel"
 
 #: classes/controller/blocks/class-carousel-controller.php:91
 msgid "Carousel"
-msgstr "Carrossel"
+msgstr "Galeria de Imagens"
 
 #: classes/controller/blocks/class-carouselsplit-controller.php:28
 msgid "Images"
@@ -713,7 +713,7 @@ msgstr "Coloque a url da imagem %s"
 #. A block that contains 4 different columns each one with title and description.
 #: classes/controller/blocks/class-carouselheader-controller.php:117
 msgid "Carousel Header"
-msgstr "Cabeçalho do carrossel"
+msgstr "Carousel Header"
 
 #: classes/controller/blocks/class-happypoint-controller.php:24
 msgid "Background"
