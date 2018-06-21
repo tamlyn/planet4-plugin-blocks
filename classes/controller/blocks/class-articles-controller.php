@@ -277,11 +277,20 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 					if ( $page_type_data ) {
 						$page_type = $page_type_data[0]->name;
+						$page_type_id = $page_type_data[0]->term_id;
 					}
 
 					$recent['page_type'] = $page_type;
 					$recent['permalink'] = get_permalink( $recent['ID'] );
-					$recent_posts[]      = $recent;
+
+					$recent['filter_url'] = add_query_arg( [
+							's'                        => ' ',
+							'orderby'                  => 'relevant',
+							'f[ptype]['.$page_type.']' => $page_type_id,
+						], get_site_url()
+					);
+
+					$recent_posts[] = $recent;
 				}
 			}
 
