@@ -120,7 +120,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			// Read more button links to search results if no link is specified.
 			$tag_id          = $fields['tag_id'] ?? '';
 			$tag_filter      = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';
-			$read_more_link  = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_site_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
+			$read_more_link  = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
 			$exclude_post_id = (int) ( $fields['exclude_post_id'] ?? '' );
 
 			// Get page categories.
@@ -277,11 +277,20 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 					if ( $page_type_data ) {
 						$page_type = $page_type_data[0]->name;
+						$page_type_id = $page_type_data[0]->term_id;
 					}
 
 					$recent['page_type'] = $page_type;
 					$recent['permalink'] = get_permalink( $recent['ID'] );
-					$recent_posts[]      = $recent;
+
+					$recent['filter_url'] = add_query_arg( [
+							's'                        => ' ',
+							'orderby'                  => 'relevant',
+							'f[ptype]['.$page_type.']' => $page_type_id,
+						], get_home_url()
+					);
+
+					$recent_posts[] = $recent;
 				}
 			}
 

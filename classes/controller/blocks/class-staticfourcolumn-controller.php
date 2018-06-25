@@ -115,6 +115,7 @@ if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
 
+			$title           = $attributes['title'] ?? '';
 			$attributes_temp = [];
 			for ( $i = 1; $i < 5; $i++ ) {
 				$temp_array = [
@@ -136,6 +137,7 @@ if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 			}
 
 			$block_data = [
+				'title'               => $title,
 				'fields'              => $attributes,
 				'available_languages' => P4BKS_LANGUAGES,
 			];
