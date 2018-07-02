@@ -276,11 +276,11 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 		private function create_menu_object( $node, $type, $link ) {
 			$node_value         = $node->nodeValue;
 			$menu_obj           = new \stdClass();
-			$menu_obj->text     = $node_value;
+			$menu_obj->text     = utf8_decode($node_value);
 			$menu_obj->hash     = md5( $node_value );
 			$menu_obj->type     = $type;
 			$menu_obj->link     = filter_var( $link, FILTER_VALIDATE_BOOLEAN );
-			$menu_obj->id       = sanitize_title_with_dashes( $node_value );
+			$menu_obj->id       = sanitize_title( iconv( "UTF-8", "ISO-8859-1//TRANSLIT", utf8_decode( $node_value ) ) );
 			$menu_obj->children = [];
 
 			return $menu_obj;
