@@ -14,6 +14,32 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'articles';
 
+
+		/**
+		 * Hooks all the needed functions to load the block.
+		 */
+		public function load() {
+			parent::load();
+			add_action( 'admin_enqueue_scripts', [ $this, 'load_admin_assets' ] );
+		}
+
+
+		/**
+		 * Load assets only on the admin pages of the plugin.
+		 *
+		 * @param string $hook The slug name of the current admin page.
+		 */
+		public function load_admin_assets( $hook ) {
+
+			if ( 'post.php' !== $hook && 'post-new.php' !== $hook ) {
+				return;
+			}
+
+			add_action( 'enqueue_shortcode_ui', function () {
+				wp_enqueue_script( 'articles', P4BKS_ADMIN_DIR . 'js/articles.js', [ 'shortcode-ui' ] );
+			} );
+		}
+
 		/**
 		 * Shortcode UI setup for the article shortcode.
 		 *
@@ -79,10 +105,13 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					],
 				],
 				[
-					'label' => __( 'Read More Link', 'planet4-blocks-backend' ),
-					'attr'  => 'read_more_link',
-					'type'  => 'text',
-					'meta'  => [
+					'label'       => __( 'Read More Link', 'planet4-blocks-backend' ),
+					'attr'        => 'read_more_link',
+					'type'        => 'text',
+					'description' => ! empty( $checkboxes ) ? '<br><p><h2>' . __( 'There are 2 options to select posts for the block', 'planet4-blocks-backend' ) . '</h2></p><hr>' .
+					                                          '<h3>' . __( '1st option', 'planet4-blocks-backend' ) . '</h3>' .
+					                                          __( 'Select posts based on post types.', 'planet4-blocks-backend' ) : '',
+					'meta'        => [
 						'placeholder' => __( 'Add read more button link', 'planet4-blocks-backend' ),
 					],
 				],
@@ -91,6 +120,17 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			if ( ! empty( $checkboxes ) ) {
 				$fields = array_merge( $fields, $checkboxes );
 			}
+
+			$fields[] = [
+				'label'    => '<br><hr><h3>' . __( '2nd option', 'planet4-blocks-backend' ) . '</h3><br>' .
+				              __( 'Select specific Posts', 'planet4-blocks-backend' ),
+				'attr'     => 'posts',
+				'type'     => 'post_select',
+				'multiple' => true,
+				'query'    => [
+					'post_type' => 'post',
+				],
+			];
 
 			// Define the Shortcode UI arguments.
 			$shortcode_ui_args = [
@@ -115,39 +155,10 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 *
 		 * @return string All the data used for the html.
 		 */
-		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
+		public function prepare_template( $fields, $content, $shortcode_tag ): string {
 
 			// Read more button links to search results if no link is specified.
-			$tag_id          = $fields['tag_id'] ?? '';
-			$tag_filter      = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';
-			$read_more_link  = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
-			$exclude_post_id = (int) ( $fields['exclude_post_id'] ?? '' );
-
-			// Get page categories.
-			$post_categories   = get_the_category();
-			$category_id_array = [];
-			foreach ( $post_categories as $category ) {
-				$category_id_array[] = $category->term_id;
-			}
-
-			// Filter p4_page_type keys from attributes array.
-			$post_types_temp = array_filter( (array) $fields, function ( $key ) {
-				return strpos( $key, 'p4_page_type' ) === 0 ;
-			}, ARRAY_FILTER_USE_KEY );
-
-			// If any p4_page_type was selected extract the term's slug to be used in the wp query below.
-			if ( ! empty( $post_types_temp ) ) {
-				foreach ( $post_types_temp as $type => $value ) {
-					if ( 'true' === $value ) {
-						$post_type = str_replace( '_', '-',
-							str_replace( 'p4_page_type_', '', $type )
-						);
-						$post_types[] = $post_type;
-						// We cannot filter search for more than one pagetype, so use the last one.
-						$read_more_post_type = $post_type;
-					}
-				}
-			}
+			$tag_id            = $fields['tag_id'] ?? '';
 
 			// Article block default text setting.
 			$options              = get_option( 'planet4_options' );
@@ -158,7 +169,164 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$fields['article_heading'] = $fields['article_heading'] ?? $article_title;
 			$fields['read_more_text']  = $fields['read_more_text'] ?? $article_button_title;
 			$fields['article_count']   = $fields['article_count'] ?? $article_count;
-			$ignore_categories         = $fields['ignore_categories'] ?? 'false';
+
+
+			// Filter p4_page_type keys from fields attributes array.
+			$post_types_temp = $this->filter_post_types( $fields );
+
+			// If any of the p4 page types are selected or we are in a tag page then use the old behavior to populate posts.
+			// Otherwise use the specific posts that were selected (new behavior).
+			$all_posts = false;
+			if ( ! empty( $post_types_temp ) || '' !== $tag_id ) {
+				$all_posts = $this->filter_posts( $fields );
+			} elseif ( isset( $fields['posts'] ) && '' !== $fields['posts'] ) {
+				$all_posts = $this->filter_posts_by_ids( $fields );
+			}
+
+			// Populate posts array for frontend template if results have been returned.
+			if ( false !== $all_posts ) {
+				$recent_posts = $this->populate_post_items( $all_posts );
+			} else {
+				$recent_posts = [];
+			}
+
+			$data = [
+				'fields'       => $fields,
+				'recent_posts' => $recent_posts,
+			];
+
+			// Shortcode callbacks must return content, hence, output buffering here.
+			ob_start();
+			$this->view->block( self::BLOCK_NAME, $data );
+
+			return ob_get_clean();
+		}
+
+		/**
+		 * Populate selected posts for frontend template.
+		 *
+		 * @param array $posts Selected posts.
+		 *
+		 * @return array
+		 */
+		private function populate_post_items( $posts ) {
+			$recent_posts = [];
+
+			if ( $posts ) {
+				foreach ( $posts as $recent ) {
+					$recent['alt_text']  = '';
+					$recent['thumbnail'] = '';
+					$author_override     = get_post_meta( $recent['ID'], 'p4_author_override', true );
+					$recent['author']    = '' === $author_override ? get_the_author_meta( 'display_name', $recent['post_author'] ) : $author_override;
+
+					if ( has_post_thumbnail( $recent['ID'] ) ) {
+						$recent['thumbnail']       = get_the_post_thumbnail_url( $recent['ID'], 'articles-medium-large' );
+						$img_id                    = get_post_thumbnail_id( $recent['ID'] );
+						$dimensions                = wp_get_attachment_metadata( $img_id );
+						$recent['thumbnail_ratio'] = ( isset( $dimensions['height'] ) && $dimensions['height'] > 0 ) ? $dimensions['width'] / $dimensions['height'] : 1;
+						$recent['alt_text']        = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+					}
+
+					$wp_tags = wp_get_post_tags( $recent['ID'] );
+
+					$tags = [];
+
+					if ( $wp_tags ) {
+						foreach ( $wp_tags as $wp_tag ) {
+							$tags_data['name'] = $wp_tag->name;
+							$tags_data['slug'] = $wp_tag->slug;
+							$tags_data['href'] = get_tag_link( $wp_tag );
+							$tags[]            = $tags_data;
+						}
+					}
+
+					$recent['tags'] = $tags;
+					$page_type_data = get_the_terms( $recent['ID'], 'p4-page-type' );
+					$page_type      = '';
+
+					if ( $page_type_data ) {
+						$page_type    = $page_type_data[0]->name;
+						$page_type_id = $page_type_data[0]->term_id;
+					}
+
+					$recent['page_type'] = $page_type;
+					$recent['permalink'] = get_permalink( $recent['ID'] );
+
+					$recent['filter_url'] = add_query_arg(
+						[
+							's'                            => ' ',
+							'orderby'                      => 'relevant',
+							'f[ptype][' . $page_type . ']' => $page_type_id,
+						],
+						get_home_url()
+					);
+
+					$recent_posts[] = $recent;
+				}
+			}
+
+			return $recent_posts;
+		}
+
+		/**
+		 * Filter posts based on post ids.
+		 *
+		 * @param array $fields Block fields values.
+		 *
+		 * @return array|false
+		 */
+		private function filter_posts_by_ids( $fields ) {
+
+			$post_ids = $fields['posts'] ?? '';
+
+			if ( empty( $post_ids ) || ! preg_split( '/^\d+(,\d+)*$/', $post_ids ) ) {
+				$post_ids = [];
+			} else {
+				$post_ids = explode( ',', $post_ids );
+			}
+
+			if ( empty( $post_ids ) ) {
+				return false;
+			} else {
+
+				// Get all posts with arguments.
+				$args = [
+					'orderby'          => 'post__in',
+					'post_status'      => 'publish',
+					'post__in'         => $post_ids,
+					'suppress_filters' => false,
+				];
+
+				return wp_get_recent_posts( $args );
+			}
+		}
+
+		/**
+		 * Filter posts based on post types (p4_page_type terms).
+		 *
+		 * @param array $fields Block fields values.
+		 *
+		 * @return array|false
+		 */
+		private function filter_posts( &$fields ) {
+
+			$tag_id         = $fields['tag_id'] ?? '';
+			$tag_filter     = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';
+			$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
+
+			$exclude_post_id   = (int) ( $fields['exclude_post_id'] ?? '' );
+			$ignore_categories = $fields['ignore_categories'] ?? 'false';
+			$options           = get_option( 'planet4_options' );
+
+			// Get page categories.
+			$post_categories   = get_the_category();
+			$category_id_array = [];
+			foreach ( $post_categories as $category ) {
+				$category_id_array[] = $category->term_id;
+			}
+
+			// If any p4_page_type was selected extract the term's slug to be used in the wp query below.
+			$post_types = $this->filter_post_types( $fields );
 
 			// Get page/post tags.
 			$post_tags = get_the_tags();
@@ -178,8 +346,10 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				}
 
 				if ( ! empty( $post_types ) ) {
-					$page_type_data   = get_term_by( 'slug', wp_unslash( $read_more_post_type ), 'p4-page-type' );
-					$read_more_filter .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
+					// We cannot filter search for more than one pagetype, so use the last one.
+					$read_more_post_type = end( $post_types );
+					$page_type_data      = get_term_by( 'slug', wp_unslash( $read_more_post_type ), 'p4-page-type' );
+					$read_more_filter    .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
 				}
 
 				if ( '' === $read_more_filter ) {
@@ -195,6 +365,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			}
 			$fields['read_more_link'] = $read_more_link;
 
+
 			// Get all posts with arguments.
 			$args = [
 				'numberposts'      => $fields['article_count'],
@@ -205,7 +376,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			if ( 'true' !== $ignore_categories ) {
 				if ( $category_id_array ) {
-					$category_ids = implode( ',', $category_id_array );
+					$category_ids     = implode( ',', $category_id_array );
 					$args['category'] = '( ' . $category_ids . ' )';
 				}
 			}
@@ -240,70 +411,38 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$args['tag__in'] = $tag_id_array;
 				}
 			}
-			$all_posts    = wp_get_recent_posts( $args );
-			$recent_posts = [];
 
-			if ( $all_posts ) {
-				foreach ( $all_posts as $recent ) {
-					$recent['alt_text']  = '';
-					$recent['thumbnail'] = '';
-					$author_override     = get_post_meta( $recent['ID'], 'p4_author_override', true );
-					$recent['author']    = '' === $author_override ? get_the_author_meta( 'display_name', $recent['post_author'] ) : $author_override;
+			return wp_get_recent_posts( $args );
+		}
 
-					if ( has_post_thumbnail( $recent['ID'] ) ) {
-						$recent['thumbnail']       = get_the_post_thumbnail_url( $recent['ID'], 'articles-medium-large' );
-						$img_id                    = get_post_thumbnail_id( $recent['ID'] );
-						$dimensions                = wp_get_attachment_metadata( $img_id );
-						$recent['thumbnail_ratio'] = ( isset( $dimensions['height'] ) && $dimensions['height'] > 0 ) ? $dimensions['width'] / $dimensions['height'] : 1;
-						$recent['alt_text']        = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+		/**
+		 * Extract p4 page type terms from block's attributes.
+		 *
+		 * @param array $fields Block fields values.
+		 *
+		 * @return array
+		 */
+		private function filter_post_types( $fields ) {
+			// Filter p4_page_type keys from attributes array.
+			$post_types_temp = array_filter( (array) $fields, function ( $key ) {
+				return strpos( $key, 'p4_page_type' ) === 0;
+			}, ARRAY_FILTER_USE_KEY );
+
+			$post_types = [];
+			// If any p4_page_type was selected extract the term's slug to be used in the wp query.
+			if ( ! empty( $post_types_temp ) ) {
+				foreach ( $post_types_temp as $type => $value ) {
+					if ( 'true' === $value ) {
+						$post_type    = str_replace( '_', '-',
+							str_replace( 'p4_page_type_', '', $type )
+						);
+						$post_types[] = $post_type;
 					}
-
-					$wp_tags = wp_get_post_tags( $recent['ID'] );
-
-					$tags = [];
-
-					if ( $wp_tags ) {
-						foreach ( $wp_tags as $wp_tag ) {
-							$tags_data['name'] = $wp_tag->name;
-							$tags_data['slug'] = $wp_tag->slug;
-							$tags_data['href'] = get_tag_link( $wp_tag );
-							$tags[]            = $tags_data;
-						}
-					}
-
-					$recent['tags'] = $tags;
-					$page_type_data = get_the_terms( $recent['ID'], 'p4-page-type' );
-					$page_type      = '';
-
-					if ( $page_type_data ) {
-						$page_type = $page_type_data[0]->name;
-						$page_type_id = $page_type_data[0]->term_id;
-					}
-
-					$recent['page_type'] = $page_type;
-					$recent['permalink'] = get_permalink( $recent['ID'] );
-
-					$recent['filter_url'] = add_query_arg( [
-							's'                        => ' ',
-							'orderby'                  => 'relevant',
-							'f[ptype]['.$page_type.']' => $page_type_id,
-						], get_home_url()
-					);
-
-					$recent_posts[] = $recent;
 				}
 			}
 
-			$data = [
-				'fields'       => $fields,
-				'recent_posts' => $recent_posts,
-			];
-
-			// Shortcode callbacks must return content, hence, output buffering here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $data );
-
-			return ob_get_clean();
+			return $post_types;
 		}
 	}
+
 }
