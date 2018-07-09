@@ -21,6 +21,7 @@
       margin: 0 0 24px 0;
       box-shadow: 0 5px 20px 0 rgba(114, 114, 114, 0.5);
       max-width: 130px;
+      height: 180px;
 
       @include small-and-up {
         margin: 20px 0;
@@ -29,6 +30,7 @@
       @include medium-and-up {
         margin: 0 0 20px 0;
         max-width: 210px;
+        height: 300px;
       }
 
       @include large-and-up {
@@ -37,11 +39,14 @@
 
       @include x-large-and-up {
         max-width: 255px;
+        height: 360px;
       }
 
       img {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 50%;
       }
 
       &.dark-img {
