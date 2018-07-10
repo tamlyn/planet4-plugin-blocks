@@ -76,7 +76,7 @@ if ( ! class_exists( 'Loader' ) ) {
 		 * Loads all shortcake blocks registered outside of this plugin.
 		 */
 		public function load_external_services() {
-			$this->external_services = apply_filters( 'p4bks_pre_load_services', $this->external_services );
+			$this->external_services = apply_filters( 'p4bks_add_external_services', $this->external_services );
 			if ( $this->external_services ) {
 				foreach ( $this->external_services as $service ) {
 					( new $service( $this->view ) )->load();
