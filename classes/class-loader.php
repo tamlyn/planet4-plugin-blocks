@@ -15,6 +15,10 @@ if ( ! class_exists( 'Loader' ) ) {
 		private static $instance;
 		/** @var array $services */
 		private $services;
+		/** @var array $external_services */
+		private $external_services = [];
+		/** @var Views\View $view */
+		private $view;
 		/** @var string $required_php */
 		private $required_php = P4BKS_REQUIRED_PHP;
 		/** @var array $required_plugins */
@@ -45,26 +49,49 @@ if ( ! class_exists( 'Loader' ) ) {
 		 * @param string $view_class The View class name.
 		 */
 		private function __construct( $services = array(), $view_class ) {
+			$this->load_services( $services, $view_class );
+			$this->check_requirements();
+			add_action( 'plugins_loaded', array( $this, 'load_i18n' ) );
+			add_action( 'plugins_loaded', array( $this, 'load_external_services' ) );
+		}
+
+		/**
+		 * Loads all shortcake blocks registered from within this plugin.
+		 *
+		 * @param array  $services The Controller services to inject.
+		 * @param string $view_class The View class name.
+		 */
+		public function load_services( $services, $view_class ) {
 			$this->services = $services;
-			$view = new $view_class();
+			$this->view = new $view_class();
 
 			if ( $this->services ) {
 				foreach ( $this->services as $service ) {
-					( new $service( $view ) )->load();
+					( new $service( $this->view ) )->load();
 				}
 			}
-			$this->check_requirements();
-			add_action('plugins_loaded', array( $this, 'load_i18n' ) );
+		}
+
+		/**
+		 * Loads all shortcake blocks registered outside of this plugin.
+		 */
+		public function load_external_services() {
+			$this->external_services = apply_filters( 'p4bks_pre_load_services', $this->external_services );
+			if ( $this->external_services ) {
+				foreach ( $this->external_services as $service ) {
+					( new $service( $this->view ) )->load();
+				}
+			}
 		}
 
 		/**
 		 * Hooks the plugin.
 		 */
 		private function hook_plugin() {
-			add_action( 'admin_menu', array( $this, 'load_i18n' ) );
+			add_action( 'admin_menu',            array( $this, 'load_i18n' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_assets' ) );
 			// Provide hook for other plugins.
-			do_action( 'p4bks_action_loaded' );
+			do_action( 'p4bks_plugin_loaded' );
 		}
 
 		/**
