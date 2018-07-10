@@ -27,13 +27,13 @@ if ( ! class_exists( 'View' ) ) {
 		 *
 		 * @param array|string $template_name The file name of the template to render.
 		 * @param array        $data The data to pass to the template.
-		 * @param string       $sub_dir The path to a subdirectory where the template is located (relative to $template_dir).
+		 * @param string       $relevant_dir The path to a subdirectory where the template is located (relative to $template_dir).
 		 *
 		 * @return bool|string The returned output
 		 */
-		public function get_template( $template_name, $data, $sub_dir = 'blocks/' ) {
+		public function get_template( $template_name, $data, $relevant_dir = 'blocks/' ) {
 			Timber::$locations = $this->template_dir;
-			return Timber::compile( [ $sub_dir . $template_name . '.twig' ], $data );
+			return Timber::compile( [ $relevant_dir . $template_name . '.twig' ], $data );
 		}
 
 		/**
@@ -41,11 +41,11 @@ if ( ! class_exists( 'View' ) ) {
 		 *
 		 * @param array|string $template_name The file name of the template to render.
 		 * @param array        $data The data to pass to the template.
-		 * @param string       $sub_dir The path to a subdirectory where the template is located (relative to $template_dir).
+		 * @param string       $relevant_dir The path to a subdirectory where the template is located (relative to $template_dir).
 		 */
-		private function view_template( $template_name, $data, $sub_dir = '' ) {
+		private function view_template( $template_name, $data, $relevant_dir = '' ) {
 			Timber::$locations = $this->template_dir;
-			Timber::render( [ $sub_dir . $template_name . '.twig' ], $data );
+			Timber::render( [ $relevant_dir . $template_name . '.twig' ], $data );
 		}
 
 		/**
@@ -63,15 +63,15 @@ if ( ! class_exists( 'View' ) ) {
 		 * @param array|string $template_name The file name of the template to render.
 		 * @param array        $data The data to pass to the template.
 		 * @param string       $template_ext The extension of the template (php, twig, ...).
-		 * @param string       $sub_dir The path to a subdirectory where the template is located (relative to $template_dir).
+		 * @param string       $relevant_dir The path to a subdirectory where the template is located (relative to $template_dir).
 		 */
-		public function block( $template_name, $data, $template_ext = 'twig', $sub_dir = 'blocks/' ) {
+		public function block( $template_name, $data, $template_ext = 'twig', $relevant_dir = 'blocks/' ) {
 
 			if ( 'twig' === $template_ext ) {
 				Timber::$locations = $this->template_dir;
-				Timber::render( [ $sub_dir . $template_name . '.' . $template_ext ], $data );
+				Timber::render( [ $relevant_dir . $template_name . '.' . $template_ext ], $data );
 			} else {
-				include_once $this->template_dir . $sub_dir . $template_name . '.' . $template_ext;
+				include_once $this->template_dir . $relevant_dir . $template_name . '.' . $template_ext;
 			}
 		}
 	}
