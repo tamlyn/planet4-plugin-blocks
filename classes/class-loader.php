@@ -15,6 +15,10 @@ if ( ! class_exists( 'Loader' ) ) {
 		private static $instance;
 		/** @var array $services */
 		private $services;
+		/** @var array $external_services */
+		private $external_services = [];
+		/** @var Views\View $view */
+		private $view;
 		/** @var string $required_php */
 		private $required_php = P4BKS_REQUIRED_PHP;
 		/** @var array $required_plugins */
@@ -45,26 +49,49 @@ if ( ! class_exists( 'Loader' ) ) {
 		 * @param string $view_class The View class name.
 		 */
 		private function __construct( $services = array(), $view_class ) {
+			$this->load_services( $services, $view_class );
+			$this->check_requirements();
+			add_action( 'plugins_loaded', [ $this, 'load_i18n' ] );
+			add_action( 'plugins_loaded', [ $this, 'load_external_services' ] );
+		}
+
+		/**
+		 * Loads all shortcake blocks registered from within this plugin.
+		 *
+		 * @param array  $services The Controller services to inject.
+		 * @param string $view_class The View class name.
+		 */
+		public function load_services( $services, $view_class ) {
 			$this->services = $services;
-			$view = new $view_class();
+			$this->view = new $view_class();
 
 			if ( $this->services ) {
 				foreach ( $this->services as $service ) {
-					( new $service( $view ) )->load();
+					( new $service( $this->view ) )->load();
 				}
 			}
-			$this->check_requirements();
-			add_action('plugins_loaded', array( $this, 'load_i18n' ) );
+		}
+
+		/**
+		 * Loads all shortcake blocks registered outside of this plugin.
+		 */
+		public function load_external_services() {
+			$this->external_services = apply_filters( 'p4bks_add_external_services', $this->external_services );
+			if ( $this->external_services ) {
+				foreach ( $this->external_services as $service ) {
+					( new $service( $this->view ) )->load();
+				}
+			}
 		}
 
 		/**
 		 * Hooks the plugin.
 		 */
 		private function hook_plugin() {
-			add_action( 'admin_menu', array( $this, 'load_i18n' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_assets' ) );
+			add_action( 'admin_menu',            [ $this, 'load_i18n' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'load_admin_assets' ] );
 			// Provide hook for other plugins.
-			do_action( 'p4bks_action_loaded' );
+			do_action( 'p4bks_plugin_loaded' );
 		}
 
 		/**
@@ -100,10 +127,10 @@ if ( ! class_exists( 'Loader' ) ) {
 
 						$message .= '</div><br />';
 						wp_die(
-							$message, 'Plugin Requirements Error', array(
+							$message, 'Plugin Requirements Error', [
 								'response' => \WP_Http::OK,
 								'back_link' => true,
-							)
+							]
 						);
 					}
 				} else {
@@ -113,10 +140,10 @@ if ( ! class_exists( 'Loader' ) ) {
 						'<strong>' . esc_html__( 'PHP Requirements Error', 'planet4-blocks-backend' ) . '</strong><br /><br />' . esc_html( P4BKS_PLUGIN_NAME . __( ' requires a newer version of PHP.', 'planet4-blocks-backend' ) ) . '<br />' .
 						'<br/>' . esc_html__( 'Minimum required version of PHP: ', 'planet4-blocks-backend' ) . '<strong>' . esc_html( $this->required_php ) . '</strong>' .
 						'<br/>' . esc_html__( 'Running version of PHP: ', 'planet4-blocks-backend' ) . '<strong>' . esc_html( phpversion() ) . '</strong>' .
-						'</div>', 'Plugin Requirements Error', array(
+						'</div>', 'Plugin Requirements Error', [
 							'response' => \WP_Http::OK,
 							'back_link' => true,
-						)
+						]
 					);
 				}
 			}
@@ -199,9 +226,9 @@ if ( ! class_exists( 'Loader' ) ) {
 	wp_die(
 		'<div class="error fade">' .
 		'<u>' . esc_html( P4BKS_PLUGIN_NAME ) . esc_html__( 'Conflict Error', 'planet4-blocks-backend' ) . '</u><br /><br />' . esc_html__( 'Class P4BKS_Loader already exists.', 'planet4-blocks-backend' ) . '<br />' .
-		'</div>', 'Plugin Conflict Error', array(
+		'</div>', 'Plugin Conflict Error', [
 			'response' => \WP_Http::OK,
 			'back_link' => true,
-		)
+		]
 	);
 }
