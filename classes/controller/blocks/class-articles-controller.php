@@ -49,43 +49,76 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		public function prepare_fields() {
 
-			$checkboxes                 = [];
-			$planet4_article_type_terms = get_terms(
-				[
-					'hide_empty' => false,
-					'orderby'    => 'name',
-					'taxonomy'   => 'p4-page-type',
-				]
-			);
-
-			// Construct a checkbox for each p4-page-type.
-			if ( ! empty( $planet4_article_type_terms ) ) {
-				$checkboxes[] = [
-					'attr'        => 'ignore_categories',
-					'label'       => 'Ignore Categories',
-					'description' => 'Ignore categories when filtering posts to populate the content of this block',
-					'type'        => 'checkbox',
-					'value'       => 'false',
-				];
-
-				foreach ( $planet4_article_type_terms as $term ) {
-					$checkboxes[] = [
-						'attr'        => 'p4_page_type_' . str_replace( '-', '_', $term->slug ),
-						'label'       => $term->name . ' Posts',
-						'description' => 'Use Posts that belong to ' . $term->name . ' type to populate the content of this block',
-						'type'        => 'checkbox',
-						'value'       => 'false',
-					];
-				}
-			}
+			$options              = get_option( 'planet4_options' );
+			$article_title        = $options['articles_block_title'] ?? __( 'Related Articles', 'planet4-blocks' );
+			$article_button_title = $options['articles_block_button_title'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
 
 			$fields = [
 				[
-					'label' => __( 'Article Heading', 'planet4-blocks-backend' ),
+					'label' => __( 'Title', 'planet4-blocks-backend' ) .
+								'<p class="field-caption">' . __( 'Your default is set to', 'planet4-blocks-backend' ) .
+								' [ ' . $article_title . ' ]</p>',
 					'attr'  => 'article_heading',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => __( 'Enter article heading', 'planet4-blocks-backend' ),
+						'placeholder' => __( 'Override default title', 'planet4-blocks-backend' ),
+					],
+				],
+				[
+					'label' => __( 'Button Text', 'planet4-blocks-backend' ) .
+								'<p class="field-caption">' . __( 'Your default is set to', 'planet4-blocks-backend' ) .
+								' [ ' . $article_button_title . ' ]</p>',
+					'attr'  => 'read_more_text',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => __( 'Override button text', 'planet4-blocks-backend' ),
+					],
+				],
+				[
+					'label' => __( 'Description', 'planet4-blocks-backend' ),
+					'attr'  => 'articles_description',
+					'type'  => 'textarea',
+					'meta'  => [
+						'placeholder' => __( 'Enter description', 'planet4-blocks-backend' ),
+					],
+				],
+				[
+					'label' => __( 'Button Link', 'planet4-blocks-backend' ),
+					'attr'  => 'read_more_link',
+					'type'  => 'text',
+					'meta'  => [
+						'placeholder' => __( 'Add read more button link', 'planet4-blocks-backend' ),
+					],
+				],
+				[
+					'label'       => __( 'Post types', 'planet4-blocks-backend' ),
+					'attr'        => 'post_types',
+					'type'        => 'term_select',
+					'taxonomy'    => 'p4-page-type',
+					'placeholder' => __( 'Search for post types', 'planet4-blocks-backend' ),
+					'multiple'    => true,
+					'meta'        => [
+						'select2_options' => [
+							'allowClear'         => true,
+							'placeholder'        => __( 'Select post types', 'planet4-blocks-backend' ),
+							'closeOnSelect'      => true,
+							'minimumInputLength' => 0,
+						],
+					],
+				],
+				[
+					'label'    => __( 'Tags', 'planet4-blocks-backend' ),
+					'attr'     => 'tags',
+					'type'     => 'term_select',
+					'taxonomy' => 'post_tag',
+					'multiple' => true,
+					'meta'     => [
+						'select2_options' => [
+							'allowClear'         => true,
+							'placeholder'        => __( 'Select Tags', 'planet4-blocks-backend' ),
+							'closeOnSelect'      => true,
+							'minimumInputLength' => 0,
+						],
 					],
 				],
 				[
@@ -97,38 +130,34 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					],
 				],
 				[
-					'label' => __( 'Read More Text', 'planet4-blocks-backend' ),
-					'attr'  => 'read_more_text',
-					'type'  => 'text',
-					'meta'  => [
-						'placeholder' => __( 'Add read more button text', 'planet4-blocks-backend' ),
-					],
+					'attr'        => 'ignore_categories',
+					'label'       => 'Ignore Categories',
+					'description' => 'Ignore categories when filtering posts to populate the content of this block',
+					'type'        => 'checkbox',
+					'value'       => 'false',
 				],
 				[
-					'label'       => __( 'Read More Link', 'planet4-blocks-backend' ),
-					'attr'        => 'read_more_link',
-					'type'        => 'text',
-					'description' => ! empty( $checkboxes ) ? '<br><p><h2>' . __( 'There are 2 options to select posts for the block', 'planet4-blocks-backend' ) . '</h2></p><hr>' .
-					                                          '<h3>' . __( '1st option', 'planet4-blocks-backend' ) . '</h3>' .
-					                                          __( 'Select posts based on post types.', 'planet4-blocks-backend' ) : '',
-					'meta'        => [
-						'placeholder' => __( 'Add read more button link', 'planet4-blocks-backend' ),
+					'label'    => '<hr class="hr-dashed"><br><p>' . __( 'Manual Override', 'planet4-blocks-backend' ) . '</p>' .
+									'<p class="field-caption">' .
+									__( 'CAUTION: Adding articles individually will override the automatic functionality of this block. 
+									For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'planet4-blocks-backend' ) . '</p>',
+					'attr'     => 'posts',
+					'type'     => 'post_select',
+					'multiple' => 'multiple',
+					'query'    => [
+						'post_type' => 'post',
 					],
-				],
-			];
-
-			if ( ! empty( $checkboxes ) ) {
-				$fields = array_merge( $fields, $checkboxes );
-			}
-
-			$fields[] = [
-				'label'    => '<br><hr><h3>' . __( '2nd option', 'planet4-blocks-backend' ) . '</h3><br>' .
-				              __( 'Select specific Posts', 'planet4-blocks-backend' ),
-				'attr'     => 'posts',
-				'type'     => 'post_select',
-				'multiple' => true,
-				'query'    => [
-					'post_type' => 'post',
+					'meta'     => [
+						'select2_options' => [
+							'allowClear'             => true,
+							'placeholder'            => __( 'Search for posts', 'planet4-blocks-backend' ),
+							'closeOnSelect'          => false,
+							'minimumInputLength'     => 0,
+							'multiple'               => true,
+							'maximumSelectionLength' => 10,
+							'width'                  => '80%',
+						],
+					],
 				],
 			];
 
@@ -155,16 +184,17 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 *
 		 * @return string All the data used for the html.
 		 */
-		public function prepare_template( $fields, $content, $shortcode_tag ): string {
+		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
 
 			// Read more button links to search results if no link is specified.
-			$tag_id            = $fields['tag_id'] ?? '';
+			$tag_id            = $fields['tags'] ?? '';
 
 			// Article block default text setting.
 			$options              = get_option( 'planet4_options' );
 			$article_title        = $options['articles_block_title'] ?? __( 'Related Articles', 'planet4-blocks' );
 			$article_button_title = $options['articles_block_button_title'] ?? __( 'READ ALL THE NEWS', 'planet4-blocks' );
 			$article_count        = $options['articles_count'] ?? 3;
+			$exclude_post_id      = (int) ( $fields['exclude_post_id'] ?? '' );
 
 			$fields['article_heading'] = $fields['article_heading'] ?? $article_title;
 			$fields['read_more_text']  = $fields['read_more_text'] ?? $article_button_title;
@@ -174,20 +204,31 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			// Filter p4_page_type keys from fields attributes array.
 			$post_types_temp = $this->filter_post_types( $fields );
 
-			// If any of the p4 page types are selected or we are in a tag page then use the old behavior to populate posts.
-			// Otherwise use the specific posts that were selected (new behavior).
+			// Five scenarios for filtering posts.
+			// 1) inside tag page - Get posts that have the specific tag assigned.
+			// 2) inside post - Get results excluding specific post.
+			// 3) post types - Get posts by post types specified using checkboxes in backend - old behavior.
+			// 4) post types or tags - Get posts by post types or tags defined from select boxes - new behavior.
+			// 5) specific posts - Get posts by ids specified in backend - new behavior / manual override.
 			$all_posts = false;
-			if ( ! empty( $post_types_temp ) || '' !== $tag_id ) {
-				$all_posts = $this->filter_posts( $fields );
+			if ( is_tag() && '' !== $tag_id ) {
+				$all_posts = $this->filter_posts_for_tag_page( $fields );
+			} elseif ( ! empty( $exclude_post_id ) ) {
+				$all_posts = $this->filter_posts_by_page_types( $fields );
+			} elseif ( ! empty( $post_types_temp ) ) {
+				$all_posts = $this->filter_posts_by_page_types( $fields );
+			} elseif ( ( isset( $fields['post_types'] ) && '' !== $fields['post_types'] ) ||
+						( isset( $fields['tags'] ) && '' !== $fields['tags'] ) ) {
+				$all_posts = $this->filter_posts_by_page_types_or_tags( $fields );
 			} elseif ( isset( $fields['posts'] ) && '' !== $fields['posts'] ) {
 				$all_posts = $this->filter_posts_by_ids( $fields );
 			}
 
+			$recent_posts = [];
+
 			// Populate posts array for frontend template if results have been returned.
 			if ( false !== $all_posts ) {
 				$recent_posts = $this->populate_post_items( $all_posts );
-			} else {
-				$recent_posts = [];
 			}
 
 			$data = [
@@ -244,6 +285,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$page_type_data = get_the_terms( $recent['ID'], 'p4-page-type' );
 					$page_type      = '';
 
+					$page_type_id = '';
 					if ( $page_type_data ) {
 						$page_type    = $page_type_data[0]->name;
 						$page_type_id = $page_type_data[0]->term_id;
@@ -279,15 +321,14 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			$post_ids = $fields['posts'] ?? '';
 
+			// If post_ids is empty or is not a comma separated integers string then make post_ids an empty array.
 			if ( empty( $post_ids ) || ! preg_split( '/^\d+(,\d+)*$/', $post_ids ) ) {
 				$post_ids = [];
 			} else {
 				$post_ids = explode( ',', $post_ids );
 			}
 
-			if ( empty( $post_ids ) ) {
-				return false;
-			} else {
+			if ( ! empty( $post_ids ) ) {
 
 				// Get all posts with arguments.
 				$args = [
@@ -299,6 +340,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 				return wp_get_recent_posts( $args );
 			}
+
+			return false;
 		}
 
 		/**
@@ -308,11 +351,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 *
 		 * @return array|false
 		 */
-		private function filter_posts( &$fields ) {
+		private function filter_posts_by_page_types( &$fields ) {
 
-			$tag_id         = $fields['tag_id'] ?? '';
-			$tag_filter     = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';
-			$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
+			$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
 
 			$exclude_post_id   = (int) ( $fields['exclude_post_id'] ?? '' );
 			$ignore_categories = $fields['ignore_categories'] ?? 'false';
@@ -332,37 +373,35 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$post_tags = get_the_tags();
 
 			// On other than tag page, read more link should lead to search page-preselected with current page categories/tags.
-			if ( '' === $tag_id ) {
-				$read_more_filter = '';
-				if ( 'true' !== $ignore_categories ) {
-					if ( $post_categories ) {
-						foreach ( $post_categories as $category ) {
-							// For issue page.
-							if ( $category->parent === (int) $options['issues_parent_category'] ) {
-								$read_more_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
-							}
+			$read_more_filter = '';
+			if ( 'true' !== $ignore_categories ) {
+				if ( $post_categories ) {
+					foreach ( $post_categories as $category ) {
+						// For issue page.
+						if ( $category->parent === (int) $options['issues_parent_category'] ) {
+							$read_more_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
 						}
 					}
 				}
-
-				if ( ! empty( $post_types ) ) {
-					// We cannot filter search for more than one pagetype, so use the last one.
-					$read_more_post_type = end( $post_types );
-					$page_type_data      = get_term_by( 'slug', wp_unslash( $read_more_post_type ), 'p4-page-type' );
-					$read_more_filter    .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
-				}
-
-				if ( '' === $read_more_filter ) {
-					// For normal page and post.
-					if ( $post_tags ) {
-						foreach ( $post_tags as $tag ) {
-							$read_more_filter .= '&f[tag][' . $tag->name . ']=' . $tag->term_id;
-						}
-					}
-				}
-
-				$read_more_link = $fields['read_more_link'] ?? $read_more_link . $read_more_filter;
 			}
+
+			if ( ! empty( $post_types ) ) {
+				// We cannot filter search for more than one pagetype, so use the last one.
+				$read_more_post_type = end( $post_types );
+				$page_type           = get_term_by( 'slug', wp_unslash( $read_more_post_type ), 'p4-page-type' );
+				$read_more_filter    .= $page_type instanceof \WP_Term ? '&f[ptype][' . $page_type->slug . ']=' . $page_type->term_id : '';
+			}
+
+			if ( '' === $read_more_filter ) {
+				// For normal page and post.
+				if ( $post_tags ) {
+					foreach ( $post_tags as $tag ) {
+						$read_more_filter .= '&f[tag][' . $tag->name . ']=' . $tag->term_id;
+					}
+				}
+			}
+
+			$read_more_link           = $fields['read_more_link'] ?? $read_more_link . $read_more_filter;
 			$fields['read_more_link'] = $read_more_link;
 
 
@@ -386,10 +425,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				$args['post__not_in'] = [ $exclude_post_id ];
 			}
 
-			if ( $tag_id ) {
-				$args['tag_id'] = $tag_id;
-			}
-
 			if ( ! empty( $post_types ) ) {
 				$args['tax_query'] = [
 					[
@@ -402,7 +437,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// For posts and pages, display related articles based on current post/page tags.
 			$current_post_type = get_post_type();
-			if ( 'post' === $current_post_type || ( 'page' === $current_post_type && '' === $tag_id ) ) {
+			if ( 'post' === $current_post_type || ( 'page' === $current_post_type ) ) {
 				if ( $post_tags ) {
 					$tag_id_array = [];
 					foreach ( $post_tags as $tag ) {
@@ -416,7 +451,165 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		}
 
 		/**
-		 * Extract p4 page type terms from block's attributes.
+		 * Filter posts based on post types (p4_page_type terms).
+		 *
+		 * @param array $fields Block fields values.
+		 *
+		 * @return array|false
+		 */
+		private function filter_posts_by_page_types_or_tags( &$fields ) {
+
+			$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '';
+
+			$ignore_categories = $fields['ignore_categories'] ?? 'false';
+			$options           = get_option( 'planet4_options' );
+
+			// Get page categories.
+			$post_categories   = get_the_category();
+			$category_id_array = [];
+			foreach ( $post_categories as $category ) {
+				$category_id_array[] = $category->term_id;
+			}
+
+
+			// If any p4_page_type was selected extract the term's slug to be used in the wp query below.
+			// post_types attribute filtering.
+			$post_types = $fields['post_types'] ?? '';
+
+			if ( empty( $post_types ) || ! preg_split( '/^\d+(,\d+)*$/', $post_types ) ) {
+				$post_types = [];
+			} else {
+				$post_types = explode( ',', $post_types );
+			}
+
+			// Get user defined tags from backend.
+			$tags = $fields['tags'] ?? '';
+
+			// If tags is empty or is not a comma separated integers string then define tags as empty.
+			if ( empty( $tags ) || ! preg_split( '/^\d+(,\d+)*$/', $tags ) ) {
+				$tags = [];
+			} else {
+				// Explode comma separated list of tag ids and get an array of \WP_Terms objects.
+				$tags = get_tags( [
+					'include' => $tags,
+				] );
+			}
+
+			// If user has not provided any tag, use post's tags.
+			if ( empty( $tags ) ) {
+				// Get page/post tags.
+				$tags = get_the_tags();
+			}
+
+
+			// On other than tag page, read more link should lead to search page-preselected with current page categories/tags.
+			$read_more_filter = '';
+			if ( 'true' !== $ignore_categories ) {
+				if ( $post_categories ) {
+					foreach ( $post_categories as $category ) {
+						// For issue page.
+						if ( $category->parent === (int) $options['issues_parent_category'] ) {
+							$read_more_filter .= '&f[cat][' . $category->name . ']=' . $category->term_id;
+						}
+					}
+				}
+			}
+
+			if ( ! empty( $post_types ) ) {
+				// We cannot filter search for more than one pagetype, so use the last one.
+				$read_more_post_type = end( $post_types );
+				$page_type_data      = get_term_by( 'term_id', $read_more_post_type, 'p4-page-type' );
+				$read_more_filter    .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
+			}
+
+			if ( '' === $read_more_filter ) {
+				// For normal page and post.
+				if ( $tags ) {
+					foreach ( $tags as $tag ) {
+						$read_more_filter .= '&f[tag][' . $tag->name . ']=' . $tag->term_id;
+					}
+				}
+			}
+
+			$read_more_link           = $fields['read_more_link'] ?? $read_more_link . $read_more_filter;
+			$fields['read_more_link'] = $read_more_link;
+
+
+			// Get all posts with arguments.
+			$args = [
+				'numberposts'      => $fields['article_count'],
+				'orderby'          => 'date',
+				'post_status'      => 'publish',
+				'suppress_filters' => false,
+			];
+
+			if ( 'true' !== $ignore_categories ) {
+				if ( $category_id_array ) {
+					$category_ids     = implode( ',', $category_id_array );
+					$args['category'] = '( ' . $category_ids . ' )';
+				}
+			}
+
+			// Add filter for p4-page-type terms.
+			if ( ! empty( $post_types ) ) {
+				$args['tax_query'] = [
+					[
+						'taxonomy' => 'p4-page-type',
+						'field'    => 'term_id',
+						'terms'    => $post_types,
+					],
+				];
+			}
+
+			// For posts and pages, display related articles based on current post/page tags.
+			$current_post_type = get_post_type();
+			if ( 'post' === $current_post_type || 'page' === $current_post_type ) {
+				if ( $tags ) {
+					$tag_id_array = [];
+					foreach ( $tags as $tag ) {
+						$tag_id_array[] = $tag->term_id;
+					}
+					$args['tag__in'] = $tag_id_array;
+				}
+			}
+
+			return wp_get_recent_posts( $args );
+		}
+
+		/**
+		 * Filter posts based for a specific tag page.
+		 *
+		 * @param array $fields Block fields values.
+		 *
+		 * @return array|false
+		 */
+		private function filter_posts_for_tag_page( &$fields ) {
+
+			$tag_id                   = $fields['tags'] ?? '';
+			$tag                      = get_tag( $tag_id );
+			$tag_filter               = $tag instanceof \WP_Term ? '&f[tag][' . $tag->name . ']=' . $tag_id : '';
+			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
+			$fields['read_more_link'] = $read_more_link;
+
+			if ( $tag instanceof \WP_Term ) {
+				// Get all posts with arguments.
+				$args = [
+					'numberposts'      => $fields['article_count'],
+					'orderby'          => 'date',
+					'post_status'      => 'publish',
+					'suppress_filters' => false,
+				];
+
+				$args['tag__in'] = [ (int) $tag_id ];
+
+				return wp_get_recent_posts( $args );
+			}
+
+			return false;
+		}
+
+		/**
+		 * Extract p4 page type terms from block's attributes (checkboxes - old behavior).
 		 *
 		 * @param array $fields Block fields values.
 		 *
