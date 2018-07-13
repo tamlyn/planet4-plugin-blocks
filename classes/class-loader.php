@@ -53,6 +53,7 @@ if ( ! class_exists( 'Loader' ) ) {
 			$this->check_requirements();
 			add_action( 'plugins_loaded', [ $this, 'load_i18n' ] );
 			add_action( 'plugins_loaded', [ $this, 'load_external_services' ] );
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_public_assets' ] );
 		}
 
 		/**
@@ -199,6 +200,17 @@ if ( ! class_exists( 'Loader' ) ) {
 			wp_enqueue_script( 'p4bks_admin_jquery', '//code.jquery.com/jquery-3.2.1.min.js', array(), '3.2.1', true );
 			wp_enqueue_style( 'p4bks_admin_style', P4BKS_ADMIN_DIR . 'css/admin.css', array(), '0.1' );
 			wp_enqueue_script( 'p4bks_admin_script', P4BKS_ADMIN_DIR . 'js/admin.js', array(), '0.1', true );
+		}
+
+		/**
+		 * Load assets for the frontend.
+		 */
+		public function enqueue_public_assets() {
+			// plugin-blocks assets.
+			$css_blocks_creation = filectime( P4BKS_PLUGIN_DIR . '/assets/scss/blocks.css' );
+			$js_blocks_creation  = filectime( P4BKS_PLUGIN_DIR . '/assets/js/blocks.js' );
+			wp_enqueue_style( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/assets/scss/blocks.css', [], $css_blocks_creation );
+			wp_enqueue_script( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/assets/js/blocks.js', [ 'jquery' ], $js_blocks_creation, true );
 		}
 
 		/**
