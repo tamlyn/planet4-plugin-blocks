@@ -212,7 +212,7 @@ if ( ! class_exists( 'Loader' ) ) {
 			// Add master theme's main css as dependency for blocks css.
 			wp_enqueue_style( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/blocks.css', [ 'bootstrap', 'slick', 'font-awesome', 'parent-style' ], $css_blocks_creation );
 			// Add master theme's main js as dependency for blocks js.
-			wp_enqueue_script( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/assets/js/blocks.js', [ 'jquery', 'main', 'slick' ], $js_blocks_creation, true );
+			wp_enqueue_script( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/assets/js/blocks.js', [ 'jquery', 'main', 'slick', 'popperjs', 'bootstrapjs', 'hammer' ], $js_blocks_creation, true );
 		}
 
 		/**
