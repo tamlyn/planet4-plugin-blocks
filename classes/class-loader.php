@@ -210,7 +210,8 @@ if ( ! class_exists( 'Loader' ) ) {
 			$css_blocks_creation = filectime( P4BKS_PLUGIN_DIR . '/blocks.css' );
 			$js_blocks_creation  = filectime( P4BKS_PLUGIN_DIR . '/assets/js/blocks.js' );
 			wp_enqueue_style( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/blocks.css', [], $css_blocks_creation );
-			wp_enqueue_script( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/assets/js/blocks.js', [ 'jquery' ], $js_blocks_creation, true );
+			// Add master theme's main js as dependency for blocks js.
+			wp_enqueue_script( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/assets/js/blocks.js', [ 'jquery', 'main', 'slick' ], $js_blocks_creation, true );
 		}
 
 		/**
