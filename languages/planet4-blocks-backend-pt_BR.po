@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2018-06-20 21:21+0000\n"
-"Last-Translator: Julia Mente <jmarubay@greenpeace.org>\n"
+"PO-Revision-Date: 2018-07-12 13:34+0000\n"
+"Last-Translator: rafa <rafael.silva@greenpeace.org>\n"
 "Language-Team: Portuguese (Brazil)\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -663,7 +663,7 @@ msgstr ""
 #: classes/controller/blocks/class-carouselheader-controller.php:35
 #, php-format
 msgid "Select file for %s image"
-msgstr "Selecione o arquivo para as imagens %s"
+msgstr "Selecione o arquivo para a imagem %s"
 
 #. placeholder needs to represent the ordinal of the image, eg. 1st, 2nd etc.
 #: classes/controller/blocks/class-carouselheader-controller.php:44
@@ -708,7 +708,7 @@ msgstr "Coloque o texto do link para a imagem %s"
 #: classes/controller/blocks/class-carouselheader-controller.php:106
 #, php-format
 msgid "Enter link url for %s image"
-msgstr "Coloque a url da imagem %s"
+msgstr "Coloque a url %s"
 
 #. A block that contains 4 different columns each one with title and description.
 #: classes/controller/blocks/class-carouselheader-controller.php:117
