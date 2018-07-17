@@ -1,11 +1,7 @@
 // Global styles
-@import "partials/variables";
-@import "partials/functions";
-@import "partials/mixins";
-@import "partials/typography";
-@import "partials/font-icon";
-@import "modules/buttons";
-@import "modules/forms";
+@import "global/variables";
+@import "global/functions";
+@import "global/mixins";
 
 // Import blocks
 @import "blocks/article-listing";
@@ -14,6 +10,7 @@
 @import "blocks/carousel-header";
 @import "blocks/carousel";
 @import "blocks/content-four-column";
+@import "blocks/content-three-column";
 @import "blocks/content-two-column";
 @import "blocks/covers";
 @import "blocks/happy-point-block";

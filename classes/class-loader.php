@@ -209,8 +209,10 @@ if ( ! class_exists( 'Loader' ) ) {
 			// plugin-blocks assets.
 			$css_blocks_creation = filectime( P4BKS_PLUGIN_DIR . '/blocks.css' );
 			$js_blocks_creation  = filectime( P4BKS_PLUGIN_DIR . '/assets/js/blocks.js' );
-			wp_enqueue_style( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/blocks.css', [], $css_blocks_creation );
-			wp_enqueue_script( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/assets/js/blocks.js', [ 'jquery' ], $js_blocks_creation, true );
+			// Add master theme's main css as dependency for blocks css.
+			wp_enqueue_style( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/blocks.css', [ 'bootstrap', 'slick', 'font-awesome', 'parent-style' ], $css_blocks_creation );
+			// Add master theme's main js as dependency for blocks js.
+			wp_enqueue_script( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/assets/js/blocks.js', [ 'jquery', 'main', 'slick', 'popperjs', 'bootstrapjs', 'hammer' ], $js_blocks_creation, true );
 		}
 
 		/**

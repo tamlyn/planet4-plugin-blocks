@@ -65,6 +65,21 @@
 .article-list-item-image-max-width {
   img {
     width: 100%;
+    height: 190px;
+    object-fit: cover;
+    object-position: 50% 50%;
+
+    @include small-and-up {
+      height: 310px;
+    }
+
+    @include medium-and-up {
+      height: 170px;
+    }
+
+    @include large-and-up {
+      height: 210px;
+    }
   }
 }
 
