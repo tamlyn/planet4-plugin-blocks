@@ -53,7 +53,7 @@
 }
 
 .split-two-column-item-title {
-  font-size: rem(28);
+  font-size: 1.75rem;
 
   a {
     color: $white;
@@ -61,23 +61,23 @@
   }
 
   @include small-and-up {
-    font-size: rem(28);
+    font-size: 1.75rem;
     margin-top: -.5em;
     margin-bottom: 1.25em;
   }
 
   @include medium-and-up {
-    font-size: rem(40);
+    font-size: 2.5rem;
     line-height: 1.2;
     margin-bottom: 12px;
   }
 
   @include large-and-up {
-    font-size: rem(66);
+    font-size: 4.125rem;
   }
 
   @include x-large-and-up {
-    font-size: rem(40);
+    font-size: 2.5rem;
     margin-top: -.5em;
     margin-bottom: 20px;
   }
@@ -85,7 +85,7 @@
 
 .split-two-column-item-tag {
   font-family: $roboto;
-  font-size: rem(28);
+  font-size: 1.75rem;
   font-weight: 700;
   color: $yellow;
   display: block;
@@ -100,13 +100,13 @@
   }
 
   @include medium-and-up {
-    font-size: rem(24);
+    font-size: 1.5rem;
     margin-bottom: 15px;
     margin-top: 5px;
   }
 
   @include large-and-up {
-    font-size: rem(40);
+    font-size: 2.5rem;
   }
 
   @include x-large-and-up {
@@ -119,12 +119,12 @@
 .split-two-column-item-link {
   font-family: $roboto;
   font-weight: 500;
-  font-size: rem(16);
+  font-size: 1rem;
   line-height: 1.75;
   margin-bottom: 10px;
 
   @include medium-and-up {
-    font-size: rem(15);
+    font-size: 0.9375rem;
     font-weight: 400;
     text-shadow: 1px 1px 1px $black;
     line-height: 1.6;
@@ -132,13 +132,13 @@
   }
 
   @include large-and-up {
-    font-size: rem(17);
+    font-size: 1.0625rem;
     line-height: 1.5;
     margin-bottom: 36px;
   }
 
   @include x-large-and-up {
-    font-size: rem(20);
+    font-size: 1.25rem;
     margin-left: 0;
     font-weight: normal;
     line-height: 1.6;
@@ -235,7 +235,7 @@
     position: relative;
 
     @include large-and-up {
-      font-size: rem(40);
+      font-size: 2.5rem;
       line-height: 1.2;
       margin-bottom: 20px;
     }

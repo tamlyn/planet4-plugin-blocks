@@ -62,42 +62,42 @@
       }
 
       h4 {
-        font-size: rem(14);
+        font-size: 0.875rem;
         line-height: 1.2;
         font-weight: 500;
         padding: 0;
         margin: 0;
 
         @include medium-and-up {
-          font-size: rem(18);
+          font-size: 1.125rem;
           font-weight: 500;
           color: $black;
         }
 
         @include large-and-up {
-          font-size: rem(16);
+          font-size: 1rem;
         }
 
         @include large-and-up {
-          font-size: rem(18);
+          font-size: 1.125rem;
         }
       }
 
       p {
-        font-size: rem(16);
+        font-size: 1rem;
 
         @include large-and-up {
-          font-size: rem(14);
+          font-size: 0.875rem;
           line-height: 1.6;
         }
 
         @include x-large-and-up {
-          font-size: rem(15);
+          font-size: 0.9375rem;
         }
 
         &.publication-date {
           font-family: $roboto;
-          font-size: rem(14);
+          font-size: 0.875rem;
           line-height: 1.6;
           font-style: italic;
           font-weight: 300;
@@ -105,11 +105,11 @@
           color: $grey-60;
 
           @include large-and-up {
-            font-size: rem(26);
+            font-size: 1.625rem;
           }
 
           @include x-large-and-up {
-            font-size: rem(15);
+            font-size: 0.9375rem;
           }
         }
       }
