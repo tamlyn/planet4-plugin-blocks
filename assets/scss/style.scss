@@ -1,0 +1,23 @@
+// Global styles
+@import "global/variables";
+@import "global/functions";
+@import "global/mixins";
+
+// Import blocks
+@import "blocks/article-listing";
+@import "blocks/block-media";
+@import "blocks/campaign-thumbnail-block";
+@import "blocks/carousel-header";
+@import "blocks/carousel";
+@import "blocks/content-four-column";
+@import "blocks/content-three-column";
+@import "blocks/content-two-column";
+@import "blocks/covers";
+@import "blocks/happy-point-block";
+@import "blocks/split-carousel";
+@import "blocks/split-two-column";
+@import "blocks/static-four-column";
+@import "blocks/submenu";
+@import "blocks/subheader";
+@import "blocks/tasks";
+@import "blocks/video-block";
