@@ -146,6 +146,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					'multiple' => 'multiple',
 					'query'    => [
 						'post_type' => 'post',
+						'orderby'   => 'post_title',
+						'order'     => 'ASC',
 					],
 					'meta'     => [
 						'select2_options' => [
