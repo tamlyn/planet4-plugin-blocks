@@ -1,25 +1,21 @@
-/* Subheader block
-* Usually follows after a page-header block
-*/
-
 .subheader {
   h2 {
-    font-size: rem(22);
+    font-size: 1.375rem;
     line-height: 1.38;
     margin-bottom: 15px;
 
     @include medium-and-up {
-      font-size: rem(24);
+      font-size: 1.5rem;
       line-height: 1.2;
     }
 
     @include large-and-up {
-      font-size: rem(28);
+      font-size: 1.75rem;
       margin-bottom: 12px;
     }
 
     @include x-large-and-up {
-      font-size: rem(30);
+      font-size: 1.875rem;
       margin-bottom: 20px;
     }
   }
@@ -39,7 +35,7 @@
     }
 
     @include x-large-and-up {
-      font-size: rem(18);
+      font-size: 1.125rem;
       line-height: 1.6;
       margin-bottom: 30px;
     }
