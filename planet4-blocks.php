@@ -104,7 +104,9 @@ function plugin_blocks_report() {
 		$sql = 'SELECT ID, post_title
 				FROM `wp_posts` 
 				WHERE post_status = \'publish\' 
-				AND `post_content` LIKE \'%[shortcake_' . $block . '%\'';
+				AND `post_content` LIKE \'%[shortcake_' . $block . '%\'
+				AND `post_content` LIKE \'%p4_page_type_press%\'
+				';
 
 		$results = $wpdb->get_results( $sql );
 		//print_r($results);
