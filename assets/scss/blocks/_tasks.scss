@@ -141,8 +141,6 @@
       }
 
       .step-number-inner {
-        font-family: $roboto;
-
         @include large-and-up {
           background-color: $allports;
           border-color: $spray;
@@ -151,6 +149,8 @@
     }
 
     .step-number-inner {
+      font-family: $roboto;
+
       @include large-and-up {
         position: absolute;
         background-color: $dark-blue;
