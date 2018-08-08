@@ -6,8 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
+    'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
+    'WP_Mock\\' => array($vendorDir . '/10up/wp_mock/php/WP_Mock'),
     'P4BKS\\Controllers\\Menu\\' => array($baseDir . '/classes/controller/menu'),
     'P4BKS\\Controllers\\Blocks\\' => array($baseDir . '/classes/controller/blocks'),
     'P4BKS\\Controllers\\' => array($baseDir . '/classes/controller'),
     'P4BKS\\' => array($baseDir . '/classes'),
+    'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
+    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
 );

@@ -13,6 +13,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'articles';
+		/** @var array $data */
+		public $data = [];
 
 		/**
 		 * Shortcode UI setup for the article shortcode.
@@ -298,11 +300,11 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				'fields'       => $fields,
 				'recent_posts' => $recent_posts,
 			];
+			$this->data = $data;
 
 			// Shortcode callbacks must return content, hence, output buffering here.
 			ob_start();
 			$this->view->block( self::BLOCK_NAME, $data );
-
 			return ob_get_clean();
 		}
 	}
