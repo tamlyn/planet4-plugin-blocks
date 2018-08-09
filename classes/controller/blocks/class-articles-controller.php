@@ -171,11 +171,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			$fields['article_heading'] = $fields['article_heading'] ?? $article_title;
 			$fields['read_more_text']  = $fields['read_more_text'] ?? $article_button_title;
-			if ( 0 === $fields['article_count'] ) {
-				unset( $fields['article_count'] );
-			} else {
-				$fields['article_count'] = $fields['article_count'] ?? $article_count;
-			}
+			$fields['article_count']   = $fields['article_count'] ?? $article_count;
 			$ignore_categories         = $fields['ignore_categories'] ?? 'false';
 
 			// Get page/post tags.
@@ -215,14 +211,11 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// Get all posts with arguments.
 			$args = [
-				//'numberposts'      => $fields['article_count'],
+				'numberposts'      => $fields['article_count'],
 				'orderby'          => 'date',
 				'post_status'      => 'publish',
 				'suppress_filters' => false,
 			];
-			if ( isset( $fields['article_count'] ) ) {
-				$args['numberposts'] = $fields['article_count'];
-			}
 
 			if ( 'true' !== $ignore_categories ) {
 				if ( $category_id_array ) {
