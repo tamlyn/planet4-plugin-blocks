@@ -13,8 +13,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'articles';
-		/** @var array $data */
-		public $data = [];
 
 		/**
 		 * Shortcode UI setup for the article shortcode.
@@ -118,7 +116,21 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 * @return string All the data used for the html.
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
+			$data = $this->prepare_data( $fields );
+			// Shortcode callbacks must return content, hence, output buffering here.
+			ob_start();
+			$this->view->block( self::BLOCK_NAME, $data );
+			return ob_get_clean();
+		}
 
+		/**
+		 * Get all the data that will be needed to render the block correctly.
+		 *
+		 * @param array $fields This contains array of article shortcake block field.
+		 *
+		 * @return array The data to be passed in the View.
+		 */
+		public function prepare_data( $fields ) : array {
 			// Read more button links to search results if no link is specified.
 			$tag_id          = $fields['tag_id'] ?? '';
 			$tag_filter      = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';
@@ -159,7 +171,11 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			$fields['article_heading'] = $fields['article_heading'] ?? $article_title;
 			$fields['read_more_text']  = $fields['read_more_text'] ?? $article_button_title;
-			$fields['article_count']   = $fields['article_count'] ?? $article_count;
+			if ( 0 === $fields['article_count'] ) {
+				unset( $fields['article_count'] );
+			} else {
+				$fields['article_count'] = $fields['article_count'] ?? $article_count;
+			}
 			$ignore_categories         = $fields['ignore_categories'] ?? 'false';
 
 			// Get page/post tags.
@@ -199,11 +215,14 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// Get all posts with arguments.
 			$args = [
-				'numberposts'      => $fields['article_count'],
+				//'numberposts'      => $fields['article_count'],
 				'orderby'          => 'date',
 				'post_status'      => 'publish',
 				'suppress_filters' => false,
 			];
+			if ( isset( $fields['article_count'] ) ) {
+				$args['numberposts'] = $fields['article_count'];
+			}
 
 			if ( 'true' !== $ignore_categories ) {
 				if ( $category_id_array ) {
@@ -277,7 +296,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$page_type_data = get_the_terms( $recent['ID'], 'p4-page-type' );
 					$page_type      = '';
 
-					if ( $page_type_data ) {
+					if ( $page_type_data && ! is_wp_error( $page_type_data ) ) {
 						$page_type = $page_type_data[0]->name;
 						$page_type_id = $page_type_data[0]->term_id;
 					}
@@ -285,12 +304,14 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$recent['page_type'] = $page_type;
 					$recent['permalink'] = get_permalink( $recent['ID'] );
 
-					$recent['filter_url'] = add_query_arg( [
-							's'                        => ' ',
-							'orderby'                  => 'relevant',
-							'f[ptype]['.$page_type.']' => $page_type_id,
+					if ( isset( $page_type_id ) ) {
+						$recent['filter_url'] = add_query_arg( [
+							's'                            => ' ',
+							'orderby'                      => 'relevant',
+							'f[ptype][' . $page_type . ']' => $page_type_id,
 						], get_home_url()
-					);
+						);
+					}
 
 					$recent_posts[] = $recent;
 				}
@@ -300,12 +321,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				'fields'       => $fields,
 				'recent_posts' => $recent_posts,
 			];
-			$this->data = $data;
 
-			// Shortcode callbacks must return content, hence, output buffering here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $data );
-			return ob_get_clean();
+			return $data;
 		}
 	}
 }

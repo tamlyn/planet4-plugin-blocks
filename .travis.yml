@@ -25,6 +25,7 @@ matrix:
       dist: precise
 
 before_script:
+  - npm install -g stylelint eslint
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - |
     if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
@@ -44,6 +45,8 @@ before_script:
     fi
 
 script:
+  - stylelint 'assets/scss/**/*.scss' 'assets/css/*.css'
+  - eslint 'assets/js/**/*.js'
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
       phpunit

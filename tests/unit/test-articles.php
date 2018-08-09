@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../p4-unittestcase.php';
 
 use P4BKS\Controllers\Blocks\Articles_Controller as Articles;
+use P4BKS\Views\View as View;
 
 if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 
@@ -13,58 +14,93 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 	 */
 	class P4_ArticlesTest extends P4_UnitTestCase {
 
-		/**
-		 *
-		 */
-		public function setUp() {
-			parent::setUp();
-			$mock_posts = $this->get_mock_posts();
-			$this->factory->post->create_many( 2, $mock_posts['press-release'] );
-			$this->factory->post->create_many( 1, $mock_posts['publication'] );
-			$this->factory->post->create_many( 3, $mock_posts['story'] );
-
-			$this->commit_transaction();
-		}
+		const PRESS_RELEASE_COUNT = 2;
+		const PUBLICATION_COUNT   = 1;
+		const STORY_COUNT         = 4;
 
 		/**
-		 *
+		 * Test that the block retrieves all the available Posts with this p4 page type.
 		 */
-		public function test_articles_number() {
-			$test_number = 3;
+		public function test_press_release_count() {
+			$mock_posts        = $this->get_mock_posts();
+			$press_release_ids = $this->factory->post->create_many( self::PRESS_RELEASE_COUNT, $mock_posts['press-release'] );
 
-//			$args = [
-//				'numberposts'      => $test_number,
-//				'post_status'      => 'publish',
-//				'post_type'        => 'post',
-//				'suppress_filters' => false,
-//				'tax_query'        => [
-//					'taxonomy' => 'p4-page-type',
-//					'field'    => 'slug',
-//					'terms'    => 'story',
-//				],
-//			];
-//
-//			$all_posts = wp_get_recent_posts( $args );
-//			fwrite( STDERR, print_r( $all_posts, TRUE ) );
+			if ( $press_release_ids ) {
+				foreach ( $press_release_ids as $id ) {
+					$this->factory->term->add_post_terms( $id, 'press-release', 'post_tag' );
+				}
+			}
 
-			$view     = new \P4BKS\Views\View();
-			$articles = new Articles( $view );
-
-			$fields = [
-				'article_count'      => $test_number,
-				'p4_page_type_story' => true,
+			$articles = new Articles( new View() );
+			$fields   = [
+				'article_count' => self::PRESS_RELEASE_COUNT,
+				'p4_page_type_press-release' => true,
 			];
-			$articles->prepare_template( $fields, '', 'shortcake_' . Articles::BLOCK_NAME );
-			//fwrite( STDERR, print_r( $articles->data, TRUE ) );
+			$data = $articles->prepare_data( $fields );
 
 			try {
-				$this->assertEquals( $test_number, count( $articles->data['recent_posts'] ) );
+				$this->assertEquals( self::PRESS_RELEASE_COUNT, count( $data['recent_posts'] ) );
 			} catch ( \Exception $e ) {
-				$this->fail( '->Did not find as many posts as expected.' );
+				$this->fail( '->Did not find as many Press Release Posts as expected.' );
 			}
 		}
 
 		/**
+		 * Test that the block retrieves all the available Posts with this p4 page type.
+		 */
+		public function test_publication_count() {
+			$mock_posts      = $this->get_mock_posts();
+			$publication_ids = $this->factory->post->create_many( self::PUBLICATION_COUNT, $mock_posts['publication'] );
+
+			if ( $publication_ids ) {
+				foreach ( $publication_ids as $id ) {
+					$this->factory->term->add_post_terms( $id, 'publication', 'post_tag' );
+				}
+			}
+
+			$articles = new Articles( new View() );
+			$fields = [
+				'article_count' => self::PUBLICATION_COUNT,
+				'p4_page_type_publication' => true,
+			];
+			$data = $articles->prepare_data( $fields );
+
+			try {
+				$this->assertEquals( self::PUBLICATION_COUNT, count( $data['recent_posts'] ) );
+			} catch ( \Exception $e ) {
+				$this->fail( '->Did not find as many Publication Posts as expected.' );
+			}
+		}
+
+		/**
+		 * Test that the block retrieves all the available Posts with this p4 page type.
+		 */
+		public function test_story_count() {
+			$mock_posts = $this->get_mock_posts();
+			$story_ids  = $this->factory->post->create_many( self::STORY_COUNT, $mock_posts['story'] );
+			if ( $story_ids ) {
+				foreach ( $story_ids as $id ) {
+					$this->factory->term->add_post_terms( $id, 'story', 'post_tag' );
+				}
+			}
+
+			$articles = new Articles( new View() );
+			$fields = [
+				'article_count' => self::STORY_COUNT,
+				'p4_page_type_story' => true,
+			];
+			$data = $articles->prepare_data( $fields );
+
+			try {
+				$this->assertEquals( self::STORY_COUNT, count( $data['recent_posts'] ) );
+			} catch ( \Exception $e ) {
+				$this->fail( '->Did not find as many Story Posts as expected.' );
+			}
+		}
+
+		/**
+		 * Get data which will be used to create dummy posts for the test.
+		 *
 		 * @return array
 		 */
 		private function get_mock_posts() : array {
