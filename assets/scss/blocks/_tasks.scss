@@ -6,7 +6,7 @@
   }
 
   h3 {
-    font-size: rem(22);
+    font-size: 1.375rem;
     font-weight: 700;
     margin-bottom: 15px;
     line-height: 1.2;
@@ -18,16 +18,16 @@
 
     @include medium-and-up {
       padding-top: 0;
-      font-size: rem(24);
+      font-size: 1.5rem;
     }
 
     @include large-and-up {
-      font-size: rem(28);
+      font-size: 1.75rem;
     }
 
     @include x-large-and-up {
       padding-top: 0;
-      font-size: rem(30);
+      font-size: 1.875rem;
       margin-bottom: 20px;
     }
   }
@@ -52,7 +52,7 @@
     .btn-primary {
       @include small-and-up {
         width: 57%;
-        font-size: rem(12);
+        font-size: 0.75rem;
       }
 
       @include medium-and-up {
@@ -63,19 +63,19 @@
 
   p {
     color: $dark-para-text;
-    font-size: rem(17);
+    font-size: 1.0625rem;
     line-height: 1.6;
 
     @include medium-and-up {
-      font-size: rem(19);
+      font-size: 1.1875rem;
     }
 
     @include large-and-up {
-      font-size: rem(20);
+      font-size: 1.25rem;
     }
 
     @include x-large-and-up {
-      font-size: rem(22);
+      font-size: 1.375rem;
     }
   }
 }
@@ -105,12 +105,12 @@
   .step-number {
     float: left;
     display: block;
-    margin-right: rem(20);
+    margin-right: 20px;
     width: 74px;
     height: 74px;
     line-height: 74px;
     text-align: center;
-    font-size: rem(44);
+    font-size: 2.75rem;
     background: $grey;
     border-radius: 50%;
     color: $white;
@@ -124,7 +124,7 @@
       height: 126px;
       vertical-align: middle;
       line-height: 114px;
-      font-size: rem(70);
+      font-size: 4.375rem;
       position: relative;
       background-color: $dark-blue;
       opacity: 1;
@@ -149,6 +149,8 @@
     }
 
     .step-number-inner {
+      font-family: $roboto;
+
       @include large-and-up {
         position: absolute;
         background-color: $dark-blue;
@@ -166,22 +168,20 @@
 
   .step-info {
     h5 {
-      font-size: rem(15);
-      line-height: rem(19.5);
+      font-size: 0.9375rem;
+      line-height: 19px;
       font-weight: 700;
       color: $percentage-text;
 
       @include medium-and-up {
         font-weight: 500;
         color: $darkb-blue-text;
-        font-size: rem(20);
-        line-height: rem(30);
+        font-size: 1.25rem;
+        line-height: 30px;
       }
 
       @include large-and-up {
         padding-top: 48px;
-        font-size: rem(20);
-        line-height: rem(30);
         color: $dark-shade-black;
       }
 
@@ -192,11 +192,11 @@
 
     p {
       color: $dark-shade-black;
-      font-size: rem(14);
+      font-size: 0.875rem;
       opacity: 0.75;
 
       @include x-large-and-up {
-        font-size: rem(15);
+        font-size: 0.9375rem;
         line-height: 1.6;
         margin-bottom: 20px;
       }
@@ -228,11 +228,11 @@
   width: 100%;
 
   .card-header {
-    background: $grey;
+    background: $allports;
     border: none;
     color: $white;
     font-weight: 400;
-    font-size: rem(15);
+    font-size: 0.9375rem;
     text-decoration: none;
 
     &:hover {
@@ -264,7 +264,7 @@
         width: 90%;
         margin: 0 10px;
         color: $percentage-text;
-        font-size: rem(14);
+        font-size: 0.875rem;
       }
     }
 
@@ -275,15 +275,15 @@
 
       p {
         color: $dark-shade-black;
-        font-size: rem(14);
-        line-height: rem(22);
+        font-size: 0.875rem;
+        line-height: 22px;
         margin-left: -10px;
         padding-right: 20px;
       }
     }
 
     .step-number {
-      font-size: rem(16);
+      font-size: 1rem;
       font-weight: 900;
       color: $white;
       line-height: 1.5;

@@ -18,7 +18,7 @@ $(document).ready(function() {
   * default bootstrap carousel.
   */
 
-  // SLIDE_TRANSITION_SPEED should match $slide-transition-speed in _carousel-header.scss.
+  // SLIDE_TRANSITION_SPEED should match $slide-transition-speed in _carousel_header.scss.
   var SLIDE_TRANSITION_SPEED = 1000;
   var $headerCarousel = $('#carousel-wrapper-header');
   var $carouselIndicators = $headerCarousel.find('.carousel-indicators');
