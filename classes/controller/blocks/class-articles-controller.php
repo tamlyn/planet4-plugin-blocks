@@ -319,9 +319,10 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 *
 		 * @return array|false
 		 */
-		private function filter_posts_by_ids( $fields ) {
+		private function filter_posts_by_ids( &$fields ) {
 
-			$post_ids = $fields['posts'] ?? '';
+			$fields['read_more_link'] = $fields['read_more_link'] ?? get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
+			$post_ids                 = $fields['posts'] ?? '';
 
 			// If post_ids is empty or is not a comma separated integers string then make post_ids an empty array.
 			if ( empty( $post_ids ) || ! preg_split( '/^\d+(,\d+)*$/', $post_ids ) ) {
@@ -461,8 +462,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		private function filter_posts_by_page_types_or_tags( &$fields ) {
 
-			$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : '';
-
+			$read_more_link    = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
 			$ignore_categories = $fields['ignore_categories'] ?? 'false';
 			$options           = get_option( 'planet4_options' );
 
