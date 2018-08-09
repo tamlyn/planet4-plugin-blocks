@@ -22,8 +22,8 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 		 * Test that the block retrieves all the available Posts with this p4 page type.
 		 */
 		public function test_press_release_count() {
-			$mock_posts        = $this->get_mock_posts();
-			$press_release_ids = $this->factory->post->create_many( self::PRESS_RELEASE_COUNT, $mock_posts['press-release'] );
+			$dummy_posts       = $this->get_dummy_posts();
+			$press_release_ids = $this->factory->post->create_many( self::PRESS_RELEASE_COUNT, $dummy_posts['press-release'] );
 
 			if ( $press_release_ids ) {
 				foreach ( $press_release_ids as $id ) {
@@ -49,8 +49,8 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 		 * Test that the block retrieves all the available Posts with this p4 page type.
 		 */
 		public function test_publication_count() {
-			$mock_posts      = $this->get_mock_posts();
-			$publication_ids = $this->factory->post->create_many( self::PUBLICATION_COUNT, $mock_posts['publication'] );
+			$dummy_posts     = $this->get_dummy_posts();
+			$publication_ids = $this->factory->post->create_many( self::PUBLICATION_COUNT, $dummy_posts['publication'] );
 
 			if ( $publication_ids ) {
 				foreach ( $publication_ids as $id ) {
@@ -76,8 +76,8 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 		 * Test that the block retrieves all the available Posts with this p4 page type.
 		 */
 		public function test_story_count() {
-			$mock_posts = $this->get_mock_posts();
-			$story_ids  = $this->factory->post->create_many( self::STORY_COUNT, $mock_posts['story'] );
+			$dummy_posts = $this->get_dummy_posts();
+			$story_ids   = $this->factory->post->create_many( self::STORY_COUNT, $dummy_posts['story'] );
 			if ( $story_ids ) {
 				foreach ( $story_ids as $id ) {
 					$this->factory->term->add_post_terms( $id, 'story', 'post_tag' );
@@ -103,7 +103,7 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 		 *
 		 * @return array
 		 */
-		private function get_mock_posts() : array {
+		private function get_dummy_posts() : array {
 			return [
 				'press-release' => [
 					'post_author' => 1,
