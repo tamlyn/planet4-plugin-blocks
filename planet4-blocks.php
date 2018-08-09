@@ -81,3 +81,44 @@ P4BKS\Loader::get_instance( [
 	'P4BKS\Controllers\Blocks\SubMenu_Controller',
 	'P4BKS\Controllers\Blocks\Cookies_Controller',
 ], 'P4BKS\Views\View' );
+
+
+/* ==========================
+      P L U G I N  R E P O R T
+   ========================== */
+add_action( 'admin_menu', 'plugin_blocks_report_view' );
+
+function plugin_blocks_report_view() {
+	add_menu_page( 'Plugin Blocks Usage', 'Plugin Blocks Usage', 'manage_options', 'plugin_blocks_report', 'plugin_blocks_report' );
+}
+
+function plugin_blocks_report() {
+	global $wpdb;
+	$blocks = [ 'media_block',
+		'articles'
+	];
+
+
+
+	foreach ($blocks as $block) {
+		$sql = 'SELECT ID, post_title
+				FROM `wp_posts` 
+				WHERE post_status = \'publish\' 
+				AND `post_content` LIKE \'%[shortcake_' . $block . '%\'
+				AND `post_content` LIKE \'%p4_page_type_%\'
+				';
+
+		$results = $wpdb->get_results( $sql );
+		//print_r($results);
+		echo '<hr>';
+		echo '<h2>' . $block . '</h2>';
+
+		foreach ( $results as $result ) {
+			echo '<a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a>';
+			echo '<br>';
+
+		}
+
+	}
+
+}
