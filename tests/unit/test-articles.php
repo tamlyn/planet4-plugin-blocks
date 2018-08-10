@@ -18,8 +18,19 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 		const PUBLICATION_COUNT   = 1;
 		const STORY_COUNT         = 4;
 
+		/** @var $block Articles */
+		protected $block;
+
 		/**
-		 * Test that the block retrieves all the available Posts with this p4 page type.
+		 * This method sets up the test.
+		 */
+		public function setUp() {
+			parent::setUp();
+			$this->block = new Articles( new View() );
+		}
+
+		/**
+		 * Test that the block retrieves all the available Posts with 'press-release' as p4 page type.
 		 */
 		public function test_press_release_count() {
 			$dummy_posts       = $this->get_dummy_posts();
@@ -27,16 +38,21 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 
 			if ( $press_release_ids ) {
 				foreach ( $press_release_ids as $id ) {
-					$this->factory->term->add_post_terms( $id, 'press-release', 'post_tag' );
+					$res = $this->factory->term->add_post_terms( $id, 'press-release', 'p4-page-type' );
+					try {
+						$this->assertNotWPError( $res );
+						$this->assertNotFalse( $res );
+					} catch ( \Exception $e ) {
+						$this->fail( sprintf( '->Unable to add term to post with id %d.', $id ) );
+					}
 				}
 			}
 
-			$articles = new Articles( new View() );
 			$fields   = [
 				'article_count' => self::PRESS_RELEASE_COUNT,
 				'p4_page_type_press-release' => true,
 			];
-			$data = $articles->prepare_data( $fields );
+			$data = $this->block->prepare_data( $fields );
 
 			try {
 				$this->assertEquals( self::PRESS_RELEASE_COUNT, count( $data['recent_posts'] ) );
@@ -46,7 +62,7 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 		}
 
 		/**
-		 * Test that the block retrieves all the available Posts with this p4 page type.
+		 * Test that the block retrieves all the available Posts with 'publication' as p4 page type.
 		 */
 		public function test_publication_count() {
 			$dummy_posts     = $this->get_dummy_posts();
@@ -54,16 +70,21 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 
 			if ( $publication_ids ) {
 				foreach ( $publication_ids as $id ) {
-					$this->factory->term->add_post_terms( $id, 'publication', 'post_tag' );
+					$res = $this->factory->term->add_post_terms( $id, 'publication', 'p4-page-type' );
+					try {
+						$this->assertNotWPError( $res );
+						$this->assertNotFalse( $res );
+					} catch ( \Exception $e ) {
+						$this->fail( sprintf( '->Unable to add term to post with id %d.', $id ) );
+					}
 				}
 			}
 
-			$articles = new Articles( new View() );
 			$fields = [
 				'article_count' => self::PUBLICATION_COUNT,
 				'p4_page_type_publication' => true,
 			];
-			$data = $articles->prepare_data( $fields );
+			$data = $this->block->prepare_data( $fields );
 
 			try {
 				$this->assertEquals( self::PUBLICATION_COUNT, count( $data['recent_posts'] ) );
@@ -73,23 +94,29 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 		}
 
 		/**
-		 * Test that the block retrieves all the available Posts with this p4 page type.
+		 * Test that the block retrieves all the available Posts with 'story' as p4 page type.
 		 */
 		public function test_story_count() {
 			$dummy_posts = $this->get_dummy_posts();
 			$story_ids   = $this->factory->post->create_many( self::STORY_COUNT, $dummy_posts['story'] );
+
 			if ( $story_ids ) {
 				foreach ( $story_ids as $id ) {
-					$this->factory->term->add_post_terms( $id, 'story', 'post_tag' );
+					$res = $this->factory->term->add_post_terms( $id, 'story', 'p4-page-type' );
+					try {
+						$this->assertNotWPError( $res );
+						$this->assertNotFalse( $res );
+					} catch ( \Exception $e ) {
+						$this->fail( sprintf( '->Unable to add term to post with id %d.', $id ) );
+					}
 				}
 			}
 
-			$articles = new Articles( new View() );
 			$fields = [
 				'article_count' => self::STORY_COUNT,
 				'p4_page_type_story' => true,
 			];
-			$data = $articles->prepare_data( $fields );
+			$data = $this->block->prepare_data( $fields );
 
 			try {
 				$this->assertEquals( self::STORY_COUNT, count( $data['recent_posts'] ) );

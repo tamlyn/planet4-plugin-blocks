@@ -5,29 +5,42 @@ require_once __DIR__ . '/../p4-unittestcase.php';
 use P4BKS\Controllers\Blocks\Carousel_Controller as Carousel;
 use P4BKS\Views\View as View;
 
-if ( ! class_exists( 'P4_Carousel' ) ) {
+if ( ! class_exists( 'P4_CarouselTest' ) ) {
 
 	/**
-	 * Class P4_Carousel
+	 * Class P4_CarouselTest
 	 *
 	 * @package Planet4_Plugin_Blocks
 	 */
-	class P4_Carousel extends P4_UnitTestCase {
+	class P4_CarouselTest extends P4_UnitTestCase {
 
 		const ATTACHMENTS_COUNT = 3;
+
+		/** @var $block Carousel */
+		protected $block;
+		/** @var array $post_ids */
+		protected $post_ids = [];
+
+		/**
+		 * This method sets up the test.
+		 */
+		public function setUp() {
+			parent::setUp();
+
+			$this->block    = new Carousel( new View() );
+			$dummy_posts    = $this->get_dummy_posts();
+			$this->post_ids = $this->factory->attachment->create_many( self::ATTACHMENTS_COUNT, $dummy_posts );
+		}
 
 		/**
 		 * Test that the block retrieves all the available Attachments with post_type image/jpg.
 		 */
 		public function test_attachments_count() {
-			$dummy_attachments = $this->get_dummy_attachments();
-			$attachment_ids    = $this->factory->attachment->create_many( self::ATTACHMENTS_COUNT, $dummy_attachments );
 
-			$carousel = new Carousel( new View() );
 			$fields = [
-				'multiple_image' => implode( ',', $attachment_ids ),
+				'multiple_image' => implode( ',', $this->post_ids ),
 			];
-			$data = $carousel->prepare_data( $fields );
+			$data = $this->block->prepare_data( $fields );
 
 			try {
 				$this->assertEquals( self::ATTACHMENTS_COUNT, count( $data['images'] ) );
@@ -41,7 +54,7 @@ if ( ! class_exists( 'P4_Carousel' ) ) {
 		 *
 		 * @return array
 		 */
-		private function get_dummy_attachments() : array {
+		private function get_dummy_posts() : array {
 			return [
 				'post_author'    => 1,
 				'post_type'      => 'attachment',
