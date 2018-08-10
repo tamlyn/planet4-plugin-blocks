@@ -206,12 +206,13 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			// Filter p4_page_type keys from fields attributes array.
 			$post_types_temp = $this->filter_post_types( $fields );
 
-			// Five scenarios for filtering posts.
+			// Six scenarios for filtering posts.
 			// 1) inside tag page - Get posts that have the specific tag assigned.
 			// 2) inside post - Get results excluding specific post.
 			// 3) post types - Get posts by post types specified using checkboxes in backend - old behavior.
 			// 4) post types or tags - Get posts by post types or tags defined from select boxes - new behavior.
 			// 5) specific posts - Get posts by ids specified in backend - new behavior / manual override.
+			// 6) issue page - Get posts based on page's tags.
 			$all_posts = false;
 			if ( is_tag() && '' !== $tag_id ) {
 				$all_posts = $this->filter_posts_for_tag_page( $fields );
@@ -224,6 +225,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				$all_posts = $this->filter_posts_by_page_types_or_tags( $fields );
 			} elseif ( isset( $fields['posts'] ) && '' !== $fields['posts'] ) {
 				$all_posts = $this->filter_posts_by_ids( $fields );
+			} else {
+				$all_posts = $this->filter_posts_by_pages_tags( $fields );
 			}
 
 			$recent_posts = [];
@@ -608,6 +611,47 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			}
 
 			return false;
+		}
+
+		/**
+		 * Filter posts based on page's/post's tags.
+		 *
+		 * @param array $fields Block fields values.
+		 *
+		 * @return array|false
+		 */
+		private function filter_posts_by_pages_tags( &$fields ) {
+
+			// Get all posts with arguments.
+			$args = [
+				'numberposts'      => $fields['article_count'],
+				'orderby'          => 'date',
+				'post_status'      => 'publish',
+				'suppress_filters' => false,
+			];
+
+			// Get page/post tags.
+			$post_tags = get_the_tags();
+
+			// For posts and pages, display related articles based on current post/page tags.
+			$current_post_type = get_post_type();
+			$read_more_filter  = '';
+
+			if ( 'post' === $current_post_type || 'page' === $current_post_type ) {
+				if ( $post_tags ) {
+					$tag_id_array = [];
+					foreach ( $post_tags as $tag ) {
+						$tag_id_array[]   = $tag->term_id;
+						$read_more_filter .= '&f[tag][' . $tag->name . ']=' . $tag->term_id;
+					}
+					$args['tag__in'] = $tag_id_array;
+				}
+			}
+
+			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $read_more_filter;
+			$fields['read_more_link'] = $read_more_link;
+
+			return wp_get_recent_posts( $args );
 		}
 
 		/**
