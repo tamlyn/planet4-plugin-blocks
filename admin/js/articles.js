@@ -116,7 +116,6 @@ function posts_select_change_hook() {
         $("select[id^='shortcode-ui-tags']").prop('disabled', false);
         $("select[id^='shortcode-ui-post_types']").prop('disabled', false);
         $("input[name^='ignore_categories']").prop('disabled', false);
-        $("input[name^='article_count']").prop('disabled', false);
     }
     else {
         $("select[id^='shortcode-ui-post_types']").val(null).trigger('change.select2');
@@ -124,7 +123,6 @@ function posts_select_change_hook() {
         $("select[id^='shortcode-ui-tags']").val(null).trigger('change.select2');
         $("select[id^='shortcode-ui-tags']").prop('disabled', 'disabled');
         $("input[name^='ignore_categories']").prop('disabled', 'disabled');
-        $("input[name^='article_count']").prop('disabled', 'disabled');
     }
 }
 
