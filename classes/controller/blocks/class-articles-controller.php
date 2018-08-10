@@ -635,21 +635,16 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			// For posts and pages, display related articles based on current post/page tags.
 			$current_post_type = get_post_type();
+			$read_more_filter  = '';
+
 			if ( 'post' === $current_post_type || 'page' === $current_post_type ) {
 				if ( $post_tags ) {
 					$tag_id_array = [];
 					foreach ( $post_tags as $tag ) {
-						$tag_id_array[] = $tag->term_id;
+						$tag_id_array[]   = $tag->term_id;
+						$read_more_filter .= '&f[tag][' . $tag->name . ']=' . $tag->term_id;
 					}
 					$args['tag__in'] = $tag_id_array;
-				}
-			}
-
-			$read_more_filter = '';
-			// For normal page and post.
-			if ( $post_tags ) {
-				foreach ( $post_tags as $tag ) {
-					$read_more_filter .= '&f[tag][' . $tag->name . ']=' . $tag->term_id;
 				}
 			}
 
