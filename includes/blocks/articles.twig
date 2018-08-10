@@ -8,6 +8,9 @@
 							<h3 class="page-section-header">{{ fields.article_heading }}</h3>
 						{% endif %}
 					</header>
+					{% if ( fields.articles_description ) %}
+						<p class="page-section-description col-md-12">{{ fields.articles_description|e('wp_kses_post')|raw }}</p>
+					{% endif %}
 
 					<div class="article-list-section clearfix col-md-12">
 						{% for key,value in recent_posts %}
