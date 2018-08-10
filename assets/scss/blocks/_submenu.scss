@@ -76,3 +76,17 @@
     }
   }
 }
+
+.back-top {
+  background-image: url("images/arrow-up.svg");
+  background-repeat: no-repeat;
+  position: fixed;
+  left: calc(85% - 26px);
+  bottom: 50px;
+  height: 3.75rem;
+  width: 3.75rem;
+  background-color: #074365;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  display: none;
+}
