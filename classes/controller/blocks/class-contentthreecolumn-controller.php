@@ -79,9 +79,9 @@ if ( ! class_exists( 'ContentThreeColumn_Controller' ) ) {
 		/**
 		 * Get all the data that will be needed to render the block correctly.
 		 *
-		 * @param array  $fields This contains array of article shortcake block field.
+		 * @param array  $fields This is the array of fields of this block.
 		 * @param string $content This is the post content.
-		 * @param string $shortcode_tag The shortcode block of article.
+		 * @param string $shortcode_tag The shortcode tag of this block.
 		 *
 		 * @return array The data to be passed in the View.
 		 */

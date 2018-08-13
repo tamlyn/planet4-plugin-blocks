@@ -130,9 +130,9 @@ if ( ! class_exists( 'Controller' ) ) {
 		 * Callback for the shortcode.
 		 * It renders the shortcode based on supplied attributes.
 		 *
-		 * @param array  $fields This contains array of article shortcake block field.
+		 * @param array  $fields This is the array of fields of this block.
 		 * @param string $content This is the post content.
-		 * @param string $shortcode_tag The shortcode block of article.
+		 * @param string $shortcode_tag The shortcode tag of this block.
 		 *
 		 * @since 0.1.0
 		 *
