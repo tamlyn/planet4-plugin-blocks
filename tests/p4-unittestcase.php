@@ -9,7 +9,6 @@ abstract class P4_UnitTestCase extends WP_UnitTestCase {
 	 * Sets up a P4 Unit Test.
 	 */
 	public function setUp() {
-		\WP_Mock::setUp();
 
 		// Create custom taxonomy p4-page-type.
 		register_taxonomy( 'p4-page-type', 'P4_CustomTaxonomyTest' );
@@ -30,12 +29,5 @@ abstract class P4_UnitTestCase extends WP_UnitTestCase {
 			'taxonomy' => 'p4-page-type',
 			'slug'     => 'press-release',
 		] );
-	}
-
-	/**
-	 * Tears down a P4 Unit Test.
-	 */
-	public function tearDown() {
-		\WP_Mock::tearDown();
 	}
 }

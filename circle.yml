@@ -9,6 +9,7 @@ machine:
 dependencies:
   pre:
     - sudo apt-get update; sudo apt-get install subversion
+    - npm install -g stylelint eslint
 
 test:
   pre:
@@ -16,6 +17,8 @@ test:
     - |
       composer global require wp-coding-standards/wpcs
       phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
+    - stylelint 'assets/scss/**/*.scss' 'assets/css/*.css'
+    - eslint 'assets/js/**/*.js'
   override:
     - phpcs
     - |
