@@ -118,9 +118,9 @@ if ( ! class_exists( 'Controller' ) ) {
 		/**
 		 * Get all the data that will be needed to render the block correctly.
 		 *
-		 * @param array  $fields This contains array of article shortcake block field.
+		 * @param array  $fields This is the array of fields of the block.
 		 * @param string $content This is the post content.
-		 * @param string $shortcode_tag The shortcode block of article.
+		 * @param string $shortcode_tag The shortcode tag of the block.
 		 *
 		 * @return array The data to be passed in the View.
 		 */
@@ -132,7 +132,7 @@ if ( ! class_exists( 'Controller' ) ) {
 		 *
 		 * @param array  $fields This is the array of fields of this block.
 		 * @param string $content This is the post content.
-		 * @param string $shortcode_tag The shortcode tag of this block.
+		 * @param string $shortcode_tag The shortcode tag of the block.
 		 *
 		 * @since 0.1.0
 		 *
@@ -153,7 +153,7 @@ if ( ! class_exists( 'Controller' ) ) {
 		 *
 		 * @param array  $fields         Associative array of shortcode paramaters.
 		 * @param string $content        The content of the shortcode block for content wrapper shortcodes only.
-		 * @param string $shortcode_tag  The name of the shortcode.
+		 * @param string $shortcode_tag  The shortcode tag of the block.
 		 * @return string                The html markup for the shortcode preview iframe.
 		 */
 		public function prepare_template_preview_iframe( $fields, $content, $shortcode_tag ) {
