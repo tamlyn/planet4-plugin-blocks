@@ -54,7 +54,6 @@ if ( ! class_exists( 'Subheader_Controller' ) ) {
 		 */
 		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
 
-			$shortcode_tag = 'shortcake_' . self::BLOCK_NAME;
 			$fields = shortcode_atts( array(
 				'title'       => '',
 				'description' => '',

@@ -126,7 +126,6 @@ if ( ! class_exists( 'StaticFourColumn_Controller' ) ) {
 				];
 				$attributes_temp = array_merge( $attributes_temp, $temp_array );
 			}
-			$shortcode_tag = 'shortcake_' . self::BLOCK_NAME;
 			$attributes = shortcode_atts( $attributes_temp, $attributes, $shortcode_tag );
 
 			for ( $i = 1; $i < 5; $i++ ) {

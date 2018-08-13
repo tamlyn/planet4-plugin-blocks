@@ -127,7 +127,6 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 				'iframe_url'          => $fields['iframe_url'] ?? '',
 			];
 
-			$shortcode_tag = 'shortcake_' . self::BLOCK_NAME;
 			$fields = shortcode_atts( $shortcode_atts_pairs, $fields, $shortcode_tag );
 
 			if ( ! is_numeric( $fields['opacity'] ) ) {
@@ -150,12 +149,7 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 			$data = [
 				'fields' => $fields,
 			];
-
-			// Shortcode callbacks must return content, hence, output buffering here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $data );
-
-			return ob_get_clean();
+			return $data;
 		}
 	}
 }
