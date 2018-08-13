@@ -119,21 +119,6 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 		 * @return string Returns the compiled template.
 		 */
 		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
-			$data = $this->prepare_data( $attributes );
-			// Shortcode callbacks must return content, hence, output buffering here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $data );
-			return ob_get_clean();
-		}
-
-		/**
-		 * Get all the data that will be needed to render the block correctly.
-		 *
-		 * @param array $attributes This contains array of article shortcake block field.
-		 *
-		 * @return array The data to be passed in the View.
-		 */
-		public function prepare_data( $attributes ) : array {
 
 			$raw_tags   = $attributes['select_tag'] ?? '';
 			$post_types = [];
@@ -239,7 +224,11 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 				'posts_view' => isset( $attributes['posts_view'] ) ? intval( $attributes['posts_view'] ) : 1,
 			];
 
-			return $block_data;
+			// Shortcode callbacks must return content, hence, output buffering here.
+			ob_start();
+			$this->view->block( self::BLOCK_NAME, $block_data );
+
+			return ob_get_clean();
 		}
 	}
 }

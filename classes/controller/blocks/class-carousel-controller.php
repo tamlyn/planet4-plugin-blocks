@@ -110,21 +110,7 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 		 * @return string All the data used for the html.
 		 */
 		public function prepare_template( $fields, $content, $shortcode_tag ): string {
-			$data = $this->prepare_data( $fields );
-			// Shortcode callbacks must return content, hence, output buffering here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $data );
-			return ob_get_clean();
-		}
 
-		/**
-		 * Get all the data that will be needed to render the block correctly.
-		 *
-		 * @param array $fields This contains array of article shortcake block field.
-		 *
-		 * @return array The data to be passed in the View.
-		 */
-		public function prepare_data( $fields ) : array {
 			$explode_multiple_image_array = explode( ',', $fields['multiple_image'] );
 			$images_data                  = array();
 
@@ -164,7 +150,11 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 				'images' => $images,
 			];
 
-			return $data;
+			// Shortcode callbacks must return content, hence, output buffering here.
+			ob_start();
+			$this->view->block( self::BLOCK_NAME, $data );
+
+			return ob_get_clean();
 		}
 
 		/**
