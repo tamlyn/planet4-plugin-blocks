@@ -156,7 +156,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 							'closeOnSelect'          => false,
 							'minimumInputLength'     => 0,
 							'multiple'               => true,
-							'maximumSelectionLength' => 10,
+							'maximumSelectionLength' => 20,
 							'width'                  => '80%',
 						],
 					],
@@ -198,9 +198,11 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$article_count        = $options['articles_count'] ?? 3;
 			$exclude_post_id      = (int) ( $fields['exclude_post_id'] ?? '' );
 
-			$fields['article_heading'] = $fields['article_heading'] ?? $article_title;
-			$fields['read_more_text']  = $fields['read_more_text'] ?? $article_button_title;
-			$fields['article_count']   = $fields['article_count'] ?? $article_count;
+			$fields['article_heading']      = $fields['article_heading'] ?? $article_title;
+			$fields['read_more_text']       = $fields['read_more_text'] ?? $article_button_title;
+			$fields['article_count']        = $fields['article_count'] ?? $article_count;
+			$fields['articles_description'] = $fields['articles_description'] ?? '';
+			$fields['manual_override']      = false; // Define if specific posts where set in backend.
 
 
 			// Filter p4_page_type keys from fields attributes array.
@@ -225,6 +227,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				$all_posts = $this->filter_posts_by_page_types_or_tags( $fields );
 			} elseif ( isset( $fields['posts'] ) && '' !== $fields['posts'] ) {
 				$all_posts = $this->filter_posts_by_ids( $fields );
+				$fields['manual_override'] = true;
 			} else {
 				$all_posts = $this->filter_posts_by_pages_tags( $fields );
 			}
