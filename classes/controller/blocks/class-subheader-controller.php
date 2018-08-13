@@ -44,17 +44,17 @@ if ( ! class_exists( 'Subheader_Controller' ) ) {
 		}
 
 		/**
-		 * Callback for the shortcake_twocolumn shortcode.
-		 * It renders the shortcode based on supplied attributes.
+		 * Get all the data that will be needed to render the block correctly.
 		 *
-		 * @param array  $fields Array of fields that are to be used in the template.
-		 * @param string $content The content of the post.
-		 * @param string $shortcode_tag The shortcode tag (shortcake_blockname).
+		 * @param array  $fields This contains array of article shortcake block field.
+		 * @param string $content This is the post content.
+		 * @param string $shortcode_tag The shortcode block of article.
 		 *
-		 * @return string The complete html of the block
+		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
+		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
 
+			$shortcode_tag = 'shortcake_' . self::BLOCK_NAME;
 			$fields = shortcode_atts( array(
 				'title'       => '',
 				'description' => '',
@@ -63,12 +63,7 @@ if ( ! class_exists( 'Subheader_Controller' ) ) {
 			$data = [
 				'fields' => $fields,
 			];
-
-			// Shortcode callbacks must return content, hence, output buffering here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $data );
-
-			return ob_get_clean();
+			return $data;
 		}
 	}
 }

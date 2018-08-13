@@ -43,18 +43,15 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 		}
 
 		/**
-		 * Callback for the shortcode.
-		 * It renders the shortcode based on supplied attributes.
+		 * Get all the data that will be needed to render the block correctly.
 		 *
-		 * @param array  $fields This contains array of all data added.
+		 * @param array  $fields This contains array of article shortcake block field.
 		 * @param string $content This is the post content.
-		 * @param string $shortcode_tag The shortcode block of campaign thumbnail.
+		 * @param string $shortcode_tag The shortcode block of article.
 		 *
-		 * @since 0.1.0
-		 *
-		 * @return string All the data used for the html.
+		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
+		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
 
 			// If $fields['category_id'] exists then we are on Campaign Page, else we are on Issue Page.
 			if ( ! empty( $fields['category_id'] ) ) {
@@ -64,10 +61,10 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 				$parent_id        = $options['explore_page'];
 				$explore_children = [];
 
-				if( 0 !== absint( $parent_id ) ) {
+				if ( 0 !== absint( $parent_id ) ) {
 					$args = [
 						'post_type'      => 'page',
-						'post_parent'    => $parent_id
+						'post_parent'    => $parent_id,
 					];
 					$explore_children = get_children( $args );
 				}
@@ -140,12 +137,7 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 			$data = [
 				'fields' => $fields,
 			];
-
-			// Shortcode callbacks must return content, hence, output buffering	here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $data );
-
-			return ob_get_clean();
+			return $data;
 		}
 	}
 }

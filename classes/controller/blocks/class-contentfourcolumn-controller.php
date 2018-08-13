@@ -109,16 +109,15 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 		}
 
 		/**
-		 * Callback for content four column shortcode.
-		 * It renders the shortcode based on supplied attributes.
+		 * Get all the data that will be needed to render the block correctly.
 		 *
-		 * @param array  $attributes Defined attributes array for this shortcode.
-		 * @param string $content Content.
-		 * @param string $shortcode_tag Shortcode tag name.
+		 * @param array  $attributes This contains array of article shortcake block field.
+		 * @param string $content This is the post content.
+		 * @param string $shortcode_tag The shortcode block of article.
 		 *
-		 * @return string Returns the compiled template.
+		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_template( $attributes, $content, $shortcode_tag ) : string {
+		public function prepare_data( $attributes, $content, $shortcode_tag ) : array {
 
 			$raw_tags   = $attributes['select_tag'] ?? '';
 			$post_types = [];
@@ -223,12 +222,7 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 				'posts'      => $posts_array,
 				'posts_view' => isset( $attributes['posts_view'] ) ? intval( $attributes['posts_view'] ) : 1,
 			];
-
-			// Shortcode callbacks must return content, hence, output buffering here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $block_data );
-
-			return ob_get_clean();
+			return $block_data;
 		}
 	}
 }
