@@ -179,7 +179,7 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $attributes, $content, $shortcode_tag ) : array {
+		public function prepare_data( $attributes, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 
 			global $post;
 

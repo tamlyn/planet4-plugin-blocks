@@ -85,7 +85,7 @@ if ( ! class_exists( 'ContentThreeColumn_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
+		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 
 			for ( $i = 1; $i < 4; $i++ ) {
 				$img_array = wp_get_attachment_image_src( $fields[ "image_$i" ], 'medium_large' );

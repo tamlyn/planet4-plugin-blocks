@@ -148,7 +148,7 @@ if ( ! class_exists( 'TwoColumn_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
+		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 
 			$data = [
 				'fields' => $fields,

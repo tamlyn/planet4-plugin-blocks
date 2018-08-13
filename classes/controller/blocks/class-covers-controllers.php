@@ -110,7 +110,7 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
+		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 			$select_tags = $fields['select_tag'] ?? '';
 
 			$options       = get_option( 'planet4_options' );

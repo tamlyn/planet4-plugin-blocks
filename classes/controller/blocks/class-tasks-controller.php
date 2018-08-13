@@ -135,7 +135,7 @@ if ( ! class_exists( 'Tasks_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $attributes, $content, $shortcode_tag ) : array {
+		public function prepare_data( $attributes, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 
 			$attributes_temp = [
 				'tasks_title'        => $attributes['tasks_title'] ?? '',

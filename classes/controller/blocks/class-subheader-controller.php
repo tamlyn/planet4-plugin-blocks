@@ -52,7 +52,7 @@ if ( ! class_exists( 'Subheader_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
+		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 
 			$fields = shortcode_atts( array(
 				'title'       => '',

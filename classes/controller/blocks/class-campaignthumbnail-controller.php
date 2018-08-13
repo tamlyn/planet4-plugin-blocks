@@ -51,7 +51,7 @@ if ( ! class_exists( 'CampaignThumbnail_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
+		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 
 			// If $fields['category_id'] exists then we are on Campaign Page, else we are on Issue Page.
 			if ( ! empty( $fields['category_id'] ) ) {

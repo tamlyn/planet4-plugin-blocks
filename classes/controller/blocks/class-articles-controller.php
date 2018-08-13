@@ -112,7 +112,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
+		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 			// Read more button links to search results if no link is specified.
 			$tag_id          = $fields['tag_id'] ?? '';
 			$tag_filter      = $tag_id ? '&f[tag][' . get_tag( $tag_id )->name . ']=' . $tag_id : '';

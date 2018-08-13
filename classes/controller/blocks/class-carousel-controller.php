@@ -106,7 +106,7 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
+		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 
 			$explode_multiple_image_array = explode( ',', $fields['multiple_image'] );
 			$images_data                  = array();

@@ -225,7 +225,7 @@ if ( ! class_exists( 'SplitTwoColumns_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $fields, $content, $shortcode_tag ) : array {
+		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 			$issue_id        = absint( $fields['select_issue'] );
 			$issue_meta_data = get_post_meta( $issue_id );
 

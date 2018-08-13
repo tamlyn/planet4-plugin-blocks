@@ -56,7 +56,7 @@ if ( ! class_exists( 'MediaBlock_Controller' ) ) {
 		 *
 		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_data( $attributes, $content, $shortcode_tag ) : array {
+		public function prepare_data( $attributes, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 
 			$image_id           = $attributes['attachment'];
 			$image              = wp_get_attachment_image_src( $image_id , 'full' );
