@@ -1,0 +1,115 @@
+.cookie-block {
+  z-index: 100;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 0;
+  background: $cookie-bkg url("images/cookie-right-gradient.png") no-repeat right;
+  max-height: 50px;
+
+  @include mobile-only {
+    max-height: 120px;
+    background: $cookie-bkg url("images/cookie-right-gradient-sm.png") no-repeat right;
+  }
+
+  @include medium-and-up {
+    max-height: 56px;
+    background: $cookie-bkg url("images/cookie-right-gradient-md.png") no-repeat right;
+  }
+
+  @include large-and-up {
+    max-height: 50px;
+    background: $cookie-bkg url("images/cookie-right-gradient.png") no-repeat right;
+  }
+
+  p {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: $cookie-blue;
+    margin: 0;
+    text-align: center;
+    font-family: $roboto;
+    line-height: 30px;
+
+    @include mobile-only {
+      font-size: 0.875rem;
+      text-align: left;
+      line-height: 16.8px;
+      margin-bottom: 10px;
+    }
+
+    @include medium-and-up {
+      font-size: 0.9375rem;
+      text-align: left;
+      line-height: 18px;
+    }
+
+    @include large-and-up {
+      font-size: 0.875rem;
+      text-align: center;
+      line-height: 30px;
+    }
+
+    @include x-large-and-up {
+      font-size: 1.0625rem;
+    }
+  }
+
+  a {
+    font-size: 1.0625rem;
+    font-weight: bold;
+    color: $cookie-blue;
+    text-decoration: none;
+
+    @include mobile-only {
+      font-size: 0.875rem;
+    }
+
+    @include medium-and-up {
+      font-size: 0.9375rem;
+    }
+
+    @include large-and-up {
+      font-size: 0.875rem;
+    }
+
+    @include x-large-and-up {
+      font-size: 1.0625rem;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  div.col-9 {
+    @include mobile-only {
+      margin: 0 auto;
+      max-width: 95%;
+      flex: 95%;
+    }
+  }
+
+  div.col {
+    @include mobile-only {
+      margin: 0 auto;
+      max-width: 95%;
+    }
+  }
+
+  .btn {
+    height: 32px;
+    line-height: 32px;
+    font-size: 0.9375rem;
+    width: 100%;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    background-color: transparentize($white, .2);
+
+    &:hover {
+      border-color: $dark-blue;
+      background-color: $dark-blue;
+    }
+  }
+}

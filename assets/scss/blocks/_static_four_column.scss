@@ -14,28 +14,28 @@
   }
 
   h2 {
-    font-size: rem(26);
+    font-size: 1.625rem;
     line-height: 1.2;
     text-align: center;
     margin: 60px 0 35px 0;
     color: $deep-sea-green;
 
     @include medium-and-up {
-      font-size: rem(38);
+      font-size: 2.375rem;
       margin-top: 74px;
       margin-bottom: 57px;
     }
 
     @include large-and-up {
       text-align: left;
-      font-size: rem(48);
+      font-size: 3rem;
       font-weight: 900;
       margin-top: 84px;
       margin-bottom: 66px;
     }
 
     @include x-large-and-up {
-      font-size: rem(40);
+      font-size: 2.5rem;
       margin-bottom: 30px;
     }
   }
@@ -100,13 +100,14 @@
 
     a {
       font-weight: 700;
+      font-family: $roboto;
 
       @include medium-and-up {
-        font-size: rem(18);
+        font-size: 1.125rem;
       }
 
       @include x-large-and-up {
-        font-size: rem(20);
+        font-size: 1.25rem;
       }
     }
 
@@ -126,12 +127,12 @@
   }
 
   p {
-    font-size: rem(15);
+    font-size: 0.9375rem;
     line-height: 1.6;
     color: $dark-shade-black;
 
     @include medium-and-up {
-      font-size: rem(14);
+      font-size: 0.875rem;
       margin-bottom: 24px;
     }
 
@@ -140,23 +141,24 @@
     }
 
     @include x-large-and-up {
-      font-size: rem(15);
+      font-size: 0.9375rem;
       margin-bottom: 24px;
     }
   }
 
   a {
+    font-family: $roboto;
 
     @include medium-and-up {
-      font-size: rem(15);
+      font-size: 0.9375rem;
     }
 
     @include large-and-up {
-      font-size: rem(14);
+      font-size: 0.875rem;
     }
 
     @include x-large-and-up {
-      font-size: rem(15);
+      font-size: 0.9375rem;
     }
 
     &:hover {

@@ -3,3 +3,37 @@
     display: inline-block;
     margin-right: 20px;
 }
+
+.shortcode-ui-edit-shortcake_articles {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.shortcode-ui-edit-shortcake_articles > div {
+    padding-left: 2%;
+    flex: 0 48%;
+}
+
+div.shortcode-ui-edit-shortcake_articles > div:nth-child(8) {
+    align-self: flex-end;
+}
+
+div.shortcode-ui-edit-shortcake_articles > div:last-child {
+    flex: 0 100%;
+}
+
+.hr-dashed {
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px dashed #ddd;
+}
+
+.field-caption {
+    color: #aaa;
+    font-style: italic;
+    width: 60%;
+}
+
+select[id^="shortcode-ui-posts-"] + span li {
+    display: block !important;
+    float: none !important;
+}
