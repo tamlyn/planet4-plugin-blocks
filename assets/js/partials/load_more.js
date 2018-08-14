@@ -49,4 +49,29 @@ $(document).ready(function () {
       $(this).closest('.load-more-covers-button-div').hide('fast');
     }
   });
+
+  // Add click event for load more button in Articles blocks.
+  $('.btn-load-more-articles-click').off('click').on('click', function () {
+    var $articles = $('.article-list-item.d-none', $(this).closest('.container'));
+    var articles_per_click = 3;
+
+    $(this).blur();
+    if ($articles.length > 0) {
+
+      // Lazy-load images of hidden articles.
+      var $images = $('.article-list-item.d-none img');
+      $images.slice(0, articles_per_click).each(function () {
+        var image = this;
+        image.setAttribute('src', image.getAttribute('data-src'));
+        image.onload = function () {
+          image.removeAttribute('data-src');
+        };
+      });
+      $articles.slice(0, articles_per_click).removeClass('d-none').fadeOut(0).slideDown('slow');
+    }
+    $articles = $('.article-list-item.d-none', $(this).closest('.container'));
+    if ($articles.length === 0) {
+      $(this).closest('.load-more-articles-button-div').hide('fast');
+    }
+  });
 });

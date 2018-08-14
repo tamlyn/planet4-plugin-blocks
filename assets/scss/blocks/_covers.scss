@@ -162,7 +162,7 @@
   }
 
   .cover-card-heading {
-    font-size: rem(24);
+    font-size: 1.5rem;
     line-height: 1.2;
     font-weight: 500;
     margin-bottom: 24px;
@@ -173,14 +173,14 @@
     text-shadow: 1px 1px 3px $black;
 
     @include large-and-up {
-      font-size: rem(24);
+      font-size: 1.5rem;
       margin-top: 8px;
       max-width: 100%;
     }
   }
 
   p {
-    font-size: rem(15);
+    font-size: 0.9375rem;
     line-height: 1.6;
     display: none;
   }
@@ -214,7 +214,7 @@
 
   @include large-and-up {
     margin-bottom: 0;
-    font-size: rem(14);
+    font-size: 0.875rem;
     margin-right: 4px;
   }
 }

@@ -4,20 +4,21 @@
 @import "global/mixins";
 
 // Import blocks
-@import "blocks/article-listing";
-@import "blocks/block-media";
-@import "blocks/campaign-thumbnail-block";
-@import "blocks/carousel-header";
+@import "blocks/articles";
+@import "blocks/campaign_thumbnail";
 @import "blocks/carousel";
-@import "blocks/content-four-column";
-@import "blocks/content-three-column";
-@import "blocks/content-two-column";
+@import "blocks/carousel_header";
+@import "blocks/carousel_split";
+@import "blocks/content_four_column";
+@import "blocks/content_three_column";
+@import "blocks/cookies";
 @import "blocks/covers";
-@import "blocks/happy-point-block";
-@import "blocks/split-carousel";
-@import "blocks/split-two-column";
-@import "blocks/static-four-column";
-@import "blocks/submenu";
+@import "blocks/happy_point";
+@import "blocks/media_block";
+@import "blocks/media_video";
+@import "blocks/split_two_columns";
+@import "blocks/static_four_column";
 @import "blocks/subheader";
+@import "blocks/submenu";
 @import "blocks/tasks";
-@import "blocks/video-block";
+@import "blocks/two_columns";
