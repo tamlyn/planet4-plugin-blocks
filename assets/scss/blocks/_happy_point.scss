@@ -2,6 +2,7 @@
   @include background-before-opacity($light-blue-bg);
   width: 100vw;
   height: 444px;
+  overflow: hidden;
 
   @include medium-and-up {
     max-height: 480px;
@@ -130,7 +131,9 @@
     object-fit: cover;
 
     @supports (object-fit: cover) {
-      height: 500px;
+      & {
+        height: 500px;
+      }
     }
   }
 
