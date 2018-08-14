@@ -149,6 +149,8 @@
     }
 
     .step-number-inner {
+      font-family: $roboto;
+
       @include large-and-up {
         position: absolute;
         background-color: $dark-blue;
@@ -225,27 +227,25 @@
   margin: 6px 15px 0 0;
   width: 100%;
 
-  .card-header {
-    background: $grey;
-    border: none;
-    color: $white;
-    font-weight: 400;
-    font-size: 0.9375rem;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
   .card {
     background: none;
     border: none;
     box-shadow: none;
 
     .card-header {
+      font-weight: 400;
+      font-size: 0.9375rem;
+      font-family: $roboto;
+      text-decoration: none;
       padding: 10px 10px 5px 10px;
       margin-bottom: 10px;
+      background: $dark-blue;
+      border: none;
+      color: $white;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
 
     .info-with-image-wrap {
@@ -281,6 +281,7 @@
     }
 
     .step-number {
+      font-family: $roboto;
       font-size: 1rem;
       font-weight: 900;
       color: $white;

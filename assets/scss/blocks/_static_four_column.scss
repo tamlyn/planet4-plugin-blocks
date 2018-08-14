@@ -147,6 +147,7 @@
   }
 
   a {
+    font-family: $roboto;
 
     @include medium-and-up {
       font-size: 0.9375rem;
