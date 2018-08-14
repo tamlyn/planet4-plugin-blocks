@@ -283,9 +283,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$recent['tags'] = $tags;
 					$page_type_data = get_the_terms( $recent['ID'], 'p4-page-type' );
 					$page_type      = '';
+					$page_type_id   = '';
 
-					$page_type_id = '';
-					if ( $page_type_data ) {
+					if ( $page_type_data && ! is_wp_error( $page_type_data ) ) {
 						$page_type    = $page_type_data[0]->name;
 						$page_type_id = $page_type_data[0]->term_id;
 					}
@@ -293,14 +293,13 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$recent['page_type'] = $page_type;
 					$recent['permalink'] = get_permalink( $recent['ID'] );
 
-					$recent['filter_url'] = add_query_arg(
-						[
+					if ( isset( $page_type_id ) ) {
+						$recent['filter_url'] = add_query_arg( [
 							's'                            => ' ',
 							'orderby'                      => 'relevant',
 							'f[ptype][' . $page_type . ']' => $page_type_id,
-						],
-						get_home_url()
-					);
+						], get_home_url() );
+					}
 
 					$recent_posts[] = $recent;
 				}
@@ -518,7 +517,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				// We cannot filter search for more than one pagetype, so use the last one.
 				$read_more_post_type = end( $post_types );
 				$page_type_data      = get_term_by( 'term_id', $read_more_post_type, 'p4-page-type' );
-				$read_more_filter    .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
+				if ( $page_type_data instanceof \WP_Term ) {
+					$read_more_filter .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
+				}
 			}
 
 			if ( '' === $read_more_filter ) {
