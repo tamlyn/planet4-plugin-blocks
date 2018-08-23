@@ -10,9 +10,7 @@
       "email": "planet4-group@greenpeace.org"
     }
   ],
-  "require-dev": {
-    "phpunit/phpunit": "~6.5"
-  },
+  "require-dev": {},
   "require": {},
   "autoload": {
     "psr-4": {
