@@ -4,12 +4,20 @@
   margin-bottom: 40px;
   padding: 20px;
 
+  h1,
+  h2 {
+    padding-left: 16px;
+    color: $grey-60;
+    font-family: $roboto;
+  }
+
   .submenu-menu {
     display: flex;
     flex-wrap: wrap;
 
     ul.submenu-item {
       flex-basis: 100%;
+      padding: 0;
 
       @include large-and-up {
         flex-basis: 50%;
@@ -24,13 +32,16 @@
     ul {
       margin: 0.75em 0;
       list-style: none;
-      padding: 0 1em;
+      padding: 0 16px;
     }
 
     li {
+      padding-left: 16px;
+
       &:before {
         display: inline-block;
-        font-family: FontAwesome;
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
         content: "\f105";
         color: $menu-blue;
         margin-right: 5px;
