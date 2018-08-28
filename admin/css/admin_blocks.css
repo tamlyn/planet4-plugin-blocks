@@ -37,3 +37,7 @@ select[id^="shortcode-ui-posts-"] + span li {
     display: block !important;
     float: none !important;
 }
+
+.shortcode-ui-edit-shortcake_articles > div {
+    position: relative;
+}
