@@ -151,6 +151,7 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 				'order'         => 'DESC',
 				'orderby'       => 'date',
 				'no_found_rows' => true,
+				'numberposts'   => -1,
 			];
 
 			// Get all posts with the specific tags.
