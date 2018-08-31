@@ -11,6 +11,7 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 	 */
 	class ContentFourColumn_Controller extends Controller {
 
+		const POSTS_LIMIT = 100;
 		/** @const string BLOCK_NAME */
 		const BLOCK_NAME = 'content_four_column';
 
@@ -151,7 +152,7 @@ if ( ! class_exists( 'ContentFourColumn_Controller' ) ) {
 				'order'         => 'DESC',
 				'orderby'       => 'date',
 				'no_found_rows' => true,
-				'numberposts'   => -1,
+				'numberposts'   => self::POSTS_LIMIT,
 			];
 
 			// Get all posts with the specific tags.
