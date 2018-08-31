@@ -113,15 +113,16 @@
 											 data-parent="#accordion" role="tabpanel"
 									     aria-labelledby="heading-{{ number_to_word }}">
 										<div class="card-block info-with-image-wrap clearfix">
+											<div class="mobile-accordion-info">
+												{% if ( fields['description_'~i] ) %}
+													<p>{{ fields['description_'~i]|e('wp_kses_post')|raw }}</p>
+												{% endif %}
+											</div>
+
 											<div class="accordion-image-wrap">
 												{% if ( fields['attachment_'~i] ) %}
 													{% set image_src = fields['attachment_'~i] %}
 													<img src="{{ image_src }}" alt="">
-												{% endif %}
-											</div>
-											<div class="mobile-accordion-info">
-												{% if ( fields['description_'~i] ) %}
-													<p>{{ fields['description_'~i]|e('wp_kses_post')|raw }}</p>
 												{% endif %}
 											</div>
 
