@@ -139,7 +139,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				[
 					'label'    => '<hr class="hr-dashed"><br><p>' . __( 'Manual Override', 'planet4-blocks-backend' ) . '</p>' .
 									'<p class="field-caption">' .
-									__( 'CAUTION: Adding articles individually will override the automatic functionality of this block. 
+									__( 'CAUTION: Adding articles individually will override the automatic functionality of this block.
 									For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'planet4-blocks-backend' ) . '</p>',
 					'attr'     => 'posts',
 					'type'     => 'post_select',
@@ -258,6 +258,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$recent['thumbnail'] = '';
 					$author_override     = get_post_meta( $recent['ID'], 'p4_author_override', true );
 					$recent['author']    = '' === $author_override ? get_the_author_meta( 'display_name', $recent['post_author'] ) : $author_override;
+					$recent['author_url'] = '' === $author_override ? get_author_posts_url( $recent['post_author'] ) : '#';
 
 					if ( has_post_thumbnail( $recent['ID'] ) ) {
 						$recent['thumbnail']       = get_the_post_thumbnail_url( $recent['ID'], 'articles-medium-large' );
