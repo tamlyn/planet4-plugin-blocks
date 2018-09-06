@@ -94,8 +94,26 @@ function plugin_blocks_report_view() {
 
 function plugin_blocks_report() {
 	global $wpdb;
-	$blocks = [ 'media_block',
-		'articles'
+	$blocks = [
+		'articles',
+		'campaign_thumbnail',
+		'carousel',
+		'carousel_header',
+		'carousel_split',
+		'content_four_column',
+		'content_three_column',
+		'cookies',
+		'covers',
+		'happy_point',
+		'media_block',
+		'media_video',
+		'split_two_columns',
+		'static_four_column',
+		'subheader',
+		'submenu',
+		'take_action_boxout',
+		'tasks',
+		'two_columns',
 	];
 
 
@@ -105,7 +123,6 @@ function plugin_blocks_report() {
 				FROM `wp_posts` 
 				WHERE post_status = \'publish\' 
 				AND `post_content` LIKE \'%[shortcake_' . $block . '%\'
-				AND `post_content` LIKE \'%p4_page_type_%\'
 				';
 
 		$results = $wpdb->get_results( $sql );
