@@ -257,9 +257,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$recent['alt_text']        = '';
 					$recent['thumbnail']       = '';
 					$author_override           = get_post_meta( $recent['ID'], 'p4_author_override', true );
-					$recent['author_override'] = $author_override;
 					$recent['author']          = '' === $author_override ? get_the_author_meta( 'display_name', $recent['post_author'] ) : $author_override;
 					$recent['author_url']      = '' === $author_override ? get_author_posts_url( $recent['post_author'] ) : '#';
+					$recent['author_override'] = $author_override;
 
 					if ( has_post_thumbnail( $recent['ID'] ) ) {
 						$recent['thumbnail']       = get_the_post_thumbnail_url( $recent['ID'], 'articles-medium-large' );
