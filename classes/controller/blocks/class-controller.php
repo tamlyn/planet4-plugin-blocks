@@ -238,5 +238,24 @@ if ( ! class_exists( 'Controller' ) ) {
 			// Ajax callbacks need to call exit.
 			exit;
 		}
+
+		/**
+		 * Get underscore template from filesystem.
+		 *
+		 * @param string $template Template name.
+		 *
+		 * @return bool|string
+		 */
+		protected function get_template( $template ) {
+
+			$template = P4BKS_PLUGIN_DIR . '/admin/templates/' . $template . '.tpl.php';
+			if ( file_exists( $template ) ) {
+				$contents = file_get_contents( $template );
+
+				return false !== $contents ? $contents : '';
+			}
+
+			return '';
+		}
 	}
 }

@@ -41,3 +41,62 @@ select[id^="shortcode-ui-posts-"] + span li {
 .shortcode-ui-edit-shortcake_articles > div {
     position: relative;
 }
+
+.shortcode-ui-edit-shortcake_newcovers {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.shortcode-ui-edit-shortcake_newcovers > div {
+  padding-left: 2%;
+  flex: 0 55%;
+}
+
+@media (min-width: 768px) {
+  div.shortcode-ui-edit-shortcake_newcovers > div {
+    padding-left: 2%;
+    flex: 0 47%;
+  }
+}
+
+@media (min-width: 992px) {
+  div.shortcode-ui-edit-shortcake_newcovers > div {
+    padding-left: 2%;
+    flex: 0 30%;
+  }
+}
+
+div.shortcode-ui-edit-shortcake_articles > div:nth-child(8) {
+  align-self: flex-end;
+}
+
+div.shortcode-ui-edit-shortcake_newcovers > div:first-child {
+  flex: 0 90%;
+}
+
+div.shortcode-ui-edit-shortcake_newcovers > div:last-child {
+  flex: 0 90%;
+}
+
+.hr-dashed {
+  border-top: 1px dashed #ddd;
+  border-bottom: 1px dashed #ddd;
+}
+
+.field-caption {
+  color: #aaa;
+  font-style: italic;
+  width: 60%;
+}
+
+.shortcode-ui-edit-shortcake_newcovers > div {
+  position: relative;
+}
+
+.shortcake-p4-radio-div {
+  display: inline-block;
+  margin: 10px;
+  padding: 20px;
+  max-width: 25%;
+  vertical-align: top;
+}

@@ -4,11 +4,11 @@
 	<p><i>{{{ data.block_description }}}</i></p>
 	<div class="shortcode-ui-field-radio shortcode-ui-attribute-{{ data.attr }}">
 		<h3>{{{ data.label }}}</h3>
-		<div class="row" style="vertical-align: top;">
+		<div class="row">
 
 			<# _.each( data.options, function( option ) { #>
 
-				<div style="display: inline-block ; margin: 10px; padding: 20px; max-width: 25%">
+				<div class="shortcake-p4-radio-div">
 					<label style="display: inline;">
 						<input type="radio" name="{{ data.attr }}" value="{{ option.value }}"
 						<# if ( option.value == data.value ) { print('checked'); } #> />
