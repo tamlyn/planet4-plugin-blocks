@@ -139,7 +139,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				[
 					'label'    => '<hr class="hr-dashed"><br><p>' . __( 'Manual Override', 'planet4-blocks-backend' ) . '</p>' .
 									'<p class="field-caption">' .
-									__( 'CAUTION: Adding articles individually will override the automatic functionality of this block. 
+									__( 'CAUTION: Adding articles individually will override the automatic functionality of this block.
 									For good user experience, please include at least three articles so that spacing and alignment of the design remains in tact.', 'planet4-blocks-backend' ) . '</p>',
 					'attr'     => 'posts',
 					'type'     => 'post_select',
@@ -175,19 +175,15 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		}
 
 		/**
-		 * Callback for the shortcode.
-		 * It renders the shortcode based on supplied attributes.
+		 * Get all the data that will be needed to render the block correctly.
 		 *
-		 * @param array  $fields This contains array of article shortcake block field.
+		 * @param array  $fields This is the array of fields of this block.
 		 * @param string $content This is the post content.
-		 * @param string $shortcode_tag The shortcode block of article.
+		 * @param string $shortcode_tag The shortcode tag of this block.
 		 *
-		 * @since 0.1.0
-		 *
-		 * @return string All the data used for the html.
+		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
-
+		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 			// Read more button links to search results if no link is specified.
 			$tag_id            = $fields['tags'] ?? '';
 
@@ -243,12 +239,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				'fields'       => $fields,
 				'recent_posts' => $recent_posts,
 			];
-
-			// Shortcode callbacks must return content, hence, output buffering here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $data );
-
-			return ob_get_clean();
+			return $data;
 		}
 
 		/**
@@ -263,10 +254,12 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			if ( $posts ) {
 				foreach ( $posts as $recent ) {
-					$recent['alt_text']  = '';
-					$recent['thumbnail'] = '';
-					$author_override     = get_post_meta( $recent['ID'], 'p4_author_override', true );
-					$recent['author']    = '' === $author_override ? get_the_author_meta( 'display_name', $recent['post_author'] ) : $author_override;
+					$recent['alt_text']        = '';
+					$recent['thumbnail']       = '';
+					$author_override           = get_post_meta( $recent['ID'], 'p4_author_override', true );
+					$recent['author']          = '' === $author_override ? get_the_author_meta( 'display_name', $recent['post_author'] ) : $author_override;
+					$recent['author_url']      = '' === $author_override ? get_author_posts_url( $recent['post_author'] ) : '#';
+					$recent['author_override'] = $author_override;
 
 					if ( has_post_thumbnail( $recent['ID'] ) ) {
 						$recent['thumbnail']       = get_the_post_thumbnail_url( $recent['ID'], 'articles-medium-large' );
@@ -292,9 +285,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$recent['tags'] = $tags;
 					$page_type_data = get_the_terms( $recent['ID'], 'p4-page-type' );
 					$page_type      = '';
+					$page_type_id   = '';
 
-					$page_type_id = '';
-					if ( $page_type_data ) {
+					if ( $page_type_data && ! is_wp_error( $page_type_data ) ) {
 						$page_type    = $page_type_data[0]->name;
 						$page_type_id = $page_type_data[0]->term_id;
 					}
@@ -302,14 +295,13 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					$recent['page_type'] = $page_type;
 					$recent['permalink'] = get_permalink( $recent['ID'] );
 
-					$recent['filter_url'] = add_query_arg(
-						[
+					if ( isset( $page_type_id ) ) {
+						$recent['filter_url'] = add_query_arg( [
 							's'                            => ' ',
 							'orderby'                      => 'relevant',
 							'f[ptype][' . $page_type . ']' => $page_type_id,
-						],
-						get_home_url()
-					);
+						], get_home_url() );
+					}
 
 					$recent_posts[] = $recent;
 				}
@@ -527,7 +519,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				// We cannot filter search for more than one pagetype, so use the last one.
 				$read_more_post_type = end( $post_types );
 				$page_type_data      = get_term_by( 'term_id', $read_more_post_type, 'p4-page-type' );
-				$read_more_filter    .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
+				if ( $page_type_data instanceof \WP_Term ) {
+					$read_more_filter .= '&f[ptype][' . $page_type_data->slug . ']=' . $page_type_data->term_id;
+				}
 			}
 
 			if ( '' === $read_more_filter ) {
