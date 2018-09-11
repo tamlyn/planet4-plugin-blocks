@@ -75,7 +75,9 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 					'label' => __( '<i>We use an overlay to fade the image back. Use a number between 1 and 100,<br /> the higher the number, the more faded the image will look. If you leave this <br/> empty, the default of 30 will be used.</i>', 'planet4-blocks-backend' ),
 					'attr'  => 'opacity',
 					'type'  => 'number',
-					'meta'  => [ 'data-test' => 30 ],
+					'meta'  => [
+						'data-test' => 30,
+					],
 				],
 				[
 					'label' => __( 'Use mailing list iframe', 'planet4-blocks-backend' ),
@@ -107,23 +109,22 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 		}
 
 		/**
-		 * Callback for the shortcake_twocolumn shortcode.
-		 * It renders the shortcode based on supplied attributes.
+		 * Get all the data that will be needed to render the block correctly.
 		 *
-		 * @param array  $fields Array of fields that are to be used in the template.
-		 * @param string $content The content of the post.
-		 * @param string $shortcode_tag The shortcode tag (shortcake_blockname).
+		 * @param array  $fields This is the array of fields of this block.
+		 * @param string $content This is the post content.
+		 * @param string $shortcode_tag The shortcode tag of this block.
 		 *
-		 * @return string The complete html of the block
+		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_template( $fields, $content, $shortcode_tag ) : string {
+		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 
 			$shortcode_atts_pairs = [
 				'background'          => '',
 				'opacity'             => 30,
-				'focus_image'         => $attributes['focus_image'] ?? 'center center',
+				'focus_image'         => $fields['focus_image'] ?? 'center center',
 				'mailing_list_iframe' => '',
-				'iframe_url'          => $attributes['iframe_url'] ?? '',
+				'iframe_url'          => $fields['iframe_url'] ?? '',
 			];
 
 			$fields = shortcode_atts( $shortcode_atts_pairs, $fields, $shortcode_tag );
@@ -148,12 +149,7 @@ if ( ! class_exists( 'HappyPoint_Controller' ) ) {
 			$data = [
 				'fields' => $fields,
 			];
-
-			// Shortcode callbacks must return content, hence, output buffering here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $data );
-
-			return ob_get_clean();
+			return $data;
 		}
 	}
 }

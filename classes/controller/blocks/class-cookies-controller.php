@@ -78,16 +78,15 @@ if ( ! class_exists( 'Cookies_Controller' ) ) {
 		}
 
 		/**
-		 * Callback for cookies shortcode.
-		 * It renders the shortcode based on supplied attributes.
+		 * Get all the data that will be needed to render the block correctly.
 		 *
-		 * @param array $attributes Defined attributes array for this shortcode.
-		 * @param string $content Content.
-		 * @param string $shortcode_tag Shortcode tag name.
+		 * @param array  $attributes This is the array of fields of this block.
+		 * @param string $content This is the post content.
+		 * @param string $shortcode_tag The shortcode tag of this block.
 		 *
-		 * @return string Returns the compiled template.
+		 * @return array The data to be passed in the View.
 		 */
-		public function prepare_template( $attributes, $content, $shortcode_tag ): string {
+		public function prepare_data( $attributes, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 			wp_enqueue_script( 'cookies', P4BKS_ADMIN_DIR . 'js/cookies.js' );
 
 			$block_data = [
@@ -100,12 +99,7 @@ if ( ! class_exists( 'Cookies_Controller' ) ) {
 					'all_cookies_description'       => $attributes['all_cookies_description'] ?? '',
 				],
 			];
-
-			// Shortcode callbacks must return content, hence, output buffering here.
-			ob_start();
-			$this->view->block( self::BLOCK_NAME, $block_data );
-
-			return ob_get_clean();
+			return $block_data;
 		}
 	}
 }
