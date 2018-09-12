@@ -30,4 +30,21 @@ abstract class P4_UnitTestCase extends WP_UnitTestCase {
 			'slug'     => 'press-release',
 		] );
 	}
+
+	/**
+	 * Helper method to test private methods.
+	 *
+	 * @param $object
+	 * @param string $methodName Method name of the object.
+	 * @param array  $parameters  Parameters array for the method.
+	 *
+	 * @return mixed
+	 */
+	public function invokeMethod(&$object, $methodName, array $parameters = array())
+	{
+		$reflection = new \ReflectionClass(get_class($object));
+		$method = $reflection->getMethod($methodName);
+		$method->setAccessible(true);
+		return $method->invokeArgs($object, $parameters);
+	}
 }

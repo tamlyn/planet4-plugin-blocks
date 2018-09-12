@@ -135,11 +135,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 				],
 				[
 					'label'       => __( 'Number displayed', 'planet4-blocks-backend' ),
-					'description' => __( 'Show 1 Row: Displays 3 Covers on desktop and 2 Covers on mobile.<br> 
-										Show 2 Rows: Displays 6 Covers on desktop and 4 covers on mobile.<br>
-										(Another Row will be revealed each time the Load More button is clicked)<br>
-										Show All Covers: Displays all available Covers on desktop and 4 Covers on mobile.',
-						'planet4-blocks-backend' ),
+					'description' => __( 'Another Row will be revealed each time the User clicks the Load More button.', 'planet4-blocks-backend' ),
 					'attr'        => 'covers_view',
 					'type'        => 'select',
 					'options'     => [
@@ -228,7 +224,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		/**
 		 * Get all the data that will be needed to render the block correctly.
 		 *
-		 * @param array $fields This is the array of fields of this block.
+		 * @param array  $fields  This is the array of fields of this block.
 		 * @param string $content This is the post content.
 		 * @param string $shortcode_tag The shortcode tag of this block.
 		 *
@@ -258,11 +254,13 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		}
 
 		/**
-		 * @param $fields
+		 * Get specific posts based on post ids.
 		 *
-		 * @return array
+		 * @param array $fields  This is the array of fields of this block.
+		 *
+		 * @return WP_Post[]
 		 */
-		private function filter_posts_for_act_pages( &$fields ) {
+		private function filter_posts_for_act_pages_by_ids( &$fields ) {
 
 			$post_ids = $fields['posts'] ?? '';
 			// If post_ids is empty or is not a comma separated integers string then make post_ids an empty array.
@@ -290,11 +288,13 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		}
 
 		/**
-		 * @param $fields
+		 * Get posts that are act page children.
 		 *
-		 * @return array|bool
+		 * @param array $fields  This is the array of fields of this block.
+		 *
+		 * @return WP_Post[]
 		 */
-		private function filter_posts_for_act_pages_by_ids( &$fields ) {
+		private function filter_posts_for_act_pages( &$fields ) {
 			$tag_ids       = $fields['tags'] ?? '';
 			$options       = get_option( 'planet4_options' );
 			$parent_act_id = $options['act_page'];
@@ -322,9 +322,11 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		}
 
 		/**
-		 * @param $fields
+		 * Get specific posts.
 		 *
-		 * @return array
+		 * @param array $fields  This is the array of fields of this block.
+		 *
+		 * @return WP_Post[]
 		 */
 		private function filter_posts_for_cfc_by_ids( &$fields ) {
 			$post_ids = $fields['posts'] ?? '';
@@ -353,9 +355,11 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		}
 
 		/**
-		 * @param $fields
+		 * Get posts for content four column.
 		 *
-		 * @return array
+		 * @param array $fields  This is the array of fields of this block.
+		 *
+		 * @return WP_Post[]
 		 */
 		private function filter_posts_for_cfc( &$fields ) {
 
@@ -434,7 +438,9 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		}
 
 		/**
-		 * @param $fields
+		 * Populate posts for campaign thumbnail template.
+		 *
+		 * @param array $fields  This is the array of fields of this block.
 		 *
 		 * @return array
 		 */
@@ -454,7 +460,6 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 			}
 
 			$covers = [];
-			$tags   = array_slice( $tags, 0, 3 );
 
 			foreach ( $tags as $tag ) {
 				$tag_remapped  = [
@@ -476,21 +481,21 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		}
 
 		/**
-		 * @param $fields
+		 * Populate posts for take action covers template.
+		 *
+		 * @param array $fields  This is the array of fields of this block.
 		 *
 		 * @return array
 		 */
 		private function populate_posts_for_act_pages( &$fields ) {
 
-			$fields['read_more_link'] = $fields['read_more_link'] ?? get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
-			$post_ids                 = $fields['posts'] ?? '';
-
-			$options = get_option( 'planet4_options' );
+			$post_ids = $fields['posts'] ?? '';
+			$options  = get_option( 'planet4_options' );
 
 			if ( '' !== $post_ids ) {
-				$actions = $this->filter_posts_for_act_pages( $fields );
-			} else {
 				$actions = $this->filter_posts_for_act_pages_by_ids( $fields );
+			} else {
+				$actions = $this->filter_posts_for_act_pages( $fields );
 			}
 
 			$covers = [];
@@ -527,14 +532,15 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		}
 
 		/**
-		 * @param $fields
+		 * Populate posts for content four column template.
+		 *
+		 * @param array $fields  This is the array of fields of this block.
 		 *
 		 * @return array
 		 */
 		private function populate_posts_for_cfc( &$fields ) {
 
-			$fields['read_more_link'] = $fields['read_more_link'] ?? get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
-			$post_ids                 = $fields['posts'] ?? '';
+			$post_ids = $fields['posts'] ?? '';
 
 			if ( '' !== $post_ids ) {
 				$posts = $this->filter_posts_for_cfc_by_ids( $fields );
@@ -568,6 +574,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		}
 
 		/**
+		 * Shortcake's altered ajax handler for post_select fields.
 		 * Ajax handler for select2 post field queries.
 		 * Output JSON containing post data.
 		 * Requires that shortcode, attr and nonce are passed.
