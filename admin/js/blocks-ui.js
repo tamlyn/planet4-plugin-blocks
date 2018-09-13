@@ -1,6 +1,41 @@
 // Override shortcake's editAttributeSelect2Field backbone view to manipulate select2 instance.
-// Change render function of that view.
+// Change render and preselect functions of that view.
 if ('undefined' !== sui.views) {
+
+  /**
+   * Load the values to be preselected before initializing field
+   *
+   * @param $field jQuery object reference to the <select> field
+   * @param object ajaxData object containing ajax action, nonce, and shortcode & model data
+   * @param string includeField how to specify the current selection, ie 'post__in'
+   */
+  sui.views.editAttributeSelect2Field.prototype.preselect = function ($field) {
+    var _preselected = String(this.getValue());
+
+    if (_preselected.length) {
+      var request = {
+        include: _preselected,
+        shortcode: this.shortcode.get('shortcode_tag'),
+        attr: this.model.get('attr')
+      };
+
+      if ('shortcake_newcovers' === this.shortcode.get('shortcode_tag') && 'posts' === this.model.get('attr')) {
+        this.ajaxData.action = 'planet4_blocks_post_field';
+      }
+      return $.get(ajaxurl, $.extend(request, this.ajaxData),
+        function (response) {
+          _.each(response.data.items, function (item) {
+            $('<option>')
+              .attr('value', item.id)
+              .text(item.text)
+              .prop('selected', 'selected')
+              .appendTo($field);
+          });
+        }
+      );
+    }
+    return null;
+  };
 
   /**
    * Abstract field for all ajax Select2-powered field views
@@ -9,7 +44,6 @@ if ('undefined' !== sui.views) {
    * Select2 as their UI.
    *
    */
-
   sui.views.editAttributeSelect2Field.prototype.render = function () {
     var self = this,
       defaults = {multiple: false};
@@ -27,7 +61,17 @@ if ('undefined' !== sui.views) {
 
     var $field = this.$el.find(this.selector);
 
-    this.preselect($field);
+    if (this.shortcode.get('ajax_requests') === undefined) {
+      this.shortcode.set('ajax_requests', []);
+    }
+    var request = this.preselect($field);
+    if (null !== request) {
+      var requests = this.shortcode.get('ajax_requests');
+      if (Array.isArray(requests)) {
+        requests.push(request);
+        this.shortcode.set('ajax_requests', requests);
+      }
+    }
 
     var select2_options = this.model.get('meta').select2_options;
 

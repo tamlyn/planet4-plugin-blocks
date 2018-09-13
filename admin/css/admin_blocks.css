@@ -100,3 +100,11 @@ div.shortcode-ui-edit-shortcake_newcovers > div:last-child {
   max-width: 25%;
   vertical-align: top;
 }
+
+.not-clickable {
+  pointer-events: none;
+}
+
+#bl_loader {
+  float: inherit;
+}
