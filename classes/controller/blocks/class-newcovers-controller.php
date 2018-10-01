@@ -21,7 +21,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		public function load() {
 			parent::load();
 			add_action( 'admin_enqueue_scripts', [ $this, 'load_admin_assets' ] );
-			add_action( 'wp_ajax_planet4_blocks_post_field', array( $this, 'action_wp_ajax_shortcode_ui_post_field' ) );
+			add_action( 'wp_ajax_planet4_blocks_post_field', [ $this, 'action_wp_ajax_shortcode_ui_post_field' ] );
 		}
 
 
@@ -40,7 +40,6 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 			add_action( 'enqueue_shortcode_ui', function () {
 				wp_enqueue_script( 'submenu-view', P4BKS_ADMIN_DIR . 'js/submenu_heading_view.js', [ 'shortcode-ui' ] );
 				wp_enqueue_script( 'blocks-ui', P4BKS_ADMIN_DIR . 'js/blocks-ui.js', [ 'shortcode-ui' ] );
-				wp_enqueue_script( 'newcovers', P4BKS_ADMIN_DIR . 'js/newcovers.js', [ 'shortcode-ui' ] );
 			} );
 		}
 
@@ -150,21 +149,6 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 						[
 							'value' => '1',
 							'label' => __( 'Show All Covers', 'planet4-blocks-backend' ),
-						],
-					],
-				],
-				[
-					'attr'    => 'image_rotation',
-					'label'   => __( 'Image rotation', 'planet4-blocks-backend' ),
-					'type'    => 'radio',
-					'options' => [
-						[
-							'value' => '1',
-							'label' => __( 'portrait image', 'planet4-blocks-backend' ),
-						],
-						[
-							'value' => '2',
-							'label' => __( 'landscape image', 'planet4-blocks-backend' ),
 						],
 					],
 				],

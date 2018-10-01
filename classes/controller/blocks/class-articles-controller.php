@@ -36,7 +36,8 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			}
 
 			add_action( 'enqueue_shortcode_ui', function () {
-				wp_enqueue_script( 'articles', P4BKS_ADMIN_DIR . 'js/articles.js', [ 'shortcode-ui' ] );
+				wp_enqueue_script( 'submenu-view', P4BKS_ADMIN_DIR . 'js/submenu_heading_view.js', [ 'shortcode-ui' ] );
+				wp_enqueue_script( 'blocks-ui', P4BKS_ADMIN_DIR . 'js/blocks-ui.js', [ 'shortcode-ui' ] );
 			} );
 		}
 

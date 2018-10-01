@@ -1,5 +1,5 @@
 // Override shortcake's editAttributeSelect2Field backbone view to manipulate select2 instance.
-// Change render and preselect functions of that view.
+// Modified versions of render and preselect functions of that view.
 if ('undefined' !== sui.views) {
 
   /**
@@ -149,7 +149,7 @@ if ('undefined' !== sui.views) {
 jQuery(function ($) {
   'use strict';
 
-  if ('undefined' !== typeof( wp.shortcake )) {
+  if ('undefined' !== typeof (wp.shortcake)) {
 
     shortcodeUIFieldData.p4_select = {
       encode: false,
@@ -176,3 +176,278 @@ jQuery(function ($) {
     });
   }
 });
+
+// Define a p4_blocks object that holds functions used during rendering backend blocks' views.
+p4_blocks = {
+
+  // Define hook functions for newcovers block fields to be used when creating/editing a newcovers block.
+  newcovers: {
+    /**
+     * Cover type field change hook.
+     */
+    type_of_cover_change_hook: function () {
+
+      var cover_type = $('input[name=cover_type]:checked').val();
+      if ('undefined' === cover_type) {
+        return;
+      }
+
+      if ('1' === cover_type) {
+        $("select[id^='shortcode-ui-post_types']").prop('disabled', 'disabled');
+        $("select[id^='shortcode-ui-posts']").prop('disabled', false);
+        $("select[id^='shortcode-ui-posts']").val(null).trigger('change');
+        $("select[id^='shortcode-ui-tags']").val(null).trigger('change');
+      } else if ('2' === cover_type) {
+        $("select[id^='shortcode-ui-post_types']").prop('disabled', 'disabled');
+        $("select[id^='shortcode-ui-posts']").prop('disabled', 'disabled');
+        $("select[id^='shortcode-ui-posts']").val(null).trigger('change');
+        $("select[id^='shortcode-ui-tags']").val(null).trigger('change');
+      } else if ('3' === cover_type) {
+        $("select[id^='shortcode-ui-post_types']").prop('disabled', false);
+        $("select[id^='shortcode-ui-posts']").prop('disabled', false);
+        $("select[id^='shortcode-ui-posts']").val(null).trigger('change');
+        $("select[id^='shortcode-ui-tags']").val(null).trigger('change');
+      }
+    },
+
+
+    /**
+     * Disable/enable fields of a newcovers block when rendering a preexisting newcovers block.
+     */
+    initialize_view_fields: function () {
+
+      var cover_type = $('input[name=cover_type]:checked').val();
+      var posts = $("select[id^='shortcode-ui-posts']").val();
+      var tags = $("select[id^='shortcode-ui-tags']").val();
+      var post_types = $("select[id^='shortcode-ui-post_types']").val();
+      if ('undefined' === cover_type) {
+        return;
+      }
+
+      if ('1' === cover_type) {
+        $("select[id^='shortcode-ui-post_types']").prop('disabled', 'disabled');
+        $("select[id^='shortcode-ui-post_types']").val(null).trigger('change');
+
+        if (null !== tags || null !== post_types) {
+          $("select[id^='shortcode-ui-posts']").prop('disabled', 'disabled');
+          $("select[id^='shortcode-ui-posts']").val(null).trigger('change');
+        }
+        if (null !== posts) {
+          $("select[id^='shortcode-ui-tags']").prop('disabled', 'disabled');
+          $("select[id^='shortcode-ui-tags']").val(null).trigger('change');
+        }
+      } else if ('2' === cover_type) {
+        $("select[id^='shortcode-ui-post_types']").prop('disabled', 'disabled');
+        $("select[id^='shortcode-ui-post_types']").val(null).trigger('change');
+        $("select[id^='shortcode-ui-posts']").prop('disabled', 'disabled');
+        $("select[id^='shortcode-ui-posts']").val(null).trigger('change');
+      } else if ('3' === cover_type) {
+        if (null !== tags || null !== post_types) {
+          $("select[id^='shortcode-ui-posts']").prop('disabled', 'disabled');
+          $("select[id^='shortcode-ui-posts']").val(null).trigger('change');
+        }
+        if (null !== posts) {
+          $("select[id^='shortcode-ui-tags']").prop('disabled', 'disabled');
+          $("select[id^='shortcode-ui-tags']").val(null).trigger('change');
+          $("select[id^='shortcode-ui-post_types']").prop('disabled', 'disabled');
+          $("select[id^='shortcode-ui-post_types']").val(null).trigger('change');
+        }
+      }
+    },
+
+    /**
+     * Post types select box change hook.
+     */
+    post_types_change_hook: function () {
+
+      var cover_type = $('input[name=cover_type]:checked').val();
+      var tags = $("select[id^='shortcode-ui-tags']").val();
+      var post_types = $("select[id^='shortcode-ui-post_types']").val();
+      var posts = $("select[id^='shortcode-ui-posts']").val();
+      if ('undefined' === cover_type) {
+        return;
+      }
+
+      if ('3' === cover_type) {
+        if (null !== post_types) {
+          $("select[id^='shortcode-ui-tags']").prop('disabled', false);
+          $("select[id^='shortcode-ui-post_types']").prop('disabled', false);
+          $("select[id^='shortcode-ui-posts']").val(null).trigger('change');
+          $("select[id^='shortcode-ui-posts']").prop('disabled', 'disabled');
+
+        } else if (null === tags && null === posts && null === post_types) {
+          $("select[id^='shortcode-ui-tags']").prop('disabled', false);
+          $("select[id^='shortcode-ui-post_types']").prop('disabled', false);
+          $("select[id^='shortcode-ui-posts']").prop('disabled', false);
+        }
+      }
+
+    },
+
+    /**
+     * Post select box change hook.
+     */
+    posts_select_change_hook: function () {
+
+      var cover_type = $('input[name=cover_type]:checked').val();
+      var posts = $("select[id^='shortcode-ui-posts']").val();
+      if ('undefined' === cover_type) {
+        return;
+      }
+
+      if (posts !== null) {
+        if ('1' === cover_type) {
+          $("select[id^='shortcode-ui-tags']").val(null).trigger('change');
+          $("select[id^='shortcode-ui-tags']").prop('disabled', 'disabled');
+        } else if ('3' === cover_type) {
+          $("select[id^='shortcode-ui-tags']").val(null).trigger('change');
+          $("select[id^='shortcode-ui-tags']").prop('disabled', 'disabled');
+          $("select[id^='shortcode-ui-post_types']").val(null).trigger('change');
+          $("select[id^='shortcode-ui-post_types']").prop('disabled', 'disabled');
+        }
+      } else {
+        if ('1' === cover_type) {
+          $("select[id^='shortcode-ui-tags']").prop('disabled', false);
+        } else if ('3' === cover_type) {
+          $("select[id^='shortcode-ui-tags']").prop('disabled', false);
+          $("select[id^='shortcode-ui-post_types']").prop('disabled', false);
+        }
+      }
+    },
+
+    /**
+     * Tags select box change hook.
+     */
+    tags_change_hook: function () {
+
+      var cover_type = $('input[name=cover_type]:checked').val();
+      var posts = $("select[id^='shortcode-ui-posts']").val();
+      var tags = $("select[id^='shortcode-ui-tags']").val();
+      var post_types = $("select[id^='shortcode-ui-post_types']").val();
+      if ('undefined' === cover_type) {
+        return;
+      }
+
+      if ('1' === cover_type) {
+        if (null !== tags || null !== post_types) {
+          $("select[id^='shortcode-ui-posts']").prop('disabled', 'disabled');
+          $("select[id^='shortcode-ui-posts']").val(null).trigger('change');
+          $("select[id^='shortcode-ui-post_types']").prop('disabled', 'disabled');
+        } else if (null === tags && null === posts) {
+          $("select[id^='shortcode-ui-tags']").prop('disabled', false);
+          $("select[id^='shortcode-ui-posts']").prop('disabled', false);
+        }
+      } else if ('2' === cover_type) {
+        $("select[id^='shortcode-ui-posts']").prop('disabled', 'disabled');
+        $("select[id^='shortcode-ui-posts']").val(null).trigger('change');
+        $("select[id^='shortcode-ui-tags']").prop('disabled', false);
+        $("select[id^='shortcode-ui-post_types']").val(null).trigger('change');
+        $("select[id^='shortcode-ui-post_types']").prop('disabled', 'disabled');
+      } else if ('3' === cover_type) {
+        if (null !== tags) {
+          $("select[id^='shortcode-ui-tags']").prop('disabled', false);
+          $("select[id^='shortcode-ui-post_types']").prop('disabled', false);
+          $("select[id^='shortcode-ui-posts']").val(null).trigger('change');
+          $("select[id^='shortcode-ui-posts']").prop('disabled', 'disabled');
+
+        } else if (null === tags && null === posts && null === post_types) {
+          $("select[id^='shortcode-ui-posts']").prop('disabled', false);
+        }
+      }
+    },
+
+  },
+
+  // Define hook functions for articles block fields to be used when creating/editing an articles block.
+  articles: {
+    /**
+     * Disable/Enable posts select box based on post types and tags select boxes.
+     */
+    page_types_change_hook: function () {
+
+      var posts_value = $("select[id^='shortcode-ui-post_types']").val();
+      var tags = $("select[id^='shortcode-ui-tags']").val();
+      if (null === posts_value && null === tags) {
+        $("select[id^='shortcode-ui-posts']").prop('disabled', false);
+      } else {
+        $("select[id^='shortcode-ui-posts']").val(null).trigger('change.select2');
+        $("select[id^='shortcode-ui-posts']").prop('disabled', 'disabled');
+      }
+    },
+
+    /**
+     * Disable/Enable p4 page types checkboxes based on posts select box value.
+     */
+    posts_select_change_hook: function () {
+
+      var posts_value = $("select[id^='shortcode-ui-posts']").val();
+      if (null === posts_value) {
+        $("select[id^='shortcode-ui-tags']").prop('disabled', false);
+        $("select[id^='shortcode-ui-post_types']").prop('disabled', false);
+        $("input[name^='ignore_categories']").prop('disabled', false);
+      } else {
+        $("select[id^='shortcode-ui-post_types']").val(null).trigger('change.select2');
+        $("select[id^='shortcode-ui-post_types']").prop('disabled', 'disabled');
+        $("select[id^='shortcode-ui-tags']").val(null).trigger('change.select2');
+        $("select[id^='shortcode-ui-tags']").prop('disabled', 'disabled');
+        $("input[name^='ignore_categories']").prop('disabled', 'disabled');
+      }
+    }
+  }
+};
+
+var hooks_defined = false;
+if ('undefined' !== typeof (wp.shortcake)) {
+
+  /**
+   * Attach shortcake hooks for articles block fields.
+   */
+  function attach_hooks() {
+
+    if (!hooks_defined) {
+      hooks_defined = true;
+      wp.shortcake.hooks.addAction('shortcake_newcovers.cover_type', p4_blocks.newcovers.type_of_cover_change_hook);
+      wp.shortcake.hooks.addAction('shortcake_newcovers.tags', p4_blocks.newcovers.tags_change_hook);
+      wp.shortcake.hooks.addAction('shortcake_newcovers.post_types', p4_blocks.newcovers.post_types_change_hook);
+      wp.shortcake.hooks.addAction('shortcake_newcovers.posts', p4_blocks.newcovers.posts_select_change_hook);
+
+      wp.shortcake.hooks.addAction('shortcake_articles.posts', p4_blocks.articles.posts_select_change_hook);
+      wp.shortcake.hooks.addAction('shortcake_articles.post_types', p4_blocks.articles.page_types_change_hook);
+      wp.shortcake.hooks.addAction('shortcake_articles.tags', p4_blocks.articles.page_types_change_hook);
+    }
+  }
+
+  // Attach hooks when rendering a new p4 block.
+  wp.shortcake.hooks.addAction('shortcode-ui.render_new', attach_hooks);
+
+  // Trigger hooks when shortcode renders an existing p4 block.
+  wp.shortcake.hooks.addAction('shortcode-ui.render_edit', function (shortcode) {
+    attach_hooks();
+
+    var shortcode_tag = shortcode.get('shortcode_tag');
+    if ('shortcake_newcovers' === shortcode_tag) {
+
+      var requests = shortcode.get('ajax_requests');
+
+      if (null !== requests) {
+
+        // Block ui / shortcake block view until all fields are populated.
+        var $new_covers_div = $('.shortcode-ui-edit-shortcake_newcovers');
+        $new_covers_div.addClass('not-clickable');
+        $new_covers_div.prev().prepend('<span class="spinner is-active" id="bl_loader"></span>' +
+          '<span id="bl_loading_span">Populating block\'s fields..</span>');
+        $new_covers_div.animate({opacity: 0.5});
+
+        // Add a hook to unblock shortcake block's view when all ajax requests have been completed.
+        Promise.all(requests).then(function (values) {
+          $('.shortcode-ui-edit-shortcake_newcovers').animate({opacity: 1});
+          $('.shortcode-ui-edit-shortcake_newcovers').removeClass('not-clickable');
+          $('#bl_loader').removeClass('is-active');
+          $('#bl_loading_span').remove();
+          shortcode.unset('ajax_requests');
+          p4_blocks.newcovers.initialize_view_fields();
+        });
+      }
+    }
+  });
+}
