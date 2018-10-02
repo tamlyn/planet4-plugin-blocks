@@ -207,12 +207,12 @@ if ( ! class_exists( 'Loader' ) ) {
 		 */
 		public function enqueue_public_assets() {
 			// plugin-blocks assets.
-			$css_blocks_creation = filectime( P4BKS_PLUGIN_DIR . '/blocks.css' );
-			$js_blocks_creation  = filectime( P4BKS_PLUGIN_DIR . '/assets/js/blocks.js' );
+			$css_blocks_creation = filectime( P4BKS_PLUGIN_DIR . '/style.css' );
+			$js_blocks_creation  = filectime( P4BKS_PLUGIN_DIR . '/main.js' );
 			// Add master theme's main css as dependency for blocks css.
-			wp_enqueue_style( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/blocks.css', [ 'bootstrap', 'slick', 'font-awesome', 'parent-style' ], $css_blocks_creation );
+			wp_enqueue_style( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/style.css', [ 'bootstrap', 'slick', 'fork-awesome', 'parent-style' ], $css_blocks_creation );
 			// Add master theme's main js as dependency for blocks js.
-			wp_enqueue_script( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/assets/js/blocks.js', [ 'jquery', 'main', 'slick', 'popperjs', 'bootstrapjs', 'hammer' ], $js_blocks_creation, true );
+			wp_enqueue_script( 'plugin-blocks', plugins_url( P4BKS_PLUGIN_DIRNAME ) . '/main.js', [ 'jquery', 'main', 'slick', 'popperjs', 'bootstrapjs', 'hammer' ], $js_blocks_creation, true );
 		}
 
 		/**
