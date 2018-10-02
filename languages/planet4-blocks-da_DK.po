@@ -3,7 +3,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "Project-Id-Version: Planet4 - Blocks\n"
 "POT-Creation-Date: 2018-06-07 11:24+0000\n"
-"PO-Revision-Date: 2018-09-18 08:52+0000\n"
+"PO-Revision-Date: 2018-10-02 12:13+0000\n"
 "Last-Translator: mhedelai <mhedelai@greenpeace.org>\n"
 "Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "Vær med"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:123
 msgid "take action"
-msgstr "være med"
+msgstr "vær med"
 
 #: classes/controller/blocks/class-contentfourcolumn-controller.php:222
 msgid "Publications"
@@ -69,7 +69,9 @@ msgstr "Planet4 - Blocks"
 
 #. Description of the plugin/theme
 msgid "Creates all the blocks that will be available for usage by Shortcake."
-msgstr "We want you to take action because together we're strong."
+msgstr ""
+"Du kan være med til at skabe fremskridt for vores miljø og klima og beskytte "
+"vores fantastiske jord. Sammen kan vi gøre en forskel! "
 
 #. URI of the plugin
 msgid "http://github.com/greenpeace/planet4-plugin-blocks"
