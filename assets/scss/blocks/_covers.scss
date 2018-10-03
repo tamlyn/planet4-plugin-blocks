@@ -29,14 +29,6 @@
     display: flex;
     flex-wrap: wrap;
   }
-
-  .btn-secondary {
-    padding: 0;
-
-    @include medium-and-up {
-      margin: 10px auto 0 auto;
-    }
-  }
 }
 
 // Visibility  of covers in different screens
@@ -104,7 +96,7 @@
     flex-basis: 48%;
     min-height: 414px;
     padding: 18px 15px 60px;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
   }
 
   @include large-and-up {
