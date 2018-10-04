@@ -86,7 +86,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				[
 					'label' => __( 'Button Link', 'planet4-blocks-backend' ),
 					'attr'  => 'read_more_link',
-					'type'  => 'text',
+					'type'  => 'url',
 					'meta'  => [
 						'placeholder' => __( 'Add read more button link', 'planet4-blocks-backend' ),
 					],

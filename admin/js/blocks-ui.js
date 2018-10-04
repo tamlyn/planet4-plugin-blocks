@@ -191,6 +191,15 @@ p4_blocks = {
     }
   },
 
+  find_view: function (collection, name) {
+    return _.find(
+      collection,
+      function (viewModel) {
+        return name === viewModel.model.get('attr');
+      }
+    );
+  },
+
   // Define hook functions for newcovers block fields to be used when creating/editing a newcovers block.
   newcovers: {
     /**
@@ -405,6 +414,16 @@ p4_blocks = {
       }
     },
 
+    read_more_change_hook: function (changed, collection, shortcode) {
+
+      var view = p4_blocks.find_view(collection, 'read_more_link');
+      if ('undefined' !== view) {
+        var res = encodeURI(changed.value);
+        view.model.set('value', res);
+        $("*[id^='shortcode-ui-read_more_link-']").val(res);
+      }
+    },
+
     /**
      * Disable/enable fields of an articles block when rendering a preexisting articles block.
      */
@@ -445,6 +464,7 @@ if ('undefined' !== typeof (wp.shortcake)) {
       wp.shortcake.hooks.addAction('shortcake_articles.posts', p4_blocks.articles.posts_select_change_hook);
       wp.shortcake.hooks.addAction('shortcake_articles.post_types', p4_blocks.articles.page_types_change_hook);
       wp.shortcake.hooks.addAction('shortcake_articles.tags', p4_blocks.articles.page_types_change_hook);
+      wp.shortcake.hooks.addAction('shortcake_articles.read_more_link', p4_blocks.articles.read_more_change_hook);
     }
   }
 
