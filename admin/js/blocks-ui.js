@@ -180,6 +180,26 @@ jQuery(function ($) {
 // Define a p4_blocks object that holds functions used during rendering backend blocks' views.
 p4_blocks = {
 
+  hooks_defined: false,
+
+  initialize_view_fields: function (block_name) {
+    switch (block_name) {
+      case 'articles':
+        p4_blocks.articles.initialize_view_fields();
+      case 'newcovers':
+        p4_blocks.newcovers.initialize_view_fields();
+    }
+  },
+
+  find_view: function (collection, name) {
+    return _.find(
+      collection,
+      function (viewModel) {
+        return name === viewModel.model.get('attr');
+      }
+    );
+  },
+
   // Define hook functions for newcovers block fields to be used when creating/editing a newcovers block.
   newcovers: {
     /**
@@ -392,11 +412,41 @@ p4_blocks = {
         $("select[id^='shortcode-ui-tags']").prop('disabled', 'disabled');
         $("input[name^='ignore_categories']").prop('disabled', 'disabled');
       }
+    },
+
+    read_more_change_hook: function (changed, collection, shortcode) {
+
+      var view = p4_blocks.find_view(collection, 'read_more_link');
+      if ('undefined' !== view) {
+        var res = encodeURI(changed.value);
+        view.model.set('value', res);
+        $("*[id^='shortcode-ui-read_more_link-']").val(res);
+      }
+    },
+
+    /**
+     * Disable/enable fields of an articles block when rendering a preexisting articles block.
+     */
+    initialize_view_fields: function () {
+
+      var posts = $("select[id^='shortcode-ui-posts']").val();
+      var tags = $("select[id^='shortcode-ui-tags']").val();
+      var post_types = $("select[id^='shortcode-ui-post_types']").val();
+
+      if (null !== posts) {
+        $("select[id^='shortcode-ui-post_types']").prop('disabled', 'disabled');
+        $("select[id^='shortcode-ui-tags']").prop('disabled', 'disabled');
+
+      } else {
+        if (null !== tags || null !== post_types) {
+          $("select[id^='shortcode-ui-posts']").prop('disabled', 'disabled');
+        }
+      }
     }
   }
 };
 
-var hooks_defined = false;
+// Define shortcake hooks for blocks fields and blocks views.
 if ('undefined' !== typeof (wp.shortcake)) {
 
   /**
@@ -404,8 +454,8 @@ if ('undefined' !== typeof (wp.shortcake)) {
    */
   function attach_hooks() {
 
-    if (!hooks_defined) {
-      hooks_defined = true;
+    if (!p4_blocks.hooks_defined) {
+      p4_blocks.hooks_defined = true;
       wp.shortcake.hooks.addAction('shortcake_newcovers.cover_type', p4_blocks.newcovers.type_of_cover_change_hook);
       wp.shortcake.hooks.addAction('shortcake_newcovers.tags', p4_blocks.newcovers.tags_change_hook);
       wp.shortcake.hooks.addAction('shortcake_newcovers.post_types', p4_blocks.newcovers.post_types_change_hook);
@@ -414,6 +464,7 @@ if ('undefined' !== typeof (wp.shortcake)) {
       wp.shortcake.hooks.addAction('shortcake_articles.posts', p4_blocks.articles.posts_select_change_hook);
       wp.shortcake.hooks.addAction('shortcake_articles.post_types', p4_blocks.articles.page_types_change_hook);
       wp.shortcake.hooks.addAction('shortcake_articles.tags', p4_blocks.articles.page_types_change_hook);
+      wp.shortcake.hooks.addAction('shortcake_articles.read_more_link', p4_blocks.articles.read_more_change_hook);
     }
   }
 
@@ -425,27 +476,28 @@ if ('undefined' !== typeof (wp.shortcake)) {
     attach_hooks();
 
     var shortcode_tag = shortcode.get('shortcode_tag');
-    if ('shortcake_newcovers' === shortcode_tag) {
+    var block_name = shortcode_tag.replace('shortcake_', '');
+    if (['shortcake_articles', 'shortcake_newcovers'].includes(shortcode_tag)) {
 
       var requests = shortcode.get('ajax_requests');
 
       if (null !== requests) {
 
         // Block ui / shortcake block view until all fields are populated.
-        var $new_covers_div = $('.shortcode-ui-edit-shortcake_newcovers');
-        $new_covers_div.addClass('not-clickable');
-        $new_covers_div.prev().prepend('<span class="spinner is-active" id="bl_loader"></span>' +
+        var $block_div = $('.shortcode-ui-edit-' + shortcode_tag);
+        $block_div.addClass('not-clickable');
+        $block_div.prev().prepend('<span class="spinner is-active" id="bl_loader"></span>' +
           '<span id="bl_loading_span">Populating block\'s fields..</span>');
-        $new_covers_div.animate({opacity: 0.5});
+        $block_div.animate({opacity: 0.5});
 
         // Add a hook to unblock shortcake block's view when all ajax requests have been completed.
         Promise.all(requests).then(function (values) {
-          $('.shortcode-ui-edit-shortcake_newcovers').animate({opacity: 1});
-          $('.shortcode-ui-edit-shortcake_newcovers').removeClass('not-clickable');
+          $block_div.animate({opacity: 1});
+          $block_div.removeClass('not-clickable');
           $('#bl_loader').removeClass('is-active');
           $('#bl_loading_span').remove();
           shortcode.unset('ajax_requests');
-          p4_blocks.newcovers.initialize_view_fields();
+          p4_blocks.initialize_view_fields(block_name);
         });
       }
     }
