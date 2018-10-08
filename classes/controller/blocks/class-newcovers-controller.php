@@ -12,7 +12,12 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 	class NewCovers_Controller extends Controller {
 
 		const POSTS_LIMIT = 100;
-		/** @const string BLOCK_NAME */
+
+		/**
+		 * Block name.
+		 *
+		 * @const string BLOCK_NAME.
+		 */
 		const BLOCK_NAME = 'newcovers';
 
 		/**
@@ -53,6 +58,8 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		/**
 		 * Shortcode UI setup for the shortcode.
 		 * It is called when the Shortcake action hook `register_shortcode_ui` is called.
+		 *
+		 * @codeCoverageIgnore
 		 */
 		public function prepare_fields() {
 
@@ -66,19 +73,19 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 							'value' => '1',
 							'label' => __( 'Take Action Covers', 'planet4-blocks-backend' ),
 							'desc'  => 'Take action covers pull the featured image, tags, have a 25 character excerpt and have a call to action button',
-							'image' => esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/submenu-long.jpg' ),
+							'image' => esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/take_action_covers.png' ),
 						],
 						[
 							'value' => '2',
 							'label' => __( 'Campaign Covers', 'planet4-blocks-backend' ),
 							'desc'  => 'Campaign covers pull the associated image and hashtag from the system tag definitions.',
-							'image' => esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/submenu-short.jpg' ),
+							'image' => esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/campaign_covers.png' ),
 						],
 						[
 							'value' => '3',
 							'label' => __( 'Content Covers', 'planet4-blocks-backend' ),
 							'desc'  => 'Content covers pull the image from the post.',
-							'image' => esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/submenu-sidebar.jpg' ),
+							'image' => esc_url( plugins_url() . '/planet4-plugin-blocks/admin/images/content_covers.png' ),
 						],
 					],
 				],
@@ -183,10 +190,11 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 			 * Define the Shortcode UI arguments.
 			 */
 			$shortcode_ui_args = [
+
 				/*
 				 * How the shortcode should be labeled in the UI. Required argument.
 				 */
-				'label'         => __( 'New Covers', 'planet4-blocks-backend' ),
+				'label'         => __( 'Covers', 'planet4-blocks-backend' ),
 
 				/*
 				 * Include an icon with your shortcode. Optional.
@@ -238,47 +246,13 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		}
 
 		/**
-		 * Get specific posts based on post ids.
-		 *
-		 * @param array $fields  This is the array of fields of this block.
-		 *
-		 * @return WP_Post[]
-		 */
-		private function filter_posts_for_act_pages_by_ids( &$fields ) {
-
-			$post_ids = $fields['posts'] ?? '';
-			// If post_ids is empty or is not a comma separated integers string then make post_ids an empty array.
-			if ( empty( $post_ids ) || ! preg_split( '/^\d+(,\d+)*$/', $post_ids ) ) {
-				$post_ids = [];
-			} else {
-				$post_ids = explode( ',', $post_ids );
-			}
-
-			if ( ! empty( $post_ids ) ) {
-
-				// Get all posts with arguments.
-				$args = [
-					'orderby'          => 'post__in',
-					'post_status'      => 'publish',
-					'post__in'         => $post_ids,
-					'suppress_filters' => false,
-					'post_type'        => 'page',
-				];
-
-				return get_posts( $args );
-			}
-
-			return [];
-		}
-
-		/**
 		 * Get posts that are act page children.
 		 *
 		 * @param array $fields  This is the array of fields of this block.
 		 *
-		 * @return WP_Post[]
+		 * @return \WP_Post[]
 		 */
-		private function filter_posts_for_act_pages( &$fields ) {
+		private function filter_posts_for_act_pages( $fields ) {
 			$tag_ids       = $fields['tags'] ?? '';
 			$options       = get_option( 'planet4_options' );
 			$parent_act_id = $options['act_page'];
@@ -310,13 +284,13 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		 *
 		 * @param array $fields  This is the array of fields of this block.
 		 *
-		 * @return WP_Post[]
+		 * @return \WP_Post[]
 		 */
-		private function filter_posts_for_cfc_by_ids( &$fields ) {
+		private function filter_posts_by_ids( $fields ) {
 			$post_ids = $fields['posts'] ?? '';
 
 			// If post_ids is empty or is not a comma separated integers string then make post_ids an empty array.
-			if ( empty( $post_ids ) || ! preg_split( '/^\d+(,\d+)*$/', $post_ids ) ) {
+			if ( empty( $post_ids ) || 1 !== preg_match( '/^\d+(,\d+)*$/', $post_ids ) ) {
 				$post_ids = [];
 			} else {
 				$post_ids = explode( ',', $post_ids );
@@ -332,6 +306,11 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 					'suppress_filters' => false,
 				];
 
+				// If cover type is take action pages set post_type to page.
+				if ( isset( $fields['cover_type'] ) && '1' === $fields['cover_type'] ) {
+					$args['post_type'] = 'page';
+				}
+
 				return get_posts( $args );
 			}
 
@@ -343,33 +322,33 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		 *
 		 * @param array $fields  This is the array of fields of this block.
 		 *
-		 * @return WP_Post[]
+		 * @return \WP_Post[]
 		 */
-		private function filter_posts_for_cfc( &$fields ) {
+		private function filter_posts_for_cfc( $fields ) {
 
 			$tags       = $fields['tags'] ?? '';
 			$post_types = $fields['post_types'] ?? '';
 
 			// If post_ids is empty or is not a comma separated integers string then make post_ids an empty array.
-			if ( empty( $post_types ) || ! preg_split( '/^\d+(,\d+)*$/', $post_types ) ) {
+			if ( empty( $post_types ) || 1 !== preg_match( '/^\d+(,\d+)*$/', $post_types ) ) {
 				$post_types = [];
 			} else {
 				$post_types = explode( ',', $post_types );
 			}
 
 			// If any tag is selected convert the value to an array of tag ids.
-			if ( empty( $tags ) || ! preg_split( '/^\d+(,\d+)*$/', $tags ) ) {
+			if ( empty( $tags ) || 1 !== preg_match( '/^\d+(,\d+)*$/', $tags ) ) {
 				$tag_ids = [];
 			} else {
 				$tag_ids = explode( ',', $tags );
 			}
 
 			$query_args = [
-				'post_type'     => 'post',
-				'order'         => 'ASC',
-				'orderby'       => 'date',
-				'no_found_rows' => true,
-				'numberposts'   => self::POSTS_LIMIT,
+				'post_type'      => 'post',
+				'order'          => 'ASC',
+				'orderby'        => 'date',
+				'no_found_rows'  => true,
+				'posts_per_page' => self::POSTS_LIMIT,
 			];
 
 			// Get all posts with the specific tags.
@@ -434,7 +413,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 			$tag_ids = $fields['tags'] ?? '';
 
 			// If tags is empty or is not a comma separated integers string then define tags as empty.
-			if ( empty( $tag_ids ) || ! preg_split( '/^\d+(,\d+)*$/', $tag_ids ) ) {
+			if ( empty( $tag_ids ) || 1 !== preg_match( '/^\d+(,\d+)*$/', $tag_ids ) ) {
 				$tags = [];
 			} else {
 				// Explode comma separated list of tag ids and get an array of \WP_Terms objects.
@@ -477,7 +456,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 			$options  = get_option( 'planet4_options' );
 
 			if ( '' !== $post_ids ) {
-				$actions = $this->filter_posts_for_act_pages_by_ids( $fields );
+				$actions = $this->filter_posts_by_ids( $fields );
 			} else {
 				$actions = $this->filter_posts_for_act_pages( $fields );
 			}
@@ -527,7 +506,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 			$post_ids = $fields['posts'] ?? '';
 
 			if ( '' !== $post_ids ) {
-				$posts = $this->filter_posts_for_cfc_by_ids( $fields );
+				$posts = $this->filter_posts_by_ids( $fields );
 			} else {
 				$posts = $this->filter_posts_for_cfc( $fields );
 			}
