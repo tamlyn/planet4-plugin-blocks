@@ -418,9 +418,13 @@ p4_blocks = {
 
       var view = p4_blocks.find_view(collection, 'read_more_link');
       if ('undefined' !== view) {
-        var res = encodeURI(changed.value);
-        view.model.set('value', res);
-        $("*[id^='shortcode-ui-read_more_link-']").val(res);
+        if ('undefined' !== changed.value) {
+          var url = encodeURI(changed.value);
+          if ('undefined' !== url) {
+            view.model.set('value', url);
+            $("*[id^='shortcode-ui-read_more_link-']").val(url);
+          }
+        }
       }
     },
 
