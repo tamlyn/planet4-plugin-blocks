@@ -16,7 +16,7 @@ abstract class P4_UnitTestCase extends WP_UnitTestCase {
 		// Create a user with editor role.
 		$this->factory->user->create( [
 			'role'       => 'editor',
-			'user_login' => 'p4_editor'
+			'user_login' => 'p4_editor',
 		] );
 
 		// Create p4-page-type terms.
@@ -30,13 +30,13 @@ abstract class P4_UnitTestCase extends WP_UnitTestCase {
 			'taxonomy' => 'p4-page-type',
 			'slug'     => 'publication',
 		] );
-		$term_id = $this->factory->term->create( [
+		$this->factory->term->create( [
 			'name'     => 'Press Release',
 			'taxonomy' => 'p4-page-type',
 			'slug'     => 'press-release',
 		] );
 
-		$term = $this->factory->term->create( [
+		$this->factory->term->create( [
 			'name'     => 'ArcticSunrise',
 			'taxonomy' => 'post_tag',
 			'slug'     => 'arcticsunrise',
@@ -50,15 +50,19 @@ abstract class P4_UnitTestCase extends WP_UnitTestCase {
 	 * @param string $method_name Method name of the object.
 	 * @param array $parameters Parameters array for the method.
 	 *
-	 * @throws \ReflectionException If the class does not exist.
 	 * @return mixed
 	 */
 	protected function invokeMethod( &$object, $method_name, array $parameters = array() ) {
-		$reflection = new \ReflectionClass( get_class( $object ) );
-		$method     = $reflection->getMethod( $method_name );
-		$method->setAccessible( true );
+		try {
+			$reflection = new \ReflectionClass( get_class( $object ) );
+			$method     = $reflection->getMethod( $method_name );
+			$method->setAccessible( true );
 
-		return $method->invokeArgs( $object, $parameters );
+			return $method->invokeArgs( $object, $parameters );
+
+		} catch ( \ReflectionException $e ) {
+			return null;
+		}
 	}
 
 	/**
@@ -68,11 +72,12 @@ abstract class P4_UnitTestCase extends WP_UnitTestCase {
 	 *
 	 * @return int  Term id
 	 */
-	protected function get_custom_term_id($slug) {
-		$term = get_term_by('slug', $slug, 'p4-page-type');
-		if ($term instanceof \WP_Term) {
+	protected function get_custom_term_id( $slug ) {
+		$term = get_term_by( 'slug', $slug, 'p4-page-type' );
+		if ( $term instanceof \WP_Term ) {
 			return $term->term_id;
 		}
+
 		return 0;
 	}
 
@@ -83,11 +88,12 @@ abstract class P4_UnitTestCase extends WP_UnitTestCase {
 	 *
 	 * @return int  Term id
 	 */
-	protected function get_tag_id($slug) {
-		$term = get_term_by('slug', $slug, 'post_tag');
-		if ($term instanceof \WP_Term) {
+	protected function get_tag_id( $slug ) {
+		$term = get_term_by( 'slug', $slug, 'post_tag' );
+		if ( $term instanceof \WP_Term ) {
 			return $term->term_id;
 		}
+
 		return 0;
 	}
 }
