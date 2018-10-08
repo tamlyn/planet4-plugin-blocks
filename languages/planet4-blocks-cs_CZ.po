@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin frontend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 11:24+0000\n"
-"PO-Revision-Date: 2018-10-07 22:31+0000\n"
+"PO-Revision-Date: 2018-10-08 10:06+0000\n"
 "Last-Translator: lseverov <lseverov@greenpeace.org>\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
@@ -65,7 +65,7 @@ msgstr "Planet4 - Blocks"
 
 #. Description of the plugin/theme
 msgid "Creates all the blocks that will be available for usage by Shortcake."
-msgstr ""
+msgstr "Creates all the blocks that will be available for usage by Shortcake."
 
 #. URI of the plugin
 msgid "http://github.com/greenpeace/planet4-plugin-blocks"
