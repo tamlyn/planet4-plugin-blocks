@@ -40,7 +40,7 @@
 									<p class="publication-date">{{ post.post_date|date('F Y') }}</p>
 								{% endif %}
 								{% if ( post.post_excerpt ) %}
-									<p class="d-none d-md-block mb-5">{{ post.post_excerpt|truncate( 30, true )|e('wp_kses_post')|raw }}</p>
+									<p class="d-none d-md-block mb-3">{{ post.post_excerpt|truncate( 30, true )|e('wp_kses_post')|raw }}</p>
 								{% endif %}
 							</div>
 						</div>
@@ -55,16 +55,16 @@
 				or ( posts|length > 3 and posts|length <= 6 and posts_view == 3 )
 				or posts_view == 1 ) %}
 				<div class="row mt-3 load-more-posts-button-div" style="display: none;">
-					<div class="col-md-4 col-lg-3 col-xl-3 mb-5">
-						<button class="btn btn-block btn-medium btn-secondary btn-load-more-posts-click">
+					<div class="col-md-12 col-lg-5 col-xl-5">
+						<button class="btn btn-block btn-secondary btn-load-more-posts-click">
 							{{ __( 'Load More', 'planet4-blocks' ) }}
 						</button>
 					</div>
 				</div>
 			{% else %}
 				<div class="row mt-3 load-more-posts-button-div">
-					<div class="col-md-4 col-lg-3 col-xl-3 mb-5">
-						<button class="btn btn-block btn-medium btn-secondary btn-load-more-posts-click">
+					<div class="col-md-12 col-lg-5 col-xl-5">
+						<button class="btn btn-block btn-secondary btn-load-more-posts-click">
 							{{ __( 'Load More', 'planet4-blocks' ) }}
 						</button>
 					</div>

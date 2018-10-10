@@ -1,0 +1,19 @@
+{% block newcovers %}
+
+	{% if ( covers ) %}
+
+		{% if ( cover_type == "1" ) %}
+			{% include "blocks/covers.twig" %}
+		{% elseif ( cover_type == "2" ) %}
+			{% set vars = {
+				title: fields.title,
+				tags: covers
+			} %}
+			{% include "blocks/campaign_thumbnail.twig" with { fields: vars } %}
+		{% elseif ( cover_type == "3" ) %}
+			{% include "blocks/content_four_column.twig" with { posts: covers, title: fields.title, posts_view: covers_view } %}
+		{% endif %}
+
+	{% endif %}
+
+{% endblock %}

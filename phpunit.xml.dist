@@ -10,7 +10,14 @@
 	<testsuites>
 		<testsuite>
 			<directory prefix="test-" suffix=".php">./tests/unit/</directory>
+			<exclude>./tests/unit/test-newcovers-controller.php</exclude>
 			<exclude>./tests/test-sample.php</exclude>
 		</testsuite>
 	</testsuites>
+
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">classes</directory>
+		</whitelist>
+	</filter>
 </phpunit>
