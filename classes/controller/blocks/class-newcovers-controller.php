@@ -11,7 +11,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 	 */
 	class NewCovers_Controller extends Controller {
 
-		const POSTS_LIMIT = 100;
+		const POSTS_LIMIT = 50;
 
 		/**
 		 * Block name.
@@ -265,7 +265,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 					'orderby'          => 'menu_order',
 					'order'            => 'ASC',
 					'suppress_filters' => false,
-					'numberposts'      => P4BKS_COVERS_NUM,
+					'numberposts'      => self::POSTS_LIMIT,
 				];
 				// If user selected a tag to associate with the Take Action page covers.
 				if ( $tag_ids ) {
@@ -290,11 +290,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 			$post_ids = $fields['posts'] ?? '';
 
 			// If post_ids is empty or is not a comma separated integers string then make post_ids an empty array.
-			if ( empty( $post_ids ) || 1 !== preg_match( '/^\d+(,\d+)*$/', $post_ids ) ) {
-				$post_ids = [];
-			} else {
-				$post_ids = explode( ',', $post_ids );
-			}
+			$post_ids = $this->split_to_integers( $post_ids );
 
 			if ( ! empty( $post_ids ) ) {
 
@@ -304,6 +300,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 					'post_status'      => 'publish',
 					'post__in'         => $post_ids,
 					'suppress_filters' => false,
+					'numberposts'      => self::POSTS_LIMIT,
 				];
 
 				// If cover type is take action pages set post_type to page.
@@ -330,22 +327,13 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 			$post_types = $fields['post_types'] ?? '';
 
 			// If post_ids is empty or is not a comma separated integers string then make post_ids an empty array.
-			if ( empty( $post_types ) || 1 !== preg_match( '/^\d+(,\d+)*$/', $post_types ) ) {
-				$post_types = [];
-			} else {
-				$post_types = explode( ',', $post_types );
-			}
-
 			// If any tag is selected convert the value to an array of tag ids.
-			if ( empty( $tags ) || 1 !== preg_match( '/^\d+(,\d+)*$/', $tags ) ) {
-				$tag_ids = [];
-			} else {
-				$tag_ids = explode( ',', $tags );
-			}
+			$post_types = $this->split_to_integers( $post_types );
+			$tag_ids = $this->split_to_integers( $tags );
 
 			$query_args = [
 				'post_type'      => 'post',
-				'order'          => 'ASC',
+				'order'          => 'DESC',
 				'orderby'        => 'date',
 				'no_found_rows'  => true,
 				'posts_per_page' => self::POSTS_LIMIT,
@@ -544,7 +532,6 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 		 * Requires that the field has been correctly registred and can be found in $this->post_fields
 		 * Supports passing page number and search query string.
 		 *
-		 * @return null
 		 */
 		public function action_wp_ajax_shortcode_ui_post_field() {
 
@@ -575,7 +562,6 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 				if ( 0 !== absint( $act_page_id ) ) {
 					$query_args['post_parent'] = $act_page_id;
 				}
-
 			} else {
 				$query_args = [
 					'post_type' => 'post',
@@ -621,6 +607,22 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 			$response['items_per_page'] = $query->query_vars['posts_per_page'];
 
 			wp_send_json_success( $response );
+
+		}
+
+		/**
+		 * Split a comma separated list of integers.
+		 *
+		 * @param string $string The string to be separated by delimiter.
+		 *
+		 * @return array
+		 */
+		private function split_to_integers( $string ) {
+			if ( empty( $string ) || 1 !== preg_match( '/^\d+(,\d+)*$/', $string ) ) {
+				return [];
+			}
+
+			return explode( ',', $string );
 
 		}
 	}

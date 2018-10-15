@@ -1,13 +1,31 @@
 {% block campaign_thumbnail %}
 	{% if ( fields.tags ) %}
-		<div class="campaign-thumbnail-block">
+
+		{% if ( covers_view is defined ) %}
+			{% if ( covers_view == "0" ) %}
+				{% set covers_view_class = 'show-3-covers' %}
+			{% elseif ( covers_view == "3" ) %}
+				{% set covers_view_class = 'show-6-covers' %}
+			{% else %}
+				{% set covers_view_class = 'show-all-covers' %}
+			{% endif %}
+		{% else %}
+			{% set covers_view_class = '' %}
+		{% endif %}
+
+		<div class="campaign-thumbnail-block {{ covers_view_class }}">
 			<div class="container">
 				{% if ( fields.title ) %}
 					<h2 class="page-section-header">{{ fields.title }}</h2>
 				{% endif %}
-				<div class="row thumbnail-largeview-container">
+
+				{% if ( fields.description ) %}
+					<p class="page-section-description">{{ fields.description }}</p>
+				{% endif %}
+
+				<div class="row thumbnail-largeview-container limit-visibility">
 					{% for tag in fields.tags %}
-						<div class="col-md-4">
+						<div class="col-md-4 p-2 campaign-card-column">
 							<a href="{{ tag.href }}">
 								<div class="thumbnail-large">
 									{% if ( tag.image[0] ) %}
@@ -19,6 +37,19 @@
 						</div>
 					{% endfor %}
 				</div>
+
+				{% if ( covers_view is defined ) %}
+					{% if ( ( fields.tags|length > 3 and covers_view == 0 ) or
+						( fields.tags|length > 6 and covers_view == 3 ) ) %}
+						<div class="row">
+							<div class="col-lg-5 col-md-12 mb-lg-5 load-more-campaigns-button-div">
+								<button class="btn btn-block btn-secondary btn-load-more-campaigns-click">
+									{{ __( 'Load More', 'planet4-blocks' ) }}
+								</button>
+							</div>
+						</div>
+					{% endif %}
+				{% endif %}
 			</div>
 		</div>
 	{% endif %}
