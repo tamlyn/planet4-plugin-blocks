@@ -23,7 +23,7 @@
 					<p class="page-section-description">{{ fields.description|e('wp_kses_post')|raw }}</p>
 				{% endif %}
 
-				<div class="row thumbnail-largeview-container limit-visibility">
+				<div class="row thumbnail-largeview-container mb-2 limit-visibility">
 					{% for tag in fields.tags %}
 						<div class="col-md-4 p-2 campaign-card-column">
 							<a href="{{ tag.href }}">
@@ -42,7 +42,7 @@
 					{% if ( ( fields.tags|length > 3 and covers_view == 0 ) or
 						( fields.tags|length > 6 and covers_view == 3 ) ) %}
 						<div class="row">
-							<div class="col-lg-5 col-md-12 mb-lg-5 load-more-campaigns-button-div">
+							<div class="col-md-12 col-lg-5 col-xl-5 mt-3 load-more-campaigns-button-div">
 								<button class="btn btn-block btn-secondary btn-load-more-campaigns-click">
 									{{ __( 'Load More', 'planet4-blocks' ) }}
 								</button>
