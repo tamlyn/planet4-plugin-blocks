@@ -12,19 +12,19 @@
   justify-content: space-between;
   background-color: transparentize($white, .2);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  margin: 12px 0;
+  margin: 16px 0;
 
   @include medium-and-up {
-    margin: 15px 0;
+    flex-direction: row;
+  }
+
+  @include large-and-up {
+    background-color: transparent;
+    box-shadow: none;
   }
 
   .article-hover {
     text-decoration: underline;
-  }
-
-  .tag-item {
-    color: $blue-80;
-    font-size: 1rem;
   }
 
   &:first-of-type {
@@ -35,30 +35,8 @@
     }
   }
 
-  &:last-of-type {
-    margin-bottom: 10px;
-
-    @include medium-and-up {
-      margin-bottom: 0;
-    }
-  }
-
   a {
     color: inherit;
-  }
-
-  @include medium-and-up {
-    flex-direction: row;
-  }
-
-  @include large-and-up {
-    background-color: transparent;
-    box-shadow: none;
-    margin: 20px 0;
-  }
-
-  @include x-large-and-up {
-    margin: 30px 0;
   }
 }
 
@@ -106,45 +84,6 @@
   @include large-and-up {
     flex-basis: 68%;
     padding: 0;
-  }
-
-  .tags-list {
-    padding-left: 0;
-    font-family: $roboto;
-    margin-bottom: 0;
-
-    .tag-item {
-      list-style-type: none;
-      display: inline-block;
-      font-weight: 300;
-      font-size: 0.875rem;
-      color: $blue;
-
-      a {
-        color: inherit;
-
-        &:hover,
-        &:active {
-          color: inherit;
-          text-decoration: underline;
-        }
-      }
-    }
-
-    .tag-item--main {
-      text-transform: uppercase;
-      font-weight: 500;
-      margin-right: 20px;
-      position: relative;
-
-      &:not(:last-child):after {
-        content: "\2022";
-        pointer-events: none;
-        display: inline-block;
-        position: absolute;
-        right: -15px;
-      }
-    }
   }
 }
 

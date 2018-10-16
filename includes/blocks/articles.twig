@@ -43,18 +43,22 @@
 										</a>
 									</div>
 								{% endif %}
+
 								<div class="article-list-item-body">
 									{% if ( value.tags or value.page_type ) %}
-										<ul class="tags-list article-list-item-tags">
-
+										<div class="article-list-item-tags top-page-tags">
 											{% if ( value.page_type ) %}
-												<li class="tag-item tag-item--main"><a href="{{ value.filter_url }}">{{ value.page_type|e('wp_kses_post')|raw }}</a></li>
+												<a class="tag-item tag-item--main page-type" href="{{ value.filter_url }}">{{ value.page_type|e('wp_kses_post')|raw }}</a>
 											{% endif %}
-											{% for tags_data in value.tags %}
-												<li class="tag-item"><a href="{{ tags_data.href }}">#{{ tags_data.name|e('wp_kses_post')|raw }}</a></li>
-											{% endfor %}
 
-										</ul>
+											{% if (value.tags) %}
+												<div class="tag-wrap tags">
+													{% for tags_data in value.tags %}
+														<a class="tag-item tag" href="{{ tags_data.href }}">#{{ tags_data.name|e('wp_kses_post')|raw }}</a>
+													{% endfor %}
+												</div>
+											{% endif %}
+										</div>
 									{% endif %}
 
 									<header>
@@ -91,13 +95,13 @@
 
 					{% if (  fields.manual_override ) %}
 						{% if ( recent_posts|length > fields.article_count ) %}
-							<div class="col-md-4 col-lg-4 col-xl-3 mr-auto mt-2 mt-md-4 load-more-articles-button-div">
-								<a class="btn btn-small btn-secondary btn-block btn-load-more-articles-click">{{ fields.read_more_text }}</a>
+							<div class="col-md-12 col-lg-5 col-xl-5 mr-auto mt-3 load-more-articles-button-div">
+								<a class="btn btn-secondary btn-block btn-load-more-articles-click">{{ fields.read_more_text }}</a>
 							</div>
 						{% endif %}
 					{% else %}
-						<div class="col-md-4 col-lg-4 col-xl-3 mr-auto mt-2 mt-md-4">
-							<a class="btn btn-small btn-secondary btn-block"
+						<div class="col-md-12 col-lg-5 col-xl-5 mr-auto mt-3">
+							<a class="btn btn-secondary btn-block"
 							   href="{{ fields.read_more_link }}">{{ fields.read_more_text }}</a>
 						</div>
 					{% endif %}

@@ -44,25 +44,6 @@ if ( ! class_exists( 'SubMenu_Controller' ) ) {
 		}
 
 		/**
-		 * Get underscore template from filesystem.
-		 *
-		 * @param string $template Template name.
-		 *
-		 * @return bool|string
-		 */
-		private function get_template( $template ) {
-
-			$template = P4BKS_PLUGIN_DIR . '/admin/templates/' . $template . '.tpl.php';
-			if ( file_exists( $template ) ) {
-				$contents = file_get_contents( $template );
-
-				return false !== $contents ? $contents : '';
-			}
-
-			return '';
-		}
-
-		/**
 		 * Load underscore templates to footer.
 		 */
 		public function print_admin_footer_scripts() {

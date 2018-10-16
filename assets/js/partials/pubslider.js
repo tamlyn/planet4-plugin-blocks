@@ -35,7 +35,7 @@ $(document).ready(function() {
       slickify('.publications-slider');
     }
     if (pubSlidesNum < 4 && $(window).width() > 768) {
-      $('.post-column').removeClass('col-lg-3').removeClass('col-md-4').addClass('col-md');
+      $('.post-column', $(this)).removeClass('col-lg-3').removeClass('col-md-4').addClass('col-md');
     }
   });
 });

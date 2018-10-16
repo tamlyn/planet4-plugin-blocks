@@ -6,50 +6,31 @@
   left: 0;
   width: 100%;
   padding: 10px 0;
-  background: $cookie-bkg url("images/cookie-right-gradient.png") no-repeat right;
-  max-height: 50px;
-
-  @include mobile-only {
-    max-height: 120px;
-    background: $cookie-bkg url("images/cookie-right-gradient-sm.png") no-repeat right;
-  }
+  max-height: 120px;
+  background: $cookie-bkg url("images/cookie-right-gradient-sm.png") no-repeat right;
 
   @include medium-and-up {
-    max-height: 56px;
-    background: $cookie-bkg url("images/cookie-right-gradient-md.png") no-repeat right;
-  }
-
-  @include large-and-up {
-    max-height: 50px;
-    background: $cookie-bkg url("images/cookie-right-gradient.png") no-repeat right;
+    max-height: 64px;
   }
 
   p {
-    font-size: 1.0625rem;
+    font-size: 0.875rem;
+    margin-bottom: 10px;
     font-weight: 500;
     color: $cookie-blue;
-    margin: 0;
-    text-align: center;
+    text-align: left;
     font-family: $roboto;
-    line-height: 30px;
-
-    @include mobile-only {
-      font-size: 0.875rem;
-      text-align: left;
-      line-height: 16.8px;
-      margin-bottom: 10px;
-    }
+    line-height: 18px;
 
     @include medium-and-up {
       font-size: 0.9375rem;
-      text-align: left;
-      line-height: 18px;
+      margin-bottom: 0;
+      display: inline-block;
+      vertical-align: middle;
     }
 
     @include large-and-up {
-      font-size: 0.875rem;
-      text-align: center;
-      line-height: 30px;
+      font-size: 1.0625rem;
     }
 
     @include x-large-and-up {
@@ -58,29 +39,11 @@
   }
 
   a {
-    font-size: 1.0625rem;
-    font-weight: bold;
     color: $cookie-blue;
-    text-decoration: none;
-
-    @include mobile-only {
-      font-size: 0.875rem;
-    }
-
-    @include medium-and-up {
-      font-size: 0.9375rem;
-    }
-
-    @include large-and-up {
-      font-size: 0.875rem;
-    }
-
-    @include x-large-and-up {
-      font-size: 1.0625rem;
-    }
+    text-decoration: underline;
 
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 

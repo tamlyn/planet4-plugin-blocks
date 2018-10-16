@@ -74,4 +74,18 @@ $(document).ready(function () {
       $(this).closest('.load-more-articles-button-div').hide('fast');
     }
   });
+
+  // Add click event handler for load more button in Campaign thumbnail blocks.
+  $('.btn-load-more-campaigns-click').off('click').on('click', function () {
+    var $row = $('.campaign-card-column:hidden', $(this).closest('.container'));
+    var covers_per_row = 3;
+
+    $(this).blur();
+    if ($row.length > 0) {
+      $row.slice( 0, covers_per_row ).show('slow');
+    }
+    if ($row.length <= covers_per_row) {
+      $(this).closest('.load-more-campaigns-button-div').hide('fast');
+    }
+  });
 });
