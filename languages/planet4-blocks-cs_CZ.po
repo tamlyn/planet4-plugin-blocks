@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin frontend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 11:24+0000\n"
-"PO-Revision-Date: 2018-10-15 16:14+0000\n"
+"PO-Revision-Date: 2018-10-08 10:06+0000\n"
 "Last-Translator: lseverov <lseverov@greenpeace.org>\n"
 "Language-Team: Czech\n"
 "Language: cs_CZ\n"
@@ -52,7 +52,7 @@ msgstr "PŘEČÍST VŠECHNY NOVINKY"
 
 #: includes/blocks/articles.twig:61
 msgid "by"
-msgstr "Napsal/a"
+msgstr ""
 
 #: includes/blocks/content_four_column.twig:60
 #: includes/blocks/content_four_column.twig:68
