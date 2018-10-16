@@ -40,13 +40,12 @@
 
       &:before {
         display: inline-block;
-        font-family: "Font Awesome 5 Free";
+        font: normal normal normal 14px/1 ForkAwesome;
         font-weight: 900;
         content: "\f105";
         color: $menu-blue;
         margin-right: 5px;
         font-size: 0.8em;
-        vertical-align: text-bottom;
       }
     }
   }
