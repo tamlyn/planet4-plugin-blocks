@@ -47,54 +47,53 @@ if ( ! class_exists( 'Newcovers_Controller_Test' ) ) {
 		}
 
 		/**
-		 * Test that filter_posts_for_act_pages_by_ids returns take action pages provided by post ids.
+		 *  Test that filter_posts_for_act_pages_by_ids returns take action pages provided by post ids.
+		 *
+		 * @param integer $no_posts_to_create    Number of posts that would be created.
+		 * @param integer $no_posts_to_request      Number of posts that would be requested.
+		 * @param integer $expected                 Expected number of posts.
 		 *
 		 * @covers ::filter_posts_by_ids
+		 * @dataProvider posts_provider
 		 */
-		public function test_filter_act_pages_by_ids() {
+		public function test_filter_act_pages_by_ids( $no_posts_to_create, $no_posts_to_request, $expected ) {
 			$dummy_posts      = $this->get_dummy_posts();
-			$action_pages_ids = $this->factory->post->create_many( 5, $dummy_posts['take_action_pages'] );
+			$action_pages_ids = $this->factory->post->create_many( $no_posts_to_create, $dummy_posts['take_action_pages'] );
 
+			$request_ids = array_slice( $action_pages_ids, 0, $no_posts_to_request );
 			// Passing post ids.
 			$fields = [
 				'cover_type' => '1',
-				'posts' => implode( ',', $action_pages_ids ),
+				'posts'      => implode( ',', $request_ids ),
 			];
 			$posts  = $this->invokeMethod( $this->block, 'filter_posts_by_ids', [ &$fields ] );
-			$this->assertEquals( 5, count( $posts ) );
+			$this->assertEquals( $expected, count( $posts ) );
 			$this->assertContainsOnlyInstancesOf( \WP_Post::class, $posts );
-
-			// Not passing any post ids, should return empty array.
-			$fields = [
-				'posts' => '',
-			];
-			$posts  = $this->invokeMethod( $this->block, 'filter_posts_by_ids', [ &$fields ] );
-			$this->assertEquals( 0, count( $posts ) );
 		}
 
 		/**
 		 * Test filtering posts for cfc block view using post ids.
 		 *
+		 * @param integer $no_posts_to_create    Number of posts that would be created.
+		 * @param integer $no_posts_to_request      Number of posts that would be requested.
+		 * @param integer $expected                 Expected number of posts.
+		 *
 		 * @covers ::filter_posts_by_ids
+		 * @dataProvider posts_provider
 		 */
-		public function test_filter_posts_by_ids() {
+		public function test_filter_posts_by_ids( $no_posts_to_create, $no_posts_to_request, $expected ) {
 			$dummy_posts      = $this->get_dummy_posts();
-			$action_pages_ids = $this->factory->post->create_many( 5, $dummy_posts['story'] );
+			$action_pages_ids = $this->factory->post->create_many( $no_posts_to_create, $dummy_posts['story'] );
+			$request_ids      = array_slice( $action_pages_ids, 0, $no_posts_to_request );
 
 			// Passing post ids.
 			$fields = [
-				'posts' => implode( ',', $action_pages_ids ),
+				'posts' => implode( ',', $request_ids ),
 			];
-			$posts  = $this->invokeMethod( $this->block, 'filter_posts_by_ids', [ &$fields ] );
-			$this->assertEquals( 5, count( $posts ) );
-			$this->assertContainsOnlyInstancesOf( \WP_Post::class, $posts );
 
-			// Not passing any post ids, should return empty array.
-			$fields = [
-				'posts' => '',
-			];
-			$posts  = $this->invokeMethod( $this->block, 'filter_posts_by_ids', [ &$fields ] );
-			$this->assertEquals( 0, count( $posts ) );
+			$posts = $this->invokeMethod( $this->block, 'filter_posts_by_ids', [ &$fields ] );
+			$this->assertEquals( $expected, count( $posts ) );
+			$this->assertContainsOnlyInstancesOf( \WP_Post::class, $posts );
 		}
 
 		/**
@@ -147,6 +146,23 @@ if ( ! class_exists( 'Newcovers_Controller_Test' ) ) {
 			];
 			$posts  = $this->invokeMethod( $this->block, 'filter_posts_for_cfc', [ &$fields ] );
 			$this->assertEquals( 0, count( $posts ) );
+		}
+
+		/**
+		 * Provide test cases for posts filtering methods.
+		 * Each row contains:
+		 * Number of posts that will be created, number of posts we request, expected number of posts returned.
+		 *
+		 * @return array
+		 */
+		public function posts_provider() {
+			return [
+				// Number of posts that will be created, number of posts we request, expected number of posts returned.
+				[ 5, 0, 0 ],
+				[ 5, 5, 5 ],
+				[ 15, 10, 10 ],
+				[ 60, 60, \P4BKS\Controllers\Blocks\NewCovers_Controller::POSTS_LIMIT ], // should not return more than the max limit.
+			];
 		}
 
 		/**
