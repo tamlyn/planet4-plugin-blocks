@@ -108,6 +108,7 @@ function plugin_blocks_report() {
 		'happy_point',
 		'media_block',
 		'media_video',
+		'newcovers',
 		'split_two_columns',
 		'static_four_column',
 		'subheader',
@@ -127,16 +128,18 @@ function plugin_blocks_report() {
 				';
 
 		$results = $wpdb->get_results( $sql );
-		//print_r($results);
+
+		//Confusion between old and new covers.
+		if ( 'covers' == $block ) {
+			$block = 'Take Action Covers - Old block';
+		}
+
 		echo '<hr>';
 		echo '<h2>' . $block . '</h2>';
 
 		foreach ( $results as $result ) {
 			echo '<a href="post.php?post=' . $result->ID . '&action=edit" >' . $result->post_title . '</a>';
 			echo '<br>';
-
 		}
-
 	}
-
 }
