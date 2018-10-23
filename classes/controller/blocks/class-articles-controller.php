@@ -294,15 +294,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					}
 
 					$recent['page_type'] = $page_type;
-					$recent['permalink'] = get_permalink( $recent['ID'] );
+					$recent['page_type_id'] = $page_type_id;
 
-					if ( isset( $page_type_id ) ) {
-						$recent['filter_url'] = add_query_arg( [
-							's'                            => ' ',
-							'orderby'                      => 'relevant',
-							'f[ptype][' . $page_type . ']' => $page_type_id,
-						], get_home_url() );
-					}
+					$recent['permalink'] = get_permalink( $recent['ID'] );
 
 					$recent_posts[] = $recent;
 				}
