@@ -1,4 +1,7 @@
 <?php
+/**
+ * The Articles block Controller.
+ */
 
 namespace P4BKS\Controllers\Blocks;
 
