@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Planet4 blocks plugin backend\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-07 10:10+0000\n"
-"PO-Revision-Date: 2018-09-25 08:47+0000\n"
+"PO-Revision-Date: 2018-10-24 16:01+0000\n"
 "Last-Translator: bdobos <bdobos@greenpeace.org>\n"
 "Language-Team: Hungarian\n"
 "Language: hu_HU\n"
@@ -211,7 +211,7 @@ msgstr "Válaszd ki a harmadik képet"
 
 #: classes/controller/blocks/class-contentthreecolumn-controller.php:70
 msgid "Three Columns"
-msgstr "Három oszlop"
+msgstr "Háromosztatú kép"
 
 #: classes/controller/blocks/class-covers-controllers.php:44
 msgid "Select Tags"
@@ -271,7 +271,7 @@ msgstr "Cselekvésre ösztönző borítók"
 
 #: classes/controller/blocks/class-campaignthumbnail-controller.php:36
 msgid "Campaign Thumbnail"
-msgstr "Kampány bélyegképe"
+msgstr "Kampány-bélyegképek"
 
 #: classes/controller/blocks/class-tasks-controller.php:30
 msgid "Tasks Title"
@@ -526,7 +526,7 @@ msgstr "Válassz fókuszpontot a kampány képéhez"
 
 #: classes/controller/blocks/class-splittwocolumns-controller.php:200
 msgid "Split Two Columns"
-msgstr "Két oszlopra bontás"
+msgstr "Kétosztatú borító (ügy / kampány)"
 
 #: classes/controller/blocks/class-takeactionboxout-controller.php:57
 msgid "Select a Take Action Page"
@@ -725,7 +725,7 @@ msgstr "Add meg a(z) %s kép hivatkozás URL-ét"
 #. A block that contains 4 different columns each one with title and description.
 #: classes/controller/blocks/class-carouselheader-controller.php:117
 msgid "Carousel Header"
-msgstr "Lapozó főcíme"
+msgstr "Főcím lapozó"
 
 #: classes/controller/blocks/class-happypoint-controller.php:24
 msgid "Background"
