@@ -320,7 +320,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		private function filter_posts_by_ids( &$fields ) {
 
-			$fields['read_more_link'] = $fields['read_more_link'] ?? get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
+			$fields['read_more_link'] = $fields['read_more_link'] ?? rtrim( get_home_url(), '/' ) . '/?s=&orderby=post_date&f[ctype][Post]=3';
 			$post_ids                 = $fields['posts'] ?? '';
 
 			// If post_ids is empty or is not a comma separated integers string then make post_ids an empty array.
@@ -355,7 +355,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		private function filter_posts_by_page_types( &$fields ) {
 
-			$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
+			$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : rtrim( get_home_url(), '/' ) . '/?s=&orderby=post_date&f[ctype][Post]=3';
 
 			$exclude_post_id   = (int) ( $fields['exclude_post_id'] ?? '' );
 			$ignore_categories = $fields['ignore_categories'] ?? 'false';
@@ -461,7 +461,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		private function filter_posts_by_page_types_or_tags( &$fields ) {
 
-			$read_more_link    = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
+			$read_more_link    = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : rtrim( get_home_url(), '/' ) . '/?s=&orderby=post_date&f[ctype][Post]=3';
 			$ignore_categories = $fields['ignore_categories'] ?? 'false';
 			$options           = get_option( 'planet4_options' );
 
@@ -591,7 +591,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$tag_id                   = $fields['tags'] ?? '';
 			$tag                      = get_tag( $tag_id );
 			$tag_filter               = $tag instanceof \WP_Term ? '&f[tag][' . $tag->name . ']=' . $tag_id : '';
-			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
+			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : rtrim( get_home_url(), '/' ) . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
 			$fields['read_more_link'] = $read_more_link;
 
 			if ( $tag instanceof \WP_Term ) {
@@ -646,7 +646,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				}
 			}
 
-			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $read_more_filter;
+			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : rtrim( get_home_url(), '/' ) . '/?s=&orderby=post_date&f[ctype][Post]=3' . $read_more_filter;
 			$fields['read_more_link'] = $read_more_link;
 
 			return wp_get_recent_posts( $args );
