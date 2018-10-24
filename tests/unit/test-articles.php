@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * The PHP unit test of article block.
+ */
+
 require_once __DIR__ . '/../p4-unittestcase.php';
 
 use P4BKS\Controllers\Blocks\Articles_Controller as Articles;
@@ -18,7 +22,11 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 		const PUBLICATION_COUNT   = 1;
 		const STORY_COUNT         = 4;
 
-		/** @var $block Articles */
+		/**
+		 * The block object.
+		 *
+		 * @var $block Articles
+		 */
 		protected $block;
 
 		/**
@@ -48,11 +56,11 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 				}
 			}
 
-			$fields   = [
-				'article_count' => self::PRESS_RELEASE_COUNT,
+			$fields = [
+				'article_count'              => self::PRESS_RELEASE_COUNT,
 				'p4_page_type_press-release' => true,
 			];
-			$data = $this->block->prepare_data( $fields );
+			$data   = $this->block->prepare_data( $fields );
 
 			try {
 				$this->assertEquals( self::PRESS_RELEASE_COUNT, count( $data['recent_posts'] ) );
@@ -81,10 +89,10 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 			}
 
 			$fields = [
-				'article_count' => self::PUBLICATION_COUNT,
+				'article_count'            => self::PUBLICATION_COUNT,
 				'p4_page_type_publication' => true,
 			];
-			$data = $this->block->prepare_data( $fields );
+			$data   = $this->block->prepare_data( $fields );
 
 			try {
 				$this->assertEquals( self::PUBLICATION_COUNT, count( $data['recent_posts'] ) );
@@ -113,10 +121,10 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 			}
 
 			$fields = [
-				'article_count' => self::STORY_COUNT,
+				'article_count'      => self::STORY_COUNT,
 				'p4_page_type_story' => true,
 			];
-			$data = $this->block->prepare_data( $fields );
+			$data   = $this->block->prepare_data( $fields );
 
 			try {
 				$this->assertEquals( self::STORY_COUNT, count( $data['recent_posts'] ) );
@@ -134,17 +142,17 @@ if ( ! class_exists( 'P4_ArticlesTest' ) ) {
 			return [
 				'press-release' => [
 					'post_author' => 1,
-					'post_title' => 'this is a press release',
+					'post_title'  => 'this is a press release',
 					'post_status' => 'publish',
 				],
-				'publication' => [
+				'publication'   => [
 					'post_author' => 1,
-					'post_title' => 'this is a publication',
+					'post_title'  => 'this is a publication',
 					'post_status' => 'publish',
 				],
-				'story' => [
+				'story'         => [
 					'post_author' => 1,
-					'post_title' => 'this is a story',
+					'post_title'  => 'this is a story',
 					'post_status' => 'publish',
 				],
 			];
