@@ -48,7 +48,7 @@
 									{% if ( value.tags or value.page_type ) %}
 										<div class="article-list-item-tags top-page-tags">
 											{% if ( value.page_type ) %}
-												<a class="tag-item tag-item--main page-type" href="{{ value.filter_url }}">{{ value.page_type|e('wp_kses_post')|raw }}</a>
+												<a class="tag-item tag-item--main page-type" href="{{ fn('get_term_link', value.page_type_id) }}">{{ value.page_type|e('wp_kses_post')|raw }}</a>
 											{% endif %}
 
 											{% if (value.tags) %}
