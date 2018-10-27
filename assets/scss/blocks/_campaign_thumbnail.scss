@@ -14,14 +14,6 @@
     margin-bottom: 0;
   }
 
-  h2 {
-    padding-left: 15px;
-
-    @include medium-and-up {
-      padding-left: 0;
-    }
-  }
-
   .container {
     padding-left: 0;
     padding-right: 0;
@@ -36,6 +28,10 @@
     @include medium-and-up {
       margin-left: -7.5px;
       margin-right: -7.5px;
+    }
+
+    .campaign-card-column {
+      padding: 8px inherit;
     }
 
     .thumbnail-large {
