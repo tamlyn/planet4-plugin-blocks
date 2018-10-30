@@ -1,10 +1,14 @@
-# Greenpeace Planet 4
+# Greenpeace Planet4 Blocks Plugin
+
+![Planet4](./planet4.png)
+
+## Introduction
 
 This WordPress plugin provides the necessary blocks to be used with Shortcake UI plugin.
 
 **How to develop a new block you ask?**
 
-1. Create a new controller class that extends Controller inside directory _classes/controller/blocks_. The class name should follow naming convention, for example **Blockname**_Controller and its file name should be class-**blockname**-controller.php. 
+1. Create a new controller class that extends Controller inside directory _classes/controller/blocks_. The class name should follow naming convention, for example **Blockname**_Controller and its file name should be class-**blockname**-controller.php.
 
 2. Implement its parent's class two abstract methods. In method **prepare_fields()** you need to define the blocks fields and in method **prepare_data()** you need to prepare the data which will be used for rendering.
 
@@ -14,3 +18,7 @@ you need to set the BLOCK_NAME constant as **'blockname'** It also works with ht
 4. Add your new class name to the array that the Loader function takes as an argument in the plugin's main file.
 
 5. Finally, before committing do **composer update --no-dev** and **composer dump-autoload --optimize** in order to add your new class to composer's autoload.
+
+## Contribute
+
+Please read the [Contribution Guidelines](https://planet4.greenpeace.org/handbook/dev-contribute-to-planet4/) for Planet4.

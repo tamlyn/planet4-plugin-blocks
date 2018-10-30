@@ -1,4 +1,7 @@
 <?php
+/**
+ * The Articles block Controller.
+ */
 
 namespace P4BKS\Controllers\Blocks;
 
@@ -11,7 +14,11 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 	 */
 	class Articles_Controller extends Controller {
 
-		/** @const string BLOCK_NAME */
+		/**
+		 * The block name constant.
+		 *
+		 * @const string BLOCK_NAME
+		 */
 		const BLOCK_NAME = 'articles';
 
 
@@ -186,7 +193,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		public function prepare_data( $fields, $content = '', $shortcode_tag = 'shortcake_' . self::BLOCK_NAME ) : array {
 			// Read more button links to search results if no link is specified.
-			$tag_id            = $fields['tags'] ?? '';
+			$tag_id = $fields['tags'] ?? '';
 
 			// Article block default text setting.
 			$options              = get_option( 'planet4_options' );
@@ -200,7 +207,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$fields['article_count']        = $fields['article_count'] ?? $article_count;
 			$fields['articles_description'] = $fields['articles_description'] ?? '';
 			$fields['manual_override']      = false; // Define if specific posts where set in backend.
-
 
 			// Filter p4_page_type keys from fields attributes array.
 			$post_types_temp = $this->filter_post_types( $fields );
@@ -223,7 +229,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 						( isset( $fields['tags'] ) && '' !== $fields['tags'] ) ) {
 				$all_posts = $this->filter_posts_by_page_types_or_tags( $fields );
 			} elseif ( isset( $fields['posts'] ) && '' !== $fields['posts'] ) {
-				$all_posts = $this->filter_posts_by_ids( $fields );
+				$all_posts                 = $this->filter_posts_by_ids( $fields );
 				$fields['manual_override'] = true;
 			} else {
 				$all_posts = $this->filter_posts_by_pages_tags( $fields );
@@ -294,15 +300,9 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 					}
 
 					$recent['page_type'] = $page_type;
-					$recent['permalink'] = get_permalink( $recent['ID'] );
+					$recent['page_type_id'] = $page_type_id;
 
-					if ( isset( $page_type_id ) ) {
-						$recent['filter_url'] = add_query_arg( [
-							's'                            => ' ',
-							'orderby'                      => 'relevant',
-							'f[ptype][' . $page_type . ']' => $page_type_id,
-						], get_home_url() );
-					}
+					$recent['permalink'] = get_permalink( $recent['ID'] );
 
 					$recent_posts[] = $recent;
 				}
@@ -320,7 +320,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		private function filter_posts_by_ids( &$fields ) {
 
-			$fields['read_more_link'] = $fields['read_more_link'] ?? get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
+			$fields['read_more_link'] = $fields['read_more_link'] ?? rtrim( get_home_url(), '/' ) . '/?s=&orderby=post_date&f[ctype][Post]=3';
 			$post_ids                 = $fields['posts'] ?? '';
 
 			// If post_ids is empty or is not a comma separated integers string then make post_ids an empty array.
@@ -355,7 +355,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		private function filter_posts_by_page_types( &$fields ) {
 
-			$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
+			$read_more_link = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : rtrim( get_home_url(), '/' ) . '/?s=&orderby=post_date&f[ctype][Post]=3';
 
 			$exclude_post_id   = (int) ( $fields['exclude_post_id'] ?? '' );
 			$ignore_categories = $fields['ignore_categories'] ?? 'false';
@@ -391,7 +391,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				// We cannot filter search for more than one pagetype, so use the last one.
 				$read_more_post_type = end( $post_types );
 				$page_type           = get_term_by( 'slug', wp_unslash( $read_more_post_type ), 'p4-page-type' );
-				$read_more_filter    .= $page_type instanceof \WP_Term ? '&f[ptype][' . $page_type->slug . ']=' . $page_type->term_id : '';
+				$read_more_filter   .= $page_type instanceof \WP_Term ? '&f[ptype][' . $page_type->slug . ']=' . $page_type->term_id : '';
 			}
 
 			if ( '' === $read_more_filter ) {
@@ -405,7 +405,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			$read_more_link           = $fields['read_more_link'] ?? $read_more_link . $read_more_filter;
 			$fields['read_more_link'] = $read_more_link;
-
 
 			// Get all posts with arguments.
 			$args = [
@@ -461,7 +460,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 */
 		private function filter_posts_by_page_types_or_tags( &$fields ) {
 
-			$read_more_link    = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3';
+			$read_more_link    = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : rtrim( get_home_url(), '/' ) . '/?s=&orderby=post_date&f[ctype][Post]=3';
 			$ignore_categories = $fields['ignore_categories'] ?? 'false';
 			$options           = get_option( 'planet4_options' );
 
@@ -471,7 +470,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			foreach ( $post_categories as $category ) {
 				$category_id_array[] = $category->term_id;
 			}
-
 
 			// If any p4_page_type was selected extract the term's slug to be used in the wp query below.
 			// post_types attribute filtering.
@@ -501,7 +499,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				// Get page/post tags.
 				$tags = get_the_tags();
 			}
-
 
 			// On other than tag page, read more link should lead to search page-preselected with current page categories/tags.
 			$read_more_filter = '';
@@ -536,7 +533,6 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 
 			$read_more_link           = $fields['read_more_link'] ?? $read_more_link . $read_more_filter;
 			$fields['read_more_link'] = $read_more_link;
-
 
 			// Get all posts with arguments.
 			$args = [
@@ -591,7 +587,7 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 			$tag_id                   = $fields['tags'] ?? '';
 			$tag                      = get_tag( $tag_id );
 			$tag_filter               = $tag instanceof \WP_Term ? '&f[tag][' . $tag->name . ']=' . $tag_id : '';
-			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
+			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : rtrim( get_home_url(), '/' ) . '/?s=&orderby=post_date&f[ctype][Post]=3' . $tag_filter;
 			$fields['read_more_link'] = $read_more_link;
 
 			if ( $tag instanceof \WP_Term ) {
@@ -639,14 +635,14 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 				if ( $post_tags ) {
 					$tag_id_array = [];
 					foreach ( $post_tags as $tag ) {
-						$tag_id_array[]   = $tag->term_id;
+						$tag_id_array[]    = $tag->term_id;
 						$read_more_filter .= '&f[tag][' . $tag->name . ']=' . $tag->term_id;
 					}
 					$args['tag__in'] = $tag_id_array;
 				}
 			}
 
-			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : get_home_url() . '/?s=&orderby=post_date&f[ctype][Post]=3' . $read_more_filter;
+			$read_more_link           = ( ! empty( $fields['read_more_link'] ) ) ? $fields['read_more_link'] : rtrim( get_home_url(), '/' ) . '/?s=&orderby=post_date&f[ctype][Post]=3' . $read_more_filter;
 			$fields['read_more_link'] = $read_more_link;
 
 			return wp_get_recent_posts( $args );
