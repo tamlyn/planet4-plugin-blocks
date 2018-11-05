@@ -264,9 +264,7 @@ if ( ! class_exists( 'Controller' ) ) {
 
 			$template = P4BKS_PLUGIN_DIR . '/admin/templates/' . $template . '.tpl.php';
 			if ( file_exists( $template ) ) {
-				global $wp_filesystem;
-
-				$contents = $wp_filesystem->get_contents( $template );
+				$contents = file_get_contents( $template );
 
 				return false !== $contents ? $contents : '';
 			}
