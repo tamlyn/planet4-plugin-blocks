@@ -264,6 +264,7 @@ if ( ! class_exists( 'Controller' ) ) {
 
 			$template = P4BKS_PLUGIN_DIR . '/admin/templates/' . $template . '.tpl.php';
 			if ( file_exists( $template ) ) {
+				// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 				$contents = file_get_contents( $template );
 
 				return false !== $contents ? $contents : '';
