@@ -59,6 +59,8 @@
       min-height: 184px;
       position: relative;
       overflow: hidden;
+      max-width: 100%;
+      margin: auto;
 
       @include medium-and-up {
         min-height: 330px;
@@ -79,6 +81,7 @@
         height: 184px;
         position: relative;
         left: -35%;
+        max-width: inherit;
 
         @include medium-and-up {
           height: 330px;
