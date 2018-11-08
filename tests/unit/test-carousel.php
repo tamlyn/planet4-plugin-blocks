@@ -48,7 +48,7 @@ if ( ! class_exists( 'P4_CarouselTest' ) ) {
 			$data   = $this->block->prepare_data( $fields );
 
 			try {
-				$this->assertEquals( self::ATTACHMENTS_COUNT, count( $data['images'] ) );
+				$this->assertEquals( self::ATTACHMENTS_COUNT, count( (array) $data['images'] ) );
 			} catch ( \Exception $e ) {
 				$this->fail( '->Did not find as many Attachments as expected.' );
 			}
