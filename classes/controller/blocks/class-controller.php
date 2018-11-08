@@ -108,7 +108,6 @@ if ( ! class_exists( 'Controller' ) ) {
 				wp_doing_ajax()
 				&& is_user_logged_in()
 				&& wp_get_current_user()->has_cap( 'edit_posts' )
-				&& wp_verify_nonce( $_REQUEST['nonce'] )
 				&& isset( $_REQUEST['action'] )
 				&& 'bulk_do_shortcode' === $_REQUEST['action']
 			) {
