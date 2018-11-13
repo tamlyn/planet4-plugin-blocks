@@ -46,6 +46,12 @@
     height: 190px;
     object-fit: cover;
     object-position: 50% 50%;
+    margin-right: 16px;
+
+    html[dir="rtl"] & {
+      margin-right: 0;
+      margin-left: 16px;
+    }
 
     @include small-and-up {
       height: 310px;
@@ -104,19 +110,16 @@
 }
 
 .article-list-item-meta {
+  color: $grey-60;
   font-family: $roboto;
   font-style: italic;
   font-size: 0.875rem;
   font-weight: 300;
-  color: $grey-60;
   margin: 0;
 
   @include large-and-up {
-    font-size: 0.875rem;
-  }
-
-  @include x-large-and-up {
     font-size: 0.9375rem;
+    width: 80%;
   }
 }
 
@@ -124,19 +127,20 @@
   &:after {
     content: "\2022";
     display: inline-block;
-    padding-left: 5px;
+    padding: 0 3px 0 5px;
   }
 }
 
 .article-list-item-content {
   display: none;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 10px 0 0;
+  width: 80%;
 
   @include large-and-up {
     display: block;
-    font-weight: 300;
-    line-height: 1.6;
-    margin: 10px 0 0;
-    width: 80%;
   }
 
   @include x-large-and-up {

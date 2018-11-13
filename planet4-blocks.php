@@ -3,7 +3,7 @@
  * Plugin Name: Planet4 - Blocks
  * Description: Creates all the blocks that will be available for usage by Shortcake.
  * Plugin URI: http://github.com/greenpeace/planet4-plugin-blocks
- * Version: 1.22.1
+ * Version: 1.23
  * Php Version: 7.0
  *
  * Author: Greenpeace International
@@ -101,17 +101,14 @@ P4BKS\Loader::get_instance(
 		'P4BKS\Controllers\Blocks\ContentFourColumn_Controller',
 		'P4BKS\Controllers\Blocks\StaticFourColumn_Controller',
 		'P4BKS\Controllers\Blocks\TwoColumn_Controller',
-		// 'P4BKS\Controllers\Blocks\CarouselSplit_Controller',
 		'P4BKS\Controllers\Blocks\Tasks_Controller',
 		'P4BKS\Controllers\Blocks\HappyPoint_Controller',
-		'P4BKS\Controllers\Blocks\MediaBlock_Controller',
 		'P4BKS\Controllers\Blocks\Subheader_Controller',
 		'P4BKS\Controllers\Blocks\SplitTwoColumns_Controller',
 		'P4BKS\Controllers\Blocks\MediaVideo_Controller',
 		'P4BKS\Controllers\Blocks\CarouselHeader_Controller',
 		'P4BKS\Controllers\Blocks\Covers_Controller',
 		'P4BKS\Controllers\Blocks\NewCovers_Controller',
-		// 'P4BKS\Controllers\Menu\Settings_Controller',
 		'P4BKS\Controllers\Blocks\Articles_Controller',
 		'P4BKS\Controllers\Blocks\Carousel_Controller',
 		'P4BKS\Controllers\Blocks\ContentThreeColumn_Controller',
@@ -154,7 +151,6 @@ function plugin_blocks_report() {
 		'cookies',
 		'covers',
 		'happy_point',
-		'media_block',
 		'media_video',
 		'newcovers',
 		'split_two_columns',
