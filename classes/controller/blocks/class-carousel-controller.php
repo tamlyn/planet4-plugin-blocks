@@ -121,6 +121,7 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 			$images_data                  = [];
 
 			$images_dimensions = [];
+
 			foreach ( $explode_multiple_image_array as $image_id ) {
 
 				$image_data_array            = wp_get_attachment_image_src( $image_id, 'retina-large' );
@@ -139,7 +140,7 @@ if ( ! class_exists( 'Carousel_Controller' ) ) {
 
 				$images_data['caption'] = wp_get_attachment_caption( $image_id );
 
-				if ( count( $image_data_array ) >= 3 ) {
+				if ( count( (array) $image_data_array ) >= 3 ) {
 					$images_dimensions[] = $image_data_array[1];
 					$images_dimensions[] = $image_data_array[2];
 				}
