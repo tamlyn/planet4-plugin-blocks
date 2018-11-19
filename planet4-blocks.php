@@ -136,34 +136,30 @@ function plugin_blocks_report_view() {
 }
 
 /**
+ * Filters array elements on being a shortcake shortcode
+ *
+ * @param $shortcode
+ * @return bool
+ */
+function is_shortcake( $shortcode ) {
+	$found = strpos( $shortcode, 'shortcake' );
+	if ( false !== $found ) {
+		return true;
+	}
+}
+
+/**
  * Finds blocks usage in pages/posts.
  */
 function plugin_blocks_report() {
-	global $wpdb;
-	$blocks = [
-		'articles',
-		'campaign_thumbnail',
-		'carousel',
-		'carousel_header',
-		'carousel_split',
-		'content_four_column',
-		'content_three_column',
-		'cookies',
-		'covers',
-		'happy_point',
-		'media_video',
-		'newcovers',
-		'split_two_columns',
-		'static_four_column',
-		'subheader',
-		'submenu',
-		'take_action_boxout',
-		'tasks',
-		'two_columns',
-	];
+	global $wpdb, $shortcode_tags;
+	
+	//	Array filtering on shortcake shortcodes
+	$blocks = array_filter( array_keys( $shortcode_tags ), 'is_shortcake' );
 
 	// phpcs:disable
 	foreach ( $blocks as $block ) {
+		$block = substr($block, 10);
 		$sql = 'SELECT ID, post_title
 				FROM `wp_posts` 
 				WHERE post_status = \'publish\' 
