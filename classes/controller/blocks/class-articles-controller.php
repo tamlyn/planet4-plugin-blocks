@@ -241,7 +241,7 @@ For good user experience, please include at least three articles so that spacing
 						( isset( $fields['tags'] ) && '' !== $fields['tags'] ) ) {
 				$args = $this->filter_posts_by_page_types_or_tags( $fields );
 			} elseif ( isset( $fields['posts'] ) && '' !== $fields['posts'] ) {
-				$args                      = $this->filter_posts_by_ids( $fields );
+				$args = $this->filter_posts_by_ids( $fields );
 			} else {
 				$args = $this->filter_posts_by_pages_tags( $fields );
 			}
