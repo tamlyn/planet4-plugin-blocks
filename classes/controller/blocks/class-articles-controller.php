@@ -309,6 +309,12 @@ For good user experience, please include at least three articles so that spacing
 
 					if ( $recent_posts ) {
 						foreach ( $recent_posts as $key => $recent_post ) {
+							if ( ! is_null( $recent_post->thumbnail ) && $recent_post->thumbnail instanceof \Timber\Image ) {
+								$img_id                       = $recent_post->thumbnail->id;
+								$dimensions                   = wp_get_attachment_metadata( $img_id );
+								$recent_post->thumbnail_ratio = ( isset( $dimensions['height'] ) && $dimensions['height'] > 0 ) ? $dimensions['width'] / $dimensions['height'] : 1;
+								$recent_post->alt_text        = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+							}
 							Timber::render(
 								[ 'teasers/tease-articles.twig' ],
 								[
