@@ -3,9 +3,13 @@
 $(document).ready(function() {
   'use strict';
 
-  $('.article-listing').off('hover').on('hover', '.article-list-item-image',
+  $('.article-listing').off('mouseenter').on('mouseenter', '.article-list-item-image',
     function() {
-      $('.article-list-item-headline', $(this).parent()).toggleClass('article-hover');
+      $('.article-list-item-headline', $(this).parent()).addClass('article-hover');
+    }
+  ).off('mouseleave').on('mouseleave', '.article-list-item-image',
+    function() {
+      $('.article-list-item-headline', $(this).parent()).removeClass('article-hover');
     }
   );
 
