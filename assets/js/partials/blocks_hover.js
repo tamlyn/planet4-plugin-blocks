@@ -3,11 +3,9 @@
 $(document).ready(function() {
   'use strict';
 
-  $('.article-list-item-image').hover(
+  $('.article-listing').off('hover').on('hover', '.article-list-item-image',
     function() {
-      $('.article-list-item-headline', $(this).parent()).addClass('article-hover');
-    }, function() {
-      $('.article-list-item-headline', $(this).parent()).removeClass('article-hover');
+      $('.article-list-item-headline', $(this).parent()).toggleClass('article-hover');
     }
   );
 
