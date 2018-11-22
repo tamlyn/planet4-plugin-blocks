@@ -26,6 +26,10 @@ if ( ! class_exists( 'Articles_Controller' ) ) {
 		 * @const string BLOCK_NAME
 		 */
 		const BLOCK_NAME = 'articles';
+		/**
+		 * The maximum number of articles to load with Load more button.
+		 */
+		const MAX_ARTICLES = 100;
 
 		/**
 		 * Hooks all the needed functions to load the block.
@@ -246,8 +250,8 @@ For good user experience, please include at least three articles so that spacing
 				$args = $this->filter_posts_by_pages_tags( $fields );
 			}
 
-			// Get all posts.
-			$args['numberposts'] = -1;
+			// Get max posts.
+			$args['numberposts'] = self::MAX_ARTICLES;
 
 			// Ignore rule, arguments contain suppress_filters.
 			// phpcs:ignore$fields['article_count']
