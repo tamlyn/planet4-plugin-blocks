@@ -245,6 +245,10 @@ For good user experience, please include at least three articles so that spacing
 			} else {
 				$args = $this->filter_posts_by_pages_tags( $fields );
 			}
+
+			// Get all posts.
+			$args['numberposts'] = -1;
+
 			// Ignore rule, arguments contain suppress_filters.
 			// phpcs:ignore$fields['article_count']
 			$all_posts    = wp_get_recent_posts( $args );
