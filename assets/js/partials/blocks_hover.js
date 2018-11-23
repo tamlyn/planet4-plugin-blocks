@@ -3,10 +3,12 @@
 $(document).ready(function() {
   'use strict';
 
-  $('.article-list-item-image').hover(
+  $('.article-listing').off('mouseenter').on('mouseenter', '.article-list-item-image',
     function() {
       $('.article-list-item-headline', $(this).parent()).addClass('article-hover');
-    }, function() {
+    }
+  ).off('mouseleave').on('mouseleave', '.article-list-item-image',
+    function() {
       $('.article-list-item-headline', $(this).parent()).removeClass('article-hover');
     }
   );
