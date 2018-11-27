@@ -170,7 +170,7 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 						'button_link' => get_permalink( $action->ID ),
 					];
 				}
-				$fields['button_text'] = __( 'Load More ...', 'planet4-blocks' );
+				$fields['button_text'] = __( 'Load More', 'planet4-blocks' );
 			}
 
 			$covers_view = isset( $fields['covers_view'] ) ? intval( $fields['covers_view'] ) : 1;
