@@ -491,7 +491,7 @@ if ( ! class_exists( 'NewCovers_Controller' ) ) {
 						'button_link' => get_permalink( $action->ID ),
 					];
 				}
-				$fields['button_text'] = __( 'Load More ...', 'planet4-blocks' );
+				$fields['button_text'] = __( 'Load More', 'planet4-blocks' );
 			}
 
 			return $covers;
