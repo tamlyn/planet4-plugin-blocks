@@ -3,7 +3,7 @@
  * Plugin Name: Planet4 - Blocks
  * Description: Creates all the blocks that will be available for usage by Shortcake.
  * Plugin URI: http://github.com/greenpeace/planet4-plugin-blocks
- * Version: 1.24.1
+ * Version: 1.25.0
  * Php Version: 7.0
  *
  * Author: Greenpeace International
@@ -138,7 +138,7 @@ function plugin_blocks_report_view() {
 /**
  * Filters array elements on being a shortcake shortcode
  *
- * @param $shortcode
+ * @param string $shortcode The shortcode.
  * @return bool
  */
 function is_shortcake( $shortcode ) {
@@ -153,8 +153,8 @@ function is_shortcake( $shortcode ) {
  */
 function plugin_blocks_report() {
 	global $wpdb, $shortcode_tags;
-	
-	//	Array filtering on shortcake shortcodes
+
+	// Array filtering on shortcake shortcodes.
 	$blocks = array_filter( array_keys( $shortcode_tags ), 'is_shortcake' );
 
 	// phpcs:disable
@@ -168,7 +168,7 @@ function plugin_blocks_report() {
 
 		$results = $wpdb->get_results( $sql );
 
-		//Confusion between old and new covers.
+		// Confusion between old and new covers.
 		if ( 'covers' == $block ) {
 			$block = 'Take Action Covers - Old block';
 		}

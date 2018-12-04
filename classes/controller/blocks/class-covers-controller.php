@@ -130,8 +130,11 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 					'post_type'        => 'page',
 					'post_status'      => 'publish',
 					'post_parent'      => $parent_act_id,
-					'orderby'          => 'menu_order',
-					'order'            => 'ASC',
+					'orderby'          => [
+						'menu_order' => 'ASC',
+						'date'       => 'DESC',
+						'title'      => 'ASC',
+					],
 					'suppress_filters' => false,
 					'numberposts'      => P4BKS_COVERS_NUM,
 				];
@@ -170,7 +173,7 @@ if ( ! class_exists( 'Covers_Controller' ) ) {
 						'button_link' => get_permalink( $action->ID ),
 					];
 				}
-				$fields['button_text'] = __( 'Load More ...', 'planet4-blocks' );
+				$fields['button_text'] = __( 'Load More', 'planet4-blocks' );
 			}
 
 			$covers_view = isset( $fields['covers_view'] ) ? intval( $fields['covers_view'] ) : 1;
